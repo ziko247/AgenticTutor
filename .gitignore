@@ -1,0 +1,49 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+credentials*.json
+secrets*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+.ipynb_checkpoints/
+
+# JavaScript / TypeScript
+node_modules/
+dist/
+build/
+.next/
+coverage/
+*.tsbuildinfo
+
+# Local databases, uploaded content, and private learner data
+*.db
+*.sqlite
+*.sqlite3
+data/private/
+data/raw/
+uploads/
+backups/
+vector_store/
+
+# Logs, local caches and editor settings
+*.log
+.cache/
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+~$*
