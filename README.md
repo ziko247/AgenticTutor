@@ -4,7 +4,7 @@
 
 Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTutor vise à accompagner l'étudiant dans un cycle continu : identifier ses acquis, expliquer une notion, proposer une activité, analyser sa réponse et adapter la suite du parcours.
 
-> **État actuel : cadrage et documentation.** L'application n'est pas encore développée. Toutes les fonctionnalités ci-dessous sont prévues, sauf mention contraire. Le domaine pilote, les technologies et le calendrier restent à valider avec l'encadrant.
+> **État actuel : cadrage, documentation et arborescence de départ.** L'application n'est pas encore développée. Les dossiers sont préparés et documentés, sans dépendances ni services exécutables. Toutes les fonctionnalités ci-dessous sont prévues, sauf mention contraire. Le domaine pilote, les technologies et le calendrier restent à valider avec l'encadrant.
 
 ## Navigation
 
@@ -16,6 +16,7 @@ Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTuto
 - [Données et évaluation](#données-et-évaluation)
 - [Installation et utilisation](#installation-et-utilisation)
 - [Organisation et suivi](#organisation-et-suivi)
+- [Reprendre le projet dans un autre IDE](#reprendre-le-projet-dans-un-autre-ide)
 - [Documentation et licence](#documentation-et-licence)
 
 ## Vision et périmètre
@@ -151,6 +152,7 @@ Les documents créés sont cochés comme rédigés ; cela ne signifie pas qu'ils
 
 - [x] Rédiger une proposition complète de cahier des charges.
 - [x] Créer le README et les checklists de progression.
+- [x] Préparer l'arborescence et les guides des composants et des agents.
 - [ ] Faire valider le public, le domaine pilote et les notions.
 - [ ] Confirmer l'équipe, les dates et les livrables scolaires.
 - [ ] Identifier les ressources autorisées et le référent pédagogique.
@@ -254,9 +256,9 @@ Le parcours adaptatif sera comparé à un parcours fixe avec les mêmes ressourc
 
 ## Installation et utilisation
 
-Le dépôt contient actuellement la documentation du projet. Il n'y a pas encore d'application à lancer, de dépendances à installer ou de démonstration en ligne.
+Le dépôt contient actuellement la documentation et les dossiers de départ. Il n'y a pas encore d'application à lancer, de dépendances à installer ou de démonstration en ligne. Les fichiers `.gitkeep` permettent de conserver les dossiers vides lors du clonage ; ils pourront être retirés lorsqu'un dossier contiendra ses premiers fichiers utiles.
 
-Pour récupérer les documents une fois le dépôt GitHub créé :
+Pour récupérer le projet :
 
 ```bash
 git clone https://github.com/ziko247/AgenticTutor.git
@@ -267,15 +269,104 @@ Les commandes d'installation, variables d'environnement et instructions de lance
 
 ## Organisation et suivi
 
-Fichiers présents à l'initialisation :
+Arborescence existante (les fichiers `.gitkeep` sont omis pour la lisibilité) :
 
 ```text
 AgenticTutor/
 ├── README.md
+├── AGENTS.md                       # Guide de reprise pour les agents
 ├── CAHIER_DES_CHARGES_AGENTICTUTOR.md
 ├── .gitignore
-└── .gitattributes
+├── .gitattributes
+├── frontend/
+│   ├── README.md
+│   ├── public/                      # Assets publics
+│   ├── src/
+│   │   ├── app/                     # Entrée, navigation et composition
+│   │   ├── components/              # Composants réutilisables
+│   │   ├── features/
+│   │   │   ├── auth/
+│   │   │   ├── diagnostic/
+│   │   │   ├── tutor/
+│   │   │   ├── exercises/
+│   │   │   ├── progress/
+│   │   │   └── admin/
+│   │   ├── lib/                     # Client API et utilitaires
+│   │   ├── types/
+│   │   └── styles/
+│   └── tests/
+├── backend/
+│   ├── README.md
+│   ├── app/
+│   │   ├── api/                     # Routes et contrôles d'accès
+│   │   ├── core/                    # Configuration, sécurité, erreurs
+│   │   ├── models/                  # Modèles de persistance
+│   │   ├── schemas/                 # Contrats et validation
+│   │   ├── repositories/            # Accès à la base
+│   │   ├── services/                # Cas d'utilisation
+│   │   ├── pedagogy/                # Maîtrise, prérequis, adaptation
+│   │   ├── orchestration/           # Boucle du tuteur et outils permis
+│   │   ├── rag/                     # Recherche et références
+│   │   ├── llm/                     # Adaptateurs de fournisseurs
+│   │   └── prompts/                 # Prompts versionnés
+│   ├── migrations/
+│   └── tests/
+│       ├── unit/
+│       └── integration/
+├── content/
+│   ├── README.md
+│   ├── curricula/                   # Notions, objectifs et prérequis
+│   ├── resources/                   # Ressources autorisées
+│   ├── exercises/                   # Exercices, indices et solutions
+│   └── schemas/                     # Formats de contenus à définir
+├── evaluation/
+│   ├── README.md
+│   ├── datasets/
+│   │   ├── questions/
+│   │   ├── corrections/
+│   │   ├── adaptation/
+│   │   └── security/
+│   ├── runners/                     # Outils de mesure à développer
+│   └── results/                     # Sorties locales ignorées par Git
+├── data/
+│   └── README.md                    # Règles des données locales/privées
+├── docs/
+│   ├── README.md
+│   ├── architecture/
+│   │   └── README.md
+│   ├── decisions/
+│   │   ├── README.md
+│   │   └── TEMPLATE.md              # Modèle de décision technique
+│   ├── design/                      # Futures maquettes
+│   ├── guides/                      # Futurs guides
+│   └── report/                      # Rapport et résultats relus
+├── tests/
+│   ├── README.md
+│   ├── e2e/                         # Parcours complets
+│   └── fixtures/                    # Données synthétiques de test
+├── scripts/
+│   └── README.md
+└── deploy/
+    └── README.md
 ```
+
+### Responsabilités et règles de placement
+
+| Travail | Emplacement et guide |
+|---|---|
+| Interface et parcours utilisateur | [frontend/](frontend/README.md) |
+| API, règles métier, IA et persistance | [backend/](backend/README.md) |
+| Cours, exercices et graphe des notions | [content/](content/README.md) |
+| Évaluation pédagogique, qualité IA et lots figés | [evaluation/](evaluation/README.md) |
+| Données locales, brutes et privées | [data/](data/README.md) |
+| Architecture, décisions et livrables écrits | [docs/](docs/README.md) |
+| Tests de bout en bout et exemples synthétiques | [tests/](tests/README.md) |
+| Automatisation de préparation et développement | [scripts/](scripts/README.md) |
+| Conteneurs et configuration de déploiement | [deploy/](deploy/README.md) |
+
+Les tests unitaires et d'intégration restent auprès du composant concerné. `evaluation/` sert à mesurer la qualité pédagogique et de l'IA ; ses lots finaux restent séparés des contenus d'entraînement. Les futurs dossiers locaux `data/raw/`, `data/private/` et `data/processed/` sont ignorés et seront créés au besoin. Aucun contenu pédagogique, jeu d'évaluation ou résultat n'est encore fourni.
+
+### Suivre une tâche
 
 Pour suivre le travail :
 
@@ -289,9 +380,20 @@ Les checklists sont mises à jour manuellement. Les identifiants `Fxx` assurent 
 
 **Définition de terminé :** comportement implémenté, critère de recette satisfait, contrôles pertinents effectués, documentation mise à jour et aucun secret ajouté au dépôt. La livraison du MVP exige toutes les fonctions P0, les scénarios critiques validés et un rapport d'évaluation ; les écarts doivent être documentés et examinés avec l'encadrant.
 
+## Reprendre le projet dans un autre IDE
+
+Ouvrir **la racine du dépôt**, puis demander à l'agent de lire [AGENTS.md](AGENTS.md), ce README, le cahier des charges et le guide du composant concerné. `AGENTS.md` fournit les conventions de travail ; si l'outil ne le charge pas automatiquement, le référencer explicitement dans la demande.
+
+Exemple de demande de reprise :
+
+> Lis AGENTS.md, README.md, CAHIER_DES_CHARGES_AGENTICTUTOR.md et docs/architecture/README.md. Vérifie l'état réel des fichiers et les décisions existantes. Le dépôt est une structure de départ, sans application implémentée. Pour la tâche demandée, respecte les frontières des composants et les critères Fxx, documente les choix techniques, puis mets à jour uniquement les cases réalisées et vérifiées.
+
+La prochaine étape proposée est de valider la stack et le domaine, puis de concevoir le parcours diagnostic → profil. Les dossiers préparés ne signifient pas que les fonctionnalités sont terminées. Lorsqu'un choix est validé, l'enregistrer dans `docs/decisions/` à partir du modèle fourni. Les commandes d'installation et de test devront être ajoutées avec leur première implémentation vérifiée.
+
 ## Documentation et licence
 
 - [Cahier des charges complet](CAHIER_DES_CHARGES_AGENTICTUTOR.md) : exigences, périmètre, architecture, évaluation, risques, budget et livrables.
+- [Guide des agents](AGENTS.md) et [architecture de départ](docs/architecture/README.md).
 - Conception détaillée, guide utilisateur et rapport d'évaluation : à rédiger.
 - **Auteur / mainteneur :** [ziko247](https://github.com/ziko247).
 - **Encadrant et établissement :** à compléter après confirmation.

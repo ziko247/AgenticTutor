@@ -35,6 +35,9 @@ coverage/
 *.sqlite3
 data/private/
 data/raw/
+data/processed/
+evaluation/results/*
+!evaluation/results/.gitkeep
 uploads/
 backups/
 vector_store/
