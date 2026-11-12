@@ -1,7 +1,11 @@
 "use client";
 import { useState } from "react";
 import { Lightbulb, Check } from "lucide-react";
+import { examples, type Language } from "./examples";
+import { LanguageSelect } from "./language-select";
 export function LessonPreview() {
+  const [language, setLanguage] = useState<Language>("python");
+  const example = examples[language];
   const [hint, setHint] = useState(false);
   const [answer, setAnswer] = useState(false);
   return (
@@ -9,18 +13,23 @@ export function LessonPreview() {
       className="lesson"
       data-slot="python-example"
       data-kind="product"
-      data-alt="Exemple interactif de lecture d'une boucle Python"
+      data-alt={"Exemple interactif en " + example.label}
     >
       <div className="lesson-heading">
-        <span>Un petit pas en Python</span>
-        <span>Les boucles</span>
+        <span>Un petit pas en {example.label}</span>
+        <LanguageSelect
+          id="lesson-language"
+          value={language}
+          onChange={(next) => {
+            setLanguage(next);
+            setHint(false);
+            setAnswer(false);
+          }}
+        />
       </div>
-      <p className="lesson-question">Que va afficher ce programme ?</p>
+      <p className="lesson-question">{example.lesson.question}</p>
       <pre>
-        <code>
-          <span className="code-key">for</span> nombre{" "}
-          <span className="code-key">in</span> range(3):{"\n"} print(nombre)
-        </code>
+        <code>{example.lesson.code}</code>
       </pre>
       <div className="lesson-actions">
         <button
@@ -46,20 +55,20 @@ export function LessonPreview() {
           <>
             <Check size={19} aria-hidden="true" />
             <p>
-              <strong>0, 1, puis 2.</strong> La borne 3 est exclue.
+              <strong>{example.lesson.result}</strong> {example.lesson.detail}
             </p>
           </>
         ) : hint ? (
           <>
             <Lightbulb size={19} aria-hidden="true" />
-            <p>Le comptage commence à 0. La borne finale est exclue.</p>
+            <p>{example.lesson.hint}</p>
           </>
         ) : (
           <p>Comprendre le raisonnement, pas seulement trouver la réponse.</p>
         )}
       </div>
       <p className="caption">
-        Explorez une boucle Python avec un indice et sa correction.
+        Explorez {example.label} avec un indice et sa correction.
       </p>
     </div>
   );

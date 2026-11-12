@@ -8,6 +8,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { Header, Brand } from "@/components/brand";
+import { WorkedExample } from "@/features/tutor/worked-example";
 import { LessonPreview } from "@/features/tutor/lesson-preview";
 
 const topics = [
@@ -178,60 +179,7 @@ export default function Home() {
             </div>
           </section>
 
-          <section id="exemple" className="section worked-section">
-            <div className="container">
-              <div className="worked-heading">
-                <h2>
-                  Trois lignes.
-                  <br />
-                  Un raisonnement à suivre.
-                </h2>
-                <p>
-                  Un exemple de lecture de code, expliqué sans sauter d’étape.
-                </p>
-              </div>
-              <div className="worked-example">
-                <div className="worked-code">
-                  <span className="example-file">exemple_boucle.py</span>
-                  <pre>
-                    <code>
-                      {
-                        "total = 0\nfor nombre in [1, 2, 3]:\n    total = total + nombre"
-                      }
-                    </code>
-                  </pre>
-                  <div className="example-output">
-                    <span>Valeur finale de total</span>
-                    <strong>6</strong>
-                  </div>
-                </div>
-                <ol className="reasoning-list">
-                  <li>
-                    <strong>On commence à zéro.</strong>
-                    <p>
-                      La variable <code>total</code> garde le résultat au fil du
-                      programme.
-                    </p>
-                  </li>
-                  <li>
-                    <strong>On prend chaque nombre.</strong>
-                    <p>La boucle parcourt successivement 1, 2, puis 3.</p>
-                  </li>
-                  <li>
-                    <strong>On ajoute à chaque passage.</strong>
-                    <p>
-                      Le total devient 1, puis 3, puis 6. L’indentation indique
-                      l’instruction répétée.
-                    </p>
-                  </li>
-                </ol>
-              </div>
-              <p className="example-disclosure">
-                Lisez le code, suivez le raisonnement, puis réutilisez la notion
-                dans votre prochain exercice.
-              </p>
-            </div>
-          </section>
+          <WorkedExample />
 
           <section id="fonctionnalites" className="section learner-section">
             <div className="container learner-layout">

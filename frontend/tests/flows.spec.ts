@@ -250,3 +250,68 @@ test("language preferences migrate completed drafts and preserve multiple choice
     .click();
   await expect(page.locator(".profile-summary")).toContainText("Python, Java");
 });
+test("both language selectors update independently and keep explanations consistent", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const hero = page.locator(".lesson");
+  const worked = page.locator("#exemple");
+  await hero
+    .getByRole("button", { name: "Voir le résultat", exact: true })
+    .click();
+  await page.locator("#lesson-language").selectOption("javascript");
+  await expect(hero.locator("pre")).toContainText("console.log(n)");
+  await expect(hero.locator(".lesson-feedback")).not.toContainText(
+    "0, 1, puis 2.",
+  );
+  await expect(page.locator("#worked-language")).toHaveValue("python");
+  await page.locator("#worked-language").selectOption("rust");
+  await expect(worked.locator(".example-file")).toHaveText("exemple_boucle.rs");
+  await expect(worked.locator("pre")).toContainText("let mut total");
+  await expect(worked.locator(".example-output strong")).toHaveText("6");
+  await expect(page.locator("#lesson-language")).toHaveValue("javascript");
+  await page.locator("#lesson-language").selectOption("html");
+  await expect(hero.locator("pre")).toContainText("<ol>");
+  await hero
+    .getByRole("button", { name: "Voir le résultat", exact: true })
+    .click();
+  await expect(hero.locator(".lesson-feedback")).toContainText("3 éléments.");
+  await page.locator("#worked-language").selectOption("css");
+  await expect(worked.locator(".reasoning-list")).toContainText(
+    "trois colonnes",
+  );
+  await expect(worked.locator(".example-output strong")).toHaveText("3");
+  const choices = [
+    "python",
+    "c",
+    "cpp",
+    "csharp",
+    "java",
+    "html",
+    "css",
+    "javascript",
+    "go",
+    "rust",
+    "mysql",
+  ];
+  await page.setViewportSize({ width: 375, height: 900 });
+  for (const value of choices) {
+    await page.locator("#lesson-language").selectOption(value);
+    await page.locator("#worked-language").selectOption(value);
+    await expect(hero.locator("pre code")).not.toBeEmpty();
+    await expect(worked.locator("pre code")).not.toBeEmpty();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBeTruthy();
+  }
+  const select = page
+    .getByLabel("Langage de l’exemple", { exact: true })
+    .first();
+  await select.focus();
+  await expect(select).toBeFocused();
+  expect(
+    await select.evaluate((el) => getComputedStyle(el).outlineStyle),
+  ).not.toBe("none");
+});

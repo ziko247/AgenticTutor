@@ -74,3 +74,7 @@ Ne jamais committer de clés, fichiers `.env` réels, conversations d'étudiants
 ## Prochain travail proposé
 
 Le domaine pilote est Python et la première stack frontend est actée dans docs/decisions/0001-first-frontend.md. La prochaine tranche consiste à concevoir puis connecter les comptes et le profil au backend. Les tâches restent non réalisées dans le README tant qu'elles ne sont pas vérifiées.
+
+## Exemples multilangages de la landing
+
+Les exemples et sélecteurs sont dans frontend/src/features/tutor/{examples,language-select,lesson-preview,worked-example}. La page importe deux composants clients ; les sélections sont indépendantes et réinitialisent les indices du hero. Contenus statiques, pas de runtime multilangage ni de backend ajouté.
