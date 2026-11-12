@@ -9,9 +9,19 @@
 
 ## État du projet
 
-Le dépôt contient la documentation et une arborescence de départ. Aucune application, migration, API, dépendance ou fonctionnalité métier n'est encore implémentée. Les fichiers `.gitkeep` servent uniquement à versionner les dossiers vides.
+Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, authentification en aperçu et diagnostic local sont implémentés. Aucun backend, compte réel ou tutorat IA connecté. FastAPI et PostgreSQL restent des propositions.
 
-React/TypeScript, FastAPI/Python et PostgreSQL sont des propositions. Ne pas les présenter comme installés ou définitivement validés. L'utilisateur a demandé une structure ; commencer une implémentation seulement lorsqu'une demande ultérieure l'autorise.
+## Reprise de la tranche actuelle
+
+- Première priorité convenue : landing, authentification et onboarding pour apprendre Python.
+- La landing enrichie utilise `frontend/src/app/page.tsx` et les styles en fin de `frontend/src/styles/globals.css` : surfaces menthe/vert/citron, cinq notions, exemple de boucle, profils et FAQ.
+- La démo de boucle interactive est prédéfinie dans `frontend/src/features/tutor/lesson-preview.tsx` ; elle ne représente pas un tuteur IA connecté.
+- `/sign-in` et `/sign-up` utilisent `frontend/src/features/auth/auth-form.tsx`. Validation locale uniquement : aucun compte, session ou envoi réseau.
+- `/onboarding` utilise les fichiers `questions.ts`, `storage.ts` et `onboarding.tsx` dans `frontend/src/features/diagnostic/`. Les réponses et l'avancement restent dans localStorage sous `agentictutor.onboarding.v1` ; le score sur 14 questions est indicatif et non certifiant.
+- Les captures et sept tests Playwright ont servi à vérifier la tranche précédente ; relancer les contrôles adaptés après toute modification. Consulter `frontend/README.md` pour les commandes et `CHROME_PATH`.
+- Le backend reste un scaffold. Ne pas présenter la récupération du mot de passe, la persistance serveur, l'IA, les exercices adaptatifs ou les métriques pédagogiques comme réalisés.
+- Préserver le bloc Next.js généré dans `frontend/AGENTS.md` et lire la documentation locale de Next avant de modifier le frontend.
+- Les changements frontend peuvent être non commités : inspecter `git status` avant toute opération Git et préserver le travail existant.
 
 ## Où travailler
 
@@ -35,17 +45,17 @@ React/TypeScript, FastAPI/Python et PostgreSQL sont des propositions. Ne pas les
 - Les routes API délèguent aux services ; la persistance passe par les repositories.
 - Les sorties du LLM sont non fiables jusqu'à validation. Prévoir l'abstention et les erreurs.
 - Les prompts sont versionnés dans `backend/app/prompts/`, sans secrets ni données privées.
-- Le frontend utilise l'API ; il n'accède directement ni à la base ni aux fournisseurs d'IA.
+- Le frontend utilisera l'API lorsqu'elle existera ; il n'accède directement ni à la base ni aux fournisseurs d'IA.
 - Séparer contenus d'apprentissage, fixtures de tests et lots finaux d'évaluation.
 - Ne pas ajouter d'agents autonomes distincts pour chaque module sans besoin démontré.
 
-## Quand l'implémentation commencera
+## Pendant l’implémentation
 
 - Réaliser une petite tranche fonctionnelle liée à un critère de recette.
 - Documenter les décisions retenues et les commandes réellement exécutables.
 - Choisir et verrouiller les versions des dépendances lors de l'initialisation du composant.
 - Ajouter les tests utiles au comportement, à la sécurité et à l'intégration modifiés.
-- Ne pas inventer de commande de test : il n'existe actuellement aucun runner configuré.
+- Consulter frontend/README.md et package.json pour les runners configurés.
 - Signaler clairement ce qui n'a pas été exécuté ou mesuré.
 - Mettre à jour les chemins, README et checklists après les changements.
 - Cocher une fonctionnalité seulement après implémentation et vérification ; un dossier vide ne satisfait pas une exigence.
@@ -57,4 +67,4 @@ Ne jamais committer de clés, fichiers `.env` réels, conversations d'étudiants
 
 ## Prochain travail proposé
 
-Valider le domaine et la stack, documenter la première décision technique, puis concevoir le parcours diagnostic → profil et son modèle de données. Les tâches restent non réalisées dans le README tant qu'elles ne sont pas vérifiées.
+Le domaine pilote est Python et la première stack frontend est actée dans docs/decisions/0001-first-frontend.md. La prochaine tranche consiste à concevoir puis connecter les comptes et le profil au backend. Les tâches restent non réalisées dans le README tant qu'elles ne sont pas vérifiées.

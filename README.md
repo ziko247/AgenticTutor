@@ -4,7 +4,27 @@
 
 Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTutor vise à accompagner l'étudiant dans un cycle continu : identifier ses acquis, expliquer une notion, proposer une activité, analyser sa réponse et adapter la suite du parcours.
 
-> **État actuel : cadrage, documentation et arborescence de départ.** L'application n'est pas encore développée. Les dossiers sont préparés et documentés, sans dépendances ni services exécutables. Toutes les fonctionnalités ci-dessous sont prévues, sauf mention contraire. Le domaine pilote, les technologies et le calendrier restent à valider avec l'encadrant.
+> **État actuel : première interface frontend implémentée.** Landing, formulaires d’authentification en aperçu et diagnostic Python local de 20 questions. Aucun compte ni service de tutorat connecté. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
+
+## Progression actuelle — 12 novembre 2026
+
+La première étape demandée avec l'encadrant concerne la **landing page, l'authentification et l'onboarding**, avec Python comme seul domaine pilote.
+
+- [x] Landing responsive enrichie : approche, cinq notions Python, exemple de boucle expliqué, profils d'étudiants et FAQ.
+- [x] Exemple interactif prédéfini : indice et résultat ; il ne fait pas appel à une IA.
+- [x] Écrans de connexion et inscription : validation, affichage du mot de passe et état d'erreur explicite.
+- [x] Onboarding local : 20 questions (6 de profil, 14 de Python), navigation arrière, reprise, revue, modification et effacement.
+- [x] Résultat indicatif sur les 14 questions Python et récapitulatif local.
+- [x] Structure Next.js App Router, TypeScript et Tailwind CSS ; fichiers de dépendances verrouillés.
+- [ ] Connecter l'inscription, la connexion et les sessions à un backend ; ajouter la récupération de mot de passe.
+- [ ] Enregistrer le diagnostic et le profil côté serveur, puis valider les questions et l'estimation pédagogique.
+- [ ] Construire le tuteur IA, les exercices adaptatifs, le corpus et le tableau de bord.
+
+**État réel :** aucun compte n'est créé et aucune requête d'authentification n'est envoyée. Les réponses du diagnostic sont stockées dans le navigateur, sans profil serveur. Les questions et exemples sont des contenus de démonstration, pas une banque pédagogique validée.
+
+**Dernières vérifications rapportées :** build de production et lint réussis ; sept tests Playwright réussis, couvrant les parcours, la reprise locale, les erreurs de stockage, les largeurs responsive et le clavier. Après l'enrichissement de la landing, les sept tests ont été relancés et les captures desktop et mobile inspectées. Ces résultats ne prouvent pas la qualité pédagogique ni l'accessibilité complète.
+
+Les changements de cette tranche existent localement ; vérifier `git status` et le dépôt distant avant de considérer qu'ils sont publiés sur GitHub.
 
 ## Navigation
 
@@ -26,12 +46,12 @@ Le tuteur doit aider l'étudiant à comprendre ses erreurs et à progresser à s
 | Élément | Proposition de départ |
 |---|---|
 | Public cible | Étudiants débutants du supérieur en informatique |
-| Domaine pilote | Algorithmique et bases de Python |
+| Domaine pilote | Apprentissage du langage Python |
 | Notions | Variables, conditions, boucles, fonctions et listes |
 | Langue | Français |
 | Support | Application web adaptée aux ordinateurs et aux mobiles |
 | Objectif MVP | Un parcours complet, du diagnostic au suivi de progression |
-| Contenu initial | 10 à 15 questions de diagnostic et au moins 50 exercices relus |
+| Contenu initial | 20 questions de diagnostic (6 de profil et 14 de Python) et au moins 50 exercices relus |
 | Planning indicatif | 16 semaines, à ajuster au calendrier du PFA |
 
 Le [cahier des charges](CAHIER_DES_CHARGES_AGENTICTUTOR.md) est la référence détaillée pour le périmètre, les exigences et les critères de recette.
@@ -229,7 +249,7 @@ Orchestrateur pédagogique
 
 | Composant | Technologie proposée | Statut |
 |---|---|---|
-| Interface | React et TypeScript | À valider |
+| Interface | Next.js App Router, React, TypeScript et Tailwind CSS | Première tranche frontend implémentée |
 | API | Python et FastAPI | À valider |
 | Données | PostgreSQL | À valider |
 | Recherche documentaire | Recherche textuelle et/ou vectorielle | À comparer |
@@ -256,16 +276,28 @@ Le parcours adaptatif sera comparé à un parcours fixe avec les mêmes ressourc
 
 ## Installation et utilisation
 
-Le dépôt contient actuellement la documentation et les dossiers de départ. Il n'y a pas encore d'application à lancer, de dépendances à installer ou de démonstration en ligne. Les fichiers `.gitkeep` permettent de conserver les dossiers vides lors du clonage ; ils pourront être retirés lorsqu'un dossier contiendra ses premiers fichiers utiles.
-
-Pour récupérer le projet :
+Le frontend est désormais disponible. Depuis la racine :
 
 ```bash
-git clone https://github.com/ziko247/AgenticTutor.git
-cd AgenticTutor
+cd frontend
+npm ci
+npm run dev
 ```
 
-Les commandes d'installation, variables d'environnement et instructions de lancement seront ajoutées lorsque la stack aura été validée et que le premier parcours fonctionnera. Les clés privées, fichiers `.env` et données personnelles ne doivent pas être committés.
+Ouvrir http://127.0.0.1:3000. Routes : `/`, `/sign-in`, `/sign-up`, `/onboarding`. Voir [le guide frontend](frontend/README.md) pour les prérequis, tests et limites.
+
+### Première tranche livrée
+
+- [x] Landing responsive et exemple Python interactif prédéfini.
+- [x] Écrans de connexion et inscription avec validation, sans authentification serveur.
+- [x] Onboarding de 20 questions avec retour arrière et revue.
+- [x] Reprise locale, modification des réponses et completion explicite.
+- [x] Tests navigateur des parcours, du stockage et du responsive.
+- [ ] Connexion des formulaires à un service d’authentification.
+- [ ] Sauvegarde du profil et du diagnostic sur le backend.
+- [ ] Tutoriel conversationnel, exercices adaptatifs et dashboard.
+
+Les cases F01–F03 de la checklist métier restent ouvertes tant que leurs critères serveur et pédagogiques ne sont pas satisfaits. Le cahier des charges initial reste la proposition de référence ; la décision [0001](docs/decisions/0001-first-frontend.md) précise la tranche frontend actuelle.
 
 ## Organisation et suivi
 
@@ -364,7 +396,7 @@ AgenticTutor/
 | Automatisation de préparation et développement | [scripts/](scripts/README.md) |
 | Conteneurs et configuration de déploiement | [deploy/](deploy/README.md) |
 
-Les tests unitaires et d'intégration restent auprès du composant concerné. `evaluation/` sert à mesurer la qualité pédagogique et de l'IA ; ses lots finaux restent séparés des contenus d'entraînement. Les futurs dossiers locaux `data/raw/`, `data/private/` et `data/processed/` sont ignorés et seront créés au besoin. Aucun contenu pédagogique, jeu d'évaluation ou résultat n'est encore fourni.
+Les tests unitaires et d'intégration restent auprès du composant concerné. `evaluation/` sert à mesurer la qualité pédagogique et de l'IA ; ses lots finaux restent séparés des contenus d'entraînement. Les futurs dossiers locaux `data/raw/`, `data/private/` et `data/processed/` sont ignorés et seront créés au besoin. Les questions et exemples Python de démonstration sont dans le frontend ; aucun corpus pédagogique validé ni jeu d’évaluation final n’est encore fourni.
 
 ### Suivre une tâche
 
@@ -386,9 +418,9 @@ Ouvrir **la racine du dépôt**, puis demander à l'agent de lire [AGENTS.md](AG
 
 Exemple de demande de reprise :
 
-> Lis AGENTS.md, README.md, CAHIER_DES_CHARGES_AGENTICTUTOR.md et docs/architecture/README.md. Vérifie l'état réel des fichiers et les décisions existantes. Le dépôt est une structure de départ, sans application implémentée. Pour la tâche demandée, respecte les frontières des composants et les critères Fxx, documente les choix techniques, puis mets à jour uniquement les cases réalisées et vérifiées.
+> Lis AGENTS.md, README.md, CAHIER_DES_CHARGES_AGENTICTUTOR.md et docs/architecture/README.md. Vérifie l'état réel des fichiers et les décisions existantes. Le frontend Next.js contient une landing, des aperçus d’authentification et un onboarding local ; le backend reste un scaffold. Pour la tâche demandée, respecte les frontières des composants et les critères Fxx, documente les choix techniques, puis mets à jour uniquement les cases réalisées et vérifiées.
 
-La prochaine étape proposée est de valider la stack et le domaine, puis de concevoir le parcours diagnostic → profil. Les dossiers préparés ne signifient pas que les fonctionnalités sont terminées. Lorsqu'un choix est validé, l'enregistrer dans `docs/decisions/` à partir du modèle fourni. Les commandes d'installation et de test devront être ajoutées avec leur première implémentation vérifiée.
+Le domaine pilote est Python et la stack frontend est choisie pour cette tranche. La prochaine étape proposée est de concevoir les comptes et le profil serveur, puis de connecter le diagnostic. Les dossiers préparés ne signifient pas que les fonctionnalités sont terminées. Le frontend contient maintenant la première interface ; lire son guide avant de modifier ses routes. Lorsqu'un choix est validé, l'enregistrer dans `docs/decisions/` à partir du modèle fourni. Les commandes actuelles figurent dans le guide frontend ; les adapter lorsque le backend sera ajouté.
 
 ## Documentation et licence
 

@@ -50,3 +50,8 @@ vector_store/
 Thumbs.db
 .DS_Store
 ~$*
+
+# Frontend browser test artifacts
+frontend/test-results/
+frontend/playwright-report/
+frontend/next-env.d.ts

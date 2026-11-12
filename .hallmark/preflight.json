@@ -1,0 +1,22 @@
+{
+  "scanned": "2026-11-12",
+  "findings": {
+    "framework": "frontend/README.md:3 empty scaffold; no package.json",
+    "fonts": "none",
+    "palette": "none",
+    "motion": "none",
+    "material": "Python pilot; no live tutor, images, testimonials or metrics"
+  },
+  "preserve": [
+    "feature folders",
+    "French interface",
+    "backend boundaries"
+  ],
+  "introduce": [
+    "Next.js App Router",
+    "TypeScript",
+    "Tailwind CSS",
+    "custom learning studio design",
+    "local-only onboarding"
+  ]
+}
