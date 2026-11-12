@@ -4,11 +4,11 @@ import "@fontsource-variable/hanken-grotesk";
 import "@/styles/globals.css";
 export const metadata: Metadata = {
   title: {
-    default: "AgenticTutor | Apprendre Python, à votre rythme",
+    default: "AgenticTutor | Apprendre à programmer, à votre rythme",
     template: "%s | AgenticTutor",
   },
   description:
-    "Un premier pas vers un apprentissage de Python adapté à votre niveau. Découvrez AgenticTutor et préparez votre parcours.",
+    "Votre tuteur IA pour apprendre à programmer : explications personnalisées, exercices adaptatifs et suivi de progression en Python, JavaScript, Java et plus encore.",
 };
 export default function RootLayout({
   children,

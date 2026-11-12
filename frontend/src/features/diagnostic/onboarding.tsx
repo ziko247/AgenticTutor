@@ -11,7 +11,13 @@ import {
 } from "lucide-react";
 import { Brand } from "@/components/brand";
 import { questions } from "./questions";
-import { emptyDraft, parseDraft, STORAGE_KEY, type Draft } from "./storage";
+import {
+  emptyDraft,
+  parseDraft,
+  STORAGE_KEY,
+  type Draft,
+  answerLabel,
+} from "./storage";
 export function Onboarding() {
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [ready, setReady] = useState(false);
@@ -55,7 +61,14 @@ export function Onboarding() {
       </main>
     );
   const q = questions[draft.step];
-  const count = Object.keys(draft.answers).length;
+  const isSelected = (index: number) => {
+    const a = draft.answers[q.id];
+    return Array.isArray(a) ? a.includes(index) : a === index;
+  };
+  const count = questions.filter((q) => {
+    const a = draft.answers[q.id];
+    return a !== undefined && (!Array.isArray(a) || a.length > 0);
+  }).length;
   const scored = questions.filter((q) => q.correct !== undefined);
   const correct = scored.filter(
     (q) => draft.answers[q.id] === q.correct,
@@ -77,7 +90,9 @@ export function Onboarding() {
           <ol className="chapter-list">
             <li
               className={
-                draft.step < 6 && !draft.review && !draft.completed
+                (draft.step < 6 || q.multiple) &&
+                !draft.review &&
+                !draft.completed
                   ? "current"
                   : ""
               }
@@ -86,7 +101,10 @@ export function Onboarding() {
             </li>
             <li
               className={
-                draft.step >= 6 && !draft.review && !draft.completed
+                draft.step >= 6 &&
+                !q.multiple &&
+                !draft.review &&
+                !draft.completed
                   ? "current"
                   : ""
               }
@@ -130,12 +148,14 @@ export function Onboarding() {
                 </span>
               </div>
               <dl className="profile-summary">
-                {questions.slice(0, 6).map((q) => (
-                  <div key={q.id}>
-                    <dt>{q.title}</dt>
-                    <dd>{q.options[draft.answers[q.id]]}</dd>
-                  </div>
-                ))}
+                {questions
+                  .filter((q) => q.correct === undefined)
+                  .map((q) => (
+                    <div key={q.id}>
+                      <dt>{q.title}</dt>
+                      <dd>{answerLabel(q.options, draft.answers[q.id])}</dd>
+                    </div>
+                  ))}
               </dl>
               <div className="flow-buttons">
                 <button
@@ -176,7 +196,9 @@ export function Onboarding() {
                       <span>
                         {i + 1}. {q.title}
                       </span>
-                      <strong>{q.options[draft.answers[q.id]]}</strong>
+                      <strong>
+                        {answerLabel(q.options, draft.answers[q.id])}
+                      </strong>
                     </div>
                     <button
                       className="text-button"
@@ -195,7 +217,13 @@ export function Onboarding() {
                 <button
                   className="button quiet"
                   type="button"
-                  onClick={() => update({ ...draft, review: false, step: 19 })}
+                  onClick={() =>
+                    update({
+                      ...draft,
+                      review: false,
+                      step: questions.length - 1,
+                    })
+                  }
                 >
                   Retour
                 </button>
@@ -213,7 +241,9 @@ export function Onboarding() {
           ) : (
             <>
               <div className="progress-label">
-                <span>Question {draft.step + 1} sur 20</span>
+                <span>
+                  Question {draft.step + 1} sur {questions.length}
+                </span>
                 <span>
                   {count} réponse{count > 1 ? "s" : ""} renseignée
                   {count > 1 ? "s" : ""}
@@ -221,16 +251,17 @@ export function Onboarding() {
               </div>
               <progress
                 value={draft.step + 1}
-                max={20}
+                max={questions.length}
                 aria-label="Progression du questionnaire"
               />
               <h1 ref={heading} tabIndex={-1}>
                 {q.title}
               </h1>
               <p className="question-helper">
-                {draft.step < 6
-                  ? "Choisissez la réponse qui vous correspond le mieux."
-                  : "Vous découvrez ? « Je ne sais pas encore » est une réponse utile."}
+                {q.description ??
+                  (draft.step < 6
+                    ? "Choisissez la réponse qui vous correspond le mieux."
+                    : "Vous découvrez ? « Je ne sais pas encore » est une réponse utile.")}
               </p>
               {q.code && (
                 <pre className="question-code">
@@ -242,27 +273,40 @@ export function Onboarding() {
                 {q.options.map((option, i) => (
                   <label
                     key={option}
-                    className={
-                      draft.answers[q.id] === i ? "option selected" : "option"
-                    }
+                    className={isSelected(i) ? "option selected" : "option"}
                   >
                     <input
-                      type="radio"
+                      type={q.multiple ? "checkbox" : "radio"}
                       name={q.id}
                       value={i}
-                      checked={draft.answers[q.id] === i}
+                      checked={isSelected(i)}
                       onChange={() => {
                         setError("");
                         setDraft({
                           ...draft,
-                          answers: { ...draft.answers, [q.id]: i },
+                          answers: {
+                            ...draft.answers,
+                            [q.id]: q.multiple
+                              ? (() => {
+                                  const a = draft.answers[q.id];
+                                  const selected = Array.isArray(a) ? a : [];
+                                  const unsure = q.options.length - 1;
+                                  if (i === unsure)
+                                    return selected.includes(i) ? [] : [i];
+                                  return selected.includes(i)
+                                    ? selected.filter((v) => v !== i)
+                                    : [
+                                        ...selected.filter((v) => v !== unsure),
+                                        i,
+                                      ];
+                                })()
+                              : i,
+                          },
                         });
                       }}
                     />
                     <span>{option}</span>
-                    {draft.answers[q.id] === i && (
-                      <Check size={18} aria-hidden="true" />
-                    )}
+                    {isSelected(i) && <Check size={18} aria-hidden="true" />}
                   </label>
                 ))}
               </fieldset>
@@ -283,22 +327,28 @@ export function Onboarding() {
                   type="button"
                   className="button"
                   onClick={() => {
-                    if (draft.answers[q.id] === undefined) {
+                    if (
+                      draft.answers[q.id] === undefined ||
+                      (Array.isArray(draft.answers[q.id]) &&
+                        (draft.answers[q.id] as number[]).length === 0)
+                    ) {
                       setError("Choisissez une réponse pour continuer.");
                       return;
                     }
                     update({
                       ...draft,
-                      step: Math.min(19, draft.step + 1),
-                      review: draft.step === 19,
+                      step: Math.min(questions.length - 1, draft.step + 1),
+                      review: draft.step === questions.length - 1,
                     });
                   }}
                 >
-                  {draft.step === 19 ? "Vérifier mes réponses" : "Continuer"}
+                  {draft.step === questions.length - 1
+                    ? "Vérifier mes réponses"
+                    : "Continuer"}
                   <ArrowRight size={17} aria-hidden="true" />
                 </button>
               </div>
-              {count === 20 && (
+              {count === questions.length && (
                 <button
                   className="text-button"
                   type="button"

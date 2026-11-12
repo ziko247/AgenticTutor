@@ -55,11 +55,11 @@ export default function Home() {
           <section className="hero container">
             <div className="introduction">
               <h1>
-                Python, une ligne
+                Programmer, une étape
                 <br />à la fois.
               </h1>
               <p>
-                Un tuteur pensé pour expliquer, pratiquer et avancer avec vous.
+                Votre tuteur IA adapte explications et exercices à votre niveau.
               </p>
               <div className="hero-actions">
                 <Link className="button" href="/sign-up">
@@ -109,26 +109,24 @@ export default function Home() {
               </div>
               <div className="approach-list">
                 <article>
-                  <h3>Une notion, un exemple Python</h3>
+                  <h3>Une explication qui vous parle</h3>
                   <p>
-                    Le tuteur est conçu pour relier l’explication à du code
-                    concret, puis reformuler quand une notion reste floue.
+                    Posez votre question. Le tuteur explique, reformule et
+                    illustre avec du code, en tenant compte de votre objectif.
                   </p>
                 </article>
                 <article>
                   <h3>Un indice avant la solution</h3>
                   <p>
-                    L’accompagnement prévu laisse une place à la recherche : un
-                    premier indice, une nouvelle tentative, puis une correction
-                    expliquée.
+                    Cherchez à votre rythme : un indice, une nouvelle tentative,
+                    puis une correction qui explique votre erreur.
                   </p>
                 </article>
                 <article>
                   <h3>Vos réponses orientent la suite</h3>
                   <p>
-                    La prochaine étape du projet : proposer de consolider un
-                    prérequis ou d’aborder un exercice plus exigeant selon vos
-                    réponses.
+                    Le tuteur choisit la prochaine activité : revenir à un
+                    prérequis, consolider une notion ou augmenter la difficulté.
                   </p>
                 </article>
               </div>
@@ -139,14 +137,25 @@ export default function Home() {
             <div className="container">
               <div className="curriculum-header">
                 <h2>
-                  Un langage.
+                  Votre langage.
                   <br />
-                  Des bases qui tiennent.
+                  Votre prochaine étape.
                 </h2>
                 <p>
-                  Le périmètre pédagogique de départ : cinq notions pour
-                  apprendre à lire, comprendre et écrire du Python.
+                  Du premier programme au projet personnel, construisez des
+                  bases solides dans les langages et technologies qui vous
+                  intéressent.
                 </p>
+              </div>
+              <div className="language-availability">
+                <div>
+                  <h3>Algorithmique et développement</h3>
+                  <p>Python, C, C++, C#, Java, Go et Rust.</p>
+                </div>
+                <div>
+                  <h3>Web et bases de données</h3>
+                  <p>HTML, CSS, JavaScript et MySQL.</p>
+                </div>
               </div>
               <div className="curriculum-index">
                 {topics.map((topic, i) => (
@@ -164,8 +173,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="curriculum-note">
-                Programme prévu pour le tutorat. Le diagnostic vous permet déjà
-                d’explorer ces notions.
+                Les fondamentaux en pratique, illustrés ici en Python.
               </p>
             </div>
           </section>
@@ -219,44 +227,54 @@ export default function Home() {
                 </ol>
               </div>
               <p className="example-disclosure">
-                Exemple pédagogique prédéfini. La conversation avec le tuteur IA
-                reste à connecter.
+                Lisez le code, suivez le raisonnement, puis réutilisez la notion
+                dans votre prochain exercice.
               </p>
             </div>
           </section>
 
-          <section className="section learner-section">
+          <section id="fonctionnalites" className="section learner-section">
             <div className="container learner-layout">
               <div>
                 <h2>
-                  Votre point de départ
+                  Un accompagnement
                   <br />
-                  vous appartient.
+                  qui garde le fil.
                 </h2>
                 <p className="section-intro">
-                  Pas besoin de savoir où vous situer avant de commencer.
+                  Chaque séance s’appuie sur votre parcours pour vous aider à
+                  progresser.
                 </p>
               </div>
               <div className="learner-scenarios">
                 <article>
-                  <h3>« Je n’ai jamais codé. »</h3>
+                  <h3>Votre tuteur, en conversation</h3>
                   <p>
-                    Commencez par découvrir les notions. Dans le diagnostic, «
-                    Je ne sais pas encore » est une réponse utile.
+                    Posez une question, demandez un exemple ou une
+                    reformulation. Retrouvez les ressources qui étayent
+                    l’explication.
                   </p>
                 </article>
                 <article>
-                  <h3>« J’ai vu ça en cours. »</h3>
+                  <h3>Des exercices au bon niveau</h3>
                   <p>
-                    Relisez du code et repérez les notions à retravailler avant
-                    d’aller plus loin.
+                    Pratiquez avec des questions, du code à lire et des réponses
+                    à construire. Recevez des indices et une correction
+                    expliquée.
                   </p>
                 </article>
                 <article>
-                  <h3>« Je veux passer à la pratique. »</h3>
+                  <h3>Une progression visible</h3>
                   <p>
-                    Indiquez votre objectif : cours, automatisation, données ou
-                    projet personnel.
+                    Repérez vos acquis, retrouvez vos tentatives et reprenez
+                    votre séance avec une prochaine étape adaptée.
+                  </p>
+                </article>
+                <article>
+                  <h3>Des révisions qui ont du sens</h3>
+                  <p>
+                    Revenez sur les notions à consolider et entretenez vos
+                    acquis avec la révision espacée.
                   </p>
                 </article>
               </div>
@@ -271,11 +289,12 @@ export default function Home() {
                   faire le point.
                 </h2>
                 <p>
-                  20 questions pour préciser vos objectifs et explorer vos bases
-                  en Python. Aucun compte nécessaire pour essayer.
+                  Précisez vos objectifs et vos préférences, puis explorez vos
+                  acquis. Votre diagnostic donne un point de départ à votre
+                  parcours.
                 </p>
                 <Link className="button" href="/onboarding">
-                  Essayer le diagnostic
+                  Commencer le diagnostic
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>
               </div>
@@ -283,12 +302,12 @@ export default function Home() {
                 <h3>Un parcours que vous contrôlez.</h3>
                 <ul>
                   <li>
-                    <Check size={18} aria-hidden="true" />6 questions sur votre
-                    contexte et vos préférences
+                    <Check size={18} aria-hidden="true" />
+                    Vos objectifs, votre rythme et vos langages
                   </li>
                   <li>
                     <Check size={18} aria-hidden="true" />
-                    14 questions de découverte du langage Python
+                    Un diagnostic pour situer vos acquis
                   </li>
                   <li>
                     <Check size={18} aria-hidden="true" />
@@ -296,17 +315,55 @@ export default function Home() {
                   </li>
                   <li>
                     <Check size={18} aria-hidden="true" />
-                    Reprise sur ce navigateur grâce à la sauvegarde locale
+                    Un plan de travail adapté à votre profil
                   </li>
                 </ul>
                 <p>
                   <CornerDownRight size={18} aria-hidden="true" />À la fin : un
-                  récapitulatif, sans note officielle.
+                  premier repère pour la suite.
                 </p>
               </div>
             </div>
           </section>
 
+          <section className="section approach-surface">
+            <div className="container approach-grid">
+              <div>
+                <h2>
+                  Apprendre ensemble.
+                  <br />
+                  Garder le cap.
+                </h2>
+                <p className="section-intro">
+                  Des outils pour accompagner les étudiants et faire évoluer les
+                  contenus.
+                </p>
+              </div>
+              <div className="approach-list">
+                <article>
+                  <h3>Un regard enseignant</h3>
+                  <p>
+                    Suivez les groupes autorisés et repérez les notions qui
+                    méritent un accompagnement.
+                  </p>
+                </article>
+                <article>
+                  <h3>Des contenus structurés</h3>
+                  <p>
+                    Cours, exercices et corrections de référence forment un
+                    parcours cohérent. Les variantes enrichissent la pratique.
+                  </p>
+                </article>
+                <article>
+                  <h3>Votre retour compte</h3>
+                  <p>
+                    Signalez une explication ou une correction à revoir et
+                    gardez la main sur vos données.
+                  </p>
+                </article>
+              </div>
+            </div>
+          </section>
           <section className="section faq-surface">
             <div className="container faq-grid">
               <div>
@@ -316,48 +373,50 @@ export default function Home() {
                   avant le premier pas.
                 </h2>
                 <p className="section-intro">
-                  Ce que cette version permet déjà, et ce qui arrive ensuite.
+                  Quelques repères pour commencer votre parcours.
                 </p>
               </div>
               <div>
                 <details>
-                  <summary>Le tuteur IA est-il déjà disponible ?</summary>
+                  <summary>À qui s’adresse AgenticTutor ?</summary>
                   <p>
-                    Cette version propose une démonstration guidée et le
-                    diagnostic local. La conversation IA, les exercices
-                    adaptatifs et le suivi serveur restent à développer.
+                    Aux étudiants qui découvrent la programmation, consolident
+                    leurs cours ou avancent sur un projet.
                   </p>
                 </details>
                 <details>
-                  <summary>Faut-il déjà connaître Python ?</summary>
+                  <summary>Comment le tuteur s’adapte-t-il ?</summary>
                   <p>
-                    Non. Le parcours accueille aussi les débutants. Vous pouvez
-                    répondre « Je ne sais pas encore » aux questions techniques.
+                    Il s’appuie sur vos objectifs, votre diagnostic et vos
+                    réponses pour ajuster explications, indices et difficulté.
                   </p>
                 </details>
                 <details>
-                  <summary>
-                    Mes réponses sont-elles envoyées quelque part ?
-                  </summary>
+                  <summary>Quels langages puis-je apprendre ?</summary>
                   <p>
-                    Non. Elles sont conservées uniquement dans le stockage local
-                    de ce navigateur. Vous pouvez les revoir ou les effacer à la
-                    fin du diagnostic.
+                    Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et
+                    MySQL, selon votre objectif.
                   </p>
                 </details>
                 <details>
-                  <summary>Est-ce un test noté ?</summary>
+                  <summary>Que se passe-t-il quand je me trompe ?</summary>
                   <p>
-                    Le score est un premier repère sur les questions proposées,
-                    pas une certification de niveau ni une note scolaire.
+                    Un indice vous aide à réessayer. La correction explique le
+                    raisonnement et le tuteur vous propose une suite adaptée.
                   </p>
                 </details>
                 <details>
-                  <summary>Puis-je créer un compte maintenant ?</summary>
+                  <summary>Le diagnostic est-il une note officielle ?</summary>
                   <p>
-                    Les écrans de connexion et d’inscription sont des aperçus.
-                    Aucun compte réel n’est créé tant que l’authentification
-                    n’est pas reliée au backend.
+                    Non. Il sert à situer vos acquis et à choisir votre point de
+                    départ.
+                  </p>
+                </details>
+                <details>
+                  <summary>Comment commencer ?</summary>
+                  <p>
+                    Créez votre compte, précisez vos objectifs et commencez le
+                    diagnostic pour préparer votre parcours.
                   </p>
                 </details>
               </div>

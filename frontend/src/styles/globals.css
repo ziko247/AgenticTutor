@@ -1024,11 +1024,6 @@ details p {
 
 /* Landing expansion: richer teaching content and distinct solid surfaces. */
 .landing {
-  --color-opening: oklch(92% 0.034 165);
-  --color-curriculum: oklch(94% 0.043 115);
-  --color-worked: oklch(96% 0.014 165);
-  --color-learner: oklch(89% 0.04 165);
-  --color-landing-rule: oklch(74% 0.042 165);
   --color-on-dark-focus: var(--color-accent);
   background: var(--color-opening);
 }
@@ -1333,3 +1328,8 @@ details p {
     gap: var(--space-lg);
   }
 }
+
+/* Language availability reuses the existing visual system. */
+.language-availability { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-lg); margin-block: var(--space-xl); }
+.language-availability p { margin-block: .75rem; }
+@media (max-width: 640px) { .language-availability { grid-template-columns: minmax(0, 1fr); } }

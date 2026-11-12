@@ -39,3 +39,11 @@
   --dur-short: 180ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+:root {
+  --color-opening: oklch(92% 0.034 165);
+  --color-curriculum: oklch(94% 0.043 115);
+  --color-worked: oklch(96% 0.014 165);
+  --color-learner: oklch(89% 0.04 165);
+  --color-landing-rule: oklch(74% 0.042 165);
+}

@@ -4,7 +4,7 @@
 
 Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTutor vise à accompagner l'étudiant dans un cycle continu : identifier ses acquis, expliquer une notion, proposer une activité, analyser sa réponse et adapter la suite du parcours.
 
-> **État actuel : première interface frontend implémentée.** Landing, formulaires d’authentification en aperçu et diagnostic Python local de 20 questions. Aucun compte ni service de tutorat connecté. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
+> **État actuel : première interface frontend implémentée.** Landing, formulaires d’authentification en aperçu et diagnostic Python local de 21 questions. Aucun compte ni service de tutorat connecté. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
 
 ## Progression actuelle — 12 novembre 2026
 
@@ -13,7 +13,7 @@ La première étape demandée avec l'encadrant concerne la **landing page, l'aut
 - [x] Landing responsive enrichie : approche, cinq notions Python, exemple de boucle expliqué, profils d'étudiants et FAQ.
 - [x] Exemple interactif prédéfini : indice et résultat ; il ne fait pas appel à une IA.
 - [x] Écrans de connexion et inscription : validation, affichage du mot de passe et état d'erreur explicite.
-- [x] Onboarding local : 20 questions (6 de profil, 14 de Python), navigation arrière, reprise, revue, modification et effacement.
+- [x] Onboarding local : 21 questions (7 de profil, 14 de Python), navigation arrière, reprise, revue, modification et effacement.
 - [x] Résultat indicatif sur les 14 questions Python et récapitulatif local.
 - [x] Structure Next.js App Router, TypeScript et Tailwind CSS ; fichiers de dépendances verrouillés.
 - [ ] Connecter l'inscription, la connexion et les sessions à un backend ; ajouter la récupération de mot de passe.
@@ -41,6 +41,9 @@ Les changements de cette tranche existent localement ; vérifier `git status` et
 
 ## Vision et périmètre
 
+La vision à terme est un tuteur agentique multilangage : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et MySQL. Python reste le seul pilote actuel ; les autres parcours et le tutorat adaptatif sont prévus.
+
+
 Le tuteur doit aider l'étudiant à comprendre ses erreurs et à progresser à son rythme. Son profil de maîtrise sera une estimation révisable, construite à partir de ses réponses, des difficultés rencontrées et de l'aide demandée.
 
 | Élément | Proposition de départ |
@@ -51,7 +54,7 @@ Le tuteur doit aider l'étudiant à comprendre ses erreurs et à progresser à s
 | Langue | Français |
 | Support | Application web adaptée aux ordinateurs et aux mobiles |
 | Objectif MVP | Un parcours complet, du diagnostic au suivi de progression |
-| Contenu initial | 20 questions de diagnostic (6 de profil et 14 de Python) et au moins 50 exercices relus |
+| Contenu initial | 21 questions de diagnostic (7 de profil et 14 de Python) et au moins 50 exercices relus |
 | Planning indicatif | 16 semaines, à ajuster au calendrier du PFA |
 
 Le [cahier des charges](CAHIER_DES_CHARGES_AGENTICTUTOR.md) est la référence détaillée pour le périmètre, les exigences et les critères de recette.
@@ -276,21 +279,70 @@ Le parcours adaptatif sera comparé à un parcours fixe avec les mêmes ressourc
 
 ## Installation et utilisation
 
-Le frontend est désormais disponible. Depuis la racine :
+### Prérequis
 
-```bash
+- Installer **Node.js 20.9 ou une version supérieure**, avec npm. Vérifier avec `node --version` et `npm --version`.
+- Disposer du dépôt sur son ordinateur. Pour un nouveau poste :
+
+```powershell
+git clone https://github.com/ziko247/AgenticTutor.git
+cd AgenticTutor
+```
+
+Si le dépôt est privé, se connecter à GitHub et disposer des droits d'accès avant le clonage.
+
+### Premier lancement
+
+Dans un terminal ouvert à la racine du dépôt, exécuter :
+
+```powershell
 cd frontend
 npm ci
 npm run dev
 ```
 
-Ouvrir http://127.0.0.1:3000. Routes : `/`, `/sign-in`, `/sign-up`, `/onboarding`. Voir [le guide frontend](frontend/README.md) pour les prérequis, tests et limites.
+`npm ci` installe les versions verrouillées dans `frontend/package-lock.json` ; il nécessite une connexion Internet. Attendre que le serveur indique qu'il est prêt, puis ouvrir **http://127.0.0.1:3000**. Laisser le terminal ouvert pendant l'utilisation ; appuyer sur `Ctrl+C` pour arrêter le serveur.
+
+Pour les lancements suivants, depuis la racine :
+
+```powershell
+cd frontend
+npm run dev
+```
+
+Relancer `npm ci` après une modification des dépendances ou du fichier de verrouillage. Si le port 3000 est occupé, consulter l'adresse affichée dans le terminal ou arrêter le processus qui l'utilise.
+
+### Parcours disponibles et limites
+
+| Adresse | Contenu |
+|---|---|
+| http://127.0.0.1:3000/ | Landing et exemple Python prédéfini |
+| http://127.0.0.1:3000/sign-in | Aperçu de connexion |
+| http://127.0.0.1:3000/sign-up | Aperçu d'inscription |
+| http://127.0.0.1:3000/onboarding | Diagnostic local de 21 questions |
+
+Aucune configuration `.env`, base de données ou clé API n'est requise pour cette interface. Le backend n'est pas encore implémenté : les formulaires ne créent pas de compte et le diagnostic est conservé dans le navigateur, pas sur un serveur.
+
+### Vérifier et lancer la version de production
+
+Depuis `frontend/` :
+
+```powershell
+npm run lint
+npm run typecheck
+npm run build
+npm start
+```
+
+Les trois premières commandes vérifient le code et construisent la version de production ; `npm start` la lance sur http://127.0.0.1:3000. Arrêter le serveur de développement avant de lancer ce serveur. Pour les tests navigateur et leurs prérequis, consulter [le guide frontend](frontend/README.md).
+
+**Maintenance :** à chaque évolution qui change les prérequis, variables d'environnement, services, commandes, ports ou parcours de démarrage, mettre à jour et vérifier cette section ainsi que les guides concernés.
 
 ### Première tranche livrée
 
 - [x] Landing responsive et exemple Python interactif prédéfini.
 - [x] Écrans de connexion et inscription avec validation, sans authentification serveur.
-- [x] Onboarding de 20 questions avec retour arrière et revue.
+- [x] Onboarding de 21 questions avec retour arrière et revue.
 - [x] Reprise locale, modification des réponses et completion explicite.
 - [x] Tests navigateur des parcours, du stockage et du responsive.
 - [ ] Connexion des formulaires à un service d’authentification.
@@ -432,3 +484,8 @@ Le domaine pilote est Python et la stack frontend est choisie pour cette tranche
 - **Licence :** à définir avant toute réutilisation ou distribution. Aucune licence de réutilisation n'est accordée par ce README. Les ressources pédagogiques conserveront leurs licences et attributions propres.
 
 Pour proposer une correction ou discuter du projet, ouvrir une issue dans ce dépôt. Ne pas y publier de données d'étudiants ou de secrets.
+
+
+### Positionnement de la landing
+
+À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.

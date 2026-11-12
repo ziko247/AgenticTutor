@@ -11,6 +11,11 @@
 
 Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, authentification en aperçu et diagnostic local sont implémentés. Aucun backend, compte réel ou tutorat IA connecté. FastAPI et PostgreSQL restent des propositions.
 
+
+La vision est multilangage ; Python reste le pilote. La question 21 recueille des intérêts futurs, sans débloquer de parcours. Préserver les brouillons v1.
+
+La landing décrit désormais le produit cible au présent à la demande explicite du porteur. Conserver ce positionnement éditorial, mais ne pas cocher les fonctions métier ni annoncer un backend opérationnel dans la documentation ou les formulaires. Le diagnostic reste Python et local.
+
 ## Reprise de la tranche actuelle
 
 - Première priorité convenue : landing, authentification et onboarding pour apprendre Python.
@@ -53,6 +58,7 @@ Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. L
 
 - Réaliser une petite tranche fonctionnelle liée à un critère de recette.
 - Documenter les décisions retenues et les commandes réellement exécutables.
+- À chaque évolution du projet, vérifier si les instructions de lancement du README racine ou des guides concernés doivent changer ; les maintenir exactes et à jour, y compris prérequis, services, variables, ports et commandes.
 - Choisir et verrouiller les versions des dépendances lors de l'initialisation du composant.
 - Ajouter les tests utiles au comportement, à la sécurité et à l'intégration modifiés.
 - Consulter frontend/README.md et package.json pour les runners configurés.

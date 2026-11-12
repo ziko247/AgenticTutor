@@ -59,7 +59,7 @@ export function LessonPreview() {
         )}
       </div>
       <p className="caption">
-        Exemple guidé prédéfini, sans réponse générée par IA.
+        Explorez une boucle Python avec un indice et sa correction.
       </p>
     </div>
   );

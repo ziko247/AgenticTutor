@@ -6,6 +6,7 @@ export type Question = {
   code?: string;
   correct?: number;
   topic?: string;
+  multiple?: boolean;
 };
 export const questions: Question[] = [
   {
@@ -181,5 +182,26 @@ export const questions: Question[] = [
     code: "total = 0\nfor n in [1, 2, 3]:\n    total = total + n",
     options: ["3", "5", "6", "Je ne sais pas encore"],
     correct: 2,
+  },
+  {
+    id: "languages",
+    title: "Quels langages ou technologies vous intéressent ?",
+    description:
+      "Plusieurs choix possibles. Seul Python est proposé dans cette phase de découverte. Vos préférences restent locales pour préparer la personnalisation future ; elles ne débloquent aucun autre parcours.",
+    multiple: true,
+    options: [
+      "Python",
+      "C",
+      "C++",
+      "C#",
+      "Java",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Go",
+      "Rust",
+      "MySQL",
+      "Je ne sais pas encore",
+    ],
   },
 ];

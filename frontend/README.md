@@ -21,11 +21,13 @@ Ouvrir http://127.0.0.1:3000.
 | `/` | Landing enrichie : cinq notions, exemple Python interactif prédéfini, boucle expliquée, profils et FAQ |
 | `/sign-in` | Connexion en aperçu frontend |
 | `/sign-up` | Inscription en aperçu frontend |
-| `/onboarding` | 20 questions, revue, modification et récapitulatif final |
+| `/onboarding` | 21 questions, revue, modification et récapitulatif final |
 
 Les formulaires valident les champs, affichent les erreurs, gèrent un état de vérification et permettent de voir le mot de passe. **Ils n'envoient aucune requête d'authentification et ne créent aucun compte.** Aucun mot de passe n'est sauvegardé. La récupération de mot de passe n'est pas implémentée, faute de service existant.
 
-Le diagnostic est accessible sans compte via un lien explicite. Six questions recueillent le contexte et les préférences ; quatorze questions portent sur Python. Le résultat est un score indicatif sur ce questionnaire, pas une certification du niveau. Les questions doivent encore être validées pédagogiquement.
+Le diagnostic est accessible sans compte via un lien explicite. Sept questions recueillent le contexte et les préférences ; quatorze questions portent sur Python. Le résultat est un score indicatif sur ce questionnaire, pas une certification du niveau. Les questions doivent encore être validées pédagogiquement.
+
+Le questionnaire conserve les 20 questions initiales et ajoute une préférence multisélection. « Je ne sais pas encore » est exclusif. La préférence reste locale et ne débloque aucun parcours. Les anciens diagnostics terminés reprennent à cette question sans perdre leurs réponses.
 
 ## Persistance locale
 
@@ -74,3 +76,8 @@ Le futur backend devra recalculer les scores à partir des identifiants/réponse
 ## Dépendances
 
 Audit production : aucune vulnérabilité détectée. L’audit complet signale 7 alertes modérées dans la chaîne de développement ESLint/typescript-eslint/minimatch ; la mise à jour automatique sans rupture ne les résout pas. Elles ne font pas partie du bundle applicatif et restent à suivre.
+
+
+### Positionnement de la landing
+
+À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
