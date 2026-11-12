@@ -14,6 +14,15 @@ npm run dev
 
 Ouvrir http://127.0.0.1:3000.
 
+Sous Windows PowerShell, si l’exécution de npm.ps1 est bloquée, utiliser ces commandes depuis frontend/ :
+
+```powershell
+npm.cmd ci
+npm.cmd run dev
+```
+
+Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsque les dépendances changent.
+
 ## Routes
 
 | Route | Fonction |

@@ -312,6 +312,15 @@ npm run dev
 
 Relancer `npm ci` après une modification des dépendances ou du fichier de verrouillage. Si le port 3000 est occupé, consulter l'adresse affichée dans le terminal ou arrêter le processus qui l'utilise.
 
+Sous Windows PowerShell, si l’exécution de npm.ps1 est bloquée, utiliser ces commandes depuis frontend/ :
+
+```powershell
+npm.cmd ci
+npm.cmd run dev
+```
+
+Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsque les dépendances changent.
+
 ### Parcours disponibles et limites
 
 | Adresse | Contenu |
