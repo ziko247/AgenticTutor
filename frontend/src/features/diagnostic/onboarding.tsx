@@ -10,14 +10,20 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { Brand } from "@/components/brand";
-import { questions } from "./questions";
+import { examples, languageOrder } from "../tutor/examples";
 import {
   emptyDraft,
+  getQuestions,
   parseDraft,
   STORAGE_KEY,
   type Draft,
+  type Answer,
   answerLabel,
 } from "./storage";
+function isAnswered(answer: Answer | undefined): boolean {
+  return answer !== undefined;
+}
+
 export function Onboarding() {
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [ready, setReady] = useState(false);
@@ -60,15 +66,14 @@ export function Onboarding() {
         Préparation de votre parcours…
       </main>
     );
+  const questions = getQuestions(draft.language ?? "python");
+  const languageLabel = draft.language ? examples[draft.language].label : "";
   const q = questions[draft.step];
   const isSelected = (index: number) => {
     const a = draft.answers[q.id];
-    return Array.isArray(a) ? a.includes(index) : a === index;
+    return a === index;
   };
-  const count = questions.filter((q) => {
-    const a = draft.answers[q.id];
-    return a !== undefined && (!Array.isArray(a) || a.length > 0);
-  }).length;
+  const count = questions.filter((q) => isAnswered(draft.answers[q.id])).length;
   const scored = questions.filter((q) => q.correct !== undefined);
   const correct = scored.filter(
     (q) => draft.answers[q.id] === q.correct,
@@ -85,7 +90,7 @@ export function Onboarding() {
         <aside className="flow-sidebar">
           <p className="flow-title">Votre point de départ.</p>
           <p>
-            Pas de note officielle. Un premier repère pour apprendre Python.
+            Un diagnostic dans votre langage, une note sur 20 pour vous situer.
           </p>
           <ol className="chapter-list">
             <li
@@ -109,7 +114,7 @@ export function Onboarding() {
                   : ""
               }
             >
-              Quelques bases de Python
+              Votre diagnostic {languageLabel}
             </li>
             <li className={draft.review || draft.completed ? "current" : ""}>
               Votre récapitulatif
@@ -124,7 +129,36 @@ export function Onboarding() {
           </p>
         </aside>
         <section className="flow-content">
-          {draft.completed ? (
+          {!draft.language ? (
+            <>
+              <h1 ref={heading} tabIndex={-1}>
+                Quel langage souhaitez-vous apprendre ?
+              </h1>
+              <p className="intro">
+                Choisissez votre parcours. Après quelques questions de profil,
+                10 questions évaluent vos bases. Chaque bonne réponse vaut 2
+                points sur 20.
+              </p>
+              <div className="diagnostic-language-grid">
+                {languageOrder.map((language) => (
+                  <button
+                    type="button"
+                    className="button quiet"
+                    key={language}
+                    onClick={() =>
+                      update({ ...emptyDraft, answers: {}, language })
+                    }
+                  >
+                    {examples[language].label}
+                  </button>
+                ))}
+              </div>
+              <p className="caption muted">
+                Votre choix et vos réponses sont sauvegardés uniquement dans ce
+                navigateur.
+              </p>
+            </>
+          ) : draft.completed ? (
             <>
               <div className="completion-symbol">
                 <Check size={32} aria-hidden="true" />
@@ -139,12 +173,11 @@ export function Onboarding() {
                 personnalisé sera disponible après connexion du backend.
               </p>
               <div className="summary-line">
-                <strong>
-                  {correct} / {scored.length}
-                </strong>
+                <strong>{correct * 2} / 20</strong>
                 <span>
-                  réponses Python correctes sur ce questionnaire de découverte.
-                  Ce résultat ne certifie pas votre niveau.
+                  Note de votre diagnostic {languageLabel} : {correct} bonnes
+                  réponses sur {scored.length}. Ce résultat ne certifie pas
+                  votre niveau.
                 </span>
               </div>
               <dl className="profile-summary">
@@ -188,6 +221,10 @@ export function Onboarding() {
               <p className="intro">
                 Relisez vos réponses avant de terminer. Vous pouvez encore tout
                 modifier.
+              </p>
+              <p className="caption">
+                Diagnostic {languageLabel}. Les questions de profil ne sont pas
+                notées.
               </p>
               <ol className="review-list">
                 {questions.map((q, i) => (
@@ -286,21 +323,7 @@ export function Onboarding() {
                           ...draft,
                           answers: {
                             ...draft.answers,
-                            [q.id]: q.multiple
-                              ? (() => {
-                                  const a = draft.answers[q.id];
-                                  const selected = Array.isArray(a) ? a : [];
-                                  const unsure = q.options.length - 1;
-                                  if (i === unsure)
-                                    return selected.includes(i) ? [] : [i];
-                                  return selected.includes(i)
-                                    ? selected.filter((v) => v !== i)
-                                    : [
-                                        ...selected.filter((v) => v !== unsure),
-                                        i,
-                                      ];
-                                })()
-                              : i,
+                            [q.id]: i,
                           },
                         });
                       }}
@@ -327,11 +350,7 @@ export function Onboarding() {
                   type="button"
                   className="button"
                   onClick={() => {
-                    if (
-                      draft.answers[q.id] === undefined ||
-                      (Array.isArray(draft.answers[q.id]) &&
-                        (draft.answers[q.id] as number[]).length === 0)
-                    ) {
+                    if (!isAnswered(draft.answers[q.id])) {
                       setError("Choisissez une réponse pour continuer.");
                       return;
                     }
@@ -348,15 +367,31 @@ export function Onboarding() {
                   <ArrowRight size={17} aria-hidden="true" />
                 </button>
               </div>
-              {count === questions.length && (
+              <div className="diagnostic-secondary-actions">
                 <button
-                  className="text-button"
                   type="button"
-                  onClick={() => update({ ...draft, review: true })}
+                  className="text-button"
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Changer de langage effacera les réponses de ce diagnostic. Continuer ?",
+                      )
+                    )
+                      update({ ...emptyDraft, answers: {} });
+                  }}
                 >
-                  Revenir au récapitulatif
+                  Changer de langage
                 </button>
-              )}
+                {count === questions.length && (
+                  <button
+                    className="text-button"
+                    type="button"
+                    onClick={() => update({ ...draft, review: true })}
+                  >
+                    Revenir au récapitulatif
+                  </button>
+                )}
+              </div>
             </>
           )}
         </section>

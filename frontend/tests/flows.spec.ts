@@ -1,3 +1,5 @@
+import { diagnosticBanks } from "../src/features/diagnostic/banks";
+import { profileQuestions } from "../src/features/diagnostic/questions";
 import { test, expect } from "@playwright/test";
 test("interactive lesson", async ({ page }) => {
   await page.goto("/");
@@ -40,92 +42,86 @@ test("auth validates without fake authentication", async ({ page }) => {
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
   await expect(page.locator("#email")).toHaveAttribute("aria-invalid", "true");
 });
-test("21 answers persist, review, edit, complete, reset", async ({ page }) => {
+test("language diagnostic persists, reviews, scores and resets", async ({
+  page,
+}) => {
   await page.goto("/onboarding");
-  await expect(
-    page.getByText("Question 1 sur 21", { exact: true }),
-  ).toBeVisible();
+  await page.getByRole("button", { name: "JavaScript", exact: true }).click();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
-  await expect(page.locator(".form-error[role=alert]")).toContainText(
-    "Choisissez",
-  );
+  await expect(page.locator(".form-error")).toContainText("Choisissez");
   await page.getByRole("radio").first().check();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
   await page.reload();
   await expect(
-    page.getByText("Question 2 sur 21", { exact: true }),
+    page.getByText("Question 2 sur 16", { exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Précédent" }).click();
+  await page.getByRole("button", { name: "Précédent", exact: true }).click();
   await expect(page.getByRole("radio").first()).toBeChecked();
-  await page.getByRole("button", { name: "Continuer", exact: true }).click();
-  for (let i = 1; i < 21; i++) {
-    if (i === 20)
-      await page.getByRole("checkbox", { name: "Python", exact: true }).check();
-    else await page.getByRole("radio").first().check();
+  for (let i = 0; i < 16; i++) {
+    await page.getByRole("radio").last().check();
     await page
       .getByRole("button", {
-        name: i === 20 ? "Vérifier mes réponses" : "Continuer",
+        name: i === 15 ? "Vérifier mes réponses" : "Continuer",
         exact: true,
       })
       .click();
   }
-  await expect(
-    page.getByRole("heading", { name: "Tout vous ressemble ?" }),
-  ).toBeVisible();
-  await expect(page.locator(".review-list li")).toHaveCount(21);
+  await expect(page.locator(".review-list li")).toHaveCount(16);
   await page
-    .getByRole("button", { name: "Modifier la réponse 1", exact: true })
+    .getByRole("button", { name: "Modifier la réponse 7", exact: true })
     .click();
-  await page.getByRole("radio").nth(1).check();
-  await page.getByRole("button", { name: "Revenir au récapitulatif" }).click();
-  await expect(page.locator(".review-list li").first()).toContainText(
-    "Licence",
-  );
-  await page.getByRole("button", { name: "Terminer le diagnostic" }).click();
-  await expect(
-    page.getByRole("heading", { name: "Un premier pas, déjà accompli." }),
-  ).toBeVisible();
+  await page.getByRole("radio").first().check();
+  await page
+    .getByRole("button", { name: "Revenir au récapitulatif", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Terminer le diagnostic", exact: true })
+    .click();
+  await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
   await page.reload();
+  await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
+  await page
+    .getByRole("button", { name: "Effacer et recommencer", exact: true })
+    .click();
   await expect(
-    page.getByRole("heading", { name: "Un premier pas, déjà accompli." }),
+    page.getByRole("heading", {
+      name: "Quel langage souhaitez-vous apprendre ?",
+    }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Effacer et recommencer" }).click();
-  await expect(
-    page.getByText("Question 1 sur 21", { exact: true }),
-  ).toBeVisible();
-  await expect(page.getByRole("radio").first()).not.toBeChecked();
 });
+
 test("corrupt storage recovers", async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() =>
-    localStorage.setItem("agentictutor.onboarding.v1", "{broken"),
+    localStorage.setItem("agentictutor.onboarding.v2", "{broken"),
   );
   await page.goto("/onboarding");
   await expect(
-    page.getByText("Question 1 sur 21", { exact: true }),
+    page.getByRole("heading", {
+      name: "Quel langage souhaitez-vous apprendre ?",
+    }),
   ).toBeVisible();
 });
+
 test("blocked storage keeps flow usable", async ({ page }) => {
   await page.addInitScript(() => {
     Storage.prototype.setItem = () => {
-      throw new Error("blocked");
+      throw Error("blocked");
     };
     Storage.prototype.getItem = () => {
-      throw new Error("blocked");
+      throw Error("blocked");
     };
   });
   await page.goto("/onboarding");
-  await expect(
-    page.getByText(
-      "Sauvegarde locale indisponible. Gardez cette page ouverte.",
-    ),
-  ).toBeVisible();
+  await expect(page.getByRole("status")).toContainText("indisponible");
+  await page.getByRole("button", { name: "Python", exact: true }).click();
   await page.getByRole("radio").first().check();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
   await expect(
-    page.getByText("Question 2 sur 21", { exact: true }),
+    page.getByText("Question 2 sur 16", { exact: true }),
   ).toBeVisible();
 });
+
 test("responsive routes", async ({ page }) => {
   for (const width of [375, 768, 1280, 1920]) {
     await page.setViewportSize({ width, height: 900 });
@@ -159,97 +155,63 @@ test("keyboard focus and reduced motion", async ({ page }) => {
       .evaluate((el) => getComputedStyle(el).scrollBehavior),
   ).toBe("auto");
 });
-test("language preferences migrate completed drafts and preserve multiple choices", async ({
+test("all eleven language banks finish with a score out of twenty", async ({
   page,
 }) => {
-  await page.goto("/");
-  await page.evaluate(() => {
-    const ids = [
-      "education",
-      "experience",
-      "subject",
-      "goal",
-      "difficulty",
-      "rhythm",
-      "print",
-      "variable",
-      "string",
-      "list",
-      "index",
-      "comparison",
-      "condition",
-      "else",
-      "range",
-      "loop",
-      "function",
-      "return",
-      "append",
-      "sum",
-    ];
-    localStorage.setItem(
-      "agentictutor.onboarding.v1",
-      JSON.stringify({
-        version: 1,
-        answers: Object.fromEntries(ids.map((id) => [id, 0])),
-        step: 19,
-        review: false,
-        completed: true,
-      }),
+  for (const language of [
+    "Python",
+    "C",
+    "C++",
+    "C#",
+    "Java",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Go",
+    "Rust",
+    "MySQL",
+  ]) {
+    await page.goto("/");
+    await page.evaluate(() =>
+      localStorage.removeItem("agentictutor.onboarding.v2"),
     );
-  });
-  await page.goto("/onboarding");
-  await expect(
-    page.getByText("Question 21 sur 21", { exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", { name: "Vérifier mes réponses", exact: true })
-    .click();
-  await expect(page.locator(".form-error")).toContainText("Choisissez");
-  const python = page.getByRole("checkbox", { name: "Python", exact: true });
-  await python.focus();
-  await page.keyboard.press("Space");
-  await page.getByRole("checkbox", { name: "Rust", exact: true }).check();
-  await page.reload();
-  await expect(python).toBeChecked();
-  await expect(
-    page.getByRole("checkbox", { name: "Rust", exact: true }),
-  ).toBeChecked();
-  await page.setViewportSize({ width: 375, height: 900 });
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-  ).toBeTruthy();
-  await page
-    .getByRole("checkbox", { name: "Je ne sais pas encore", exact: true })
-    .check();
-  await expect(python).not.toBeChecked();
-  await expect(
-    page.getByRole("checkbox", { name: "Rust", exact: true }),
-  ).not.toBeChecked();
-  await python.check();
-  await expect(
-    page.getByRole("checkbox", { name: "Je ne sais pas encore", exact: true }),
-  ).not.toBeChecked();
-  await page.getByRole("checkbox", { name: "Java", exact: true }).check();
-  await page
-    .getByRole("button", { name: "Vérifier mes réponses", exact: true })
-    .click();
-  await expect(page.locator(".review-list li").last()).toContainText(
-    "Python, Java",
-  );
-  await page
-    .getByRole("button", { name: "Modifier la réponse 21", exact: true })
-    .click();
-  await expect(python).toBeChecked();
-  await page
-    .getByRole("button", { name: "Revenir au récapitulatif", exact: true })
-    .click();
-  await page
-    .getByRole("button", { name: "Terminer le diagnostic", exact: true })
-    .click();
-  await expect(page.locator(".profile-summary")).toContainText("Python, Java");
+    await page.goto("/onboarding");
+    await page.getByRole("button", { name: language, exact: true }).click();
+    for (let i = 0; i < 16; i++) {
+      await page.getByRole("radio").last().check();
+      await page
+        .getByRole("button", {
+          name: i === 15 ? "Vérifier mes réponses" : "Continuer",
+          exact: true,
+        })
+        .click();
+    }
+    await page
+      .getByRole("button", { name: "Terminer le diagnostic", exact: true })
+      .click();
+    await expect(page.locator(".summary-line strong")).toHaveText("0 / 20");
+    await expect(page.locator(".summary-line")).toContainText(language);
+  }
 });
+test("changing language clears answers only after confirmation", async ({
+  page,
+}) => {
+  await page.goto("/onboarding");
+  await page.getByRole("button", { name: "Rust", exact: true }).click();
+  await page.getByRole("radio").first().check();
+  page.once("dialog", (d) => d.dismiss());
+  await page
+    .getByRole("button", { name: "Changer de langage", exact: true })
+    .click();
+  await expect(page.getByRole("radio").first()).toBeChecked();
+  page.once("dialog", (d) => d.accept());
+  await page
+    .getByRole("button", { name: "Changer de langage", exact: true })
+    .click();
+  await page.getByRole("button", { name: "HTML", exact: true }).click();
+  await expect(page.getByRole("radio").first()).not.toBeChecked();
+});
+
 test("language menus support mouse and keyboard", async ({ page }) => {
   await page.goto("/");
   const hero = page.locator("#lesson-language");
@@ -285,4 +247,49 @@ test("language menus support mouse and keyboard", async ({ page }) => {
   ).toBeTruthy();
   await page.locator("h1").click();
   await expect(hero).toHaveAttribute("aria-expanded", "false");
+});
+
+test("perfect result is twenty and old drafts remain untouched", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const answers = Object.fromEntries([
+    ...profileQuestions.map((q) => [q.id, 0]),
+    ...diagnosticBanks.python.map((q) => [q.id, q.correct]),
+  ]);
+  await page.evaluate((answers) => {
+    localStorage.setItem("agentictutor.onboarding.v1", "legacy-draft");
+    localStorage.setItem(
+      "agentictutor.onboarding.v2",
+      JSON.stringify({
+        version: 2,
+        language: "python",
+        answers,
+        step: 15,
+        review: true,
+        completed: false,
+      }),
+    );
+  }, answers);
+  await page.goto("/onboarding");
+  await page
+    .getByRole("button", { name: "Terminer le diagnostic", exact: true })
+    .click();
+  await expect(page.locator(".summary-line strong")).toHaveText("20 / 20");
+  expect(
+    await page.evaluate(() =>
+      localStorage.getItem("agentictutor.onboarding.v1"),
+    ),
+  ).toBe("legacy-draft");
+});
+test("each bank has ten valid independent scored questions", () => {
+  for (const bank of Object.values(diagnosticBanks)) {
+    expect(bank).toHaveLength(10);
+    expect(new Set(bank.map((q) => q.id)).size).toBe(10);
+    for (const q of bank) {
+      expect(q.correct).toBeGreaterThanOrEqual(0);
+      expect(q.correct).toBeLessThan(q.options.length - 1);
+      expect(new Set(q.options).size).toBe(q.options.length);
+    }
+  }
 });

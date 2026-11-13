@@ -12,9 +12,9 @@
 Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, authentification en aperçu et diagnostic local sont implémentés. Aucun backend, compte réel ou tutorat IA connecté. FastAPI et PostgreSQL restent des propositions.
 
 
-La vision est multilangage ; Python reste le pilote. La question 21 recueille des intérêts futurs, sans débloquer de parcours. Préserver les brouillons v1.
+Le diagnostic propose désormais 11 langages/technologies, avec choix initial unique et note sur 20. Les brouillons v2 sont séparés des anciens v1. Le tuteur connecté reste à développer.
 
-La landing décrit désormais le produit cible au présent à la demande explicite du porteur. Conserver ce positionnement éditorial, mais ne pas cocher les fonctions métier ni annoncer un backend opérationnel dans la documentation ou les formulaires. Le diagnostic reste Python et local.
+La landing décrit désormais le produit cible au présent à la demande explicite du porteur. Conserver ce positionnement éditorial, mais ne pas cocher les fonctions métier ni annoncer un backend opérationnel dans la documentation ou les formulaires. Le diagnostic est multilangage et local.
 
 ## Reprise de la tranche actuelle
 
@@ -22,7 +22,7 @@ La landing décrit désormais le produit cible au présent à la demande explici
 - La landing enrichie utilise `frontend/src/app/page.tsx` et les styles en fin de `frontend/src/styles/globals.css` : surfaces menthe/vert/citron, cinq notions, exemple de boucle, profils et FAQ.
 - La démo de boucle interactive est prédéfinie dans `frontend/src/features/tutor/lesson-preview.tsx` ; elle ne représente pas un tuteur IA connecté.
 - `/sign-in` et `/sign-up` utilisent `frontend/src/features/auth/auth-form.tsx`. Validation locale uniquement : aucun compte, session ou envoi réseau.
-- `/onboarding` utilise les fichiers `questions.ts`, `storage.ts` et `onboarding.tsx` dans `frontend/src/features/diagnostic/`. Les réponses et l'avancement restent dans localStorage sous `agentictutor.onboarding.v1` ; le score sur 14 questions est indicatif et non certifiant.
+- `/onboarding` utilise les fichiers `questions.ts`, `storage.ts` et `onboarding.tsx` dans `frontend/src/features/diagnostic/`. Les réponses et l'avancement restent dans localStorage sous `agentictutor.onboarding.v2` ; la note sur 20 est indicative et non certifiante.
 - Les captures et sept tests Playwright ont servi à vérifier la tranche précédente ; relancer les contrôles adaptés après toute modification. Consulter `frontend/README.md` pour les commandes et `CHROME_PATH`.
 - Le backend reste un scaffold. Ne pas présenter la récupération du mot de passe, la persistance serveur, l'IA, les exercices adaptatifs ou les métriques pédagogiques comme réalisés.
 - Préserver le bloc Next.js généré dans `frontend/AGENTS.md` et lire la documentation locale de Next avant de modifier le frontend.
@@ -78,3 +78,7 @@ Le domaine pilote est Python et la première stack frontend est actée dans docs
 ## Exemples multilangages de la landing
 
 Les exemples et sélecteurs sont dans frontend/src/features/tutor/{examples,language-select,lesson-preview,worked-example}. La page importe deux composants clients ; les sélections sont indépendantes et réinitialisent les indices du hero. Contenus statiques, pas de runtime multilangage ni de backend ajouté.
+
+## Diagnostic multilangage actuel
+
+Le parcours commence par un choix unique parmi 11 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.

@@ -1339,18 +1339,16 @@ details p {
 .example-language label { font-size: .875rem; }
 .lesson .example-language { color: var(--color-panel-muted); }
 .lesson-heading { flex-wrap: wrap; gap: var(--space-md); }
-.worked-toolbar { margin-bottom: var(--space-lg); }
+.worked-toolbar { margin-bottom: var(--space-lg); display: flex; justify-content: flex-start; }
 .lesson pre, .worked-code pre { max-width: 100%; overflow-x: auto; }
 @media (max-width: 640px) { .lesson .example-language { flex-basis: 100%; } }
 
 /* Compact language switchers, with native selection and panel-aware surfaces. */
 .language-control { position: relative; display: inline-flex; align-items: center; color: var(--color-ink); }
 .lesson .language-control { color: var(--color-panel-ink); }
-.worked-toolbar { display: flex; justify-content: flex-start; }
 @media (max-width: 640px) { .lesson .example-language { flex-basis: auto; } }
 
 /* Language menu: native radios with a custom, scrollable surface. */
-.language-control { position: relative; }
 .language-trigger { display: inline-flex; align-items: center; gap: var(--space-xs); min-width: 156px; min-height: 44px; padding: var(--space-xs) var(--space-md); color: var(--color-ink); background: var(--color-clear); border: 1px solid var(--color-muted); border-radius: var(--radius-pill); font: inherit; font-size: .875rem; font-weight: 600; cursor: pointer; }
 .language-trigger span { flex: 1; text-align: left; }
 .language-trigger:hover, .language-trigger[aria-expanded="true"] { background: var(--color-paper-2); }
@@ -1368,3 +1366,9 @@ details p {
 .language-option.is-selected { background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; }
 .language-option input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 @media (max-width: 640px) { .language-menu { width: 200px; max-width: calc(100% + 30px); } }
+
+.diagnostic-language-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-sm); margin-block: var(--space-lg); }
+.diagnostic-language-grid .button { min-width: 0; }
+@media (max-width: 420px) { .diagnostic-language-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.diagnostic-secondary-actions { display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; margin-top: var(--space-lg); }

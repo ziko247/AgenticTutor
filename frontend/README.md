@@ -30,17 +30,15 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 | `/` | Landing enrichie : cinq notions, exemple Python interactif prédéfini, boucle expliquée, profils et FAQ |
 | `/sign-in` | Connexion en aperçu frontend |
 | `/sign-up` | Inscription en aperçu frontend |
-| `/onboarding` | 21 questions, revue, modification et récapitulatif final |
+| `/onboarding` | 16 questions, revue, modification et récapitulatif final |
 
 Les formulaires valident les champs, affichent les erreurs, gèrent un état de vérification et permettent de voir le mot de passe. **Ils n'envoient aucune requête d'authentification et ne créent aucun compte.** Aucun mot de passe n'est sauvegardé. La récupération de mot de passe n'est pas implémentée, faute de service existant.
 
-Le diagnostic est accessible sans compte via un lien explicite. Sept questions recueillent le contexte et les préférences ; quatorze questions portent sur Python. Le résultat est un score indicatif sur ce questionnaire, pas une certification du niveau. Les questions doivent encore être validées pédagogiquement.
-
-Le questionnaire conserve les 20 questions initiales et ajoute une préférence multisélection. « Je ne sais pas encore » est exclusif. La préférence reste locale et ne débloque aucun parcours. Les anciens diagnostics terminés reprennent à cette question sans perdre leurs réponses.
+Le diagnostic commence par un choix parmi 11 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat est indicatif, non certifiant ; les banques doivent être validées pédagogiquement.
 
 ## Persistance locale
 
-Clé `agentictutor.onboarding.v1`, format versionné et validé dans `src/features/diagnostic/storage.ts`. Réponses, position, revue et fin sont sauvegardées dans localStorage. La reprise fonctionne dans le même navigateur et sur la même origine. En navigation privée ou stockage bloqué, le parcours fonctionne en mémoire avec un avertissement. La fin permet de revoir ou d'effacer les réponses. Aucun profil n'est envoyé au backend.
+Clé agentictutor.onboarding.v2. Le brouillon conserve le langage, les réponses, la position et le récapitulatif. Les anciens brouillons v1 restent intacts mais sont séparés de ce nouveau parcours. Le stockage est validé au chargement et les états de revue/fin exigent des réponses complètes. En cas de stockage bloqué, le parcours continue en mémoire avec avertissement.
 
 ## Organisation
 
@@ -92,3 +90,7 @@ Audit production : aucune vulnérabilité détectée. L’audit complet signale 
 À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
 
 Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et MySQL. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
+
+## Diagnostic multilangage actuel
+
+Le parcours commence par un choix unique parmi 11 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.

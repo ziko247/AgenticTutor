@@ -4,7 +4,9 @@
 
 Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTutor vise à accompagner l'étudiant dans un cycle continu : identifier ses acquis, expliquer une notion, proposer une activité, analyser sa réponse et adapter la suite du parcours.
 
-> **État actuel : première interface frontend implémentée.** Landing, formulaires d’authentification en aperçu et diagnostic Python local de 21 questions. Aucun compte ni service de tutorat connecté. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
+> **État actuel : première interface frontend implémentée.** Landing, formulaires d’authentification en aperçu et diagnostic multilangage local de 16 questions. Aucun compte ni service de tutorat connecté. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
+
+> Diagnostic actuel : choix du langage au départ, puis 6 questions de profil et 10 questions techniques, notées sur 20. Voir la section « Diagnostic multilangage actuel » pour la persistance v2.
 
 ## Progression actuelle — 12 novembre 2026
 
@@ -13,8 +15,8 @@ La première étape demandée avec l'encadrant concerne la **landing page, l'aut
 - [x] Landing responsive enrichie : approche, cinq notions Python, exemple de boucle expliqué, profils d'étudiants et FAQ.
 - [x] Exemple interactif prédéfini : indice et résultat ; il ne fait pas appel à une IA.
 - [x] Écrans de connexion et inscription : validation, affichage du mot de passe et état d'erreur explicite.
-- [x] Onboarding local : 21 questions (7 de profil, 14 de Python), navigation arrière, reprise, revue, modification et effacement.
-- [x] Résultat indicatif sur les 14 questions Python et récapitulatif local.
+- [x] Onboarding local : 16 questions (6 de profil, 10 techniques), navigation arrière, reprise, revue, modification et effacement.
+- [x] Note indicative sur 20 dans le langage choisi et récapitulatif local.
 - [x] Structure Next.js App Router, TypeScript et Tailwind CSS ; fichiers de dépendances verrouillés.
 - [ ] Connecter l'inscription, la connexion et les sessions à un backend ; ajouter la récupération de mot de passe.
 - [ ] Enregistrer le diagnostic et le profil côté serveur, puis valider les questions et l'estimation pédagogique.
@@ -54,7 +56,7 @@ Le tuteur doit aider l'étudiant à comprendre ses erreurs et à progresser à s
 | Langue | Français |
 | Support | Application web adaptée aux ordinateurs et aux mobiles |
 | Objectif MVP | Un parcours complet, du diagnostic au suivi de progression |
-| Contenu initial | 21 questions de diagnostic (7 de profil et 14 de Python) et au moins 50 exercices relus |
+| Contenu initial | 16 questions de diagnostic (6 de profil et 10 techniques) et au moins 50 exercices relus |
 | Planning indicatif | 16 semaines, à ajuster au calendrier du PFA |
 
 Le [cahier des charges](CAHIER_DES_CHARGES_AGENTICTUTOR.md) est la référence détaillée pour le périmètre, les exigences et les critères de recette.
@@ -328,7 +330,7 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 | http://127.0.0.1:3000/ | Landing et exemple Python prédéfini |
 | http://127.0.0.1:3000/sign-in | Aperçu de connexion |
 | http://127.0.0.1:3000/sign-up | Aperçu d'inscription |
-| http://127.0.0.1:3000/onboarding | Diagnostic local de 21 questions |
+| http://127.0.0.1:3000/onboarding | Diagnostic local de 16 questions |
 
 Aucune configuration `.env`, base de données ou clé API n'est requise pour cette interface. Le backend n'est pas encore implémenté : les formulaires ne créent pas de compte et le diagnostic est conservé dans le navigateur, pas sur un serveur.
 
@@ -351,7 +353,7 @@ Les trois premières commandes vérifient le code et construisent la version de 
 
 - [x] Landing responsive et exemple Python interactif prédéfini.
 - [x] Écrans de connexion et inscription avec validation, sans authentification serveur.
-- [x] Onboarding de 21 questions avec retour arrière et revue.
+- [x] Onboarding de 16 questions avec retour arrière et revue.
 - [x] Reprise locale, modification des réponses et completion explicite.
 - [x] Tests navigateur des parcours, du stockage et du responsive.
 - [ ] Connexion des formulaires à un service d’authentification.
@@ -500,3 +502,7 @@ Pour proposer une correction ou discuter du projet, ouvrir une issue dans ce dé
 À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
 
 Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et MySQL. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
+
+## Diagnostic multilangage actuel
+
+Le parcours commence par un choix unique parmi 11 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
