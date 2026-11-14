@@ -376,33 +376,6 @@ const items: Record<Language, string[][]> = {
       "Promise",
     ],
   ],
-  mysql: [
-    ["Quelle commande lit des lignes ?", "SELECT", "GET", "READ"],
-    ["Quelle clause filtre les lignes ?", "WHERE", "ORDER BY", "LIMIT"],
-    ["Quelle clause trie les résultats ?", "ORDER BY", "GROUP BY", "HAVING"],
-    ["Quelle fonction compte les lignes ?", "COUNT(*)", "SUM(*)", "ROWS()"],
-    [
-      "Quelle commande ajoute une ligne ?",
-      "INSERT INTO",
-      "ADD ROW",
-      "APPEND TABLE",
-    ],
-    [
-      "Quelle commande modifie des lignes ?",
-      "UPDATE",
-      "MODIFY ROWS",
-      "SET TABLE",
-    ],
-    ["Quel test vérifie une valeur absente ?", "IS NULL", "= NULL", "== NULL"],
-    ["Quelle clause regroupe les lignes ?", "GROUP BY", "ORDER BY", "LIMIT"],
-    [
-      "Quelle jointure garde toutes les lignes de gauche ?",
-      "LEFT JOIN",
-      "INNER JOIN",
-      "CROSS JOIN",
-    ],
-    ["Quelle fonction calcule une somme ?", "SUM", "TOTALIZE", "ADDALL"],
-  ],
 };
 export const diagnosticBanks = Object.fromEntries(
   Object.entries(items).map(([language, rows]) => [

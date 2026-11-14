@@ -34,7 +34,7 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 
 Les formulaires valident les champs, affichent les erreurs, gèrent un état de vérification et permettent de voir le mot de passe. **Ils n'envoient aucune requête d'authentification et ne créent aucun compte.** Aucun mot de passe n'est sauvegardé. La récupération de mot de passe n'est pas implémentée, faute de service existant.
 
-Le diagnostic commence par un choix parmi 11 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat est indicatif, non certifiant ; les banques doivent être validées pédagogiquement.
+Le diagnostic commence par un choix parmi 10 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat est indicatif, non certifiant ; les banques doivent être validées pédagogiquement.
 
 ## Persistance locale
 
@@ -89,8 +89,8 @@ Audit production : aucune vulnérabilité détectée. L’audit complet signale 
 
 À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
 
-Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et MySQL. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
+Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
 
 ## Diagnostic multilangage actuel
 
-Le parcours commence par un choix unique parmi 11 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.

@@ -105,36 +105,6 @@ export const examples = {
     'fn main() {\n    let mut total = 0;\n    for n in [1, 2, 3] {\n        total += n;\n    }\n    println!("{}", total);\n}',
     "L’intervalle 0..3 exclut la borne 3.",
   ),
-  mysql: {
-    label: "MySQL",
-    file: "exemple_somme.sql",
-    lesson: {
-      code: "SELECT 0 AS nombre\nUNION ALL SELECT 1\nUNION ALL SELECT 2\nORDER BY nombre;",
-      question: "Quelles valeurs renvoie cette requête ?",
-      hint: "UNION ALL rassemble les lignes. ORDER BY les trie.",
-      result: "0, 1, puis 2.",
-      detail: "La colonne nombre est triée par ordre croissant.",
-    },
-    worked: {
-      code: "SELECT SUM(nombre) AS total\nFROM (\n    SELECT 1 AS nombre\n    UNION ALL SELECT 2\n    UNION ALL SELECT 3\n) AS nombres;",
-      outputLabel: "Valeur de la colonne total",
-      output: "6",
-      steps: [
-        {
-          title: "On crée les lignes.",
-          text: "La sous-requête contient les valeurs 1, 2 et 3.",
-        },
-        {
-          title: "On les rassemble.",
-          text: "UNION ALL conserve chaque ligne dans la table dérivée nombres.",
-        },
-        {
-          title: "On calcule la somme.",
-          text: "SUM additionne la colonne nombre : 1 + 2 + 3 = 6.",
-        },
-      ],
-    },
-  },
   html: {
     label: "HTML",
     file: "exemple_liste.html",
@@ -208,5 +178,4 @@ export const languageOrder: Language[] = [
   "javascript",
   "go",
   "rust",
-  "mysql",
 ];

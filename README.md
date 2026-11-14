@@ -43,7 +43,7 @@ Les changements de cette tranche existent localement ; vérifier `git status` et
 
 ## Vision et périmètre
 
-La vision à terme est un tuteur agentique multilangage : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et MySQL. Python reste le seul pilote actuel ; les autres parcours et le tutorat adaptatif sont prévus.
+La vision à terme est un tuteur agentique multilangage : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Python reste le seul pilote actuel ; les autres parcours et le tutorat adaptatif sont prévus.
 
 
 Le tuteur doit aider l'étudiant à comprendre ses erreurs et à progresser à son rythme. Son profil de maîtrise sera une estimation révisable, construite à partir de ses réponses, des difficultés rencontrées et de l'aide demandée.
@@ -501,8 +501,8 @@ Pour proposer une correction ou discuter du projet, ouvrir une issue dans ce dé
 
 À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
 
-Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et MySQL. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
+Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
 
 ## Diagnostic multilangage actuel
 
-Le parcours commence par un choix unique parmi 11 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.

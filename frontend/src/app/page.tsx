@@ -154,8 +154,8 @@ export default function Home() {
                   <p>Python, C, C++, C#, Java, Go et Rust.</p>
                 </div>
                 <div>
-                  <h3>Web et bases de données</h3>
-                  <p>HTML, CSS, JavaScript et MySQL.</p>
+                  <h3>Développement web</h3>
+                  <p>HTML, CSS et JavaScript.</p>
                 </div>
               </div>
               <div className="curriculum-index">
@@ -342,8 +342,8 @@ export default function Home() {
                 <details>
                   <summary>Quels langages puis-je apprendre ?</summary>
                   <p>
-                    Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, Rust et
-                    MySQL, selon votre objectif.
+                    Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go et Rust,
+                    selon votre objectif.
                   </p>
                 </details>
                 <details>
