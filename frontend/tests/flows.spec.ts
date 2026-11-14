@@ -155,7 +155,7 @@ test("keyboard focus and reduced motion", async ({ page }) => {
       .evaluate((el) => getComputedStyle(el).scrollBehavior),
   ).toBe("auto");
 });
-test("all eleven language banks finish with a score out of twenty", async ({
+test("all ten language banks finish with a score out of twenty", async ({
   page,
 }) => {
   for (const language of [
@@ -169,7 +169,6 @@ test("all eleven language banks finish with a score out of twenty", async ({
     "JavaScript",
     "Go",
     "Rust",
-    "MySQL",
   ]) {
     await page.goto("/");
     await page.evaluate(() =>

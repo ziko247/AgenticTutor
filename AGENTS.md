@@ -12,7 +12,7 @@
 Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, authentification en aperçu et diagnostic local sont implémentés. Aucun backend, compte réel ou tutorat IA connecté. FastAPI et PostgreSQL restent des propositions.
 
 
-Le diagnostic propose désormais 11 langages/technologies, avec choix initial unique et note sur 20. Les brouillons v2 sont séparés des anciens v1. Le tuteur connecté reste à développer.
+Le diagnostic propose désormais 10 langages/technologies, avec choix initial unique et note sur 20. Les brouillons v2 sont séparés des anciens v1. Le tuteur connecté reste à développer.
 
 La landing décrit désormais le produit cible au présent à la demande explicite du porteur. Conserver ce positionnement éditorial, mais ne pas cocher les fonctions métier ni annoncer un backend opérationnel dans la documentation ou les formulaires. Le diagnostic est multilangage et local.
 
@@ -81,4 +81,4 @@ Les exemples et sélecteurs sont dans frontend/src/features/tutor/{examples,lang
 
 ## Diagnostic multilangage actuel
 
-Le parcours commence par un choix unique parmi 11 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
