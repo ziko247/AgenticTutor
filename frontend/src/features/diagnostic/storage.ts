@@ -1,6 +1,6 @@
 import { profileQuestions } from "./questions";
 import { diagnosticBanks } from "./banks";
-import { examples, type Language } from "../tutor/examples";
+import { languages, type Language } from "@/lib/languages";
 export const STORAGE_KEY = "agentictutor.onboarding.v2";
 export type Answer = number;
 export const answerLabel = (options: string[], answer: Answer | undefined) =>
@@ -30,7 +30,7 @@ export function parseDraft(raw: string | null): Draft {
     if (
       !x ||
       x.version !== 2 ||
-      !Object.hasOwn(examples, x.language) ||
+      !Object.hasOwn(languages, x.language) ||
       !x.answers ||
       typeof x.answers !== "object"
     )

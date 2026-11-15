@@ -6,7 +6,6 @@ export type Question = {
   code?: string;
   correct?: number;
   topic?: string;
-  multiple?: boolean;
 };
 const originalQuestions: Question[] = [
   {

@@ -82,3 +82,7 @@ Les exemples et sélecteurs sont dans frontend/src/features/tutor/{examples,lang
 ## Diagnostic multilangage actuel
 
 Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+
+## Simplification interne du frontend
+
+Les identifiants, libellés et l’ordre des langages sont centralisés dans frontend/src/lib/languages.ts. Le diagnostic est uniquement à choix unique ; ses banques utilisent des tuples de quatre chaînes et une couverture typée de tous les langages. Questions, ordre des options, score et format de brouillon v2 sont inchangés. Le favicon est passé de 83 540 à 80 524 octets ; comparaison des pixels identique à 16, 32, 64, 128 et 2048 pixels. Les commandes de lancement sont inchangées.
