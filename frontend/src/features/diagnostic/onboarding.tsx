@@ -10,7 +10,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { Brand } from "@/components/brand";
-import { examples, languageOrder } from "../tutor/examples";
+import { languages, languageOrder } from "@/lib/languages";
 import {
   emptyDraft,
   getQuestions,
@@ -67,7 +67,7 @@ export function Onboarding() {
       </main>
     );
   const questions = getQuestions(draft.language ?? "python");
-  const languageLabel = draft.language ? examples[draft.language].label : "";
+  const languageLabel = draft.language ? languages[draft.language].label : "";
   const q = questions[draft.step];
   const isSelected = (index: number) => {
     const a = draft.answers[q.id];
@@ -95,9 +95,7 @@ export function Onboarding() {
           <ol className="chapter-list">
             <li
               className={
-                (draft.step < 6 || q.multiple) &&
-                !draft.review &&
-                !draft.completed
+                draft.step < 6 && !draft.review && !draft.completed
                   ? "current"
                   : ""
               }
@@ -106,10 +104,7 @@ export function Onboarding() {
             </li>
             <li
               className={
-                draft.step >= 6 &&
-                !q.multiple &&
-                !draft.review &&
-                !draft.completed
+                draft.step >= 6 && !draft.review && !draft.completed
                   ? "current"
                   : ""
               }
@@ -149,7 +144,7 @@ export function Onboarding() {
                       update({ ...emptyDraft, answers: {}, language })
                     }
                   >
-                    {examples[language].label}
+                    {languages[language].label}
                   </button>
                 ))}
               </div>
@@ -313,7 +308,7 @@ export function Onboarding() {
                     className={isSelected(i) ? "option selected" : "option"}
                   >
                     <input
-                      type={q.multiple ? "checkbox" : "radio"}
+                      type="radio"
                       name={q.id}
                       value={i}
                       checked={isSelected(i)}

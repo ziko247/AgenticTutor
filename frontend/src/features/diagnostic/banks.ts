@@ -1,6 +1,12 @@
 import type { Question } from "./questions";
-import type { Language } from "../tutor/examples";
-const items: Record<Language, string[][]> = {
+import type { Language } from "@/lib/languages";
+type DiagnosticRow = [
+  title: string,
+  correct: string,
+  wrong1: string,
+  wrong2: string,
+];
+const items: Record<Language, DiagnosticRow[]> = {
   python: [
     ["Quel mot définit une fonction ?", "def", "function", "func"],
     ["Quel type représente True ?", "bool", "str", "list"],
@@ -377,19 +383,28 @@ const items: Record<Language, string[][]> = {
     ],
   ],
 };
-export const diagnosticBanks = Object.fromEntries(
-  Object.entries(items).map(([language, rows]) => [
-    language,
-    rows.map(([title, correct, wrong1, wrong2], i) => {
-      const options = [correct, wrong1, wrong2];
-      const offset = i % 3;
-      const rotated = [...options.slice(offset), ...options.slice(0, offset)];
-      return {
-        id: language + "-" + i,
-        title,
-        options: [...rotated, "Je ne sais pas encore"],
-        correct: rotated.indexOf(correct),
-      };
-    }),
-  ]),
-) as Record<Language, Question[]>;
+function createBank(language: Language): Question[] {
+  return items[language].map(([title, correct, wrong1, wrong2], i) => {
+    const options = [correct, wrong1, wrong2];
+    const offset = i % 3;
+    const rotated = [...options.slice(offset), ...options.slice(0, offset)];
+    return {
+      id: language + "-" + i,
+      title,
+      options: [...rotated, "Je ne sais pas encore"],
+      correct: rotated.indexOf(correct),
+    };
+  });
+}
+export const diagnosticBanks = {
+  python: createBank("python"),
+  c: createBank("c"),
+  cpp: createBank("cpp"),
+  csharp: createBank("csharp"),
+  java: createBank("java"),
+  html: createBank("html"),
+  css: createBank("css"),
+  javascript: createBank("javascript"),
+  go: createBank("go"),
+  rust: createBank("rust"),
+} satisfies Record<Language, Question[]>;

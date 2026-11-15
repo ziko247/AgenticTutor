@@ -1,3 +1,4 @@
+import type { Language } from "@/lib/languages";
 export type Example = {
   label: string;
   file: string;
@@ -165,17 +166,4 @@ export const examples = {
       ],
     },
   },
-} satisfies Record<string, Example>;
-export type Language = keyof typeof examples;
-export const languageOrder: Language[] = [
-  "python",
-  "c",
-  "cpp",
-  "csharp",
-  "java",
-  "html",
-  "css",
-  "javascript",
-  "go",
-  "rust",
-];
+} satisfies Record<Language, Example>;

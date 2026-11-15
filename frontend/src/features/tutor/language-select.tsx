@@ -1,6 +1,6 @@
 ﻿import { Check, ChevronDown, Code2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { examples, languageOrder, type Language } from "./examples";
+import { languages, languageOrder, type Language } from "@/lib/languages";
 
 export function LanguageSelect({
   id,
@@ -49,14 +49,14 @@ export function LanguageSelect({
           id={id}
           type="button"
           className="language-trigger"
-          aria-label={"Langage de l’exemple : " + examples[value].label}
+          aria-label={"Langage de l’exemple : " + languages[value].label}
           aria-expanded={open}
           aria-controls={id + "-menu"}
           aria-haspopup="true"
           onClick={() => setOpen(!open)}
         >
           <Code2 size={16} aria-hidden="true" />
-          <span>{examples[value].label}</span>
+          <span>{languages[value].label}</span>
           <ChevronDown
             size={16}
             className="language-arrow"
@@ -88,7 +88,7 @@ export function LanguageSelect({
                       close();
                     }}
                   />
-                  <span>{examples[key].label}</span>
+                  <span>{languages[key].label}</span>
                   {key === value && <Check size={16} aria-hidden="true" />}
                 </label>
               ))}

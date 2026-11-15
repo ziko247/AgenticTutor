@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Lightbulb, Check } from "lucide-react";
-import { examples, type Language } from "./examples";
+import { examples } from "./examples";
+import type { Language } from "@/lib/languages";
 import { LanguageSelect } from "./language-select";
 export function LessonPreview() {
   const [language, setLanguage] = useState<Language>("python");
