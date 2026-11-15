@@ -1,10 +1,10 @@
 # Frontend AgenticTutor
 
-Première interface fonctionnelle : Next.js App Router, TypeScript et Tailwind CSS. Les dépendances exactes sont verrouillées dans `package-lock.json`. Les polices Rethink Sans et Hanken Grotesk sont distribuées localement par les paquets Fontsource.
+Le frontend utilise Next.js App Router, TypeScript et Tailwind CSS. Les dépendances exactes sont verrouillées dans `package-lock.json`. Les polices Rethink Sans et Hanken Grotesk sont distribuées localement par les paquets Fontsource.
 
 ## Lancer
 
-Node.js 20.9 minimum. Depuis la racine :
+Installer Node.js 20.9 au minimum, puis lancer les commandes depuis la racine du dépôt :
 
 ```bash
 cd frontend
@@ -29,16 +29,17 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 |---|---|
 | `/` | Landing enrichie : cinq notions, exemple Python interactif prédéfini, boucle expliquée, profils et FAQ |
 | `/sign-in` | Connexion en aperçu frontend |
-| `/sign-up` | Inscription en aperçu frontend |
+| `/sign-up` | Inscription en aperçu ; champs valides → tableau de bord de démonstration |
+| `/dashboard` | Espace de base : accès au diagnostic et emplacement du futur parcours |
 | `/onboarding` | 16 questions, revue, modification et récapitulatif final |
 
-Les formulaires valident les champs, affichent les erreurs, gèrent un état de vérification et permettent de voir le mot de passe. **Ils n'envoient aucune requête d'authentification et ne créent aucun compte.** Aucun mot de passe n'est sauvegardé. La récupération de mot de passe n'est pas implémentée, faute de service existant.
+Les formulaires valident les champs et affichent les erreurs ainsi qu'un état de vérification. Un bouton permet de voir le mot de passe. Ils n'envoient aucune requête d'authentification et ne créent aucun compte. Après validation du formulaire d’inscription, /dashboard s’ouvre sans création de compte ni session. Cette page publique de démonstration ne contient pas de données privées : accès au diagnostic et placeholder des futures activités, en attendant la validation de l’encadrant. La connexion reste un aperçu sans authentification. Aucun mot de passe n'est sauvegardé. La récupération de mot de passe n'est pas implémentée, faute de service existant.
 
-Le diagnostic commence par un choix parmi 10 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat est indicatif, non certifiant ; les banques doivent être validées pédagogiquement.
+Le diagnostic commence par un choix parmi 10 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat donne un repère, sans certifier le niveau de l'étudiant. Les banques doivent être validées pédagogiquement.
 
 ## Persistance locale
 
-Clé agentictutor.onboarding.v2. Le brouillon conserve le langage, les réponses, la position et le récapitulatif. Les anciens brouillons v1 restent intacts mais sont séparés de ce nouveau parcours. Le stockage est validé au chargement et les états de revue/fin exigent des réponses complètes. En cas de stockage bloqué, le parcours continue en mémoire avec avertissement.
+Le brouillon utilise la clé agentictutor.onboarding.v2 et conserve le langage, les réponses, la position et le récapitulatif. Les anciens brouillons v1 restent intacts mais sont séparés de ce nouveau parcours. L'application valide le brouillon au chargement. Toutes les réponses doivent être renseignées pour accéder à la revue ou terminer le diagnostic. Si le stockage est bloqué, le parcours continue en mémoire et affiche un avertissement.
 
 ## Organisation
 
@@ -75,26 +76,31 @@ Pour lancer la version optimisée : `npm run build`, puis `npm start`. Ne pas ut
 
 ## Connexions backend restantes
 
-Authentification, sessions sécurisées, création de compte, vérification d'e-mail et récupération du mot de passe ; enregistrement du profil et du diagnostic ; calcul de maîtrise validé ; conversation IA, ressources, exercices adaptatifs et dashboard.
+Le backend doit encore prendre en charge les comptes et les sessions sécurisées, la vérification d'e-mail et la récupération du mot de passe. Il devra enregistrer le profil et le diagnostic, calculer la maîtrise selon des règles validées, et fournir la conversation IA, les ressources, les exercices adaptatifs et les données du tableau de bord.
 
 Le futur backend devra recalculer les scores à partir des identifiants/réponses, contrôler les permissions et ne jamais faire confiance au score calculé dans le navigateur. Les bonnes réponses côté client ne conviennent pas à un examen officiel. Après connexion, remplacer l'aperçu explicite sans transformer la sauvegarde locale en preuve d'authentification.
 
 
 ## Dépendances
 
-Audit production : aucune vulnérabilité détectée. L’audit complet signale 7 alertes modérées dans la chaîne de développement ESLint/typescript-eslint/minimatch ; la mise à jour automatique sans rupture ne les résout pas. Elles ne font pas partie du bundle applicatif et restent à suivre.
+L'audit de production n'a détecté aucune vulnérabilité. L’audit complet signale 7 alertes modérées dans la chaîne de développement ESLint/typescript-eslint/minimatch ; la mise à jour automatique sans rupture ne les résout pas. Elles ne font pas partie du bundle applicatif et restent à suivre.
 
 
 ### Positionnement de la landing
 
-À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
+La landing décrit le produit cible au présent, à la demande du porteur du projet. Elle présente le tutorat multilangage, les exercices adaptatifs, le suivi, les révisions et les outils enseignants. Ces fonctionnalités ne sont pas toutes livrées : le frontend, le diagnostic Python local et les formulaires en aperçu constituent le périmètre réalisé. Les autres parcours, le backend et le tutorat IA restent à implémenter.
 
-Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
+Les deux exemples de la landing ont chacun leur sélecteur de langage : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go et Rust. Le code, les indices et les explications sont prédéfinis. Les exemples n'exécutent pas de code et ne génèrent pas de réponse par IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
 
 ## Diagnostic multilangage actuel
 
-Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. L'étudiant peut revenir en arrière, revoir ses réponses et reprendre le diagnostic localement. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts, mais le nouveau diagnostic ne les reprend pas. Changer de langage demande confirmation et réinitialise le diagnostic courant. Le diagnostic ne dispose pas de backend ni d'authentification réelle. Les commandes de lancement restent inchangées.
 
 ## Simplification interne du frontend
 
-Les identifiants, libellés et l’ordre des langages sont centralisés dans frontend/src/lib/languages.ts. Le diagnostic est uniquement à choix unique ; ses banques utilisent des tuples de quatre chaînes et une couverture typée de tous les langages. Questions, ordre des options, score et format de brouillon v2 sont inchangés. Le favicon est passé de 83 540 à 80 524 octets ; comparaison des pixels identique à 16, 32, 64, 128 et 2048 pixels. Les commandes de lancement sont inchangées.
+Les identifiants, libellés et l’ordre des langages sont centralisés dans frontend/src/lib/languages.ts. Le diagnostic est uniquement à choix unique ; ses banques utilisent des tuples de quatre chaînes et une couverture typée de tous les langages. Les questions, l'ordre des options, le score et le format de brouillon v2 restent inchangés. Le favicon est passé de 83 540 à 80 524 octets. La comparaison des rendus à 16, 32, 64, 128 et 2048 pixels n'a montré aucune différence de pixels. Les commandes de lancement sont inchangées.
+## Tableau de bord provisoire : 15 novembre 2026
+
+Le nouvel écran réutilise Brand, les boutons, les polices et les tokens existants. Route dans src/app/dashboard/page.tsx, styles isolés dans src/styles/dashboard.css ; redirection d’aperçu dans features/auth/auth-form.tsx. Aucun paquet ni variable ajouté ; lancement inchangé avec npm.cmd run dev.
+
+Vérifications de cette tranche : lint, typecheck, build de production et 12 tests Playwright réussis. Le parcours inscription → tableau de bord → diagnostic, la reprise après rechargement, le clavier et les largeurs 375/768/1280/1920 sont couverts. Hallmark : 0 FAIL, 0 REFLEX, 0 WARN ; captures desktop/mobile inspectées. Le build affiche un avertissement de racine de workspace lié aux deux lockfiles ; il réussit.

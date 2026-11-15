@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowLeft, LockKeyhole } from "lucide-react";
 import { Brand } from "@/components/brand";
 export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
   const signup = mode === "sign-up";
+  const router = useRouter();
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -36,6 +38,11 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
     await new Promise<void>((resolve) =>
       requestAnimationFrame(() => resolve()),
     );
+    if (signup) {
+      setBusy(false);
+      router.push("/dashboard");
+      return;
+    }
     setError(
       "L’authentification n’est pas encore connectée. Aucun compte créé, aucune connexion effectuée et aucune donnée envoyée.",
     );
@@ -72,8 +79,9 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
           <div className="prototype-note">
             <LockKeyhole size={18} aria-hidden="true" />
             <p>
-              Version de démonstration. Les formulaires ne sont pas reliés à un
-              service d’authentification.
+              {signup
+                ? "Version de démonstration. Valider ouvre un aperçu du tableau de bord, sans créer de compte ni envoyer vos données."
+                : "Version de démonstration. Les formulaires ne sont pas reliés à un service d’authentification."}
             </p>
           </div>
           <form

@@ -1,0 +1,120 @@
+/* Hallmark · shape: app screen · genre: modern-minimal · theme: custom inherited · job: start diagnostic · idea: "A clear starting point for learning" · vibe: "calm precise encouraging quietly confident" · signature: diagnostic entry · v2.0.0 */
+/* Hallmark · pre-emit critique: preserve the learning studio; one real action, no invented progress. */
+.dashboard-header {
+  background: var(--color-paper-2);
+  border-bottom: 1px solid var(--color-rule);
+}
+.dashboard-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  min-height: 80px;
+}
+.dashboard-header nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+.dashboard-header nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+.dashboard-header nav a[aria-current="page"] {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+}
+.dashboard-header nav a:hover {
+  color: var(--color-ink);
+}
+.dashboard-header nav a:focus-visible,
+.dashboard-start .button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+.dashboard-header nav a:active {
+  color: var(--color-ink);
+}
+.dashboard-start .button:active {
+  background: var(--color-ink-2);
+}
+.dashboard-main {
+  padding-block: var(--space-2xl);
+}
+.dashboard-intro h1 {
+  text-wrap: balance;
+  font-size: 2.25rem;
+  line-height: 1.2;
+}
+.dashboard-intro p {
+  margin-top: var(--space-sm);
+  color: var(--color-muted);
+}
+.dashboard-start {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-opening);
+}
+.dashboard-start h2,
+.dashboard-upcoming h2 {
+  text-wrap: balance;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+.dashboard-start p {
+  margin-top: var(--space-sm);
+  max-width: 48ch;
+  color: var(--color-ink-2);
+}
+.dashboard-start .button {
+  flex-shrink: 0;
+}
+.dashboard-upcoming {
+  margin-top: var(--space-xl);
+  padding-block: var(--space-lg);
+  border-block: 1px solid var(--color-rule);
+}
+.dashboard-upcoming p {
+  margin-top: var(--space-sm);
+  color: var(--color-muted);
+}
+.dashboard-notice {
+  margin-top: var(--space-lg);
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+@media (max-width: 760px) {
+  .dashboard-start {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-lg);
+    gap: var(--space-lg);
+  }
+}
+@media (max-width: 480px) {
+  .dashboard-header-inner {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    padding-block: var(--space-md);
+  }
+  .dashboard-header nav {
+    flex-basis: 100%;
+  }
+  .dashboard-main {
+    padding-block: var(--space-xl);
+  }
+  .dashboard-intro h1 {
+    font-size: 1.875rem;
+  }
+}

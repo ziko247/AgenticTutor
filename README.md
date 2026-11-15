@@ -1,30 +1,32 @@
 # AgenticTutor
 
-**Tuteur pédagogique intelligent qui adapte ses explications et exercices au niveau de l'étudiant.**
+Tuteur pédagogique intelligent qui adapte ses explications et exercices au niveau de l'étudiant.
 
-Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTutor vise à accompagner l'étudiant dans un cycle continu : identifier ses acquis, expliquer une notion, proposer une activité, analyser sa réponse et adapter la suite du parcours.
+Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTutor doit accompagner l'étudiant de l'évaluation de ses acquis jusqu'au choix de la prochaine activité. Le tuteur explique une notion, propose un exercice et adapte la suite selon la réponse.
 
-> **État actuel : première interface frontend implémentée.** Landing, formulaires d’authentification en aperçu et diagnostic multilangage local de 16 questions. Aucun compte ni service de tutorat connecté. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
+> Le frontend comprend une landing, des aperçus des formulaires d’authentification et un diagnostic multilangage local de 16 questions. Les comptes et le service de tutorat restent à connecter. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
 
 > Diagnostic actuel : choix du langage au départ, puis 6 questions de profil et 10 questions techniques, notées sur 20. Voir la section « Diagnostic multilangage actuel » pour la persistance v2.
 
-## Progression actuelle — 12 novembre 2026
+## Progression actuelle : 15 novembre 2026
 
-La première étape demandée avec l'encadrant concerne la **landing page, l'authentification et l'onboarding**, avec Python comme seul domaine pilote.
+La première étape convenue avec l'encadrant porte sur la landing, l'authentification et l'onboarding, avec Python comme seul domaine pilote.
 
 - [x] Landing responsive enrichie : approche, cinq notions Python, exemple de boucle expliqué, profils d'étudiants et FAQ.
 - [x] Exemple interactif prédéfini : indice et résultat ; il ne fait pas appel à une IA.
 - [x] Écrans de connexion et inscription : validation, affichage du mot de passe et état d'erreur explicite.
 - [x] Onboarding local : 16 questions (6 de profil, 10 techniques), navigation arrière, reprise, revue, modification et effacement.
 - [x] Note indicative sur 20 dans le langage choisi et récapitulatif local.
+- [x] Tableau de bord provisoire après validation de l’inscription en aperçu : entrée vers le diagnostic, sans compte créé.
 - [x] Structure Next.js App Router, TypeScript et Tailwind CSS ; fichiers de dépendances verrouillés.
+- [x] Socle backend : FastAPI live/ready, Supabase local, migrations SQL et tests réels de droits/isolation.
 - [ ] Connecter l'inscription, la connexion et les sessions à un backend ; ajouter la récupération de mot de passe.
 - [ ] Enregistrer le diagnostic et le profil côté serveur, puis valider les questions et l'estimation pédagogique.
 - [ ] Construire le tuteur IA, les exercices adaptatifs, le corpus et le tableau de bord.
 
-**État réel :** aucun compte n'est créé et aucune requête d'authentification n'est envoyée. Les réponses du diagnostic sont stockées dans le navigateur, sans profil serveur. Les questions et exemples sont des contenus de démonstration, pas une banque pédagogique validée.
+Les formulaires ne créent aucun compte et n'envoient aucune requête d'authentification. L’inscription validée ouvre un tableau de bord de démonstration (/dashboard), sans session ni compte créé. L’écran reste volontairement simple en attendant la validation de l’encadrant. Le navigateur conserve les réponses du diagnostic, sans profil serveur. Les questions et exemples servent à la démonstration et doivent encore être validés pédagogiquement.
 
-**Dernières vérifications rapportées :** build de production et lint réussis ; sept tests Playwright réussis, couvrant les parcours, la reprise locale, les erreurs de stockage, les largeurs responsive et le clavier. Après l'enrichissement de la landing, les sept tests ont été relancés et les captures desktop et mobile inspectées. Ces résultats ne prouvent pas la qualité pédagogique ni l'accessibilité complète.
+Les dernières vérifications rapportées comprennent un build de production, le lint et sept tests Playwright réussis. Les tests couvrent les parcours, la reprise locale, les erreurs de stockage, les largeurs responsive et le clavier. Après l'enrichissement de la landing, les sept tests ont été relancés et les captures desktop et mobile inspectées. Ces résultats ne prouvent pas la qualité pédagogique ni l'accessibilité complète.
 
 Les changements de cette tranche existent localement ; vérifier `git status` et le dépôt distant avant de considérer qu'ils sont publiés sur GitHub.
 
@@ -35,6 +37,7 @@ Les changements de cette tranche existent localement ; vérifier `git status` et
 - [Checklist des fonctionnalités](#checklist-des-fonctionnalités)
 - [Étapes du projet](#étapes-du-projet)
 - [Architecture envisagée](#architecture-envisagée)
+- [Fondation backend](#fondation-backend)
 - [Données et évaluation](#données-et-évaluation)
 - [Installation et utilisation](#installation-et-utilisation)
 - [Organisation et suivi](#organisation-et-suivi)
@@ -43,10 +46,10 @@ Les changements de cette tranche existent localement ; vérifier `git status` et
 
 ## Vision et périmètre
 
-La vision à terme est un tuteur agentique multilangage : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Python reste le seul pilote actuel ; les autres parcours et le tutorat adaptatif sont prévus.
+À terme, AgenticTutor doit accompagner l'apprentissage de plusieurs langages : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go et Rust. Python reste le seul pilote actuel ; les autres parcours et le tutorat adaptatif sont prévus.
 
 
-Le tuteur doit aider l'étudiant à comprendre ses erreurs et à progresser à son rythme. Son profil de maîtrise sera une estimation révisable, construite à partir de ses réponses, des difficultés rencontrées et de l'aide demandée.
+Le tuteur doit aider l'étudiant à comprendre ses erreurs et à progresser à son rythme. Il estimera sa maîtrise à partir de ses réponses, des difficultés rencontrées et de l'aide demandée. Cette estimation pourra évoluer.
 
 | Élément | Proposition de départ |
 |---|---|
@@ -70,79 +73,79 @@ Le [cahier des charges](CAHIER_DES_CHARGES_AGENTICTUTOR.md) est la référence d
 5. **Évaluer** la réponse avec une correction de référence et signaler l'incertitude.
 6. **Adapter** le profil et la prochaine activité, puis sauvegarder la progression.
 
-La dimension **agentique** vient de cette boucle de décision contrôlée. Un orchestrateur choisira parmi des actions autorisées : expliquer, vérifier un prérequis, proposer un exercice, consolider ou réévaluer. Les règles, outils et budgets seront bornés, et les décisions seront traçables. Des modules spécialisés ne nécessitent pas chacun un agent autonome.
+Le tuteur sera agentique : un orchestrateur pilotera la boucle d'apprentissage en choisissant parmi des actions autorisées : expliquer, vérifier un prérequis, proposer un exercice, consolider ou réévaluer. Les règles, outils et budgets seront bornés, et les décisions seront traçables. Des modules spécialisés ne nécessitent pas chacun un agent autonome.
 
-**Exemple de parcours attendu :** un étudiant échoue à plusieurs exercices de boucles. Le tuteur vérifie un prérequis, propose une explication plus simple et un exercice guidé, puis réévalue la notion avant d'augmenter la difficulté.
+Après plusieurs échecs à des exercices de boucles, le tuteur doit vérifier un prérequis : il proposera une explication plus simple et un exercice guidé, puis réévaluera la notion avant d'augmenter la difficulté.
 
 ## Checklist des fonctionnalités
 
-**Lecture :** `[x]` = réalisé et vérifié ; `[ ]` = reste à faire. Une case est cochée lorsque le critère du cahier des charges est satisfait. Les identifiants `Fxx` renvoient à sa section 7. Les extensions restent distinctes du MVP et ne conditionnent pas sa livraison.
+`[x]` = réalisé et vérifié ; `[ ]` = reste à faire. Une case est cochée lorsque le critère du cahier des charges est satisfait. Les identifiants `Fxx` renvoient à sa section 7. Les extensions restent distinctes du MVP et ne conditionnent pas sa livraison.
 
-### Accès et prise en main — MVP
+### Accès et prise en main : MVP
 
-- [ ] **F01** — Créer un compte, se connecter et se déconnecter.
-- [ ] **F01** — Séparer les permissions étudiant et gestionnaire.
-- [ ] **F02** — Présenter les objectifs, le fonctionnement et les limites du tuteur.
-- [ ] **F02** — Commencer un diagnostic ou reprendre un parcours existant.
+- [ ] **F01** : Créer un compte, se connecter et se déconnecter.
+- [ ] **F01** : Séparer les permissions étudiant et gestionnaire.
+- [ ] **F02** : Présenter les objectifs, le fonctionnement et les limites du tuteur.
+- [ ] **F02** : Commencer un diagnostic ou reprendre un parcours existant.
 
-### Diagnostic et profil — MVP
+### Diagnostic et profil : MVP
 
-- [ ] **F03** — Proposer un diagnostic initial couvrant les cinq notions.
-- [ ] **F03** — Calculer une première estimation de maîtrise par notion.
-- [ ] **F04** — Afficher la maîtrise, les observations et la date de mise à jour.
-- [ ] **F04** — Distinguer une notion non évaluée d'une notion en difficulté.
-- [ ] **F11** — Actualiser le profil après une activité évaluée de manière fiable.
-- [ ] **F11** — Conserver les observations qui justifient les mises à jour.
+- [ ] **F03** : Proposer un diagnostic initial couvrant les cinq notions.
+- [ ] **F03** : Calculer une première estimation de maîtrise par notion.
+- [ ] **F04** : Afficher la maîtrise, les observations et la date de mise à jour.
+- [ ] **F04** : Distinguer une notion non évaluée d'une notion en difficulté.
+- [ ] **F11** : Actualiser le profil après une activité évaluée de manière fiable.
+- [ ] **F11** : Conserver les observations qui justifient les mises à jour.
 
-### Explications et conversation — MVP
+### Explications et conversation : MVP
 
-- [ ] **F05** — Rechercher les passages utiles dans le corpus validé.
-- [ ] **F05** — Fournir des explications avec des références consultables.
-- [ ] **F05** — Signaler lorsqu'une question dépasse les ressources disponibles.
-- [ ] **F06** — Reformuler une explication sur demande.
-- [ ] **F06** — Proposer un exemple ou une explication plus détaillée.
-- [ ] **F06** — Tenir compte de la notion travaillée et du contexte de la séance.
+- [ ] **F05** : Rechercher les passages utiles dans le corpus validé.
+- [ ] **F05** : Fournir des explications avec des références consultables.
+- [ ] **F05** : Signaler lorsqu'une question dépasse les ressources disponibles.
+- [ ] **F06** : Reformuler une explication sur demande.
+- [ ] **F06** : Proposer un exemple ou une explication plus détaillée.
+- [ ] **F06** : Tenir compte de la notion travaillée et du contexte de la séance.
 
-### Exercices et corrections — MVP
+### Exercices et corrections : MVP
 
-- [ ] **F08** — Constituer une banque d'au moins 50 exercices validés.
-- [ ] **F08** — Associer chaque exercice à une notion, une difficulté et une correction.
-- [ ] **F08** — Couvrir les QCM, réponses encadrées, lectures de code et questions courtes.
-- [ ] **F09** — Fournir des indices graduels avant la correction complète.
-- [ ] **F10** — Corriger les réponses déterministes sans dépendre du modèle génératif.
-- [ ] **F10** — Encadrer les corrections ouvertes avec une grille de référence.
-- [ ] **F10** — Distinguer réponse correcte, partielle, incorrecte et non évaluable.
-- [ ] **F10** — Expliquer les erreurs et demander une précision en cas d'ambiguïté.
+- [ ] **F08** : Constituer une banque d'au moins 50 exercices validés.
+- [ ] **F08** : Associer chaque exercice à une notion, une difficulté et une correction.
+- [ ] **F08** : Couvrir les QCM, réponses encadrées, lectures de code et questions courtes.
+- [ ] **F09** : Fournir des indices graduels avant la correction complète.
+- [ ] **F10** : Corriger les réponses déterministes sans dépendre du modèle génératif.
+- [ ] **F10** : Encadrer les corrections ouvertes avec une grille de référence.
+- [ ] **F10** : Distinguer réponse correcte, partielle, incorrecte et non évaluable.
+- [ ] **F10** : Expliquer les erreurs et demander une précision en cas d'ambiguïté.
 
-### Adaptation et orchestration — MVP
+### Adaptation et orchestration : MVP
 
-- [ ] **F07** — Représenter les notions et leurs prérequis.
-- [ ] **F07** — Définir et versionner les règles d'adaptation.
-- [ ] **F07** — Choisir l'activité selon les acquis et les résultats récents.
-- [ ] **F07** — Revenir à un prérequis après des difficultés répétées.
-- [ ] **F07** — Augmenter la difficulté après des réussites suffisamment étayées.
-- [ ] **F07** — Permettre à l'étudiant de choisir une autre notion accessible.
-- [ ] **F15** — Enregistrer les actions, résultats et justifications synthétiques.
-- [ ] **F15** — Borner les appels au modèle et les étapes de chaque interaction.
+- [ ] **F07** : Représenter les notions et leurs prérequis.
+- [ ] **F07** : Définir et versionner les règles d'adaptation.
+- [ ] **F07** : Choisir l'activité selon les acquis et les résultats récents.
+- [ ] **F07** : Revenir à un prérequis après des difficultés répétées.
+- [ ] **F07** : Augmenter la difficulté après des réussites suffisamment étayées.
+- [ ] **F07** : Permettre à l'étudiant de choisir une autre notion accessible.
+- [ ] **F15** : Enregistrer les actions, résultats et justifications synthétiques.
+- [ ] **F15** : Borner les appels au modèle et les étapes de chaque interaction.
 
-### Progression et continuité — MVP
+### Progression et continuité : MVP
 
-- [ ] **F12** — Sauvegarder les séances et les tentatives terminées.
-- [ ] **F12** — Reprendre une séance après reconnexion.
-- [ ] **F13** — Afficher les notions travaillées et l'évolution de la progression.
-- [ ] **F13** — Présenter les prochaines étapes recommandées.
+- [ ] **F12** : Sauvegarder les séances et les tentatives terminées.
+- [ ] **F12** : Reprendre une séance après reconnexion.
+- [ ] **F13** : Afficher les notions travaillées et l'évolution de la progression.
+- [ ] **F13** : Présenter les prochaines étapes recommandées.
 
-### Gestion des contenus et retours — MVP
+### Gestion des contenus et retours : MVP
 
-- [ ] **F14** — Ajouter, modifier et retirer des ressources et exercices.
-- [ ] **F14** — Séparer les brouillons des contenus validés et publiés.
-- [ ] **F14** — Conserver la provenance et les versions des contenus.
-- [ ] **F14** — Exclure les ressources retirées des nouvelles recherches.
-- [ ] **F16** — Permettre le signalement d'une réponse ou correction problématique.
-- [ ] **F16** — Consulter les signalements depuis l'espace gestionnaire.
-- [ ] **F17** — Permettre de consulter ses données et de demander leur suppression.
+- [ ] **F14** : Ajouter, modifier et retirer des ressources et exercices.
+- [ ] **F14** : Séparer les brouillons des contenus validés et publiés.
+- [ ] **F14** : Conserver la provenance et les versions des contenus.
+- [ ] **F14** : Exclure les ressources retirées des nouvelles recherches.
+- [ ] **F16** : Permettre le signalement d'une réponse ou correction problématique.
+- [ ] **F16** : Consulter les signalements depuis l'espace gestionnaire.
+- [ ] **F17** : Permettre de consulter ses données et de demander leur suppression.
 
-### Qualité, sécurité et exploitation — MVP
+### Qualité, sécurité et exploitation : MVP
 
 - [ ] Vérifier les autorisations côté serveur et l'isolation entre comptes.
 - [ ] Protéger les mots de passe, secrets et clés d'API.
@@ -158,12 +161,12 @@ La dimension **agentique** vient de cette boucle de décision contrôlée. Un or
 
 ### Extensions après le MVP
 
-- [ ] **F18 · P1** — Générer des variantes d'exercices validées avant publication.
-- [ ] **F19 · P1** — Proposer une révision espacée des notions.
-- [ ] **F20 · P2** — Ajouter un tableau de bord enseignant par groupe autorisé.
-- [ ] **P2** — Exécuter du code dans un environnement isolé et limité.
-- [ ] **P2** — Ajouter un second domaine ou une seconde langue.
-- [ ] **P2** — Étudier les interactions vocales selon le temps disponible.
+- [ ] **F18 · P1** : Générer des variantes d'exercices validées avant publication.
+- [ ] **F19 · P1** : Proposer une révision espacée des notions.
+- [ ] **F20 · P2** : Ajouter un tableau de bord enseignant par groupe autorisé.
+- [ ] **P2** : Exécuter du code dans un environnement isolé et limité.
+- [ ] **P2** : Ajouter un second domaine ou une seconde langue.
+- [ ] **P2** : Étudier les interactions vocales selon le temps disponible.
 
 ### Hors périmètre initial
 
@@ -171,9 +174,9 @@ Le MVP ne prévoit pas l'entraînement d'un grand modèle depuis zéro, la notat
 
 ## Étapes du projet
 
-Les documents créés sont cochés comme rédigés ; cela ne signifie pas qu'ils sont validés par l'encadrant.
+Les cases cochées pour les documents indiquent qu'ils sont rédigés. La validation par l'encadrant reste distincte.
 
-### 1. Cadrage — semaines 1–2
+### 1. Cadrage : semaines 1-2
 
 - [x] Rédiger une proposition complète de cahier des charges.
 - [x] Créer le README et les checklists de progression.
@@ -183,7 +186,7 @@ Les documents créés sont cochés comme rédigés ; cela ne signifie pas qu'ils
 - [ ] Identifier les ressources autorisées et le référent pédagogique.
 - [ ] Fixer le budget et les critères de réussite.
 
-### 2. Conception — semaines 3–4
+### 2. Conception : semaines 3-4
 
 - [ ] Réaliser les maquettes des parcours étudiant et gestionnaire.
 - [ ] Définir le modèle de données et le graphe des prérequis.
@@ -192,20 +195,20 @@ Les documents créés sont cochés comme rédigés ; cela ne signifie pas qu'ils
 - [ ] Valider la stack et l'architecture.
 - [ ] Préparer un premier lot de ressources et d'exercices relus.
 
-### 3. Socle applicatif — semaines 5–6
+### 3. Socle applicatif : semaines 5-6
 
 - [ ] Mettre en place l'interface, l'API et la base de données.
 - [ ] Implémenter les comptes, rôles et contrôles d'accès.
 - [ ] Livrer le parcours diagnostic → profil.
 - [ ] Implémenter les tentatives et les corrections déterministes.
 
-### 4. Tutoriel contextualisé — semaines 7–8
+### 4. Tutoriel contextualisé : semaines 7-8
 
 - [ ] Préparer et indexer les ressources validées.
 - [ ] Livrer les explications avec sources et la reformulation.
 - [ ] Gérer les questions hors corpus et les défaillances du fournisseur.
 
-### 5. MVP adaptatif — semaines 9–10
+### 5. MVP adaptatif : semaines 9-10
 
 - [ ] Intégrer la sélection d'activités, les indices et l'actualisation du profil.
 - [ ] Intégrer les journaux de décision et le tableau de progression.
@@ -213,7 +216,7 @@ Les documents créés sont cochés comme rédigés ; cela ne signifie pas qu'ils
 - [ ] Finaliser la banque d'au moins 50 exercices.
 - [ ] Démontrer un parcours complet avant de commencer les extensions.
 
-### 6. Validation — semaines 11–14
+### 6. Validation : semaines 11-14
 
 - [ ] Figer les jeux d'évaluation distincts des données de développement.
 - [ ] Exécuter les tests fonctionnels, de sécurité et de reprise.
@@ -223,7 +226,7 @@ Les documents créés sont cochés comme rédigés ; cela ne signifie pas qu'ils
 - [ ] Réaliser un pilote avec volontaires si les conditions le permettent.
 - [ ] Analyser les résultats et documenter les limites.
 
-### 7. Livraison — semaines 15–16
+### 7. Livraison : semaines 15-16
 
 - [ ] Corriger les anomalies bloquantes.
 - [ ] Documenter l'installation, l'utilisation et la gestion des contenus.
@@ -255,8 +258,8 @@ Orchestrateur pédagogique
 | Composant | Technologie proposée | Statut |
 |---|---|---|
 | Interface | Next.js App Router, React, TypeScript et Tailwind CSS | Première tranche frontend implémentée |
-| API | Python et FastAPI | À valider |
-| Données | PostgreSQL | À valider |
+| API | Python 3.12 et FastAPI | Probes live/ready implémentées ; métier à connecter |
+| Données | PostgreSQL 17 via Supabase | Schéma local et RLS vérifiés ; aucun projet hébergé |
 | Recherche documentaire | Recherche textuelle et/ou vectorielle | À comparer |
 | Orchestration | Machine à états explicite | À concevoir |
 | Modèle de langage | Modèle existant, API ou hébergement local | À comparer |
@@ -279,6 +282,13 @@ Objectifs proposés : au moins 85 % d'explications correctes et étayées, 90 % 
 
 Le parcours adaptatif sera comparé à un parcours fixe avec les mêmes ressources. Sans expérimentation auprès d'étudiants, aucun gain réel d'apprentissage ne sera revendiqué. Les métriques détaillées et les scénarios de recette figurent aux sections 15 et 16 du cahier des charges.
 
+
+## Fondation backend
+
+La conception du socle FastAPI + Supabase PostgreSQL est documentée dans le [dossier d’architecture](docs/architecture/README.md) et la [décision 0002](docs/decisions/0002-backend-fastapi-supabase.md). Supabase CLI avec Docker est retenu pour PostgreSQL et Auth en local ; un projet Supabase hébergé est prévu pour le déploiement. Supabase Auth et une exception navigateur → Auth pour l’identité sont proposés ; les données métier restent derrière FastAPI. Le choix compte avant/après diagnostic reste à valider.
+
+Le jalon 1 est implémenté : probes FastAPI live/ready, Supabase local, migration transactionnelle du schéma privé, seed des dix banques et rôle runtime soumis à RLS. Les 18 tests passent contre la pile locale ; une reconstruction propre et les probes HTTP ont été vérifiées. Les routes Auth/profil/diagnostic, l’import et le tutorat restent à développer. Voir le [guide backend](backend/README.md) pour les commandes et la limite Application Control rencontrée sur ce poste Windows.
+
 ## Installation et utilisation
 
 ### Prérequis
@@ -293,7 +303,7 @@ cd AgenticTutor
 
 Si le dépôt est privé, se connecter à GitHub et disposer des droits d'accès avant le clonage.
 
-### Premier lancement
+### Premier lancement du frontend
 
 Dans un terminal ouvert à la racine du dépôt, exécuter :
 
@@ -323,16 +333,34 @@ npm.cmd run dev
 
 Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsque les dépendances changent.
 
+### Lancer le backend local : jalon 1
+
+Prérequis supplémentaires : Docker Desktop démarré, Python 3.12 et uv. Depuis la racine, dans un autre terminal :
+
+~~~powershell
+npm.cmd ci
+npm.cmd run db:start
+cd backend
+uv sync --frozen --python 3.12
+uv run python -m tools.setup_local
+uv run uvicorn app.main:app --host 127.0.0.1 --port 8000
+~~~
+
+Ouvrir http://127.0.0.1:8000/api/v1/health/live et http://127.0.0.1:8000/api/v1/health/ready : les statuts attendus sont ok et ready. La première exécution télécharge les images Docker. Le script prépare un secret runtime local dans backend/.env, ignoré par Git ; aucun projet Supabase hébergé nécessaire.
+
+Sur ce poste, Application Control bloque le Python du venv : utiliser le [lancement Windows vérifié](backend/README.md#cas-vérifié-sur-ce-poste-windows--python-du-venv-bloqué). Le guide explique aussi les tests, ports, arrêts et resets destructifs locaux. Le frontend reste indépendant : aucune configuration frontend supplémentaire pour cette tranche.
+
 ### Parcours disponibles et limites
 
 | Adresse | Contenu |
 |---|---|
 | http://127.0.0.1:3000/ | Landing et exemple Python prédéfini |
 | http://127.0.0.1:3000/sign-in | Aperçu de connexion |
-| http://127.0.0.1:3000/sign-up | Aperçu d'inscription |
+| http://127.0.0.1:3000/sign-up | Aperçu d'inscription ; validation → /dashboard |
+| http://127.0.0.1:3000/dashboard | Tableau de bord provisoire et accès au diagnostic |
 | http://127.0.0.1:3000/onboarding | Diagnostic local de 16 questions |
 
-Aucune configuration `.env`, base de données ou clé API n'est requise pour cette interface. Le backend n'est pas encore implémenté : les formulaires ne créent pas de compte et le diagnostic est conservé dans le navigateur, pas sur un serveur.
+Aucune configuration `.env`, base de données ou clé API n'est requise pour cette interface. Le socle backend est disponible séparément ; les formulaires ne créent pas encore de compte et le diagnostic reste conservé dans le navigateur.
 
 ### Vérifier et lancer la version de production
 
@@ -347,7 +375,7 @@ npm start
 
 Les trois premières commandes vérifient le code et construisent la version de production ; `npm start` la lance sur http://127.0.0.1:3000. Arrêter le serveur de développement avant de lancer ce serveur. Pour les tests navigateur et leurs prérequis, consulter [le guide frontend](frontend/README.md).
 
-**Maintenance :** à chaque évolution qui change les prérequis, variables d'environnement, services, commandes, ports ou parcours de démarrage, mettre à jour et vérifier cette section ainsi que les guides concernés.
+À chaque évolution qui change les prérequis, variables d'environnement, services, commandes, ports ou parcours de démarrage, mettre à jour et vérifier cette section ainsi que les guides concernés.
 
 ### Première tranche livrée
 
@@ -360,11 +388,11 @@ Les trois premières commandes vérifient le code et construisent la version de 
 - [ ] Sauvegarde du profil et du diagnostic sur le backend.
 - [ ] Tutoriel conversationnel, exercices adaptatifs et dashboard.
 
-Les cases F01–F03 de la checklist métier restent ouvertes tant que leurs critères serveur et pédagogiques ne sont pas satisfaits. Le cahier des charges initial reste la proposition de référence ; la décision [0001](docs/decisions/0001-first-frontend.md) précise la tranche frontend actuelle.
+Les cases F01-F03 de la checklist métier restent ouvertes tant que leurs critères serveur et pédagogiques ne sont pas satisfaits. Le cahier des charges initial reste la proposition de référence ; la décision [0001](docs/decisions/0001-first-frontend.md) précise la tranche frontend actuelle.
 
 ## Organisation et suivi
 
-Arborescence existante (les fichiers `.gitkeep` sont omis pour la lisibilité) :
+Arborescence du dépôt (les fichiers `.gitkeep` sont omis pour la lisibilité) :
 
 ```text
 AgenticTutor/
@@ -373,6 +401,9 @@ AgenticTutor/
 ├── CAHIER_DES_CHARGES_AGENTICTUTOR.md
 ├── .gitignore
 ├── .gitattributes
+├── package.json                    # CLI Supabase verrouillée, commandes db:*
+├── package-lock.json
+├── supabase/                       # Configuration locale, migrations SQL, seed
 ├── frontend/
 │   ├── README.md
 │   ├── public/                      # Assets publics
@@ -392,8 +423,12 @@ AgenticTutor/
 │   └── tests/
 ├── backend/
 │   ├── README.md
+│   ├── pyproject.toml              # Dépendances Python 3.12
+│   ├── uv.lock
+│   ├── tools/                      # Configuration locale et garde des tests
 │   ├── app/
-│   │   ├── api/                     # Routes et contrôles d'accès
+│   │   ├── main.py                  # FastAPI et probes live/ready
+│   │   ├── api/                     # Futures routes et contrôles d'accès
 │   │   ├── core/                    # Configuration, sécurité, erreurs
 │   │   ├── models/                  # Modèles de persistance
 │   │   ├── schemas/                 # Contrats et validation
@@ -473,7 +508,7 @@ Pour suivre le travail :
 
 Les checklists sont mises à jour manuellement. Les identifiants `Fxx` assurent la correspondance avec le cahier des charges. Une nouvelle idée est d'abord discutée et classée dans le MVP ou les extensions avant d'être ajoutée au périmètre.
 
-**Définition de terminé :** comportement implémenté, critère de recette satisfait, contrôles pertinents effectués, documentation mise à jour et aucun secret ajouté au dépôt. La livraison du MVP exige toutes les fonctions P0, les scénarios critiques validés et un rapport d'évaluation ; les écarts doivent être documentés et examinés avec l'encadrant.
+Une tâche est terminée quand son comportement est implémenté, son critère de recette satisfait et les contrôles pertinents effectués. La documentation doit être à jour et le dépôt ne doit contenir aucun secret. La livraison du MVP exige toutes les fonctions P0, les scénarios critiques validés et un rapport d'évaluation ; les écarts doivent être documentés et examinés avec l'encadrant.
 
 ## Reprendre le projet dans un autre IDE
 
@@ -481,9 +516,9 @@ Ouvrir **la racine du dépôt**, puis demander à l'agent de lire [AGENTS.md](AG
 
 Exemple de demande de reprise :
 
-> Lis AGENTS.md, README.md, CAHIER_DES_CHARGES_AGENTICTUTOR.md et docs/architecture/README.md. Vérifie l'état réel des fichiers et les décisions existantes. Le frontend Next.js contient une landing, des aperçus d’authentification et un onboarding local ; le backend reste un scaffold. Pour la tâche demandée, respecte les frontières des composants et les critères Fxx, documente les choix techniques, puis mets à jour uniquement les cases réalisées et vérifiées.
+> Lis AGENTS.md, README.md, CAHIER_DES_CHARGES_AGENTICTUTOR.md et docs/architecture/README.md. Vérifie l'état réel des fichiers et les décisions existantes. Le frontend Next.js contient une landing, des aperçus d’authentification et un onboarding local ; le backend fournit le socle local FastAPI/Supabase (probes, migrations et tests), sans routes métier connectées. Pour la tâche demandée, respecte les frontières des composants et les critères Fxx, documente les choix techniques, puis mets à jour uniquement les cases réalisées et vérifiées.
 
-Le domaine pilote est Python et la stack frontend est choisie pour cette tranche. La prochaine étape proposée est de concevoir les comptes et le profil serveur, puis de connecter le diagnostic. Les dossiers préparés ne signifient pas que les fonctionnalités sont terminées. Le frontend contient maintenant la première interface ; lire son guide avant de modifier ses routes. Lorsqu'un choix est validé, l'enregistrer dans `docs/decisions/` à partir du modèle fourni. Les commandes actuelles figurent dans le guide frontend ; les adapter lorsque le backend sera ajouté.
+Le domaine pilote est Python et la stack frontend est choisie pour cette tranche. La prochaine étape proposée est de concevoir les comptes et le profil serveur, puis de connecter le diagnostic. Les dossiers préparés ne signifient pas que les fonctionnalités sont terminées. Le frontend contient maintenant la première interface ; lire son guide avant de modifier ses routes. Lorsqu'un choix est validé, l'enregistrer dans `docs/decisions/` à partir du modèle fourni. Les commandes actuelles figurent dans les guides frontend et backend ; les maintenir à jour à chaque évolution.
 
 ## Documentation et licence
 
@@ -499,10 +534,10 @@ Pour proposer une correction ou discuter du projet, ouvrir une issue dans ce dé
 
 ### Positionnement de la landing
 
-À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
+La landing décrit le produit cible au présent, à la demande du porteur du projet. Elle présente le tutorat multilangage, les exercices adaptatifs, le suivi, les révisions et les outils enseignants. Ces fonctionnalités ne sont pas toutes livrées : le frontend, le diagnostic Python local et les formulaires en aperçu constituent le périmètre réalisé. Les autres parcours, le backend et le tutorat IA restent à implémenter.
 
-Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
+Les deux exemples de la landing ont chacun leur sélecteur de langage : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go et Rust. Le code, les indices et les explications sont prédéfinis. Les exemples n'exécutent pas de code et ne génèrent pas de réponse par IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
 
 ## Diagnostic multilangage actuel
 
-Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. L'étudiant peut revenir en arrière, revoir ses réponses et reprendre le diagnostic localement. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts, mais le nouveau diagnostic ne les reprend pas. Changer de langage demande confirmation et réinitialise le diagnostic courant. Le diagnostic ne dispose pas de backend ni d'authentification réelle. Les commandes de lancement restent inchangées.

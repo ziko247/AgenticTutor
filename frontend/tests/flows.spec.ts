@@ -32,15 +32,32 @@ test("auth validates without fake authentication", async ({ page }) => {
   await page
     .getByRole("button", { name: "Créer mon compte", exact: true })
     .click();
-  await expect(page.getByRole("status")).toContainText(
-    "aucune connexion effectuée",
-  );
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await expect(
+    page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("Espace de démonstration", { exact: false }),
+  ).toBeVisible();
   expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain(
     "test-only-123",
   );
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Accéder au diagnostic" }).click();
+  await expect(page).toHaveURL(/\/onboarding$/);
   await page.goto("/sign-in");
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
   await expect(page.locator("#email")).toHaveAttribute("aria-invalid", "true");
+  await page.locator("#email").fill("test@example.com");
+  await page.locator("#password").fill("test-only-123");
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "aucune connexion effectuée",
+  );
+  await expect(page).toHaveURL(/\/sign-in$/);
 });
 test("language diagnostic persists, reviews, scores and resets", async ({
   page,
@@ -125,7 +142,13 @@ test("blocked storage keeps flow usable", async ({ page }) => {
 test("responsive routes", async ({ page }) => {
   for (const width of [375, 768, 1280, 1920]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const route of ["/", "/sign-in", "/sign-up", "/onboarding"]) {
+    for (const route of [
+      "/",
+      "/sign-in",
+      "/sign-up",
+      "/onboarding",
+      "/dashboard",
+    ]) {
       await page.goto(route);
       await page.locator("h1").waitFor();
       expect(
@@ -138,22 +161,24 @@ test("responsive routes", async ({ page }) => {
 });
 test("keyboard focus and reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
-  await page.keyboard.press("Tab");
-  await expect(
-    page.getByRole("link", { name: "Aller au contenu" }),
-  ).toBeFocused();
-  await page.keyboard.press("Tab");
-  expect(
-    await page
-      .locator(":focus")
-      .evaluate((el) => getComputedStyle(el).outlineStyle),
-  ).not.toBe("none");
-  expect(
-    await page
-      .locator("html")
-      .evaluate((el) => getComputedStyle(el).scrollBehavior),
-  ).toBe("auto");
+  for (const route of ["/", "/dashboard"]) {
+    await page.goto(route);
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("link", { name: "Aller au contenu" }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    expect(
+      await page
+        .locator(":focus")
+        .evaluate((el) => getComputedStyle(el).outlineStyle),
+    ).not.toBe("none");
+    expect(
+      await page
+        .locator("html")
+        .evaluate((el) => getComputedStyle(el).scrollBehavior),
+    ).toBe("auto");
+  }
 });
 test("all ten language banks finish with a score out of twenty", async ({
   page,
