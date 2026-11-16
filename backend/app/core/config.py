@@ -14,3 +14,6 @@ class Settings(BaseSettings):
     database_pool_size: int = Field(default=4, ge=1, le=20)
     database_timeout: float = Field(default=2.0, gt=0, le=10)
     cors_origins: list[str] = ["http://127.0.0.1:3000"]
+
+    supabase_url: str | None = None
+    supabase_publishable_key: str | None = None

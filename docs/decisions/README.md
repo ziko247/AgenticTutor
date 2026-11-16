@@ -8,3 +8,5 @@
 Créer un fichier NNNN-short-title.md à partir de [TEMPLATE.md](TEMPLATE.md) pour un choix significatif. Indiquer ce qui est proposé, accepté ou remplacé. Conserver les décisions précédentes et lier leur remplacement.
 
 Une décision retenue n'est pas une fonctionnalité réalisée. Le jalon 1 du socle backend est opérationnel localement ; les comptes, routes métier et tutorat restent à implémenter.
+
+- [0003 : Sessions Auth côté serveur Next.js](0003-server-auth-sessions.md) : implémenté au jalon 2 ; remplace la proposition SDK navigateur.

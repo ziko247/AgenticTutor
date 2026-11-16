@@ -25,7 +25,7 @@ export default function RootLayout({
         <noscript>
           <p className="notice">
             JavaScript est nécessaire pour les formulaires et le diagnostic.
-            Aucun compte ne sera créé dans cette version de démonstration.
+            Activez JavaScript pour utiliser votre espace.
           </p>
         </noscript>
       </body>

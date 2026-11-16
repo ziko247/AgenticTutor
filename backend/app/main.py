@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from psycopg import Error as DatabaseError
 
+from app.api.profile import router
 from app.core.config import Settings
 from app.core.database import Database
 
@@ -32,11 +33,13 @@ def create_app(
                 database.close()
 
     app = FastAPI(title="AgenticTutor API", version="0.1.0", lifespan=lifespan)
+    app.state.settings = settings
+    app.include_router(router)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins,
         allow_credentials=False,
-        allow_methods=["GET"],
+        allow_methods=["GET", "PUT", "PATCH"],
         allow_headers=["Authorization", "Content-Type"],
     )
 

@@ -28,12 +28,12 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 | Route | Fonction |
 |---|---|
 | `/` | Landing enrichie : cinq notions, exemple Python interactif prédéfini, boucle expliquée, profils et FAQ |
-| `/sign-in` | Connexion en aperçu frontend |
-| `/sign-up` | Inscription en aperçu ; champs valides → tableau de bord de démonstration |
-| `/dashboard` | Espace de base : accès au diagnostic et emplacement du futur parcours |
+| `/sign-in` | Connexion Supabase Auth |
+| `/sign-up` | Inscription Supabase Auth ; session valide → dashboard protégé |
+| `/dashboard` | Espace protégé, profil persistant, diagnostic et déconnexion |
 | `/onboarding` | 16 questions, revue, modification et récapitulatif final |
 
-Les formulaires valident les champs et affichent les erreurs ainsi qu'un état de vérification. Un bouton permet de voir le mot de passe. Ils n'envoient aucune requête d'authentification et ne créent aucun compte. Après validation du formulaire d’inscription, /dashboard s’ouvre sans création de compte ni session. Cette page publique de démonstration ne contient pas de données privées : accès au diagnostic et placeholder des futures activités, en attendant la validation de l’encadrant. La connexion reste un aperçu sans authentification. Aucun mot de passe n'est sauvegardé. La récupération de mot de passe n'est pas implémentée, faute de service existant.
+Les formulaires valident les champs et affichent les erreurs ainsi qu'un état de vérification. Un bouton permet de voir le mot de passe. Ils utilisent maintenant les Server Actions Next.js et Supabase Auth. Après inscription et obtention d’une session, /dashboard s’ouvre avec un profil persistant. Le dashboard vérifie l’identité côté serveur et charge uniquement le profil du compte connecté. La connexion établit une session. Aucun mot de passe n'est sauvegardé. La récupération passe par /forgot-password et /reset-password.
 
 Le diagnostic commence par un choix parmi 10 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat donne un repère, sans certifier le niveau de l'étudiant. Les banques doivent être validées pédagogiquement.
 
@@ -76,7 +76,7 @@ Pour lancer la version optimisée : `npm run build`, puis `npm start`. Ne pas ut
 
 ## Connexions backend restantes
 
-Le backend doit encore prendre en charge les comptes et les sessions sécurisées, la vérification d'e-mail et la récupération du mot de passe. Il devra enregistrer le profil et le diagnostic, calculer la maîtrise selon des règles validées, et fournir la conversation IA, les ressources, les exercices adaptatifs et les données du tableau de bord.
+Les comptes, sessions et récupération sont connectés. La confirmation obligatoire d’e-mail et le SMTP hébergé restent à valider avant déploiement. Il devra enregistrer le profil et le diagnostic, calculer la maîtrise selon des règles validées, et fournir la conversation IA, les ressources, les exercices adaptatifs et les données du tableau de bord.
 
 Le futur backend devra recalculer les scores à partir des identifiants/réponses, contrôler les permissions et ne jamais faire confiance au score calculé dans le navigateur. Les bonnes réponses côté client ne conviennent pas à un examen officiel. Après connexion, remplacer l'aperçu explicite sans transformer la sauvegarde locale en preuve d'authentification.
 
@@ -104,3 +104,9 @@ Les identifiants, libellés et l’ordre des langages sont centralisés dans fro
 Le nouvel écran réutilise Brand, les boutons, les polices et les tokens existants. Route dans src/app/dashboard/page.tsx, styles isolés dans src/styles/dashboard.css ; redirection d’aperçu dans features/auth/auth-form.tsx. Aucun paquet ni variable ajouté ; lancement inchangé avec npm.cmd run dev.
 
 Vérifications de cette tranche : lint, typecheck, build de production et 12 tests Playwright réussis. Le parcours inscription → tableau de bord → diagnostic, la reprise après rechargement, le clavier et les largeurs 375/768/1280/1920 sont couverts. Hallmark : 0 FAIL, 0 REFLEX, 0 WARN ; captures desktop/mobile inspectées. Le build affiche un avertissement de racine de workspace lié aux deux lockfiles ; il réussit.
+
+## Jalon 2 : comptes et profil connectés
+
+L’inscription et la connexion utilisent maintenant Supabase Auth via des Server Actions Next.js et des cookies HttpOnly. /dashboard est protégé ; le profil est enregistré par FastAPI, éditable et isolé par RLS. Déconnexion et récupération de mot de passe sont connectées. Cette tranche remplace les aperçus d’authentification décrits dans les sections historiques. Le diagnostic reste local jusqu’au jalon 3.
+
+Lire [le guide complet](../docs/guides/milestone-2-auth.md) pour les commandes. Après démarrage de Supabase, exécuter python -m tools.configure_auth depuis backend/ avec son environnement, puis redémarrer FastAPI et Next.js. Les instructions Windows utilisant le Python de base restent valables. Décision : docs/decisions/0003-server-auth-sessions.md.

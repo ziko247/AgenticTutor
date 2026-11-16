@@ -1,3 +1,7 @@
+import { authClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { profileRequest, signOut } from "@/features/auth/actions";
+import { ProfileForm } from "@/features/auth/profile-form";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Brand } from "@/components/brand";
@@ -9,7 +13,36 @@ export const metadata: Metadata = {
     "Votre espace pour commencer le diagnostic et préparer votre apprentissage.",
 };
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const client = await authClient();
+  const {
+    data: { user },
+    error,
+  } = await client.auth.getUser();
+  if (error || !user) redirect("/sign-in");
+  let response = await profileRequest("GET");
+  if (response.status === 404)
+    response = await profileRequest("PUT", {
+      display_name: String(user.user_metadata.display_name || "Étudiant")
+        .trim()
+        .slice(0, 80),
+      preferred_language: null,
+    });
+  if (!response.ok)
+    return (
+      <main id="main" className="container dashboard-main">
+        <h1>Votre espace</h1>
+        <p>
+          Le profil est temporairement indisponible. Rechargez la page pour
+          réessayer.
+        </p>
+        <form action={signOut}>
+          <button className="button">Se déconnecter</button>
+        </form>
+      </main>
+    );
+  const profile = await response.json();
+
   return (
     <>
       <header className="dashboard-header">
@@ -20,6 +53,11 @@ export default function DashboardPage() {
               Tableau de bord
             </Link>
             <Link href="/onboarding">Diagnostic</Link>
+            <form action={signOut}>
+              <button type="submit" className="text-button">
+                Se déconnecter
+              </button>
+            </form>
           </nav>
         </div>
       </header>
@@ -53,9 +91,17 @@ export default function DashboardPage() {
           </p>
         </section>
 
+        <section className="dashboard-upcoming" aria-labelledby="profile-title">
+          <h2 id="profile-title">Mon profil</h2>
+          <ProfileForm
+            name={profile.display_name}
+            language={profile.preferred_language}
+            revision={profile.revision}
+          />
+        </section>
         <p className="dashboard-notice">
-          Espace de démonstration : aucun compte n’a été créé. Les réponses au
-          diagnostic restent dans ce navigateur.
+          Votre profil est enregistré sur votre compte. Les réponses au
+          diagnostic restent pour le moment dans ce navigateur.
         </p>
       </main>
     </>

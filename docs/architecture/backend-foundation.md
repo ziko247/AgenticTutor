@@ -1,5 +1,8 @@
 # Fondation backend : FastAPI et Supabase
 
+> Mise à jour jalon 2 : la proposition SDK navigateur ci-dessous est remplacée par [0003, sessions côté serveur Next.js](../decisions/0003-server-auth-sessions.md). Auth et profils sont implémentés ; voir le guide du jalon 2.
+
+
 Date : 15 novembre 2026. Statut : jalon 1 implémenté et vérifié localement ; modalités Auth et choix produit ci-dessous encore proposés. FastAPI live/ready, conteneurs Supabase, schéma privé, migration et tests sont disponibles. Aucun projet hébergé ni intégration Auth frontend. Commandes dans le [guide backend](../../backend/README.md).
 
 ## État vérifié

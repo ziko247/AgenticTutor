@@ -118,3 +118,22 @@
     font-size: 1.875rem;
   }
 }
+
+.dashboard-upcoming form {
+  max-width: 32rem;
+  margin-top: var(--space-lg);
+}
+.dashboard-upcoming select {
+  font: inherit;
+  min-height: 44px;
+  width: 100%;
+  padding: var(--space-sm);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius-input);
+}
+.dashboard-upcoming select:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}

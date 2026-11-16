@@ -1,6 +1,6 @@
 # Backend — FastAPI et Supabase local
 
-**Jalon 1 implémenté et vérifié le 15 novembre 2026.** FastAPI fournit les probes de santé ; PostgreSQL local contient le schéma privé, les rôles limités et un instantané versionné des diagnostics. L'authentification de l'application, les routes de profil/diagnostic et le tuteur IA restent à développer. Le frontend fonctionne toujours sans ce backend.
+**Jalon 1 implémenté et vérifié le 15 novembre 2026.** FastAPI fournit les probes de santé ; PostgreSQL local contient le schéma privé, les rôles limités et un instantané versionné des diagnostics. Le jalon 2 ajoute Auth et les routes de profil ; le diagnostic serveur et le tuteur IA restent à développer. Le frontend fonctionne toujours sans ce backend.
 
 ## Prérequis
 
@@ -63,7 +63,7 @@ Invoke-RestMethod http://127.0.0.1:8000/api/v1/health/ready
 - `ready` : HTTP 200, `{"status":"ready"}`, après vérification de la connexion, du rôle limité et de la version du schéma.
 - Sans configuration DB, en cas de panne ou de rôle/schéma incompatible : `ready` renvoie HTTP 503 avec un message générique ; `live` reste disponible.
 
-Les probes sont les seules routes applicatives implémentées. Le serveur ne vérifie pas encore de jeton Auth.
+Le jalon 2 ajoute GET/PUT/PATCH /api/v1/me/profile, protégés par validation Auth serveur.
 
 ## Configuration
 
@@ -94,7 +94,7 @@ cd backend
 uv run python -m tools.setup_local
 ~~~
 
-Le reset détruit les données locales. Ne pas utiliser de cible distante/partagée. Pour arrêter les services en conservant leurs volumes : `npm.cmd run db:stop` depuis la racine. Arrêter FastAPI avec `Ctrl+C`.
+Le reset détruit les données locales. Ne pas utiliser de cible distante/partagée. Pour arrêter les services en conservant leurs volumes : `npm.cmd run db:stop` depuis la racine. Les conteneurs disparaissent alors de Docker Desktop ; `npm.cmd run db:start` les recrée au prochain démarrage. Arrêter FastAPI avec `Ctrl+C`.
 
 ## Vérifications
 
@@ -126,3 +126,9 @@ Résultats sur ce poste : **18 tests réussis**, lint et format réussis, recons
 | migrations/ | Réservé ; ne pas y créer un second historique SQL |
 
 Les handlers HTTP sont synchrones pour l'accès SQL bloquant. Psycopg suffit pour cette tranche ; aucun ORM n'est ajouté. Lire le [plan](../docs/architecture/backend-roadmap.md), le [contrat cible](../docs/architecture/backend-api-contract.md) et la [décision 0002](../docs/decisions/0002-backend-fastapi-supabase.md). Prochaine tranche : authentification et profil, après clarification de la frontière navigateur/Auth.
+
+## Jalon 2 : comptes et profil connectés
+
+L’inscription et la connexion utilisent maintenant Supabase Auth via des Server Actions Next.js et des cookies HttpOnly. /dashboard est protégé ; le profil est enregistré par FastAPI, éditable et isolé par RLS. Déconnexion et récupération de mot de passe sont connectées. Cette tranche remplace les aperçus d’authentification décrits dans les sections historiques. Le diagnostic reste local jusqu’au jalon 3.
+
+Lire [le guide complet](../docs/guides/milestone-2-auth.md) pour les commandes. Après démarrage de Supabase, exécuter python -m tools.configure_auth depuis backend/ avec son environnement, puis redémarrer FastAPI et Next.js. Les instructions Windows utilisant le Python de base restent valables. Décision : docs/decisions/0003-server-auth-sessions.md.

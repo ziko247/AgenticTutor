@@ -1,6 +1,6 @@
 # Mise en œuvre proposée
 
-Date : 15 novembre 2026. Jalon 1 implémenté et vérifié ; jalons 2–4 à réaliser. Lire la [fondation](backend-foundation.md) et le [contrat API](backend-api-contract.md). La rédaction de ces documents ne termine aucune fonction F01–F04 ou F12.
+Date : 15 novembre 2026. Jalons 1–2 implémentés en local ; confirmation obligatoire et déploiement restent à valider ; jalons 3–4 à réaliser. Lire la [fondation](backend-foundation.md) et le [contrat API](backend-api-contract.md). La rédaction de ces documents ne termine aucune fonction F01–F04 ou F12.
 
 ## Environnement local et reproduction
 
@@ -71,3 +71,5 @@ Sauvegardes : relever les garanties réellement incluses dans le plan Supabase r
 | Conservation/suppression, mineurs éventuels | Données minimales ; règles institutionnelles explicites | Établissement avant données réelles |
 
 Prochain travail recommandé : jalon 2, Auth et profil, après confirmation de la frontière navigateur/Auth. Aucun frontend à modifier tant que la frontière API et l'intégration Auth ne sont pas validées.
+
+Jalon 2 : voir ../guides/milestone-2-auth.md et décision 0003. Auth passe par le serveur Next.js, avec sessions HttpOnly ; FastAPI vérifie le bearer auprès de Supabase.

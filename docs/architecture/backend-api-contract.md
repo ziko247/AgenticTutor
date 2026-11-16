@@ -1,6 +1,6 @@
 # Contrat API proposé
 
-Date : 15 novembre 2026. Seuls GET /api/v1/health/live et GET /api/v1/health/ready sont implémentés et vérifiés. Les routes métier et conventions suivantes sont proposées pour les jalons 2–3. Préfixe /api/v1. JSON UTF-8. Identifiants UUID et dates UTC ISO 8601 ; les noms entre accolades dans les routes sont des paramètres. Les exemples abrégés indiquent le contenu utile, pas une implémentation OpenAPI.
+Date : 15 novembre 2026. GET /api/v1/health/live, /health/ready et GET/PUT/PATCH /api/v1/me/profile sont implémentés et vérifiés. Les routes métier et conventions suivantes sont proposées pour les jalons 2–3. Préfixe /api/v1. JSON UTF-8. Identifiants UUID et dates UTC ISO 8601 ; les noms entre accolades dans les routes sont des paramètres. Les exemples abrégés indiquent le contenu utile, pas une implémentation OpenAPI.
 
 Références : [fondation](backend-foundation.md), [données](backend-data-model.md), [jalons](backend-roadmap.md).
 

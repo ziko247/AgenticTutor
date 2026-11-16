@@ -1,5 +1,8 @@
 # 0002 : Fondation FastAPI, Supabase et Docker local
 
+> Mise à jour jalon 2 : la proposition SDK navigateur ci-dessous est remplacée par [0003, sessions côté serveur Next.js](0003-server-auth-sessions.md). Auth et profils sont implémentés ; voir le guide du jalon 2.
+
+
 - Date : 15 novembre 2026.
 - Statut : direction technique retenue à la demande du porteur ; intégration Auth proposée, à confirmer avant implémentation.
 - Exigences : F01–F04, F12, F17 ; isolation des comptes et reproductibilité.

@@ -17,7 +17,7 @@ test("interactive lesson", async ({ page }) => {
     .click();
   await expect(page).toHaveURL(/sign-up/);
 });
-test("auth validates without fake authentication", async ({ page }) => {
+test("auth registers, persists a profile, and signs out", async ({ page }) => {
   await page.goto("/sign-up");
   await page
     .getByRole("button", { name: "Créer mon compte", exact: true })
@@ -25,7 +25,8 @@ test("auth validates without fake authentication", async ({ page }) => {
   await expect(page.getByText("Indiquez votre prénom.")).toBeVisible();
   await expect(page.locator("#name")).toBeFocused();
   await page.locator("#name").fill("Test");
-  await page.locator("#email").fill("test@example.com");
+  const accountEmail = "e2e-" + Date.now() + "@example.invalid";
+  await page.locator("#email").fill(accountEmail);
   await page.locator("#password").fill("test-only-123");
   await page.getByRole("button", { name: "Afficher le mot de passe" }).click();
   await expect(page.locator("#password")).toHaveAttribute("type", "text");
@@ -36,17 +37,32 @@ test("auth validates without fake authentication", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
   ).toBeVisible();
-  await expect(
-    page.getByText("Espace de démonstration", { exact: false }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Mon profil" })).toBeVisible();
   expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain(
     "test-only-123",
   );
+  await page.locator("#profile-name").fill("Profile edited");
+  await page
+    .getByRole("button", { name: "Enregistrer le profil", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toHaveText("Profil enregistré.");
   await page.reload();
+  await expect(page.locator("#profile-name")).toHaveValue("Profile edited");
+  expect(
+    (await page.context().cookies())
+      .filter((c) => c.name.startsWith("sb-"))
+      .every((c) => c.httpOnly),
+  ).toBeTruthy();
   await expect(
     page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Accéder au diagnostic" }).click();
+  await page
+    .getByRole("button", { name: "Se déconnecter", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/sign-in$/);
+  await page.goto("/dashboard");
+  await expect(page).toHaveURL(/\/sign-in$/);
+  await page.goto("/onboarding");
   await expect(page).toHaveURL(/\/onboarding$/);
   await page.goto("/sign-in");
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
@@ -54,10 +70,54 @@ test("auth validates without fake authentication", async ({ page }) => {
   await page.locator("#email").fill("test@example.com");
   await page.locator("#password").fill("test-only-123");
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
-  await expect(page.getByRole("status")).toContainText(
-    "aucune connexion effectuée",
-  );
+  await expect(page.getByRole("status")).toContainText("Connexion impossible");
   await expect(page).toHaveURL(/\/sign-in$/);
+  await page.locator("#email").fill(accountEmail);
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await page
+    .getByRole("button", { name: "Se déconnecter", exact: true })
+    .click();
+  await page.goto("/forgot-password");
+  await page.locator("#recovery-field").fill(accountEmail);
+  await page.getByRole("button", { name: "Recevoir un lien" }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "un e-mail vous a été envoyé",
+  );
+  let messageId = "";
+  await expect
+    .poll(async () => {
+      const result = await (
+        await page.request.get("http://127.0.0.1:58424/api/v1/messages")
+      ).json();
+      const message = result.messages.find(
+        (m: { ID: string; To: { Address: string }[] }) =>
+          m.To.some((t) => t.Address === accountEmail),
+      );
+      messageId = message?.ID || "";
+      return Boolean(messageId);
+    })
+    .toBeTruthy();
+  const mail = await (
+    await page.request.get("http://127.0.0.1:58424/api/v1/message/" + messageId)
+  ).json();
+  const links = Array.from(String(mail.HTML).matchAll(/href="([^"]+)"/g), (m) =>
+    m[1].replaceAll("&amp;", "&"),
+  );
+  const recoveryLink = links.find((link) =>
+    link.startsWith("http://127.0.0.1:58421/auth/v1/verify"),
+  );
+  expect(Boolean(recoveryLink)).toBeTruthy();
+  await page.goto(recoveryLink!);
+  await expect(page).toHaveURL(/\/reset-password$/);
+  await page.locator("#recovery-field").fill("new-test-password-123");
+  await page.getByRole("button", { name: "Enregistrer", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("Mot de passe modifié");
+  await page.goto("/sign-in");
+  await page.locator("#email").fill(accountEmail);
+  await page.locator("#password").fill("new-test-password-123");
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page).toHaveURL(/\/dashboard$/);
 });
 test("language diagnostic persists, reviews, scores and resets", async ({
   page,

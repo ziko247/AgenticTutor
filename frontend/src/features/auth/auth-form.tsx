@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { authenticate } from "./actions";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowLeft, LockKeyhole } from "lucide-react";
 import { Brand } from "@/components/brand";
@@ -35,17 +36,15 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
       return;
     }
     setBusy(true);
-    await new Promise<void>((resolve) =>
-      requestAnimationFrame(() => resolve()),
-    );
-    if (signup) {
-      setBusy(false);
-      router.push("/dashboard");
-      return;
+    try {
+      const result = await authenticate(mode, new FormData(form));
+      if (result.success) {
+        router.replace("/dashboard");
+        router.refresh();
+      } else setError(result.error || result.message || "");
+    } catch {
+      setError("Service indisponible. Réessayez plus tard.");
     }
-    setError(
-      "L’authentification n’est pas encore connectée. Aucun compte créé, aucune connexion effectuée et aucune donnée envoyée.",
-    );
     setBusy(false);
   }
   return (
@@ -78,11 +77,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
           </p>
           <div className="prototype-note">
             <LockKeyhole size={18} aria-hidden="true" />
-            <p>
-              {signup
-                ? "Version de démonstration. Valider ouvre un aperçu du tableau de bord, sans créer de compte ni envoyer vos données."
-                : "Version de démonstration. Les formulaires ne sont pas reliés à un service d’authentification."}
-            </p>
+            <p>Votre compte est sécurisé par Supabase Auth.</p>
           </div>
           <form
             noValidate
@@ -172,8 +167,8 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               <p id="password-help" className="field-help">
                 {errors.password ||
                   (signup
-                    ? "Au moins 8 caractères. Ne réutilisez pas un vrai mot de passe ici."
-                    : "Utilisez des données fictives pour cette démonstration.")}
+                    ? "Au moins 8 caractères."
+                    : "Saisissez votre mot de passe.")}
               </p>
             </div>
             <button
@@ -198,6 +193,11 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               {signup ? "Se connecter" : "Créer un compte"}
             </Link>
           </p>
+          {!signup && (
+            <Link href="/forgot-password" className="text-link">
+              Mot de passe oublié ?
+            </Link>
+          )}
           <div className="preview-entry">
             <p>Vous souhaitez explorer le premier parcours ?</p>
             <Link href="/onboarding" className="text-link">

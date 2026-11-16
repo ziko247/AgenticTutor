@@ -9,7 +9,7 @@
 
 ## État du projet
 
-Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, authentification en aperçu et diagnostic local sont implémentés. Le jalon 1 backend est implémenté (FastAPI live/ready, Supabase local, migration et tests RLS). Aucun compte réel ni tutorat IA connecté au frontend. La direction backend retenue est FastAPI + Supabase PostgreSQL et Supabase CLI/Docker en local. La conception figure dans docs/architecture/README.md et docs/decisions/0002-backend-fastapi-supabase.md ; Supabase Auth et sa frontière navigateur restent proposés avant implémentation.
+Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, Auth et profil connectés, dashboard protégé et diagnostic local sont implémentés. Le jalon 1 backend est implémenté (FastAPI live/ready, Supabase local, migration et tests RLS). Comptes et profil connectés en local au jalon 2 ; tutorat IA encore à développer. La direction backend retenue est FastAPI + Supabase PostgreSQL et Supabase CLI/Docker en local. La conception figure dans docs/architecture/README.md et docs/decisions/0002-backend-fastapi-supabase.md ; Auth côté serveur Next.js est retenu et implémenté dans la décision 0003.
 
 
 Le diagnostic propose désormais 10 langages/technologies, avec choix initial unique et note sur 20. Les brouillons v2 sont séparés des anciens v1. Le tuteur connecté reste à développer.
@@ -21,11 +21,11 @@ La landing décrit désormais le produit cible au présent à la demande explici
 - Première priorité convenue : landing, authentification et onboarding pour apprendre Python.
 - La landing enrichie utilise `frontend/src/app/page.tsx` et les styles en fin de `frontend/src/styles/globals.css` : surfaces menthe/vert/citron, cinq notions, exemple de boucle, profils et FAQ.
 - La démo de boucle interactive est prédéfinie dans `frontend/src/features/tutor/lesson-preview.tsx` ; elle ne représente pas un tuteur IA connecté.
-- `/sign-in` et `/sign-up` utilisent `frontend/src/features/auth/auth-form.tsx`. Validation locale uniquement : aucun compte, session ou envoi réseau. Une inscription valide ouvre /dashboard ; la connexion conserve son avertissement de service non connecté.
-- `/dashboard` : page serveur dans frontend/src/app/dashboard/page.tsx, styles dans frontend/src/styles/dashboard.css. Écran de démonstration public, sans données privées : lien vers le diagnostic et emplacement des activités futures. Garder ce périmètre simple jusqu’à validation de l’encadrant ; ne pas simuler de session, de compte créé ou de progression.
+- `/sign-in` et `/sign-up` utilisent `frontend/src/features/auth/auth-form.tsx`. Validation puis Server Actions Supabase Auth, cookies HttpOnly ; /dashboard exige une session validée.
+- `/dashboard` : page serveur dans frontend/src/app/dashboard/page.tsx, styles dans frontend/src/styles/dashboard.css. Dashboard protégé avec profil privé ; maintenir la présentation simple et les emplacements des futures activités. Garder ce périmètre simple jusqu’à validation de l’encadrant ; ne pas simuler de session, de compte créé ou de progression.
 - `/onboarding` utilise les fichiers `questions.ts`, `storage.ts` et `onboarding.tsx` dans `frontend/src/features/diagnostic/`. Les réponses et l'avancement restent dans localStorage sous `agentictutor.onboarding.v2` ; la note sur 20 est indicative et non certifiante.
 - Les captures et sept tests Playwright ont servi à vérifier la tranche précédente ; relancer les contrôles adaptés après toute modification. Consulter `frontend/README.md` pour les commandes et `CHROME_PATH`.
-- Le backend fournit uniquement le socle local et les probes de santé. Ne pas présenter la récupération du mot de passe, la persistance serveur, l'IA, les exercices adaptatifs ou les métriques pédagogiques comme réalisés.
+- Le backend fournit uniquement le socle local et les probes de santé. Auth, récupération et profil sont implémentés au jalon 2. Diagnostic persistant, IA, exercices adaptatifs et métriques pédagogiques restent à développer.
 - Préserver le bloc Next.js généré dans `frontend/AGENTS.md` et lire la documentation locale de Next avant de modifier le frontend.
 - Les changements frontend peuvent être non commités : inspecter `git status` avant toute opération Git et préserver le travail existant.
 
@@ -74,7 +74,7 @@ Ne jamais committer de clés, fichiers `.env` réels, conversations d'étudiants
 
 ## Prochain travail proposé
 
-Le domaine pilote est Python et la première stack frontend est actée dans docs/decisions/0001-first-frontend.md. La prochaine tranche consiste à concevoir puis connecter les comptes et le profil au backend. Les tâches restent non réalisées dans le README tant qu'elles ne sont pas vérifiées.
+Le domaine pilote est Python et la première stack frontend est actée dans docs/decisions/0001-first-frontend.md. La prochaine tranche est le diagnostic persistant (jalon 3). Les tâches restent non réalisées dans le README tant qu'elles ne sont pas vérifiées.
 
 ## Exemples multilangages de la landing
 
@@ -93,8 +93,14 @@ Lire docs/architecture/backend-foundation.md, backend-data-model.md, backend-api
 
 Lire backend/README.md pour npm.cmd ci/db:start à la racine, uv sync --frozen et tools.setup_local depuis backend/, puis uvicorn. La CLI 3.1.0 et les dépendances Python sont verrouillées. Sur ce Windows, le Python du venv est bloqué par Application Control ; le guide donne la commande vérifiée avec le Python de base et PYTHONPATH, sans modification de sécurité.
 
-Vérifications du 15 novembre 2026 : 18 tests passent (dont intégration réelle), Ruff lint/format, reset local et seed propres, live/ready via HTTP. Tests DB opt-in avec pytest --run-integration : cible locale dédiée uniquement, identités synthétiques supprimées, pas d’exécution parallèle sur une base partagée. Aucun secret à afficher ; backend/.env et l’état CLI restent ignorés. Préserver le frontend. Prochaine tranche : Auth et profil ; compte-first/diagnostic-first et édition après résultat restent ouverts. Aucun compte utilisateur applicatif ni tuteur IA connecté.
+Vérifications du 15 novembre 2026 : 18 tests passent (dont intégration réelle), Ruff lint/format, reset local et seed propres, live/ready via HTTP. Tests DB opt-in avec pytest --run-integration : cible locale dédiée uniquement, identités synthétiques supprimées, pas d’exécution parallèle sur une base partagée. Aucun secret à afficher ; backend/.env et l’état CLI restent ignorés. Préserver le frontend. Prochaine tranche : diagnostic persistant ; compte-first/diagnostic-first et édition après résultat restent ouverts. Auth et profil implémentés au jalon 2 ; aucun tuteur IA connecté.
 
 ## Tableau de bord provisoire : validation du 15 novembre 2026
 
-Inscription valide → /dashboard → diagnostic ; aucun compte ni session créé. Lint, typecheck, build et 12 tests navigateur passent, incluant dashboard responsive et clavier. Hallmark rendu : 0 FAIL/REFLEX/WARN, captures desktop/mobile inspectées ; prototype simple, sans nouvelle dépendance. Le prochain branchement Auth devra protéger les vraies données et remplacer la navigation d’aperçu par une transition après inscription/session confirmée.
+État historique du prototype, remplacé par le jalon 2 ci-dessous. Lint, typecheck, build et 12 tests navigateur passent, incluant dashboard responsive et clavier. Hallmark rendu : 0 FAIL/REFLEX/WARN, captures desktop/mobile inspectées ; prototype simple, sans nouvelle dépendance. Le prochain branchement Auth devra protéger les vraies données et remplacer la navigation d’aperçu par une transition après inscription/session confirmée.
+
+## Jalon 2 : comptes et profil connectés
+
+L’inscription et la connexion utilisent maintenant Supabase Auth via des Server Actions Next.js et des cookies HttpOnly. /dashboard est protégé ; le profil est enregistré par FastAPI, éditable et isolé par RLS. Déconnexion et récupération de mot de passe sont connectées. Cette tranche remplace les aperçus d’authentification décrits dans les sections historiques. Le diagnostic reste local jusqu’au jalon 3.
+
+Lire docs/guides/milestone-2-auth.md pour les commandes. Après démarrage de Supabase, exécuter python -m tools.configure_auth depuis backend/ avec son environnement, puis redémarrer FastAPI et Next.js. Les instructions Windows utilisant le Python de base restent valables. Décision : docs/decisions/0003-server-auth-sessions.md.

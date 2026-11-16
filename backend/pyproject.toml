@@ -2,7 +2,7 @@
 name = "agentictutor-backend"
 version = "0.1.0"
 requires-python = ">=3.12,<3.13"
-dependencies = ["fastapi", "uvicorn", "pydantic-settings", "psycopg[binary,pool]"]
+dependencies = ["fastapi", "uvicorn", "pydantic-settings", "psycopg[binary,pool]", "httpx"]
 
 [dependency-groups]
 dev = ["pytest", "httpx", "ruff"]
