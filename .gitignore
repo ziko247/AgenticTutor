@@ -32,6 +32,8 @@ coverage/
 # Local databases, uploaded content, and private learner data
 *.db
 *.sqlite
+*.sqlite-wal
+*.sqlite-shm
 *.sqlite3
 data/private/
 data/raw/

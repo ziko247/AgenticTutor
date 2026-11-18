@@ -4,7 +4,7 @@
 
 Projet de fin d'année en Data Science et Intelligence artificielle. AgenticTutor vise à accompagner l'étudiant dans un cycle continu : identifier ses acquis, expliquer une notion, proposer une activité, analyser sa réponse et adapter la suite du parcours.
 
-> **État actuel : première interface frontend implémentée.** Landing, formulaires d’authentification en aperçu et diagnostic multilangage local de 16 questions. Aucun compte ni service de tutorat connecté. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
+**État actuel.** Landing, comptes par e-mail et diagnostic multilangage local de 16 questions. Voir [frontend/README.md](frontend/README.md) pour lancer et tester.
 
 > Diagnostic actuel : choix du langage au départ, puis 6 questions de profil et 10 questions techniques, notées sur 20. Voir la section « Diagnostic multilangage actuel » pour la persistance v2.
 
@@ -18,13 +18,15 @@ La première étape demandée avec l'encadrant concerne la **landing page, l'aut
 - [x] Onboarding local : 16 questions (6 de profil, 10 techniques), navigation arrière, reprise, revue, modification et effacement.
 - [x] Note indicative sur 20 dans le langage choisi et récapitulatif local.
 - [x] Structure Next.js App Router, TypeScript et Tailwind CSS ; fichiers de dépendances verrouillés.
-- [ ] Connecter l'inscription, la connexion et les sessions à un backend ; ajouter la récupération de mot de passe.
+- [x] Inscription, connexion et déconnexion avec sessions côté serveur.
+- [x] Réinitialisation du mot de passe par lien avec SMTP.
+- [ ] Ajouter la vérification d’e-mail.
 - [ ] Enregistrer le diagnostic et le profil côté serveur, puis valider les questions et l'estimation pédagogique.
 - [ ] Construire le tuteur IA, les exercices adaptatifs, le corpus et le tableau de bord.
 
-**État réel :** aucun compte n'est créé et aucune requête d'authentification n'est envoyée. Les réponses du diagnostic sont stockées dans le navigateur, sans profil serveur. Les questions et exemples sont des contenus de démonstration, pas une banque pédagogique validée.
+**État réel :** les comptes et les sessions sont enregistrés dans SQLite. Les réponses du diagnostic sont stockées dans le navigateur, sans profil serveur. Les questions et exemples sont des contenus de démonstration, pas une banque pédagogique validée.
 
-**Dernières vérifications rapportées :** build de production et lint réussis ; sept tests Playwright réussis, couvrant les parcours, la reprise locale, les erreurs de stockage, les largeurs responsive et le clavier. Après l'enrichissement de la landing, les sept tests ont été relancés et les captures desktop et mobile inspectées. Ces résultats ne prouvent pas la qualité pédagogique ni l'accessibilité complète.
+**Dernières vérifications.** Lint, TypeScript et 12 tests Playwright sous Chrome réussis. Les tests couvrent l’authentification, les parcours du diagnostic, la reprise locale, les largeurs responsive et le clavier.
 
 Les changements de cette tranche existent localement ; vérifier `git status` et le dépôt distant avant de considérer qu'ils sont publiés sur GitHub.
 
@@ -80,7 +82,7 @@ La dimension **agentique** vient de cette boucle de décision contrôlée. Un or
 
 ### Accès et prise en main — MVP
 
-- [ ] **F01** — Créer un compte, se connecter et se déconnecter.
+- [x] **F01** — Créer un compte, se connecter et se déconnecter.
 - [ ] **F01** — Séparer les permissions étudiant et gestionnaire.
 - [ ] **F02** — Présenter les objectifs, le fonctionnement et les limites du tuteur.
 - [ ] **F02** — Commencer un diagnostic ou reprendre un parcours existant.
@@ -283,7 +285,7 @@ Le parcours adaptatif sera comparé à un parcours fixe avec les mêmes ressourc
 
 ### Prérequis
 
-- Installer **Node.js 20.9 ou une version supérieure**, avec npm. Vérifier avec `node --version` et `npm --version`.
+- Installer **Node.js 24.15 ou une version supérieure**, avec npm. Vérifier avec `node --version` et `npm --version`.
 - Disposer du dépôt sur son ordinateur. Pour un nouveau poste :
 
 ```powershell
@@ -300,6 +302,8 @@ Dans un terminal ouvert à la racine du dépôt, exécuter :
 ```powershell
 cd frontend
 npm ci
+# Configurer .env.local comme indiqué dans frontend/README.md.
+npm run auth:migrate
 npm run dev
 ```
 
@@ -318,6 +322,8 @@ Sous Windows PowerShell, si l’exécution de npm.ps1 est bloquée, utiliser ces
 
 ```powershell
 npm.cmd ci
+# Configurer .env.local comme indiqué dans frontend/README.md.
+npm.cmd run auth:migrate
 npm.cmd run dev
 ```
 
@@ -328,11 +334,12 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 | Adresse | Contenu |
 |---|---|
 | http://127.0.0.1:3000/ | Landing et exemple Python prédéfini |
-| http://127.0.0.1:3000/sign-in | Aperçu de connexion |
-| http://127.0.0.1:3000/sign-up | Aperçu d'inscription |
+| http://127.0.0.1:3000/sign-in | Connexion par e-mail et mot de passe |
+| http://127.0.0.1:3000/sign-up | Création d’un compte |
+| http://127.0.0.1:3000/account | Compte et déconnexion, accès réservé à une session valide |
 | http://127.0.0.1:3000/onboarding | Diagnostic local de 16 questions |
 
-Aucune configuration `.env`, base de données ou clé API n'est requise pour cette interface. Le backend n'est pas encore implémenté : les formulaires ne créent pas de compte et le diagnostic est conservé dans le navigateur, pas sur un serveur.
+L’authentification utilise `frontend/.env.local` et SQLite. Le diagnostic reste enregistré dans le navigateur. Le backend pédagogique reste un scaffold.
 
 ### Vérifier et lancer la version de production
 
@@ -352,15 +359,15 @@ Les trois premières commandes vérifient le code et construisent la version de 
 ### Première tranche livrée
 
 - [x] Landing responsive et exemple Python interactif prédéfini.
-- [x] Écrans de connexion et inscription avec validation, sans authentification serveur.
+- [x] Écrans de connexion et inscription avec validation, avec sessions côté serveur.
 - [x] Onboarding de 16 questions avec retour arrière et revue.
 - [x] Reprise locale, modification des réponses et completion explicite.
 - [x] Tests navigateur des parcours, du stockage et du responsive.
-- [ ] Connexion des formulaires à un service d’authentification.
+- [ ] Configurer la vérification d’e-mail.
 - [ ] Sauvegarde du profil et du diagnostic sur le backend.
 - [ ] Tutoriel conversationnel, exercices adaptatifs et dashboard.
 
-Les cases F01–F03 de la checklist métier restent ouvertes tant que leurs critères serveur et pédagogiques ne sont pas satisfaits. Le cahier des charges initial reste la proposition de référence ; la décision [0001](docs/decisions/0001-first-frontend.md) précise la tranche frontend actuelle.
+La séparation des rôles (F01), les critères métier de F02 et le profil de maîtrise de F03 restent à valider. Le cahier des charges initial reste la proposition de référence ; la décision [0001](docs/decisions/0001-first-frontend.md) précise la tranche frontend actuelle.
 
 ## Organisation et suivi
 
@@ -481,9 +488,9 @@ Ouvrir **la racine du dépôt**, puis demander à l'agent de lire [AGENTS.md](AG
 
 Exemple de demande de reprise :
 
-> Lis AGENTS.md, README.md, CAHIER_DES_CHARGES_AGENTICTUTOR.md et docs/architecture/README.md. Vérifie l'état réel des fichiers et les décisions existantes. Le frontend Next.js contient une landing, des aperçus d’authentification et un onboarding local ; le backend reste un scaffold. Pour la tâche demandée, respecte les frontières des composants et les critères Fxx, documente les choix techniques, puis mets à jour uniquement les cases réalisées et vérifiées.
+> Lis AGENTS.md, README.md, CAHIER_DES_CHARGES_AGENTICTUTOR.md et docs/architecture/README.md. Vérifie l'état réel des fichiers et les décisions existantes. Le frontend Next.js contient une landing, une authentification par e-mail et un onboarding local ; le backend reste un scaffold. Pour la tâche demandée, respecte les frontières des composants et les critères Fxx, documente les choix techniques, puis mets à jour uniquement les cases réalisées et vérifiées.
 
-Le domaine pilote est Python et la stack frontend est choisie pour cette tranche. La prochaine étape proposée est de concevoir les comptes et le profil serveur, puis de connecter le diagnostic. Les dossiers préparés ne signifient pas que les fonctionnalités sont terminées. Le frontend contient maintenant la première interface ; lire son guide avant de modifier ses routes. Lorsqu'un choix est validé, l'enregistrer dans `docs/decisions/` à partir du modèle fourni. Les commandes actuelles figurent dans le guide frontend ; les adapter lorsque le backend sera ajouté.
+Le domaine pilote est Python et la stack frontend est choisie pour cette tranche. La prochaine étape proposée est de concevoir le profil pédagogique côté serveur, puis de connecter le diagnostic. Les dossiers préparés ne signifient pas que les fonctionnalités sont terminées. Le frontend contient maintenant la première interface ; lire son guide avant de modifier ses routes. Lorsqu'un choix est validé, l'enregistrer dans `docs/decisions/` à partir du modèle fourni. Les commandes actuelles figurent dans le guide frontend ; les adapter lorsque le backend sera ajouté.
 
 ## Documentation et licence
 
@@ -499,10 +506,10 @@ Pour proposer une correction ou discuter du projet, ouvrir une issue dans ce dé
 
 ### Positionnement de la landing
 
-À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
+À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic multilangage local et l’authentification par e-mail. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
 
 Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
 
 ## Diagnostic multilangage actuel
 
-Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Le diagnostic reste indépendant de la session et accessible en mode invité.

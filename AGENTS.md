@@ -9,7 +9,7 @@
 
 ## État du projet
 
-Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, authentification en aperçu et diagnostic local sont implémentés. Aucun backend, compte réel ou tutorat IA connecté. FastAPI et PostgreSQL restent des propositions.
+Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, authentification par e-mail et diagnostic local sont implémentés. Better Auth gère les comptes et sessions dans Next.js avec SQLite. Le backend pédagogique et le tutorat IA restent à construire. FastAPI et PostgreSQL restent des propositions.
 
 
 Le diagnostic propose désormais 10 langages/technologies, avec choix initial unique et note sur 20. Les brouillons v2 sont séparés des anciens v1. Le tuteur connecté reste à développer.
@@ -21,7 +21,7 @@ La landing décrit désormais le produit cible au présent à la demande explici
 - Première priorité convenue : landing, authentification et onboarding pour apprendre Python.
 - La landing enrichie utilise `frontend/src/app/page.tsx` et les styles en fin de `frontend/src/styles/globals.css` : surfaces menthe/vert/citron, cinq notions, exemple de boucle, profils et FAQ.
 - La démo de boucle interactive est prédéfinie dans `frontend/src/features/tutor/lesson-preview.tsx` ; elle ne représente pas un tuteur IA connecté.
-- `/sign-in` et `/sign-up` utilisent `frontend/src/features/auth/auth-form.tsx`. Validation locale uniquement : aucun compte, session ou envoi réseau.
+- `/sign-in` et `/sign-up` utilisent `frontend/src/features/auth/auth-form.tsx`. Les formulaires appellent Better Auth. La route `/account` vérifie la session et permet la déconnexion.
 - `/onboarding` utilise les fichiers `questions.ts`, `storage.ts` et `onboarding.tsx` dans `frontend/src/features/diagnostic/`. Les réponses et l'avancement restent dans localStorage sous `agentictutor.onboarding.v2` ; la note sur 20 est indicative et non certifiante.
 - Les captures et sept tests Playwright ont servi à vérifier la tranche précédente ; relancer les contrôles adaptés après toute modification. Consulter `frontend/README.md` pour les commandes et `CHROME_PATH`.
 - Le backend reste un scaffold. Ne pas présenter la récupération du mot de passe, la persistance serveur, l'IA, les exercices adaptatifs ou les métriques pédagogiques comme réalisés.
@@ -73,7 +73,7 @@ Ne jamais committer de clés, fichiers `.env` réels, conversations d'étudiants
 
 ## Prochain travail proposé
 
-Le domaine pilote est Python et la première stack frontend est actée dans docs/decisions/0001-first-frontend.md. La prochaine tranche consiste à concevoir puis connecter les comptes et le profil au backend. Les tâches restent non réalisées dans le README tant qu'elles ne sont pas vérifiées.
+Le domaine pilote est Python et la première stack frontend est actée dans docs/decisions/0001-first-frontend.md. Le profil pédagogique et le diagnostic restent à connecter au backend. Les tâches restent non réalisées dans le README tant qu'elles ne sont pas vérifiées.
 
 ## Exemples multilangages de la landing
 
@@ -81,7 +81,7 @@ Les exemples et sélecteurs sont dans frontend/src/features/tutor/{examples,lang
 
 ## Diagnostic multilangage actuel
 
-Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
+Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Le diagnostic reste indépendant de la session et accessible en mode invité.
 
 ## Simplification interne du frontend
 

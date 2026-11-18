@@ -1,20 +1,24 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, ArrowLeft, LockKeyhole } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Brand } from "@/components/brand";
+import { authClient } from "./client";
 export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
   const signup = mode === "sign-up";
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
-  function validate(form: HTMLFormElement) {
-    const data = new FormData(form);
+  function validate(data: FormData) {
     const e: Record<string, string> = {};
     if (signup && !String(data.get("name") || "").trim())
       e.name = "Indiquez votre prénom.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(data.get("email") || "")))
+    if (signup && !String(data.get("lastName") || "").trim())
+      e.lastName = "Indiquez votre nom.";
+    if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(data.get("email") || "").trim())
+    )
       e.email = "Saisissez une adresse e-mail valide.";
     if (String(data.get("password") || "").length < (signup ? 8 : 1))
       e.password = signup
@@ -25,7 +29,8 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const e = validate(form);
+    const data = new FormData(form);
+    const e = validate(data);
     setErrors(e);
     setError("");
     if (Object.keys(e).length) {
@@ -33,12 +38,39 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
       return;
     }
     setBusy(true);
-    await new Promise<void>((resolve) =>
-      requestAnimationFrame(() => resolve()),
-    );
-    setError(
-      "L’authentification n’est pas encore connectée. Aucun compte créé, aucune connexion effectuée et aucune donnée envoyée.",
-    );
+    const email = String(data.get("email") ?? "")
+      .trim()
+      .toLowerCase();
+    const password = String(data.get("password") ?? "");
+    try {
+      const { error } = signup
+        ? await authClient.signUp.email({
+            name: String(data.get("name") ?? "").trim(),
+            lastName: String(data.get("lastName") ?? "").trim(),
+            email,
+            password,
+          })
+        : await authClient.signIn.email({ email, password });
+
+      if (!error) {
+        window.location.replace("/account");
+        return;
+      }
+
+      if (error.status === 429) {
+        setError("Trop de tentatives. Réessayez dans quelques instants.");
+      } else if (error.status >= 500) {
+        setError("Service indisponible. Réessayez dans quelques instants.");
+      } else {
+        setError(
+          signup
+            ? "Impossible de créer ce compte. Vérifiez vos informations ou essayez de vous connecter."
+            : "Adresse e-mail ou mot de passe incorrect.",
+        );
+      }
+    } catch {
+      setError("Service indisponible. Réessayez dans quelques instants.");
+    }
     setBusy(false);
   }
   return (
@@ -69,21 +101,14 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               ? "Préparez votre espace d’apprentissage Python."
               : "Retrouvez votre parcours Python."}
           </p>
-          <div className="prototype-note">
-            <LockKeyhole size={18} aria-hidden="true" />
-            <p>
-              Version de démonstration. Les formulaires ne sont pas reliés à un
-              service d’authentification.
-            </p>
-          </div>
           <form
+            method="post"
             noValidate
-            data-endpoint=""
             onSubmit={submit}
             onBlur={(e) => {
               if (e.target instanceof HTMLInputElement) {
                 const name = e.target.name;
-                const all = validate(e.currentTarget);
+                const all = validate(new FormData(e.currentTarget));
                 setErrors((old) => ({ ...old, [name]: all[name] || "" }));
               }
             }}
@@ -92,29 +117,47 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               if (e.target instanceof HTMLInputElement) {
                 const name = e.target.name;
                 if (errors[name]) {
-                  const all = validate(e.currentTarget);
+                  const all = validate(new FormData(e.currentTarget));
                   setErrors((old) => ({ ...old, [name]: all[name] || "" }));
                 }
               }
             }}
           >
             {signup && (
-              <div className="field">
-                <label htmlFor="name">
-                  Prénom <span>(obligatoire)</span>
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  autoComplete="given-name"
-                  aria-required="true"
-                  aria-invalid={!!errors.name}
-                  aria-describedby="name-help"
-                />
-                <p id="name-help" className="field-help">
-                  {errors.name || "Pour vous accueillir dans votre espace."}
-                </p>
-              </div>
+              <>
+                <div className="field">
+                  <label htmlFor="name">
+                    Prénom <span>(obligatoire)</span>
+                  </label>
+                  <input
+                    id="name"
+                    name="name"
+                    autoComplete="given-name"
+                    aria-required="true"
+                    aria-invalid={!!errors.name}
+                    aria-describedby="name-help"
+                  />
+                  <p id="name-help" className="field-help">
+                    {errors.name || "Pour vous accueillir dans votre espace."}
+                  </p>
+                </div>
+                <div className="field">
+                  <label htmlFor="lastName">
+                    Nom <span>(obligatoire)</span>
+                  </label>
+                  <input
+                    id="lastName"
+                    name="lastName"
+                    autoComplete="family-name"
+                    aria-required="true"
+                    aria-invalid={!!errors.lastName}
+                    aria-describedby="last-name-help"
+                  />
+                  <p id="last-name-help" className="field-help">
+                    {errors.lastName}
+                  </p>
+                </div>
+              </>
             )}
             <div className="field">
               <label htmlFor="email">
@@ -164,8 +207,8 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               <p id="password-help" className="field-help">
                 {errors.password ||
                   (signup
-                    ? "Au moins 8 caractères. Ne réutilisez pas un vrai mot de passe ici."
-                    : "Utilisez des données fictives pour cette démonstration.")}
+                    ? "Au moins 8 caractères."
+                    : "Saisissez le mot de passe de votre compte.")}
               </p>
             </div>
             <button
@@ -175,7 +218,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               aria-busy={busy}
             >
               {busy
-                ? "Vérification des champs…"
+                ? "Vérification…"
                 : signup
                   ? "Créer mon compte"
                   : "Se connecter"}
@@ -184,6 +227,11 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               {error}
             </p>
           </form>
+          {!signup && (
+            <p className="auth-switch">
+              <Link href="/forgot-password">Mot de passe oublié ?</Link>
+            </p>
+          )}
           <p className="auth-switch">
             {signup ? "Déjà un compte ?" : "Première visite ?"}{" "}
             <Link href={signup ? "/sign-in" : "/sign-up"}>

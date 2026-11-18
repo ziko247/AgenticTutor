@@ -2,7 +2,11 @@
 
 Cette structure prépare une application web avec un backend modulaire unique. Elle ne crée pas de microservices et ne verrouille pas encore les technologies.
 
-## Responsabilités
+## Authentification actuelle
+
+Le navigateur appelle Better Auth sur la même origine via `/api/auth`. Le serveur Next.js conserve les comptes et les sessions dans SQLite et vérifie la session avant d’afficher `/account`. Le diagnostic local reste indépendant de la session. Le service pédagogique séparé reste à construire.
+
+## Responsabilités de l’architecture cible
 
 1. Le navigateur appelle uniquement l'API applicative.
 2. L'API contrôle l'identité, les permissions et les formats.

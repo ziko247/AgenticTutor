@@ -10,4 +10,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Contexte AgenticTutor
 
-Lire aussi `../AGENTS.md`, `../README.md` et `README.md`. Les routes, les limites backend et les commandes de test y sont documentées. Préserver le système visuel et les modifications existantes. Les formulaires d’authentification sont des aperçus ; le diagnostic est uniquement local. Ne pas présenter ces fonctions comme connectées à un serveur.
+Lire aussi `../AGENTS.md`, `../README.md` et `README.md`. Les routes, les limites backend et les commandes de test y sont documentées. Préserver le système visuel et les modifications existantes. Better Auth gère les comptes et sessions côté serveur avec SQLite. La réinitialisation du mot de passe utilise le SMTP configuré dans le guide frontend. Le diagnostic reste local et accessible en mode invité.

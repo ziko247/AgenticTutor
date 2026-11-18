@@ -1,6 +1,6 @@
 # Backend — API et tutorat
 
-**Statut :** dossiers réservés, aucun service exécutable. Python/FastAPI est proposé.
+**Statut :** dossiers réservés, aucun service exécutable. Python/FastAPI est proposé. Les comptes et sessions sont actuellement gérés par Better Auth dans le serveur Next.js. Voir le [guide frontend](../frontend/README.md).
 
 | Dossier | Responsabilité prévue |
 |---|---|

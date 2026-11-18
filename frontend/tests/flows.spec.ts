@@ -17,30 +17,59 @@ test("interactive lesson", async ({ page }) => {
     .click();
   await expect(page).toHaveURL(/sign-up/);
 });
-test("auth validates without fake authentication", async ({ page }) => {
+test("account registration, sign-in and sign-out", async ({ page }) => {
+  const email = `test-${crypto.randomUUID()}@example.com`;
+  await page.goto("/account");
+  await expect(page).toHaveURL(/sign-in/);
   await page.goto("/sign-up");
   await page
     .getByRole("button", { name: "Créer mon compte", exact: true })
     .click();
   await expect(page.getByText("Indiquez votre prénom.")).toBeVisible();
   await expect(page.locator("#name")).toBeFocused();
+  await expect(page.getByText("Indiquez votre nom.")).toBeVisible();
+  const missingLastName = await page.request.post("/api/auth/sign-up/email", {
+    headers: { Origin: new URL(page.url()).origin },
+    data: { name: "Test", email, password: "test-only-123" },
+  });
+  expect(missingLastName.status()).toBe(400);
   await page.locator("#name").fill("Test");
-  await page.locator("#email").fill("test@example.com");
+  await page.getByLabel("Nom (obligatoire)", { exact: true }).fill("Dupont");
+  await page.locator("#email").fill(email);
   await page.locator("#password").fill("test-only-123");
   await page.getByRole("button", { name: "Afficher le mot de passe" }).click();
   await expect(page.locator("#password")).toHaveAttribute("type", "text");
   await page
     .getByRole("button", { name: "Créer mon compte", exact: true })
     .click();
-  await expect(page.getByRole("status")).toContainText(
-    "aucune connexion effectuée",
-  );
+  await expect(page).toHaveURL(/account/);
+  await expect(
+    page.getByRole("heading", { name: "Bonjour, Test Dupont." }),
+  ).toBeVisible();
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "Bonjour, Test Dupont." }),
+  ).toBeVisible();
+  await expect(page.getByText(email, { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Se déconnecter" }).click();
+  await expect(page).toHaveURL(/sign-in/);
+  await page.goto("/account");
+  await expect(page).toHaveURL(/sign-in/);
   expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain(
     "test-only-123",
   );
   await page.goto("/sign-in");
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
   await expect(page.locator("#email")).toHaveAttribute("aria-invalid", "true");
+  await page.locator("#email").fill(email);
+  await page.locator("#password").fill("wrong-password");
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "mot de passe incorrect",
+  );
+  await page.locator("#password").fill("test-only-123");
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page).toHaveURL(/account/);
 });
 test("language diagnostic persists, reviews, scores and resets", async ({
   page,
