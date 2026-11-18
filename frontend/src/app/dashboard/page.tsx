@@ -1,4 +1,4 @@
-import { authClient } from "@/lib/supabase/server";
+import { verifiedUser } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { profileRequest, signOut } from "@/features/auth/actions";
 import { ProfileForm } from "@/features/auth/profile-form";
@@ -14,11 +14,10 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-  const client = await authClient();
   const {
     data: { user },
     error,
-  } = await client.auth.getUser();
+  } = await verifiedUser();
   if (error && (!error.status || error.status >= 500 || error.status === 429))
     return (
       <main id="main" className="container dashboard-main">

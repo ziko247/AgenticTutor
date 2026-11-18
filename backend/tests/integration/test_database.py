@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 from pydantic import SecretStr
 
 from app.core.config import Settings
+from app.core.database import SCHEMA_VERSION
 from app.main import create_app
 
 pytestmark = pytest.mark.integration
@@ -24,13 +25,13 @@ def test_privileged_connection_is_not_ready(stack):
         assert client.get("/api/v1/health/ready").status_code == 503
 
 
-def test_schema_version_mismatch_is_not_ready(admin, database):
-    admin.execute("UPDATE app_private.schema_version SET version=999")
+def test_previous_schema_is_not_ready(admin, database):
+    admin.execute("UPDATE app_private.schema_version SET version=1")
     try:
         with pytest.raises(RuntimeError, match="schema"):
             database.check_ready()
     finally:
-        admin.execute("UPDATE app_private.schema_version SET version=1")
+        admin.execute("UPDATE app_private.schema_version SET version=%s", (SCHEMA_VERSION,))
 
 
 def test_profiles_are_isolated_and_context_does_not_leak(database, students):

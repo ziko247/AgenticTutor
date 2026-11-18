@@ -1,5 +1,7 @@
 """Configure only the dedicated local stack. Never print keys."""
 
+import secrets
+
 from dotenv import dotenv_values
 
 from app.core.config import BACKEND_DIR
@@ -17,6 +19,7 @@ def main():
             "SUPABASE_URL": status["API_URL"],
             "SUPABASE_PUBLISHABLE_KEY": key,
             "API_BASE_URL": "http://127.0.0.1:8000",
+            "AUTH_RECOVERY_SECRET": secrets.token_urlsafe(32),
             "APP_ORIGIN": "http://127.0.0.1:3000",
         },
     }

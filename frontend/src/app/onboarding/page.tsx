@@ -1,15 +1,14 @@
 ﻿import { Onboarding } from "@/features/diagnostic/onboarding";
-import { authClient } from "@/lib/supabase/server";
+import { verifiedUser } from "@/lib/supabase/server";
 import { profileRequest } from "@/features/auth/actions";
 import { redirect } from "next/navigation";
 
 export const metadata = { title: "Votre diagnostic de programmation" };
 export default async function Page() {
-  const client = await authClient();
   const {
     data: { user },
     error,
-  } = await client.auth.getUser();
+  } = await verifiedUser();
   if (error && (!error.status || error.status >= 500 || error.status === 429))
     return (
       <main id="main" className="container flow-loading">

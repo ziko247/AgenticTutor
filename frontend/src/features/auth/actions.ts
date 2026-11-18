@@ -1,5 +1,6 @@
 "use server";
-import { authClient } from "@/lib/supabase/server";
+import { clearRecovery, hasRecovery } from "./recovery";
+import { authClient, verifiedUser } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
 function origin() {
@@ -59,13 +60,14 @@ export async function profileRequest(
   const {
     data: { user },
     error,
-  } = await client.auth.getUser();
+  } = await verifiedUser();
   if (error && (!error.status || error.status >= 500 || error.status === 429))
     return new Response(null, { status: 503 });
   if (error || !user) redirect("/sign-in");
   const {
     data: { session },
   } = await client.auth.getSession();
+  if (!session) redirect("/sign-in");
   try {
     return await fetch(
       (process.env.API_BASE_URL || "http://127.0.0.1:8000") +
@@ -74,7 +76,7 @@ export async function profileRequest(
         method,
         cache: "no-store",
         headers: {
-          Authorization: "Bearer " + session?.access_token,
+          Authorization: "Bearer " + session.access_token,
           "Content-Type": "application/json",
         },
         ...(body ? { body: JSON.stringify(body) } : {}),
@@ -119,9 +121,15 @@ export async function changePassword(data: FormData) {
     } = await client.auth.getUser();
     if (authError || !user)
       return { error: "Ce lien n’est plus valide. Demandez un nouvel e-mail." };
+    const {
+      data: { session },
+    } = await client.auth.getSession();
+    if (!session || !(await hasRecovery(session.access_token)))
+      return { error: "Ce lien n’est plus valide. Demandez un nouvel e-mail." };
     const { error } = await client.auth.updateUser({ password });
     if (error)
       return { error: "Modification impossible. Demandez un nouveau lien." };
+    await clearRecovery();
     await client.auth.signOut({ scope: "local" });
     return { message: "Mot de passe modifié. Vous pouvez vous connecter." };
   } catch {

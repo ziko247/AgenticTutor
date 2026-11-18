@@ -97,17 +97,21 @@ def current(request: Request, user_id: Identity):
         return read_attempt(cursor, row["id"]) if row else None
 
 
+def lock_profile(cursor, user_id):
+    profile = cursor.execute(
+        "SELECT user_id FROM app_private.profiles WHERE user_id=%s FOR UPDATE", (user_id,)
+    ).fetchone()
+    if profile is None:
+        raise HTTPException(409, "Profile required")
+
+
 @router.post("/attempts")
 def start(body: StartInput, request: Request, user_id: Identity):
     with (
         db(request).transaction_for(user_id) as connection,
         connection.cursor(row_factory=dict_row) as cursor,
     ):
-        profile = cursor.execute(
-            "SELECT user_id FROM app_private.profiles WHERE user_id=%s FOR UPDATE", (user_id,)
-        ).fetchone()
-        if profile is None:
-            raise HTTPException(409, "Profile required")
+        lock_profile(cursor, user_id)
         existing = cursor.execute(
             "SELECT id,create_payload_hash FROM app_private.diagnostic_attempts WHERE user_id=%s AND client_request_id=%s",
             (user_id, body.request_id),
@@ -128,7 +132,6 @@ def start(body: StartInput, request: Request, user_id: Identity):
         ).fetchone()
         if q is None:
             raise HTTPException(404, "Questionnaire unavailable")
-        digest = hashlib.sha256(body.language.encode()).hexdigest()
         row = cursor.execute(
             """INSERT INTO app_private.diagnostic_attempts
                (user_id,questionnaire_id,client_request_id,create_payload_hash)
@@ -152,6 +155,7 @@ def save(attempt_id: UUID, body: SaveInput, request: Request, user_id: Identity)
         db(request).transaction_for(user_id) as connection,
         connection.cursor(row_factory=dict_row) as cursor,
     ):
+        lock_profile(cursor, user_id)
         row = cursor.execute(
             "SELECT * FROM app_private.diagnostic_attempts WHERE id=%s FOR UPDATE", (attempt_id,)
         ).fetchone()
@@ -199,13 +203,19 @@ def save(attempt_id: UUID, body: SaveInput, request: Request, user_id: Identity)
         if (body.complete or body.review) and len(body.answers) != len(question_ids):
             raise HTTPException(409, "Incomplete attempt")
         cursor_id = next((q["id"] for q in questions if q["ordinal"] == body.step + 1), None)
+        kept_questions = [question_ids[key] for key in body.answers]
         cursor.execute(
-            "DELETE FROM app_private.diagnostic_answers WHERE attempt_id=%s", (attempt_id,)
+            """DELETE FROM app_private.diagnostic_answers
+               WHERE attempt_id=%s AND NOT (question_id = ANY(%s::uuid[]))""",
+            (attempt_id, kept_questions),
         )
         for key, value in body.answers.items():
             cursor.execute(
-                """INSERT INTO app_private.diagnostic_answers
-                   (attempt_id,questionnaire_id,question_id,option_id) VALUES (%s,%s,%s,%s)""",
+                """INSERT INTO app_private.diagnostic_answers AS answer
+                   (attempt_id,questionnaire_id,question_id,option_id) VALUES (%s,%s,%s,%s)
+                   ON CONFLICT (attempt_id,question_id) DO UPDATE
+                   SET option_id=EXCLUDED.option_id, answered_at=now()
+                   WHERE answer.option_id IS DISTINCT FROM EXCLUDED.option_id""",
                 (attempt_id, row["questionnaire_id"], question_ids[key], options[key, value]),
             )
         cursor.execute(

@@ -39,7 +39,6 @@ export function Onboarding() {
     setDraft(
       saved
         ? {
-            version: 2,
             language: saved.language,
             answers: saved.answers,
             step: saved.step,

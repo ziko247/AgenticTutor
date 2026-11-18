@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
@@ -29,3 +30,7 @@ export async function authClient() {
     },
   });
 }
+
+export const verifiedUser = cache(async () =>
+  (await authClient()).auth.getUser(),
+);

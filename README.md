@@ -132,7 +132,7 @@ Si la base locale existait avant cette mise à jour, appliquer les nouvelles mig
 npx.cmd --no-install supabase migration up --local
 ```
 
-Redémarrer ensuite FastAPI et le frontend. Cette commande conserve les comptes et données ; ne pas utiliser `db:reset` pour cette mise à jour.
+Depuis `backend/`, relancer `uv run python -m tools.configure_auth` pour ajouter la clé locale de récupération, puis redémarrer FastAPI et le frontend. Cette commande conserve les comptes et données ; ne pas utiliser `db:reset` pour cette mise à jour.
 
 Ouvrir http://127.0.0.1:3000. Le premier démarrage télécharge les dépendances et les images Docker. Les fichiers de configuration locaux sont ignorés par Git.
 

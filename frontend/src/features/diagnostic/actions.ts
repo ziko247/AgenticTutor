@@ -34,14 +34,6 @@ async function request(
   try {
     const client = await authClient();
     const {
-      data: { user },
-      error,
-    } = await client.auth.getUser();
-    if (error || !user)
-      return {
-        error: "Votre session est indisponible. Reconnectez-vous et réessayez.",
-      };
-    const {
       data: { session },
     } = await client.auth.getSession();
     if (!session) return { error: "Votre session a expiré. Reconnectez-vous." };
@@ -59,6 +51,8 @@ async function request(
         ...(body ? { body: JSON.stringify(body) } : {}),
       },
     );
+    if (response.status === 401)
+      return { error: "Votre session a expiré. Reconnectez-vous." };
     if (response.status === 409)
       return {
         error: "Le diagnostic a changé. Rechargez la page avant de continuer.",

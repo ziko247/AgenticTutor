@@ -6,7 +6,7 @@ from app.api.profile import identity
 from app.main import create_app
 
 
-def test_attempt_lifecycle_and_isolation(database, students):
+def test_attempt_lifecycle_and_isolation(database, students, admin):
     app = create_app()
     app.state.database = database
     app.dependency_overrides[identity] = lambda: students[0]
@@ -40,7 +40,21 @@ def test_attempt_lifecycle_and_isolation(database, students):
     assert (
         client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload).status_code == 409
     )
-    payload.update(revision=attempt["revision"], review=False, complete=True)
+
+    def answer_timestamps():
+        return admin.execute(
+            "SELECT question_id, answered_at FROM app_private.diagnostic_answers "
+            "WHERE attempt_id=%s ORDER BY question_id",
+            (attempt["id"],),
+        ).fetchall()
+
+    before = answer_timestamps()
+    payload.update(revision=attempt["revision"], review=False, step=14)
+    moved = client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload)
+    assert moved.status_code == 200
+    assert answer_timestamps() == before
+    attempt = moved.json()
+    payload.update(revision=attempt["revision"], complete=True)
     done = client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload)
     assert done.status_code == 200, done.text
     result = done.json()

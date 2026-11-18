@@ -96,6 +96,13 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
   await page.locator("#email").fill(accountEmail);
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
   await expect(page).toHaveURL(/\/dashboard$/);
+  await page.goto("/reset-password");
+  await page.locator("#recovery-field").fill("must-not-change-123");
+  await page.getByRole("button", { name: "Enregistrer", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "lien n’est plus valide",
+  );
+  await page.goto("/dashboard");
   await page
     .getByRole("button", { name: "Se déconnecter", exact: true })
     .click();
