@@ -1,0 +1,773 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 9,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 9,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 9,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/app/auth/callback/route.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 24,
+      "functions": [
+        {
+          "name": "GET",
+          "startLine": 3,
+          "endLine": 24,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "GET",
+          "line": 3,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GET",
+          "callee": "request.nextUrl.searchParams.get",
+          "lineNumber": 4
+        },
+        {
+          "caller": "GET",
+          "callee": "authClient",
+          "lineNumber": 6
+        },
+        {
+          "caller": "GET",
+          "callee": "client.auth.exchangeCodeForSession",
+          "lineNumber": 7
+        },
+        {
+          "caller": "GET",
+          "callee": "NextResponse.redirect",
+          "lineNumber": 9
+        },
+        {
+          "caller": "GET",
+          "callee": "request.nextUrl.searchParams.get",
+          "lineNumber": 11
+        },
+        {
+          "caller": "GET",
+          "callee": "NextResponse.redirect",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/app/dashboard/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 109,
+      "nonEmptyLines": 103,
+      "functions": [
+        {
+          "name": "DashboardPage",
+          "startLine": 16,
+          "endLine": 109,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 10,
+          "isDefault": false
+        },
+        {
+          "name": "DashboardPage",
+          "line": 16,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DashboardPage",
+          "callee": "authClient",
+          "lineNumber": 17
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "client.auth.getUser",
+          "lineNumber": 21
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "redirect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "profileRequest",
+          "lineNumber": 23
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "profileRequest",
+          "lineNumber": 25
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "String(user.user_metadata.display_name || \"Étudiant\")\n        .trim()\n        .slice",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "String(user.user_metadata.display_name || \"Étudiant\")\n        .trim",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "String",
+          "lineNumber": 26
+        },
+        {
+          "caller": "DashboardPage",
+          "callee": "response.json",
+          "lineNumber": 44
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/app/forgot-password/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "Page",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "Page",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/app/reset-password/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "Page",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "Page",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/auth/actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 127,
+      "functions": [
+        {
+          "name": "origin",
+          "startLine": 5,
+          "endLine": 7,
+          "params": []
+        },
+        {
+          "name": "authenticate",
+          "startLine": 8,
+          "endLine": 53,
+          "params": [
+            "mode",
+            "data"
+          ]
+        },
+        {
+          "name": "profileRequest",
+          "startLine": 54,
+          "endLine": 84,
+          "params": [
+            "method",
+            "body"
+          ]
+        },
+        {
+          "name": "signOut",
+          "startLine": 85,
+          "endLine": 90,
+          "params": []
+        },
+        {
+          "name": "recoverPassword",
+          "startLine": 91,
+          "endLine": 108,
+          "params": [
+            "data"
+          ]
+        },
+        {
+          "name": "changePassword",
+          "startLine": 109,
+          "endLine": 128,
+          "params": [
+            "data"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "authenticate",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "profileRequest",
+          "line": 54,
+          "isDefault": false
+        },
+        {
+          "name": "signOut",
+          "line": 85,
+          "isDefault": false
+        },
+        {
+          "name": "recoverPassword",
+          "line": 91,
+          "isDefault": false
+        },
+        {
+          "name": "changePassword",
+          "line": 109,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "authenticate",
+          "callee": "String(data.get(\"email\") || \"\").trim",
+          "lineNumber": 12
+        },
+        {
+          "caller": "authenticate",
+          "callee": "String",
+          "lineNumber": 12
+        },
+        {
+          "caller": "authenticate",
+          "callee": "data.get",
+          "lineNumber": 12
+        },
+        {
+          "caller": "authenticate",
+          "callee": "String",
+          "lineNumber": 13
+        },
+        {
+          "caller": "authenticate",
+          "callee": "data.get",
+          "lineNumber": 13
+        },
+        {
+          "caller": "authenticate",
+          "callee": "String(data.get(\"name\") || \"\").trim",
+          "lineNumber": 14
+        },
+        {
+          "caller": "authenticate",
+          "callee": "String",
+          "lineNumber": 14
+        },
+        {
+          "caller": "authenticate",
+          "callee": "data.get",
+          "lineNumber": 14
+        },
+        {
+          "caller": "authenticate",
+          "callee": "/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test",
+          "lineNumber": 16
+        },
+        {
+          "caller": "authenticate",
+          "callee": "authClient",
+          "lineNumber": 22
+        },
+        {
+          "caller": "authenticate",
+          "callee": "client.auth.signUp",
+          "lineNumber": 25
+        },
+        {
+          "caller": "authenticate",
+          "callee": "origin",
+          "lineNumber": 30
+        },
+        {
+          "caller": "authenticate",
+          "callee": "client.auth.signInWithPassword",
+          "lineNumber": 33
+        },
+        {
+          "caller": "profileRequest",
+          "callee": "authClient",
+          "lineNumber": 58
+        },
+        {
+          "caller": "profileRequest",
+          "callee": "client.auth.getUser",
+          "lineNumber": 62
+        },
+        {
+          "caller": "profileRequest",
+          "callee": "redirect",
+          "lineNumber": 63
+        },
+        {
+          "caller": "profileRequest",
+          "callee": "client.auth.getSession",
+          "lineNumber": 66
+        },
+        {
+          "caller": "profileRequest",
+          "callee": "fetch",
+          "lineNumber": 68
+        },
+        {
+          "caller": "profileRequest",
+          "callee": "JSON.stringify",
+          "lineNumber": 78
+        },
+        {
+          "caller": "signOut",
+          "callee": "authClient",
+          "lineNumber": 86
+        },
+        {
+          "caller": "signOut",
+          "callee": "client.auth.signOut",
+          "lineNumber": 87
+        },
+        {
+          "caller": "signOut",
+          "callee": "redirect",
+          "lineNumber": 89
+        },
+        {
+          "caller": "recoverPassword",
+          "callee": "String(data.get(\"email\") || \"\").trim",
+          "lineNumber": 92
+        },
+        {
+          "caller": "recoverPassword",
+          "callee": "String",
+          "lineNumber": 92
+        },
+        {
+          "caller": "recoverPassword",
+          "callee": "data.get",
+          "lineNumber": 92
+        },
+        {
+          "caller": "recoverPassword",
+          "callee": "/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test",
+          "lineNumber": 93
+        },
+        {
+          "caller": "recoverPassword",
+          "callee": "authClient",
+          "lineNumber": 96
+        },
+        {
+          "caller": "recoverPassword",
+          "callee": "client.auth.resetPasswordForEmail",
+          "lineNumber": 97
+        },
+        {
+          "caller": "recoverPassword",
+          "callee": "origin",
+          "lineNumber": 98
+        },
+        {
+          "caller": "changePassword",
+          "callee": "String",
+          "lineNumber": 110
+        },
+        {
+          "caller": "changePassword",
+          "callee": "data.get",
+          "lineNumber": 110
+        },
+        {
+          "caller": "changePassword",
+          "callee": "authClient",
+          "lineNumber": 113
+        },
+        {
+          "caller": "changePassword",
+          "callee": "client.auth.getUser",
+          "lineNumber": 117
+        },
+        {
+          "caller": "changePassword",
+          "callee": "client.auth.updateUser",
+          "lineNumber": 120
+        },
+        {
+          "caller": "changePassword",
+          "callee": "client.auth.signOut",
+          "lineNumber": 123
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 5,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/auth/password-form.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 51,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "PasswordForm",
+          "startLine": 5,
+          "endLine": 51,
+          "params": [
+            "{ reset = false }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "PasswordForm",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "PasswordForm",
+          "callee": "useState",
+          "lineNumber": 6
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "event.preventDefault",
+          "lineNumber": 14
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setBusy",
+          "lineNumber": 15
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "(reset ? changePassword : recoverPassword)",
+          "lineNumber": 17
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setMessage",
+          "lineNumber": 20
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setMessage",
+          "lineNumber": 22
+        },
+        {
+          "caller": "PasswordForm",
+          "callee": "setBusy",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/auth/profile-actions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 16,
+      "functions": [
+        {
+          "name": "saveProfile",
+          "startLine": 4,
+          "endLine": 16,
+          "params": [
+            "data"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "saveProfile",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "saveProfile",
+          "callee": "profileRequest",
+          "lineNumber": 5
+        },
+        {
+          "caller": "saveProfile",
+          "callee": "String(data.get(\"display_name\") || \"\").trim",
+          "lineNumber": 6
+        },
+        {
+          "caller": "saveProfile",
+          "callee": "String",
+          "lineNumber": 6
+        },
+        {
+          "caller": "saveProfile",
+          "callee": "data.get",
+          "lineNumber": 6
+        },
+        {
+          "caller": "saveProfile",
+          "callee": "data.get",
+          "lineNumber": 7
+        },
+        {
+          "caller": "saveProfile",
+          "callee": "Number",
+          "lineNumber": 8
+        },
+        {
+          "caller": "saveProfile",
+          "callee": "data.get",
+          "lineNumber": 8
+        },
+        {
+          "caller": "saveProfile",
+          "callee": "revalidatePath",
+          "lineNumber": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/auth/profile-form.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "ProfileForm",
+          "startLine": 5,
+          "endLine": 64,
+          "params": [
+            "{\n  name,\n  language,\n  revision,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileForm",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ProfileForm",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "e.preventDefault",
+          "lineNumber": 19
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "setBusy",
+          "lineNumber": 20
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "saveProfile",
+          "lineNumber": 22
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "setMessage",
+          "lineNumber": 23
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "setMessage",
+          "lineNumber": 25
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "setBusy",
+          "lineNumber": 27
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "Object.entries(languages).map",
+          "lineNumber": 51
+        },
+        {
+          "caller": "ProfileForm",
+          "callee": "Object.entries",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/lib/supabase/server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "authClient",
+          "startLine": 4,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "authClient",
+          "line": 4,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "authClient",
+          "callee": "cookies",
+          "lineNumber": 5
+        },
+        {
+          "caller": "authClient",
+          "callee": "createServerClient",
+          "lineNumber": 12
+        },
+        {
+          "caller": "authClient",
+          "callee": "store.getAll",
+          "lineNumber": 19
+        },
+        {
+          "caller": "authClient",
+          "callee": "values.forEach",
+          "lineNumber": 22
+        },
+        {
+          "caller": "authClient",
+          "callee": "store.set",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

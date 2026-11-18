@@ -1,0 +1,360 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/app/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 386,
+      "nonEmptyLines": 378,
+      "functions": [
+        {
+          "name": "Home",
+          "startLine": 50,
+          "endLine": 386,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Home",
+          "line": 50,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Home",
+          "callee": "topics.map",
+          "lineNumber": 162
+        },
+        {
+          "caller": "Home",
+          "callee": "String(i + 1).padStart",
+          "lineNumber": 165
+        },
+        {
+          "caller": "Home",
+          "callee": "String",
+          "lineNumber": 165
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/tutor/examples.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 169,
+      "nonEmptyLines": 169,
+      "functions": [
+        {
+          "name": "loop",
+          "startLine": 33,
+          "endLine": 57,
+          "params": [
+            "label",
+            "file",
+            "code",
+            "sum",
+            "detail"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "examples",
+          "line": 58,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/tutor/language-select.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 101,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "LanguageSelect",
+          "startLine": 5,
+          "endLine": 101,
+          "params": [
+            "{\n  id,\n  value,\n  onChange,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "LanguageSelect",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LanguageSelect",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "useRef",
+          "lineNumber": 15
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "useRef",
+          "lineNumber": 16
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "useRef",
+          "lineNumber": 17
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "useEffect",
+          "lineNumber": 19
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "selected.current?.focus",
+          "lineNumber": 21
+        },
+        {
+          "caller": "dismiss",
+          "callee": "root.current?.contains",
+          "lineNumber": 23
+        },
+        {
+          "caller": "dismiss",
+          "callee": "setOpen",
+          "lineNumber": 23
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "document.addEventListener",
+          "lineNumber": 25
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "document.removeEventListener",
+          "lineNumber": 26
+        },
+        {
+          "caller": "close",
+          "callee": "setOpen",
+          "lineNumber": 30
+        },
+        {
+          "caller": "close",
+          "callee": "trigger.current?.focus",
+          "lineNumber": 31
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "event.preventDefault",
+          "lineNumber": 40
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "close",
+          "lineNumber": 41
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "setOpen",
+          "lineNumber": 43
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "setOpen",
+          "lineNumber": 56
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "languageOrder.map",
+          "lineNumber": 73
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "onChange",
+          "lineNumber": 87
+        },
+        {
+          "caller": "LanguageSelect",
+          "callee": "close",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/tutor/lesson-preview.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 76,
+      "functions": [
+        {
+          "name": "LessonPreview",
+          "startLine": 7,
+          "endLine": 76,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LessonPreview",
+          "line": 7,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LessonPreview",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "LessonPreview",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "LessonPreview",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "LessonPreview",
+          "callee": "setLanguage",
+          "lineNumber": 25
+        },
+        {
+          "caller": "LessonPreview",
+          "callee": "setHint",
+          "lineNumber": 26
+        },
+        {
+          "caller": "LessonPreview",
+          "callee": "setAnswer",
+          "lineNumber": 27
+        },
+        {
+          "caller": "LessonPreview",
+          "callee": "setHint",
+          "lineNumber": 39
+        },
+        {
+          "caller": "LessonPreview",
+          "callee": "setAnswer",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/tutor/worked-example.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 54,
+      "functions": [
+        {
+          "name": "WorkedExample",
+          "startLine": 6,
+          "endLine": 54,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "WorkedExample",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "WorkedExample",
+          "callee": "useState",
+          "lineNumber": 7
+        },
+        {
+          "caller": "WorkedExample",
+          "callee": "example.worked.steps.map",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/lib/languages.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 45,
+      "nonEmptyLines": 45,
+      "exports": [
+        {
+          "name": "languages",
+          "line": 1,
+          "isDefault": false
+        },
+        {
+          "name": "languageOrder",
+          "line": 34,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

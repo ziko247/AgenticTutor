@@ -1,0 +1,65 @@
+from uuid import uuid4
+
+from fastapi.testclient import TestClient
+
+from app.api.profile import identity
+from app.main import create_app
+
+
+def test_attempt_lifecycle_and_isolation(database, students):
+    app = create_app()
+    app.state.database = database
+    app.dependency_overrides[identity] = lambda: students[0]
+    client = TestClient(app)
+    assert client.get("/api/v1/diagnostic/current").json() is None
+    request_id = str(uuid4())
+    response = client.post(
+        "/api/v1/diagnostic/attempts", json={"language": "python", "request_id": request_id}
+    )
+    assert response.status_code == 200, response.text
+    attempt = response.json()
+    assert len(attempt["questions"]) == 16
+    assert (
+        client.post(
+            "/api/v1/diagnostic/attempts", json={"language": "python", "request_id": request_id}
+        ).json()["id"]
+        == attempt["id"]
+    )
+    answers = {q["id"]: 0 for q in attempt["questions"]}
+    payload = {
+        "revision": attempt["revision"],
+        "step": 15,
+        "review": True,
+        "answers": answers,
+        "complete": False,
+    }
+    saved = client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload)
+    assert saved.status_code == 200, saved.text
+    attempt = saved.json()
+    assert attempt["answers"] == answers
+    assert (
+        client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload).status_code == 409
+    )
+    payload.update(revision=attempt["revision"], review=False, complete=True)
+    done = client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload)
+    assert done.status_code == 200, done.text
+    result = done.json()
+    assert result["completed"] and result["score"] == 2 * result["correct_count"]
+    app.dependency_overrides[identity] = lambda: students[1]
+    assert client.get("/api/v1/diagnostic/current").json() is None
+    assert (
+        client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload).status_code == 404
+    )
+    app.dependency_overrides[identity] = lambda: students[0]
+    payload.update(revision=result["revision"], complete=False, review=True)
+    edited = client.put("/api/v1/diagnostic/attempts/" + result["id"], json=payload)
+    assert edited.status_code == 200, edited.text
+    assert edited.json()["id"] != result["id"]
+    assert (
+        client.post(
+            "/api/v1/diagnostic/reset",
+            json={"attempt_id": edited.json()["id"], "revision": edited.json()["revision"]},
+        ).status_code
+        == 200
+    )
+    assert client.get("/api/v1/diagnostic/current").json() is None

@@ -1,22 +1,21 @@
 {
-  "scanned": "2026-11-12",
+  "scanned": "2026-11-15",
   "findings": {
-    "framework": "frontend/README.md:3 empty scaffold; no package.json",
-    "fonts": "none",
-    "palette": "none",
-    "motion": "none",
-    "material": "Python pilot; no live tutor, images, testimonials or metrics"
+    "framework": "frontend/package.json:20 Next.js App Router 16.4.6; frontend/src/app/layout.tsx:1",
+    "fonts": "frontend/src/styles/tokens.css:19 Rethink Sans and Hanken Grotesk",
+    "palette": "frontend/src/styles/tokens.css:2 forest, mint and citron",
+    "motion": "frontend/src/styles/globals.css:136 reduced-motion aware button transitions",
+    "spacing": "frontend/src/styles/tokens.css:22 existing spacing scale",
+    "material": "Existing brand and local diagnostic; Auth frontend not connected"
   },
   "preserve": [
-    "feature folders",
-    "French interface",
-    "backend boundaries"
+    "Custom learning studio system",
+    "Landing and diagnostic behavior",
+    "Sign-in preview",
+    "Existing backend milestone"
   ],
   "introduce": [
-    "Next.js App Router",
-    "TypeScript",
-    "Tailwind CSS",
-    "custom learning studio design",
-    "local-only onboarding"
+    "Basic /dashboard app screen",
+    "Validated sign-up preview navigates to dashboard"
   ]
 }

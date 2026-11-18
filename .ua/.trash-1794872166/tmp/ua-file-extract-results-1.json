@@ -1,0 +1,2253 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 11,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 11,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/app/api/profile.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 119,
+      "nonEmptyLines": 102,
+      "functions": [
+        {
+          "name": "identity",
+          "startLine": 27,
+          "endLine": 50,
+          "params": [
+            "request",
+            "credentials"
+          ]
+        },
+        {
+          "name": "db",
+          "startLine": 53,
+          "endLine": 56,
+          "params": [
+            "request"
+          ]
+        },
+        {
+          "name": "get_profile",
+          "startLine": 60,
+          "endLine": 70,
+          "params": [
+            "request",
+            "user_id"
+          ]
+        },
+        {
+          "name": "create_profile",
+          "startLine": 74,
+          "endLine": 100,
+          "params": [
+            "body",
+            "request",
+            "user_id"
+          ]
+        },
+        {
+          "name": "update_profile",
+          "startLine": 104,
+          "endLine": 119,
+          "params": [
+            "body",
+            "request",
+            "user_id"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileInput",
+          "startLine": 17,
+          "endLine": 20,
+          "methods": [],
+          "properties": [
+            "display_name",
+            "preferred_language"
+          ]
+        },
+        {
+          "name": "ProfilePatch",
+          "startLine": 23,
+          "endLine": 24,
+          "methods": [],
+          "properties": [
+            "revision"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ProfileInput",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "ProfilePatch",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "identity",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "db",
+          "line": 53,
+          "isDefault": false
+        },
+        {
+          "name": "get_profile",
+          "line": 59,
+          "isDefault": false
+        },
+        {
+          "name": "create_profile",
+          "line": 73,
+          "isDefault": false
+        },
+        {
+          "name": "update_profile",
+          "line": 103,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "identity",
+          "callee": "Depends",
+          "lineNumber": 28
+        },
+        {
+          "caller": "identity",
+          "callee": "HTTPException",
+          "lineNumber": 31
+        },
+        {
+          "caller": "identity",
+          "callee": "HTTPException",
+          "lineNumber": 34
+        },
+        {
+          "caller": "identity",
+          "callee": "httpx.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "identity",
+          "callee": "settings.supabase_url.rstrip",
+          "lineNumber": 37
+        },
+        {
+          "caller": "identity",
+          "callee": "UUID",
+          "lineNumber": 45
+        },
+        {
+          "caller": "identity",
+          "callee": "response.json",
+          "lineNumber": 45
+        },
+        {
+          "caller": "identity",
+          "callee": "HTTPException",
+          "lineNumber": 47
+        },
+        {
+          "caller": "identity",
+          "callee": "HTTPException",
+          "lineNumber": 49
+        },
+        {
+          "caller": "identity",
+          "callee": "HTTPException",
+          "lineNumber": 50
+        },
+        {
+          "caller": "db",
+          "callee": "HTTPException",
+          "lineNumber": 55
+        },
+        {
+          "caller": "get_profile",
+          "callee": "Depends",
+          "lineNumber": 60
+        },
+        {
+          "caller": "get_profile",
+          "callee": "db(request).transaction_for",
+          "lineNumber": 62
+        },
+        {
+          "caller": "get_profile",
+          "callee": "db",
+          "lineNumber": 62
+        },
+        {
+          "caller": "get_profile",
+          "callee": "connection.cursor",
+          "lineNumber": 63
+        },
+        {
+          "caller": "get_profile",
+          "callee": "cursor.execute(\n            \"SELECT * FROM app_private.profiles WHERE user_id=%s\", (user_id,)\n        ).fetchone",
+          "lineNumber": 65
+        },
+        {
+          "caller": "get_profile",
+          "callee": "cursor.execute",
+          "lineNumber": 65
+        },
+        {
+          "caller": "get_profile",
+          "callee": "HTTPException",
+          "lineNumber": 69
+        },
+        {
+          "caller": "create_profile",
+          "callee": "Depends",
+          "lineNumber": 75
+        },
+        {
+          "caller": "create_profile",
+          "callee": "db(request).transaction_for",
+          "lineNumber": 81
+        },
+        {
+          "caller": "create_profile",
+          "callee": "db",
+          "lineNumber": 81
+        },
+        {
+          "caller": "create_profile",
+          "callee": "connection.cursor",
+          "lineNumber": 82
+        },
+        {
+          "caller": "create_profile",
+          "callee": "cursor.execute(\n            \"\"\"INSERT INTO app_private.profiles\n            (user_id,display_name,preferred_language) VALUES (%s,%s,%s)\n            ON CONFLICT (user_id) DO NOTHING RETURNING *\"\"\",\n            (user_id, body.display_name, body.preferred_language),\n        ).fetchone",
+          "lineNumber": 84
+        },
+        {
+          "caller": "create_profile",
+          "callee": "cursor.execute",
+          "lineNumber": 84
+        },
+        {
+          "caller": "create_profile",
+          "callee": "cursor.execute(\n                \"SELECT * FROM app_private.profiles WHERE user_id=%s\", (user_id,)\n            ).fetchone",
+          "lineNumber": 92
+        },
+        {
+          "caller": "create_profile",
+          "callee": "cursor.execute",
+          "lineNumber": 92
+        },
+        {
+          "caller": "create_profile",
+          "callee": "HTTPException",
+          "lineNumber": 99
+        },
+        {
+          "caller": "create_profile",
+          "callee": "JSONResponse",
+          "lineNumber": 100
+        },
+        {
+          "caller": "create_profile",
+          "callee": "jsonable_encoder",
+          "lineNumber": 100
+        },
+        {
+          "caller": "update_profile",
+          "callee": "Depends",
+          "lineNumber": 105
+        },
+        {
+          "caller": "update_profile",
+          "callee": "db(request).transaction_for",
+          "lineNumber": 108
+        },
+        {
+          "caller": "update_profile",
+          "callee": "db",
+          "lineNumber": 108
+        },
+        {
+          "caller": "update_profile",
+          "callee": "connection.cursor",
+          "lineNumber": 109
+        },
+        {
+          "caller": "update_profile",
+          "callee": "cursor.execute(\n            \"\"\"UPDATE app_private.profiles SET display_name=%s,\n            preferred_language=%s,revision=revision+1,updated_at=now()\n            WHERE user_id=%s AND revision=%s RETURNING *\"\"\",\n            (body.display_name, body.preferred_language, user_id, body.revision),\n        ).fetchone",
+          "lineNumber": 111
+        },
+        {
+          "caller": "update_profile",
+          "callee": "cursor.execute",
+          "lineNumber": 111
+        },
+        {
+          "caller": "update_profile",
+          "callee": "HTTPException",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 7,
+        "functionCount": 5,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "backend/app/core/config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 14,
+      "classes": [
+        {
+          "name": "Settings",
+          "startLine": 9,
+          "endLine": 19,
+          "methods": [],
+          "properties": [
+            "database_url",
+            "database_pool_size",
+            "database_timeout",
+            "cors_origins",
+            "supabase_url",
+            "supabase_publishable_key"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "Settings",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "backend/app/core/database.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 52,
+      "classes": [
+        {
+          "name": "Database",
+          "startLine": 13,
+          "endLine": 62,
+          "methods": [
+            "__init__",
+            "open",
+            "close",
+            "check_role",
+            "check_ready",
+            "transaction_for"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Database",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "ConnectionPool",
+          "lineNumber": 16
+        },
+        {
+          "caller": "__init__",
+          "callee": "settings.database_url.get_secret_value",
+          "lineNumber": 17
+        },
+        {
+          "caller": "open",
+          "callee": "self.pool.open",
+          "lineNumber": 30
+        },
+        {
+          "caller": "close",
+          "callee": "self.pool.close",
+          "lineNumber": 33
+        },
+        {
+          "caller": "check_role",
+          "callee": "connection.execute(\n            \"\"\"SELECT current_user, rolsuper, rolbypassrls,\n                      pg_has_role(current_user, 'app_owner', 'MEMBER')\n               FROM pg_roles WHERE rolname = current_user\"\"\"\n        ).fetchone",
+          "lineNumber": 37
+        },
+        {
+          "caller": "check_role",
+          "callee": "connection.execute",
+          "lineNumber": 37
+        },
+        {
+          "caller": "check_role",
+          "callee": "RuntimeError",
+          "lineNumber": 43
+        },
+        {
+          "caller": "check_ready",
+          "callee": "self.pool.connection",
+          "lineNumber": 46
+        },
+        {
+          "caller": "check_ready",
+          "callee": "self.check_role",
+          "lineNumber": 47
+        },
+        {
+          "caller": "check_ready",
+          "callee": "connection.execute(\n                \"SELECT version FROM app_private.schema_version WHERE singleton\"\n            ).fetchone",
+          "lineNumber": 48
+        },
+        {
+          "caller": "check_ready",
+          "callee": "connection.execute",
+          "lineNumber": 48
+        },
+        {
+          "caller": "check_ready",
+          "callee": "RuntimeError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "transaction_for",
+          "callee": "isinstance",
+          "lineNumber": 56
+        },
+        {
+          "caller": "transaction_for",
+          "callee": "TypeError",
+          "lineNumber": 57
+        },
+        {
+          "caller": "transaction_for",
+          "callee": "self.pool.connection",
+          "lineNumber": 58
+        },
+        {
+          "caller": "transaction_for",
+          "callee": "self.check_role",
+          "lineNumber": 59
+        },
+        {
+          "caller": "transaction_for",
+          "callee": "connection.transaction",
+          "lineNumber": 60
+        },
+        {
+          "caller": "transaction_for",
+          "callee": "connection.execute",
+          "lineNumber": 61
+        },
+        {
+          "caller": "transaction_for",
+          "callee": "str",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "backend/app/main.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 57,
+      "functions": [
+        {
+          "name": "create_app",
+          "startLine": 17,
+          "endLine": 66,
+          "params": [
+            "settings",
+            "database_factory"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "create_app",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "create_app",
+          "callee": "Settings",
+          "lineNumber": 21
+        },
+        {
+          "caller": "lifespan",
+          "callee": "database_factory",
+          "lineNumber": 25
+        },
+        {
+          "caller": "lifespan",
+          "callee": "database.open",
+          "lineNumber": 28
+        },
+        {
+          "caller": "lifespan",
+          "callee": "database.close",
+          "lineNumber": 33
+        },
+        {
+          "caller": "create_app",
+          "callee": "FastAPI",
+          "lineNumber": 35
+        },
+        {
+          "caller": "create_app",
+          "callee": "app.include_router",
+          "lineNumber": 37
+        },
+        {
+          "caller": "create_app",
+          "callee": "app.add_middleware",
+          "lineNumber": 38
+        },
+        {
+          "caller": "create_app",
+          "callee": "app.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "create_app",
+          "callee": "app.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ready",
+          "callee": "database.check_ready",
+          "lineNumber": 55
+        },
+        {
+          "caller": "ready",
+          "callee": "logger.warning",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ready",
+          "callee": "type",
+          "lineNumber": 58
+        },
+        {
+          "caller": "ready",
+          "callee": "JSONResponse",
+          "lineNumber": 59
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/integration/conftest.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 58,
+      "functions": [
+        {
+          "name": "stack",
+          "startLine": 13,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "admin",
+          "startLine": 19,
+          "endLine": 24,
+          "params": [
+            "stack"
+          ]
+        },
+        {
+          "name": "database",
+          "startLine": 28,
+          "endLine": 35,
+          "params": []
+        },
+        {
+          "name": "students",
+          "startLine": 39,
+          "endLine": 68,
+          "params": [
+            "stack",
+            "admin"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "stack",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "admin",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "database",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "students",
+          "line": 38,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "stack",
+          "callee": "local_status",
+          "lineNumber": 15
+        },
+        {
+          "caller": "admin",
+          "callee": "psycopg.connect",
+          "lineNumber": 20
+        },
+        {
+          "caller": "admin",
+          "callee": "connection.execute(\n            \"SELECT project_id FROM app_private.schema_version WHERE singleton\"\n        ).fetchone",
+          "lineNumber": 21
+        },
+        {
+          "caller": "admin",
+          "callee": "connection.execute",
+          "lineNumber": 21
+        },
+        {
+          "caller": "database",
+          "callee": "Settings",
+          "lineNumber": 29
+        },
+        {
+          "caller": "database",
+          "callee": "Database",
+          "lineNumber": 31
+        },
+        {
+          "caller": "database",
+          "callee": "database.open",
+          "lineNumber": 32
+        },
+        {
+          "caller": "database",
+          "callee": "database.check_ready",
+          "lineNumber": 33
+        },
+        {
+          "caller": "database",
+          "callee": "database.close",
+          "lineNumber": 35
+        },
+        {
+          "caller": "students",
+          "callee": "stack.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "students",
+          "callee": "stack.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "students",
+          "callee": "key.startswith",
+          "lineNumber": 43
+        },
+        {
+          "caller": "students",
+          "callee": "httpx.Client",
+          "lineNumber": 46
+        },
+        {
+          "caller": "students",
+          "callee": "range",
+          "lineNumber": 48
+        },
+        {
+          "caller": "students",
+          "callee": "client.post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "students",
+          "callee": "uuid4",
+          "lineNumber": 52
+        },
+        {
+          "caller": "students",
+          "callee": "str",
+          "lineNumber": 53
+        },
+        {
+          "caller": "students",
+          "callee": "uuid4",
+          "lineNumber": 53
+        },
+        {
+          "caller": "students",
+          "callee": "UUID",
+          "lineNumber": 58
+        },
+        {
+          "caller": "students",
+          "callee": "response.json",
+          "lineNumber": 58
+        },
+        {
+          "caller": "students",
+          "callee": "created.append",
+          "lineNumber": 59
+        },
+        {
+          "caller": "students",
+          "callee": "admin.execute",
+          "lineNumber": 60
+        },
+        {
+          "caller": "students",
+          "callee": "reversed",
+          "lineNumber": 66
+        },
+        {
+          "caller": "students",
+          "callee": "client.delete",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 4,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/integration/test_database.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 265,
+      "nonEmptyLines": 238,
+      "functions": [
+        {
+          "name": "test_ready_with_actual_runtime_connection",
+          "startLine": 14,
+          "endLine": 18,
+          "params": [
+            "database"
+          ]
+        },
+        {
+          "name": "test_privileged_connection_is_not_ready",
+          "startLine": 21,
+          "endLine": 24,
+          "params": [
+            "stack"
+          ]
+        },
+        {
+          "name": "test_schema_version_mismatch_is_not_ready",
+          "startLine": 27,
+          "endLine": 33,
+          "params": [
+            "admin",
+            "database"
+          ]
+        },
+        {
+          "name": "test_profiles_are_isolated_and_context_does_not_leak",
+          "startLine": 36,
+          "endLine": 54,
+          "params": [
+            "database",
+            "students"
+          ]
+        },
+        {
+          "name": "test_runtime_cannot_forge_profile_or_publish",
+          "startLine": 57,
+          "endLine": 76,
+          "params": [
+            "database",
+            "students"
+          ]
+        },
+        {
+          "name": "test_banks_are_complete_and_private",
+          "startLine": 79,
+          "endLine": 92,
+          "params": [
+            "admin"
+          ]
+        },
+        {
+          "name": "test_answer_foreign_keys_and_attempt_ownership",
+          "startLine": 95,
+          "endLine": 162,
+          "params": [
+            "admin",
+            "database",
+            "students"
+          ]
+        },
+        {
+          "name": "test_published_content_is_immutable",
+          "startLine": 165,
+          "endLine": 167,
+          "params": [
+            "admin"
+          ]
+        },
+        {
+          "name": "test_invalid_publication_is_rejected",
+          "startLine": 170,
+          "endLine": 187,
+          "params": [
+            "admin"
+          ]
+        },
+        {
+          "name": "test_context_is_required_for_writes",
+          "startLine": 190,
+          "endLine": 198,
+          "params": [
+            "database"
+          ]
+        },
+        {
+          "name": "test_import_cannot_attach_another_students_attempt",
+          "startLine": 201,
+          "endLine": 236,
+          "params": [
+            "admin",
+            "database",
+            "students"
+          ]
+        },
+        {
+          "name": "test_completed_attempt_cannot_receive_answers",
+          "startLine": 239,
+          "endLine": 265,
+          "params": [
+            "admin",
+            "database",
+            "students"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_ready_with_actual_runtime_connection",
+          "line": 14,
+          "isDefault": false
+        },
+        {
+          "name": "test_privileged_connection_is_not_ready",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "test_schema_version_mismatch_is_not_ready",
+          "line": 27,
+          "isDefault": false
+        },
+        {
+          "name": "test_profiles_are_isolated_and_context_does_not_leak",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "test_runtime_cannot_forge_profile_or_publish",
+          "line": 57,
+          "isDefault": false
+        },
+        {
+          "name": "test_banks_are_complete_and_private",
+          "line": 79,
+          "isDefault": false
+        },
+        {
+          "name": "test_answer_foreign_keys_and_attempt_ownership",
+          "line": 95,
+          "isDefault": false
+        },
+        {
+          "name": "test_published_content_is_immutable",
+          "line": 165,
+          "isDefault": false
+        },
+        {
+          "name": "test_invalid_publication_is_rejected",
+          "line": 170,
+          "isDefault": false
+        },
+        {
+          "name": "test_context_is_required_for_writes",
+          "line": 190,
+          "isDefault": false
+        },
+        {
+          "name": "test_import_cannot_attach_another_students_attempt",
+          "line": 201,
+          "isDefault": false
+        },
+        {
+          "name": "test_completed_attempt_cannot_receive_answers",
+          "line": 239,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_ready_with_actual_runtime_connection",
+          "callee": "database.check_ready",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_ready_with_actual_runtime_connection",
+          "callee": "TestClient",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_ready_with_actual_runtime_connection",
+          "callee": "create_app",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_ready_with_actual_runtime_connection",
+          "callee": "Settings",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_ready_with_actual_runtime_connection",
+          "callee": "client.get",
+          "lineNumber": 17
+        },
+        {
+          "caller": "test_ready_with_actual_runtime_connection",
+          "callee": "client.get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_privileged_connection_is_not_ready",
+          "callee": "Settings",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_privileged_connection_is_not_ready",
+          "callee": "SecretStr",
+          "lineNumber": 22
+        },
+        {
+          "caller": "test_privileged_connection_is_not_ready",
+          "callee": "TestClient",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_privileged_connection_is_not_ready",
+          "callee": "create_app",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_privileged_connection_is_not_ready",
+          "callee": "client.get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "test_schema_version_mismatch_is_not_ready",
+          "callee": "admin.execute",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_schema_version_mismatch_is_not_ready",
+          "callee": "pytest.raises",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_schema_version_mismatch_is_not_ready",
+          "callee": "database.check_ready",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_schema_version_mismatch_is_not_ready",
+          "callee": "admin.execute",
+          "lineNumber": 33
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "database.transaction_for",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute(\"SELECT user_id FROM app_private.profiles\").fetchall",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute",
+          "lineNumber": 39
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute(\n                \"UPDATE app_private.profiles SET display_name='changed' WHERE user_id=%s RETURNING user_id\",\n                (b,),\n            ).fetchall",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "database.transaction_for",
+          "lineNumber": 47
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute(\"SELECT user_id FROM app_private.profiles\").fetchall",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute",
+          "lineNumber": 48
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "database.pool.connection",
+          "lineNumber": 49
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute(\"SELECT * FROM app_private.profiles\").fetchall",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute",
+          "lineNumber": 50
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "pytest.raises",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "database.transaction_for",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "RuntimeError",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "database.pool.connection",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute(\"SELECT * FROM app_private.profiles\").fetchall",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_profiles_are_isolated_and_context_does_not_leak",
+          "callee": "connection.execute",
+          "lineNumber": 54
+        },
+        {
+          "caller": "test_runtime_cannot_forge_profile_or_publish",
+          "callee": "pytest.raises",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_runtime_cannot_forge_profile_or_publish",
+          "callee": "database.transaction_for",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_runtime_cannot_forge_profile_or_publish",
+          "callee": "connection.execute",
+          "lineNumber": 63
+        },
+        {
+          "caller": "test_runtime_cannot_forge_profile_or_publish",
+          "callee": "uuid4",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_runtime_cannot_forge_profile_or_publish",
+          "callee": "pytest.raises",
+          "lineNumber": 73
+        },
+        {
+          "caller": "test_runtime_cannot_forge_profile_or_publish",
+          "callee": "database.transaction_for",
+          "lineNumber": 74
+        },
+        {
+          "caller": "test_runtime_cannot_forge_profile_or_publish",
+          "callee": "connection.execute",
+          "lineNumber": 76
+        },
+        {
+          "caller": "test_banks_are_complete_and_private",
+          "callee": "admin.execute(\n        \"\"\"SELECT q.language_code, count(DISTINCT r.id), count(DISTINCT k.question_id)\n           FROM app_private.questionnaires q\n           JOIN app_private.questions r ON r.questionnaire_id=q.id\n           LEFT JOIN app_private.answer_keys k ON k.question_id=r.id\n           WHERE q.status='published' GROUP BY q.language_code\"\"\"\n    ).fetchall",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_banks_are_complete_and_private",
+          "callee": "admin.execute",
+          "lineNumber": 80
+        },
+        {
+          "caller": "test_banks_are_complete_and_private",
+          "callee": "len",
+          "lineNumber": 87
+        },
+        {
+          "caller": "test_banks_are_complete_and_private",
+          "callee": "all",
+          "lineNumber": 88
+        },
+        {
+          "caller": "test_banks_are_complete_and_private",
+          "callee": "admin.execute(\n            \"SELECT has_schema_privilege(%s,'app_private','USAGE')\", (role,)\n        ).fetchone",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_banks_are_complete_and_private",
+          "callee": "admin.execute",
+          "lineNumber": 90
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "admin.execute(\n        \"\"\"SELECT q.id, r.id, o.id FROM app_private.questionnaires q\n           JOIN app_private.questions r ON r.questionnaire_id=q.id\n           JOIN app_private.answer_options o ON o.question_id=r.id\n           WHERE r.ordinal=7 AND o.ordinal=0 ORDER BY q.language_code LIMIT 2\"\"\"\n    ).fetchall",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "admin.execute",
+          "lineNumber": 97
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "uuid4",
+          "lineNumber": 105
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "database.transaction_for",
+          "lineNumber": 106
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 107
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "uuid4",
+          "lineNumber": 111
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 113
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "database.transaction_for",
+          "lineNumber": 118
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute(\n                \"SELECT * FROM app_private.diagnostic_attempts WHERE id=%s\", (attempt,)\n            ).fetchall",
+          "lineNumber": 120
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 120
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute(\n                \"SELECT * FROM app_private.diagnostic_answers WHERE attempt_id=%s\", (attempt,)\n            ).fetchall",
+          "lineNumber": 126
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 126
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "pytest.raises",
+          "lineNumber": 132
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "database.transaction_for",
+          "lineNumber": 133
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 135
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "pytest.raises",
+          "lineNumber": 141
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "database.transaction_for",
+          "lineNumber": 142
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 144
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "pytest.raises",
+          "lineNumber": 149
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "database.transaction_for",
+          "lineNumber": 150
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 152
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "database.transaction_for",
+          "lineNumber": 155
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 156
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute(\n                \"SELECT * FROM app_private.diagnostic_answers WHERE attempt_id=%s\", (attempt,)\n            ).fetchall",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_answer_foreign_keys_and_attempt_ownership",
+          "callee": "connection.execute",
+          "lineNumber": 158
+        },
+        {
+          "caller": "test_published_content_is_immutable",
+          "callee": "pytest.raises",
+          "lineNumber": 166
+        },
+        {
+          "caller": "test_published_content_is_immutable",
+          "callee": "admin.transaction",
+          "lineNumber": 166
+        },
+        {
+          "caller": "test_published_content_is_immutable",
+          "callee": "admin.execute",
+          "lineNumber": 167
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "pytest.raises",
+          "lineNumber": 171
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "admin.transaction",
+          "lineNumber": 171
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "admin.execute",
+          "lineNumber": 172
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "pytest.raises",
+          "lineNumber": 178
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "admin.transaction",
+          "lineNumber": 178
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "admin.execute(\n            \"\"\"INSERT INTO app_private.questionnaires\n            (language_code,version,content_hash) VALUES (\\'python\\',999,%s) RETURNING id\"\"\",\n            (\"0\" * 64,),\n        ).fetchone",
+          "lineNumber": 179
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "admin.execute",
+          "lineNumber": 179
+        },
+        {
+          "caller": "test_invalid_publication_is_rejected",
+          "callee": "admin.execute",
+          "lineNumber": 184
+        },
+        {
+          "caller": "test_context_is_required_for_writes",
+          "callee": "pytest.raises",
+          "lineNumber": 192
+        },
+        {
+          "caller": "test_context_is_required_for_writes",
+          "callee": "database.pool.connection",
+          "lineNumber": 193
+        },
+        {
+          "caller": "test_context_is_required_for_writes",
+          "callee": "connection.execute",
+          "lineNumber": 195
+        },
+        {
+          "caller": "test_context_is_required_for_writes",
+          "callee": "uuid4",
+          "lineNumber": 197
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "admin.execute(\n        \"SELECT id FROM app_private.questionnaires ORDER BY language_code LIMIT 1\"\n    ).fetchone",
+          "lineNumber": 203
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "admin.execute",
+          "lineNumber": 203
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "uuid4",
+          "lineNumber": 206
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "database.transaction_for",
+          "lineNumber": 207
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "connection.execute",
+          "lineNumber": 208
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "uuid4",
+          "lineNumber": 212
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "connection.execute",
+          "lineNumber": 214
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "uuid4",
+          "lineNumber": 217
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "database.transaction_for",
+          "lineNumber": 219
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "connection.execute(\"SELECT * FROM app_private.diagnostic_imports\").fetchall",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "connection.execute",
+          "lineNumber": 220
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "pytest.raises",
+          "lineNumber": 222
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "database.transaction_for",
+          "lineNumber": 223
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "connection.execute",
+          "lineNumber": 225
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "uuid4",
+          "lineNumber": 228
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "admin.execute",
+          "lineNumber": 230
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "admin.execute(\n            \"SELECT * FROM app_private.diagnostic_imports WHERE attempt_id=%s\", (attempt,)\n        ).fetchall",
+          "lineNumber": 232
+        },
+        {
+          "caller": "test_import_cannot_attach_another_students_attempt",
+          "callee": "admin.execute",
+          "lineNumber": 232
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "admin.execute(\n        \"\"\"SELECT q.id, r.id, o.id FROM app_private.questionnaires q\n           JOIN app_private.questions r ON r.questionnaire_id=q.id\n           JOIN app_private.answer_options o ON o.question_id=r.id LIMIT 1\"\"\"\n    ).fetchone",
+          "lineNumber": 241
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "admin.execute",
+          "lineNumber": 241
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "uuid4",
+          "lineNumber": 246
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "admin.execute",
+          "lineNumber": 247
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "uuid4",
+          "lineNumber": 252
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "pytest.raises",
+          "lineNumber": 256
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "database.transaction_for",
+          "lineNumber": 257
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "connection.execute",
+          "lineNumber": 259
+        },
+        {
+          "caller": "test_completed_attempt_cannot_receive_answers",
+          "callee": "admin.execute",
+          "lineNumber": 265
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 12,
+        "functionCount": 12,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/integration/test_profile_api.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 75,
+      "functions": [
+        {
+          "name": "test_real_auth_profile_contract",
+          "startLine": 12,
+          "endLine": 80,
+          "params": [
+            "stack"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "test_real_auth_profile_contract",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "uuid4",
+          "lineNumber": 13
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "stack.get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "stack.get",
+          "lineNumber": 16
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "httpx.Client",
+          "lineNumber": 18
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "auth.post",
+          "lineNumber": 19
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "result.json",
+          "lineNumber": 21
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "auth.post",
+          "lineNumber": 23
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "login.json",
+          "lineNumber": 26
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "TestClient",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "create_app",
+          "lineNumber": 28
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.get",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.put",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "response.json",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.put",
+          "lineNumber": 42
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.put",
+          "lineNumber": 45
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.put",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "str",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "uuid4",
+          "lineNumber": 56
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.patch(\"/api/v1/me/profile\", headers=headers, json=patch).json",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.patch",
+          "lineNumber": 62
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.patch",
+          "lineNumber": 68
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.get(\"/api/v1/me/profile\", headers=headers).json",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "client.get",
+          "lineNumber": 72
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "admin_key.startswith",
+          "lineNumber": 77
+        },
+        {
+          "caller": "test_real_auth_profile_contract",
+          "callee": "auth.delete",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tests/unit/test_health.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "test_live_does_not_need_database",
+          "startLine": 28,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "test_readiness_recovers_and_closes_pool",
+          "startLine": 34,
+          "endLine": 47,
+          "params": [
+            "caplog"
+          ]
+        },
+        {
+          "name": "test_cors_is_explicit",
+          "startLine": 50,
+          "endLine": 55,
+          "params": []
+        },
+        {
+          "name": "test_pool_size_is_bounded",
+          "startLine": 59,
+          "endLine": 61,
+          "params": [
+            "size"
+          ]
+        },
+        {
+          "name": "test_secret_is_redacted",
+          "startLine": 64,
+          "endLine": 67,
+          "params": []
+        }
+      ],
+      "classes": [
+        {
+          "name": "FakeDatabase",
+          "startLine": 11,
+          "endLine": 25,
+          "methods": [
+            "__init__",
+            "open",
+            "close",
+            "check_ready"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "FakeDatabase",
+          "line": 11,
+          "isDefault": false
+        },
+        {
+          "name": "test_live_does_not_need_database",
+          "line": 28,
+          "isDefault": false
+        },
+        {
+          "name": "test_readiness_recovers_and_closes_pool",
+          "line": 34,
+          "isDefault": false
+        },
+        {
+          "name": "test_cors_is_explicit",
+          "line": 50,
+          "isDefault": false
+        },
+        {
+          "name": "test_pool_size_is_bounded",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "test_secret_is_redacted",
+          "line": 64,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "check_ready",
+          "callee": "RuntimeError",
+          "lineNumber": 25
+        },
+        {
+          "caller": "test_live_does_not_need_database",
+          "callee": "TestClient",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_live_does_not_need_database",
+          "callee": "create_app",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_live_does_not_need_database",
+          "callee": "Settings",
+          "lineNumber": 29
+        },
+        {
+          "caller": "test_live_does_not_need_database",
+          "callee": "client.get(\"/api/v1/health/live\").json",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_live_does_not_need_database",
+          "callee": "client.get",
+          "lineNumber": 30
+        },
+        {
+          "caller": "test_live_does_not_need_database",
+          "callee": "client.get",
+          "lineNumber": 31
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "Settings",
+          "lineNumber": 35
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "TestClient",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "create_app",
+          "lineNumber": 36
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "client.get(\"/api/v1/health/ready\").json",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "client.get",
+          "lineNumber": 38
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "caplog.at_level",
+          "lineNumber": 40
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "client.get",
+          "lineNumber": 41
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "client.get",
+          "lineNumber": 44
+        },
+        {
+          "caller": "test_readiness_recovers_and_closes_pool",
+          "callee": "client.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "test_cors_is_explicit",
+          "callee": "TestClient",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_cors_is_explicit",
+          "callee": "create_app",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_cors_is_explicit",
+          "callee": "Settings",
+          "lineNumber": 51
+        },
+        {
+          "caller": "test_cors_is_explicit",
+          "callee": "client.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "test_cors_is_explicit",
+          "callee": "client.get",
+          "lineNumber": 53
+        },
+        {
+          "caller": "test_pool_size_is_bounded",
+          "callee": "pytest.raises",
+          "lineNumber": 60
+        },
+        {
+          "caller": "test_pool_size_is_bounded",
+          "callee": "Settings",
+          "lineNumber": 61
+        },
+        {
+          "caller": "test_secret_is_redacted",
+          "callee": "repr",
+          "lineNumber": 65
+        },
+        {
+          "caller": "test_secret_is_redacted",
+          "callee": "Settings",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 6,
+        "functionCount": 5,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "backend/tools/configure_auth.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 9,
+          "endLine": 31,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "local_status",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "status.get",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "status.get",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "RuntimeError",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "configs.items",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "dotenv_values",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "existing.get",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "RuntimeError",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "path.open",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "values.items",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "output.write",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tools/local_stack.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 40,
+      "functions": [
+        {
+          "name": "local_status",
+          "startLine": 13,
+          "endLine": 44,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "local_status",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "local_status",
+          "callee": "tomllib.loads",
+          "lineNumber": 14
+        },
+        {
+          "caller": "local_status",
+          "callee": "(ROOT / \"supabase/config.toml\").read_text",
+          "lineNumber": 14
+        },
+        {
+          "caller": "local_status",
+          "callee": "config.get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "local_status",
+          "callee": "RuntimeError",
+          "lineNumber": 16
+        },
+        {
+          "caller": "local_status",
+          "callee": "subprocess.run",
+          "lineNumber": 17
+        },
+        {
+          "caller": "local_status",
+          "callee": "shutil.which",
+          "lineNumber": 19
+        },
+        {
+          "caller": "local_status",
+          "callee": "str",
+          "lineNumber": 20
+        },
+        {
+          "caller": "local_status",
+          "callee": "RuntimeError",
+          "lineNumber": 33
+        },
+        {
+          "caller": "local_status",
+          "callee": "json.loads",
+          "lineNumber": 34
+        },
+        {
+          "caller": "local_status",
+          "callee": "conninfo_to_dict",
+          "lineNumber": 35
+        },
+        {
+          "caller": "local_status",
+          "callee": "params.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "local_status",
+          "callee": "params.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "local_status",
+          "callee": "params.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "local_status",
+          "callee": "RuntimeError",
+          "lineNumber": 41
+        },
+        {
+          "caller": "local_status",
+          "callee": "RuntimeError",
+          "lineNumber": 43
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/tools/setup_local.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 12,
+          "endLine": 50,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "main",
+          "line": 12,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "local_status",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "dotenv_values(destination).get",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "dotenv_values",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "destination.exists",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "conninfo_to_dict",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "params.get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "params.get",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "params.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "params.get",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "RuntimeError",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "params.get",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "secrets.token_urlsafe",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "psycopg.connect",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "connection.execute(\n            \"SELECT project_id FROM app_private.schema_version WHERE singleton\"\n        ).fetchone",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "connection.execute",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "RuntimeError",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "connection.execute",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "sql.SQL(\"ALTER ROLE app_runtime PASSWORD {}\").format",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "sql.SQL",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "sql.Literal",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "make_conninfo",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "destination.open",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "output.write",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "print",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

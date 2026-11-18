@@ -1,0 +1,108 @@
+{
+  "nodes": [
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Documents SQL runtime connection, pool/timeouts, allowed frontend origin and Supabase Auth variables using replacement credentials.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:backend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "backend/README.md",
+      "summary": "Documents backend setup, health probes, private-schema permissions, migrations, testing and milestone-2 Auth/profile integration with Windows execution guidance.",
+      "tags": [
+        "documentation",
+        "backend",
+        "local-development"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:backend/pyproject.toml",
+      "type": "config",
+      "name": "pyproject.toml",
+      "filePath": "backend/pyproject.toml",
+      "summary": "Defines the Python 3.12 backend dependencies, development tools, pytest integration marker and Ruff line-length setting.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "config:backend/.env.example",
+      "target": "file:backend/app/core/config.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/app/main.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/app/core/database.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/app/api/profile.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/tools/setup_local.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/tools/configure_auth.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/pyproject.toml",
+      "target": "file:backend/app/main.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/pyproject.toml",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/pyproject.toml",
+      "target": "file:backend/tests/unit/test_health.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    }
+  ]
+}

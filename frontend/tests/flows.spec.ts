@@ -1,6 +1,18 @@
 import { diagnosticBanks } from "../src/features/diagnostic/banks";
 import { profileQuestions } from "../src/features/diagnostic/questions";
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
+async function createAccount(page: Page) {
+  await page.goto("/sign-up");
+  await page.locator("#name").fill("Test");
+  await page
+    .locator("#email")
+    .fill("diagnostic-" + crypto.randomUUID() + "@example.invalid");
+  await page.locator("#password").fill("test-only-123");
+  await page
+    .getByRole("button", { name: "Créer mon compte", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/dashboard$/);
+}
 test("interactive lesson", async ({ page }) => {
   await page.goto("/");
   await page
@@ -17,7 +29,7 @@ test("interactive lesson", async ({ page }) => {
     .click();
   await expect(page).toHaveURL(/sign-up/);
 });
-test("auth validates without fake authentication", async ({ page }) => {
+test("auth registers, persists a profile, and signs out", async ({ page }) => {
   await page.goto("/sign-up");
   await page
     .getByRole("button", { name: "Créer mon compte", exact: true })
@@ -25,26 +37,114 @@ test("auth validates without fake authentication", async ({ page }) => {
   await expect(page.getByText("Indiquez votre prénom.")).toBeVisible();
   await expect(page.locator("#name")).toBeFocused();
   await page.locator("#name").fill("Test");
-  await page.locator("#email").fill("test@example.com");
+  const accountEmail = "e2e-" + Date.now() + "@example.invalid";
+  await page.locator("#email").fill(accountEmail);
   await page.locator("#password").fill("test-only-123");
   await page.getByRole("button", { name: "Afficher le mot de passe" }).click();
   await expect(page.locator("#password")).toHaveAttribute("type", "text");
   await page
     .getByRole("button", { name: "Créer mon compte", exact: true })
     .click();
-  await expect(page.getByRole("status")).toContainText(
-    "aucune connexion effectuée",
-  );
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await expect(
+    page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Mon profil" })).toBeVisible();
+  await page.getByRole("link", { name: "AgenticTutor, accueil" }).click();
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: "Mon espace" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Se connecter", exact: true }),
+  ).toHaveCount(0);
+  await page.goto("/dashboard");
+
   expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain(
     "test-only-123",
   );
+  await page.locator("#profile-name").fill("Profile edited");
+  await page
+    .getByRole("button", { name: "Enregistrer le profil", exact: true })
+    .click();
+  await expect(page.getByRole("status")).toHaveText("Profil enregistré.");
+  await page.reload();
+  await expect(page.locator("#profile-name")).toHaveValue("Profile edited");
+  expect(
+    (await page.context().cookies())
+      .filter((c) => c.name.startsWith("sb-"))
+      .every((c) => c.httpOnly),
+  ).toBeTruthy();
+  await expect(
+    page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Se déconnecter", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/sign-in$/);
+  await page.goto("/dashboard");
+  await expect(page).toHaveURL(/\/sign-in$/);
+  await page.goto("/onboarding");
+  await expect(page).toHaveURL(/\/sign-in$/);
   await page.goto("/sign-in");
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
   await expect(page.locator("#email")).toHaveAttribute("aria-invalid", "true");
+  await page.locator("#email").fill("test@example.com");
+  await page.locator("#password").fill("test-only-123");
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("Connexion impossible");
+  await expect(page).toHaveURL(/\/sign-in$/);
+  await page.locator("#email").fill(accountEmail);
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await page
+    .getByRole("button", { name: "Se déconnecter", exact: true })
+    .click();
+  await page.goto("/forgot-password");
+  await page.locator("#recovery-field").fill(accountEmail);
+  await page.getByRole("button", { name: "Recevoir un lien" }).click();
+  await expect(page.getByRole("status")).toContainText(
+    "un e-mail vous a été envoyé",
+  );
+  let messageId = "";
+  await expect
+    .poll(async () => {
+      const result = await (
+        await page.request.get("http://127.0.0.1:58424/api/v1/messages")
+      ).json();
+      const message = result.messages.find(
+        (m: { ID: string; To: { Address: string }[] }) =>
+          m.To.some((t) => t.Address === accountEmail),
+      );
+      messageId = message?.ID || "";
+      return Boolean(messageId);
+    })
+    .toBeTruthy();
+  const mail = await (
+    await page.request.get("http://127.0.0.1:58424/api/v1/message/" + messageId)
+  ).json();
+  const links = Array.from(String(mail.HTML).matchAll(/href="([^"]+)"/g), (m) =>
+    m[1].replaceAll("&amp;", "&"),
+  );
+  const recoveryLink = links.find((link) =>
+    link.startsWith("http://127.0.0.1:58421/auth/v1/verify"),
+  );
+  expect(Boolean(recoveryLink)).toBeTruthy();
+  await page.goto(recoveryLink!);
+  await expect(page).toHaveURL(/\/reset-password$/);
+  await page.locator("#recovery-field").fill("new-test-password-123");
+  await page.getByRole("button", { name: "Enregistrer", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("Mot de passe modifié");
+  await page.goto("/sign-in");
+  await page.locator("#email").fill(accountEmail);
+  await page.locator("#password").fill("new-test-password-123");
+  await page.getByRole("button", { name: "Se connecter", exact: true }).click();
+  await expect(page).toHaveURL(/\/dashboard$/);
 });
 test("language diagnostic persists, reviews, scores and resets", async ({
   page,
 }) => {
+  test.setTimeout(90_000);
+  await createAccount(page);
   await page.goto("/onboarding");
   await page.getByRole("button", { name: "JavaScript", exact: true }).click();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
@@ -59,12 +159,19 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await expect(page.getByRole("radio").first()).toBeChecked();
   for (let i = 0; i < 16; i++) {
     await page.getByRole("radio").last().check();
+    await expect(page.locator(".storage-note [role=status]")).toHaveText(
+      "Diagnostic enregistré sur votre compte.",
+    );
     await page
       .getByRole("button", {
         name: i === 15 ? "Vérifier mes réponses" : "Continuer",
         exact: true,
       })
       .click();
+    if (i < 15)
+      await expect(
+        page.getByText(`Question ${i + 2} sur 16`, { exact: true }),
+      ).toBeVisible();
   }
   await expect(page.locator(".review-list li")).toHaveCount(16);
   await page
@@ -81,7 +188,7 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await page.reload();
   await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
   await page
-    .getByRole("button", { name: "Effacer et recommencer", exact: true })
+    .getByRole("button", { name: "Recommencer le diagnostic", exact: true })
     .click();
   await expect(
     page.getByRole("heading", {
@@ -91,6 +198,7 @@ test("language diagnostic persists, reviews, scores and resets", async ({
 });
 
 test("corrupt storage recovers", async ({ page }) => {
+  await createAccount(page);
   await page.goto("/");
   await page.evaluate(() =>
     localStorage.setItem("agentictutor.onboarding.v2", "{broken"),
@@ -104,6 +212,7 @@ test("corrupt storage recovers", async ({ page }) => {
 });
 
 test("blocked storage keeps flow usable", async ({ page }) => {
+  await createAccount(page);
   await page.addInitScript(() => {
     Storage.prototype.setItem = () => {
       throw Error("blocked");
@@ -113,7 +222,7 @@ test("blocked storage keeps flow usable", async ({ page }) => {
     };
   });
   await page.goto("/onboarding");
-  await expect(page.getByRole("status")).toContainText("indisponible");
+  await expect(page.getByRole("status")).toContainText("compte");
   await page.getByRole("button", { name: "Python", exact: true }).click();
   await page.getByRole("radio").first().check();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
@@ -125,7 +234,13 @@ test("blocked storage keeps flow usable", async ({ page }) => {
 test("responsive routes", async ({ page }) => {
   for (const width of [375, 768, 1280, 1920]) {
     await page.setViewportSize({ width, height: 900 });
-    for (const route of ["/", "/sign-in", "/sign-up", "/onboarding"]) {
+    for (const route of [
+      "/",
+      "/sign-in",
+      "/sign-up",
+      "/onboarding",
+      "/dashboard",
+    ]) {
       await page.goto(route);
       await page.locator("h1").waitFor();
       expect(
@@ -138,26 +253,30 @@ test("responsive routes", async ({ page }) => {
 });
 test("keyboard focus and reduced motion", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
-  await page.keyboard.press("Tab");
-  await expect(
-    page.getByRole("link", { name: "Aller au contenu" }),
-  ).toBeFocused();
-  await page.keyboard.press("Tab");
-  expect(
-    await page
-      .locator(":focus")
-      .evaluate((el) => getComputedStyle(el).outlineStyle),
-  ).not.toBe("none");
-  expect(
-    await page
-      .locator("html")
-      .evaluate((el) => getComputedStyle(el).scrollBehavior),
-  ).toBe("auto");
+  for (const route of ["/", "/dashboard"]) {
+    await page.goto(route);
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("link", { name: "Aller au contenu" }),
+    ).toBeFocused();
+    await page.keyboard.press("Tab");
+    expect(
+      await page
+        .locator(":focus")
+        .evaluate((el) => getComputedStyle(el).outlineStyle),
+    ).not.toBe("none");
+    expect(
+      await page
+        .locator("html")
+        .evaluate((el) => getComputedStyle(el).scrollBehavior),
+    ).toBe("auto");
+  }
 });
 test("all ten language banks finish with a score out of twenty", async ({
   page,
 }) => {
+  await createAccount(page);
+  test.setTimeout(180_000);
   for (const language of [
     "Python",
     "C",
@@ -170,20 +289,34 @@ test("all ten language banks finish with a score out of twenty", async ({
     "Go",
     "Rust",
   ]) {
-    await page.goto("/");
-    await page.evaluate(() =>
-      localStorage.removeItem("agentictutor.onboarding.v2"),
-    );
     await page.goto("/onboarding");
+    await expect(page.locator(".storage-note [role=status]")).toHaveText(
+      "Diagnostic enregistré sur votre compte.",
+    );
+    if (
+      await page
+        .getByRole("button", { name: "Recommencer le diagnostic" })
+        .count()
+    )
+      await page
+        .getByRole("button", { name: "Recommencer le diagnostic" })
+        .click();
     await page.getByRole("button", { name: language, exact: true }).click();
     for (let i = 0; i < 16; i++) {
       await page.getByRole("radio").last().check();
+      await expect(page.locator(".storage-note [role=status]")).toHaveText(
+        "Diagnostic enregistré sur votre compte.",
+      );
       await page
         .getByRole("button", {
           name: i === 15 ? "Vérifier mes réponses" : "Continuer",
           exact: true,
         })
         .click();
+      if (i < 15)
+        await expect(
+          page.getByText(`Question ${i + 2} sur 16`, { exact: true }),
+        ).toBeVisible();
     }
     await page
       .getByRole("button", { name: "Terminer le diagnostic", exact: true })
@@ -195,6 +328,7 @@ test("all ten language banks finish with a score out of twenty", async ({
 test("changing language clears answers only after confirmation", async ({
   page,
 }) => {
+  await createAccount(page);
   await page.goto("/onboarding");
   await page.getByRole("button", { name: "Rust", exact: true }).click();
   await page.getByRole("radio").first().check();
@@ -251,26 +385,35 @@ test("language menus support mouse and keyboard", async ({ page }) => {
 test("perfect result is twenty and old drafts remain untouched", async ({
   page,
 }) => {
+  test.setTimeout(90_000);
+  await createAccount(page);
   await page.goto("/");
-  const answers = Object.fromEntries([
-    ...profileQuestions.map((q) => [q.id, 0]),
-    ...diagnosticBanks.python.map((q) => [q.id, q.correct]),
-  ]);
-  await page.evaluate((answers) => {
+  await page.evaluate(() => {
     localStorage.setItem("agentictutor.onboarding.v1", "legacy-draft");
-    localStorage.setItem(
-      "agentictutor.onboarding.v2",
-      JSON.stringify({
-        version: 2,
-        language: "python",
-        answers,
-        step: 15,
-        review: true,
-        completed: false,
-      }),
-    );
-  }, answers);
+    localStorage.setItem("agentictutor.onboarding.v2", "legacy-v2");
+  });
   await page.goto("/onboarding");
+  await page.getByRole("button", { name: "Python", exact: true }).click();
+  const answers = [
+    ...profileQuestions.map(() => 0),
+    ...diagnosticBanks.python.map((q) => q.correct!),
+  ];
+  for (let i = 0; i < 16; i++) {
+    await page.getByRole("radio").nth(answers[i]).check();
+    await expect(page.locator(".storage-note [role=status]")).toHaveText(
+      "Diagnostic enregistré sur votre compte.",
+    );
+    await page
+      .getByRole("button", {
+        name: i === 15 ? "Vérifier mes réponses" : "Continuer",
+        exact: true,
+      })
+      .click();
+    if (i < 15)
+      await expect(
+        page.getByText(`Question ${i + 2} sur 16`, { exact: true }),
+      ).toBeVisible();
+  }
   await page
     .getByRole("button", { name: "Terminer le diagnostic", exact: true })
     .click();
@@ -291,4 +434,44 @@ test("each bank has ten valid independent scored questions", () => {
       expect(new Set(q.options).size).toBe(q.options.length);
     }
   }
+});
+
+test("smooth scrolling respects reduced motion and anchor navigation", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveClass(/lenis/);
+  await page.locator("#lesson-language").click();
+  const menu = page.locator("#lesson-language-menu .language-menu-list");
+  await menu.hover();
+  await page.mouse.wheel(0, 400);
+  await expect
+    .poll(() => menu.evaluate((el) => el.scrollTop))
+    .toBeGreaterThan(0);
+  await page.keyboard.press("Escape");
+  await page.getByRole("link", { name: "Découvrir l’approche" }).click();
+  await expect
+    .poll(
+      () =>
+        page
+          .locator("#approche")
+          .evaluate((el) => Math.abs(el.getBoundingClientRect().top)),
+      { timeout: 5000 },
+    )
+    .toBeLessThan(5);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator("html")).not.toHaveClass(/lenis/);
+  await expect(page.locator("html")).toHaveCSS("scroll-behavior", "auto");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect(page.locator("html")).toHaveClass(/lenis/);
+});
+
+test("expired recovery link offers a new link", async ({ page }) => {
+  await page.goto("/#error=access_denied&error_code=otp_expired");
+  await expect(page).toHaveURL(/\/forgot-password\?error=invalid_link/);
+  await expect(page.getByRole("status")).toContainText("invalide ou expiré");
+  await expect(
+    page.getByRole("button", { name: "Recevoir un lien" }),
+  ).toBeVisible();
 });

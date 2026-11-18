@@ -1372,3 +1372,6 @@ details p {
 @media (max-width: 420px) { .diagnostic-language-grid { grid-template-columns: minmax(0, 1fr); } }
 
 .diagnostic-secondary-actions { display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; margin-top: var(--space-lg); }
+
+/* Lenis controls smooth scrolling while active. */
+html.lenis { scroll-behavior: auto; }

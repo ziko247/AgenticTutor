@@ -1,0 +1,568 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 106,
+      "nonEmptyLines": 73,
+      "sections": [
+        {
+          "heading": "AgenticTutor — Guide pour les agents de développement",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Lire avant de modifier",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "État du projet",
+          "level": 2,
+          "line": 10
+        },
+        {
+          "heading": "Reprise de la tranche actuelle",
+          "level": 2,
+          "line": 19
+        },
+        {
+          "heading": "Où travailler",
+          "level": 2,
+          "line": 32
+        },
+        {
+          "heading": "Conventions et frontières",
+          "level": 2,
+          "line": 44
+        },
+        {
+          "heading": "Pendant l’implémentation",
+          "level": 2,
+          "line": 58
+        },
+        {
+          "heading": "Données et secrets",
+          "level": 2,
+          "line": 71
+        },
+        {
+          "heading": "Prochain travail proposé",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "Exemples multilangages de la landing",
+          "level": 2,
+          "line": 79
+        },
+        {
+          "heading": "Diagnostic multilangage actuel",
+          "level": 2,
+          "line": 83
+        },
+        {
+          "heading": "Simplification interne du frontend",
+          "level": 2,
+          "line": 87
+        },
+        {
+          "heading": "Fondation backend : jalon 1 livré",
+          "level": 2,
+          "line": 90
+        },
+        {
+          "heading": "Tableau de bord provisoire : validation du 15 novembre 2026",
+          "level": 2,
+          "line": 98
+        },
+        {
+          "heading": "Jalon 2 : comptes et profil connectés",
+          "level": 2,
+          "line": 102
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 15
+      }
+    },
+    {
+      "path": "CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 584,
+      "nonEmptyLines": 433,
+      "sections": [
+        {
+          "heading": "Cahier des charges — AgenticTutor",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. Contexte et justification",
+          "level": 2,
+          "line": 18
+        },
+        {
+          "heading": "2. Problématique",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "3. Objectifs",
+          "level": 2,
+          "line": 39
+        },
+        {
+          "heading": "3.1 Objectif général",
+          "level": 3,
+          "line": 41
+        },
+        {
+          "heading": "3.2 Objectifs spécifiques",
+          "level": 3,
+          "line": 45
+        },
+        {
+          "heading": "3.3 Résultats attendus",
+          "level": 3,
+          "line": 56
+        },
+        {
+          "heading": "4. Hypothèses et décisions de cadrage",
+          "level": 2,
+          "line": 64
+        },
+        {
+          "heading": "5. Parties prenantes et rôles",
+          "level": 2,
+          "line": 79
+        },
+        {
+          "heading": "6. Périmètre",
+          "level": 2,
+          "line": 91
+        },
+        {
+          "heading": "6.1 Version minimale attendue — MVP",
+          "level": 3,
+          "line": 93
+        },
+        {
+          "heading": "6.2 Extensions possibles après validation du MVP",
+          "level": 3,
+          "line": 107
+        },
+        {
+          "heading": "6.3 Hors périmètre initial",
+          "level": 3,
+          "line": 116
+        },
+        {
+          "heading": "7. Exigences fonctionnelles",
+          "level": 2,
+          "line": 126
+        },
+        {
+          "heading": "8. Parcours et cas d'utilisation",
+          "level": 2,
+          "line": 153
+        },
+        {
+          "heading": "8.1 Première utilisation",
+          "level": 3,
+          "line": 155
+        },
+        {
+          "heading": "8.2 Séance d'apprentissage",
+          "level": 3,
+          "line": 163
+        },
+        {
+          "heading": "8.3 Difficulté persistante",
+          "level": 3,
+          "line": 174
+        },
+        {
+          "heading": "8.4 Réponse non fiable ou hors périmètre",
+          "level": 3,
+          "line": 178
+        },
+        {
+          "heading": "8.5 Publication d'un contenu",
+          "level": 3,
+          "line": 182
+        },
+        {
+          "heading": "9. Modèle pédagogique et adaptation",
+          "level": 2,
+          "line": 186
+        },
+        {
+          "heading": "9.1 Représentation des connaissances",
+          "level": 3,
+          "line": 188
+        },
+        {
+          "heading": "9.2 Profil de l'étudiant",
+          "level": 3,
+          "line": 194
+        },
+        {
+          "heading": "9.3 Politique initiale d'adaptation",
+          "level": 3,
+          "line": 206
+        },
+        {
+          "heading": "9.4 Choix du modèle de suivi",
+          "level": 3,
+          "line": 222
+        },
+        {
+          "heading": "10. Dimension agentique",
+          "level": 2,
+          "line": 226
+        },
+        {
+          "heading": "10.1 Définition retenue",
+          "level": 3,
+          "line": 228
+        },
+        {
+          "heading": "10.2 Organisation proposée",
+          "level": 3,
+          "line": 234
+        },
+        {
+          "heading": "10.3 Outils et limites d'autonomie",
+          "level": 3,
+          "line": 249
+        },
+        {
+          "heading": "11. Corpus, exercices et données",
+          "level": 2,
+          "line": 258
+        },
+        {
+          "heading": "11.1 Corpus pédagogique",
+          "level": 3,
+          "line": 260
+        },
+        {
+          "heading": "11.2 Banque d'exercices",
+          "level": 3,
+          "line": 266
+        },
+        {
+          "heading": "11.3 Données d'utilisation",
+          "level": 3,
+          "line": 274
+        },
+        {
+          "heading": "11.4 Modèle de données conceptuel",
+          "level": 3,
+          "line": 285
+        },
+        {
+          "heading": "12. Architecture technique envisagée",
+          "level": 2,
+          "line": 299
+        },
+        {
+          "heading": "12.1 Vue d'ensemble",
+          "level": 3,
+          "line": 301
+        },
+        {
+          "heading": "12.2 Technologies proposées",
+          "level": 3,
+          "line": 307
+        },
+        {
+          "heading": "12.3 Réponses fondées sur les documents",
+          "level": 3,
+          "line": 322
+        },
+        {
+          "heading": "12.4 Gestion des défaillances",
+          "level": 3,
+          "line": 328
+        },
+        {
+          "heading": "13. Exigences non fonctionnelles",
+          "level": 2,
+          "line": 336
+        },
+        {
+          "heading": "14. Sécurité, confidentialité et limites pédagogiques",
+          "level": 2,
+          "line": 355
+        },
+        {
+          "heading": "14.1 Contrôles techniques",
+          "level": 3,
+          "line": 357
+        },
+        {
+          "heading": "14.2 Gestion des données personnelles",
+          "level": 3,
+          "line": 367
+        },
+        {
+          "heading": "14.3 Précautions pédagogiques",
+          "level": 3,
+          "line": 373
+        },
+        {
+          "heading": "15. Évaluation et protocole expérimental",
+          "level": 2,
+          "line": 381
+        },
+        {
+          "heading": "15.1 Questions d'évaluation",
+          "level": 3,
+          "line": 383
+        },
+        {
+          "heading": "15.2 Jeux d'évaluation",
+          "level": 3,
+          "line": 391
+        },
+        {
+          "heading": "15.3 Comparaison avec une référence",
+          "level": 3,
+          "line": 400
+        },
+        {
+          "heading": "15.4 Indicateurs et seuils proposés",
+          "level": 3,
+          "line": 408
+        },
+        {
+          "heading": "16. Stratégie de tests et recette",
+          "level": 2,
+          "line": 424
+        },
+        {
+          "heading": "16.1 Niveaux de vérification",
+          "level": 3,
+          "line": 426
+        },
+        {
+          "heading": "16.2 Scénarios de recette prioritaires",
+          "level": 3,
+          "line": 434
+        },
+        {
+          "heading": "16.3 Conditions d'acceptation du MVP",
+          "level": 3,
+          "line": 451
+        },
+        {
+          "heading": "17. Planification prévisionnelle",
+          "level": 2,
+          "line": 455
+        },
+        {
+          "heading": "18. Ressources et budget",
+          "level": 2,
+          "line": 470
+        },
+        {
+          "heading": "18.1 Ressources humaines et matérielles",
+          "level": 3,
+          "line": 472
+        },
+        {
+          "heading": "18.2 Postes budgétaires",
+          "level": 3,
+          "line": 482
+        },
+        {
+          "heading": "19. Risques et mesures de réduction",
+          "level": 2,
+          "line": 494
+        },
+        {
+          "heading": "20. Livrables attendus",
+          "level": 2,
+          "line": 510
+        },
+        {
+          "heading": "21. Gouvernance et suivi",
+          "level": 2,
+          "line": 523
+        },
+        {
+          "heading": "22. Scénario proposé pour la soutenance",
+          "level": 2,
+          "line": 532
+        },
+        {
+          "heading": "23. Décisions à valider avant le développement",
+          "level": 2,
+          "line": 546
+        },
+        {
+          "heading": "24. Glossaire",
+          "level": 2,
+          "line": 561
+        },
+        {
+          "heading": "25. Validation du document",
+          "level": 2,
+          "line": 576
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 64
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 244,
+      "nonEmptyLines": 203,
+      "sections": [
+        {
+          "heading": "Accès et prise en main — MVP",
+          "level": 3,
+          "line": 6
+        },
+        {
+          "heading": "Diagnostic et profil — MVP",
+          "level": 3,
+          "line": 13
+        },
+        {
+          "heading": "Explications et conversation — MVP",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "Exercices et corrections — MVP",
+          "level": 3,
+          "line": 31
+        },
+        {
+          "heading": "Adaptation et orchestration — MVP",
+          "level": 3,
+          "line": 42
+        },
+        {
+          "heading": "Progression et continuité — MVP",
+          "level": 3,
+          "line": 53
+        },
+        {
+          "heading": "Gestion des contenus et retours — MVP",
+          "level": 3,
+          "line": 60
+        },
+        {
+          "heading": "Qualité, sécurité et exploitation — MVP",
+          "level": 3,
+          "line": 70
+        },
+        {
+          "heading": "Extensions après le MVP",
+          "level": 3,
+          "line": 84
+        },
+        {
+          "heading": "Avancement",
+          "level": 2,
+          "line": 92
+        },
+        {
+          "heading": "Installation et lancement",
+          "level": 2,
+          "line": 105
+        },
+        {
+          "heading": "Adresses utiles",
+          "level": 2,
+          "line": 142
+        },
+        {
+          "heading": "Organisation et suivi",
+          "level": 2,
+          "line": 152
+        },
+        {
+          "heading": "Documentation",
+          "level": 2,
+          "line": 237
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 14
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 13,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 10
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    }
+  ]
+}

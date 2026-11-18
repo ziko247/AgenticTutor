@@ -1,0 +1,45 @@
+{
+  "projectRoot": "C:\\Users\\zkira\\Desktop\\5IIR\\PFA 2027",
+  "batchFiles": [
+    {
+      "path": "frontend/src/features/diagnostic/banks.ts",
+      "language": "typescript",
+      "sizeLines": 410,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/diagnostic/questions.ts",
+      "language": "typescript",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/diagnostic/storage.ts",
+      "language": "typescript",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/tests/flows.spec.ts",
+      "language": "typescript",
+      "sizeLines": 379,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "frontend/src/features/diagnostic/banks.ts": [
+      "frontend/src/features/diagnostic/questions.ts",
+      "frontend/src/lib/languages.ts"
+    ],
+    "frontend/src/features/diagnostic/questions.ts": [],
+    "frontend/src/features/diagnostic/storage.ts": [
+      "frontend/src/features/diagnostic/banks.ts",
+      "frontend/src/features/diagnostic/questions.ts",
+      "frontend/src/lib/languages.ts"
+    ],
+    "frontend/tests/flows.spec.ts": [
+      "frontend/src/features/diagnostic/banks.ts",
+      "frontend/src/features/diagnostic/questions.ts"
+    ]
+  }
+}

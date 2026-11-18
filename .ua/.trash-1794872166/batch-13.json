@@ -1,0 +1,122 @@
+{
+  "nodes": [
+    {
+      "id": "document:supabase/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "supabase/README.md",
+      "summary": "Describes the dedicated local Supabase stack, private runtime roles, single SQL migration history and immutable versioned diagnostic seed.",
+      "tags": [
+        "documentation",
+        "backend",
+        "local-development"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:supabase/config.toml",
+      "type": "config",
+      "name": "config.toml",
+      "filePath": "supabase/config.toml",
+      "summary": "Configures the local Supabase project, PostgreSQL 17 and ports 58420-58424, email/password Auth with local callbacks and refresh rotation, Studio and local mail. Email confirmation is disabled and unused services are disabled.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/seed.sql",
+      "type": "file",
+      "name": "seed.sql",
+      "filePath": "supabase/seed.sql",
+      "summary": "Seeds frozen version-1 questionnaires for ten programming languages and technologies, with six profile and ten scored questions per bank, stable UUIDs and answer keys; publishes each structurally valid bank.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:supabase/README.md",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:supabase/README.md",
+      "target": "config:supabase/config.toml",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:supabase/README.md",
+      "target": "file:supabase/seed.sql",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:supabase/config.toml",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:supabase/config.toml",
+      "target": "file:supabase/seed.sql",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "related",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

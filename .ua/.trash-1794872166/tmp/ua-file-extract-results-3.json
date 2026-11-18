@@ -1,0 +1,657 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/app/onboarding/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "Page",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "Page",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/app/sign-in/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "Page",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "Page",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/app/sign-up/page.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "functions": [
+        {
+          "name": "Page",
+          "startLine": 3,
+          "endLine": 5,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "metadata",
+          "line": 2,
+          "isDefault": false
+        },
+        {
+          "name": "Page",
+          "line": 3,
+          "isDefault": true
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/brand.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 26,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "Brand",
+          "startLine": 3,
+          "endLine": 10,
+          "params": []
+        },
+        {
+          "name": "Header",
+          "startLine": 11,
+          "endLine": 26,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Brand",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "Header",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/auth/auth-form.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 211,
+      "nonEmptyLines": 211,
+      "functions": [
+        {
+          "name": "AuthForm",
+          "startLine": 8,
+          "endLine": 211,
+          "params": [
+            "{ mode }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AuthForm",
+          "line": 8,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "AuthForm",
+          "callee": "useRouter",
+          "lineNumber": 10
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "validate",
+          "callee": "String(data.get(\"name\") || \"\").trim",
+          "lineNumber": 18
+        },
+        {
+          "caller": "validate",
+          "callee": "String",
+          "lineNumber": 18
+        },
+        {
+          "caller": "validate",
+          "callee": "data.get",
+          "lineNumber": 18
+        },
+        {
+          "caller": "validate",
+          "callee": "/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test",
+          "lineNumber": 20
+        },
+        {
+          "caller": "validate",
+          "callee": "String",
+          "lineNumber": 20
+        },
+        {
+          "caller": "validate",
+          "callee": "data.get",
+          "lineNumber": 20
+        },
+        {
+          "caller": "validate",
+          "callee": "String",
+          "lineNumber": 22
+        },
+        {
+          "caller": "validate",
+          "callee": "data.get",
+          "lineNumber": 22
+        },
+        {
+          "caller": "submit",
+          "callee": "event.preventDefault",
+          "lineNumber": 29
+        },
+        {
+          "caller": "submit",
+          "callee": "validate",
+          "lineNumber": 31
+        },
+        {
+          "caller": "submit",
+          "callee": "setErrors",
+          "lineNumber": 32
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 33
+        },
+        {
+          "caller": "submit",
+          "callee": "Object.keys",
+          "lineNumber": 34
+        },
+        {
+          "caller": "submit",
+          "callee": "(form.elements.namedItem(Object.keys(e)[0]) as HTMLElement)?.focus",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submit",
+          "callee": "form.elements.namedItem",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submit",
+          "callee": "Object.keys",
+          "lineNumber": 35
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 38
+        },
+        {
+          "caller": "submit",
+          "callee": "authenticate",
+          "lineNumber": 40
+        },
+        {
+          "caller": "submit",
+          "callee": "router.replace",
+          "lineNumber": 42
+        },
+        {
+          "caller": "submit",
+          "callee": "router.refresh",
+          "lineNumber": 43
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 44
+        },
+        {
+          "caller": "submit",
+          "callee": "setError",
+          "lineNumber": 46
+        },
+        {
+          "caller": "submit",
+          "callee": "setBusy",
+          "lineNumber": 48
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "validate",
+          "lineNumber": 89
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "setErrors",
+          "lineNumber": 90
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "setError",
+          "lineNumber": 94
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "validate",
+          "lineNumber": 98
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "setErrors",
+          "lineNumber": 99
+        },
+        {
+          "caller": "AuthForm",
+          "callee": "setShow",
+          "lineNumber": 162
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/diagnostic/onboarding.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 396,
+      "nonEmptyLines": 395,
+      "functions": [
+        {
+          "name": "isAnswered",
+          "startLine": 23,
+          "endLine": 25,
+          "params": [
+            "answer"
+          ]
+        },
+        {
+          "name": "Onboarding",
+          "startLine": 27,
+          "endLine": 396,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "Onboarding",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "Onboarding",
+          "callee": "useState",
+          "lineNumber": 28
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "useState",
+          "lineNumber": 29
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "useState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "useRef",
+          "lineNumber": 34
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "useRef",
+          "lineNumber": 35
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "useEffect",
+          "lineNumber": 36
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setDraft",
+          "lineNumber": 38
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "parseDraft",
+          "lineNumber": 38
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "localStorage.getItem",
+          "lineNumber": 38
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setStorage",
+          "lineNumber": 39
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setStorage",
+          "lineNumber": 41
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setReady",
+          "lineNumber": 43
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "useEffect",
+          "lineNumber": 45
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "localStorage.setItem",
+          "lineNumber": 48
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "JSON.stringify",
+          "lineNumber": 48
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setStorage",
+          "lineNumber": 49
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setStorage",
+          "lineNumber": 51
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "heading.current?.focus",
+          "lineNumber": 54
+        },
+        {
+          "caller": "update",
+          "callee": "setError",
+          "lineNumber": 60
+        },
+        {
+          "caller": "update",
+          "callee": "setDraft",
+          "lineNumber": 61
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "getQuestions",
+          "lineNumber": 69
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "questions.filter",
+          "lineNumber": 76
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "isAnswered",
+          "lineNumber": 76
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "questions.filter",
+          "lineNumber": 77
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "scored.filter",
+          "lineNumber": 78
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "languageOrder.map",
+          "lineNumber": 138
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 144
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "questions\n                  .filter((q) => q.correct === undefined)\n                  .map",
+          "lineNumber": 179
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "questions\n                  .filter",
+          "lineNumber": 179
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "answerLabel",
+          "lineNumber": 184
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 193
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 205
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "questions.map",
+          "lineNumber": 225
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "answerLabel",
+          "lineNumber": 232
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 240
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 253
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 266
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "q.options.map",
+          "lineNumber": 305
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "isSelected",
+          "lineNumber": 308
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "isSelected",
+          "lineNumber": 314
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setError",
+          "lineNumber": 316
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setDraft",
+          "lineNumber": 317
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "isSelected",
+          "lineNumber": 327
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 339
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "isAnswered",
+          "lineNumber": 348
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "setError",
+          "lineNumber": 349
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 352
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "Math.min",
+          "lineNumber": 354
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "window.confirm",
+          "lineNumber": 371
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 375
+        },
+        {
+          "caller": "Onboarding",
+          "callee": "update",
+          "lineNumber": 384
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

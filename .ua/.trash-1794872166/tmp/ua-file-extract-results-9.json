@@ -1,0 +1,269 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 5
+    }
+  },
+  "results": [
+    {
+      "path": "docs/architecture/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 36,
+      "nonEmptyLines": 25,
+      "sections": [
+        {
+          "heading": "Architecture du projet",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Dossier de conception backend",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Responsabilités",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Séparation des données",
+          "level": 2,
+          "line": 25
+        },
+        {
+          "heading": "Périmètre restant",
+          "level": 2,
+          "line": 34
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "docs/architecture/backend-api-contract.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 112,
+      "nonEmptyLines": 72,
+      "sections": [
+        {
+          "heading": "Contrat API proposé",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Règles communes",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Santé et profil",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Questionnaire et tentatives",
+          "level": 2,
+          "line": 41
+        },
+        {
+          "heading": "Auth : contrats du fournisseur, pas de doublon FastAPI",
+          "level": 2,
+          "line": 83
+        },
+        {
+          "heading": "Import d'un diagnostic local",
+          "level": 2,
+          "line": 89
+        },
+        {
+          "heading": "Parcours produit encore ouvert",
+          "level": 2,
+          "line": 105
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "docs/architecture/backend-data-model.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 70,
+      "nonEmptyLines": 49,
+      "sections": [
+        {
+          "heading": "Modèle de données initial",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Tables et relations",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Intégrité attendue",
+          "level": 2,
+          "line": 24
+        },
+        {
+          "heading": "Calcul de la note",
+          "level": 2,
+          "line": 37
+        },
+        {
+          "heading": "Versionnement et suppression",
+          "level": 2,
+          "line": 45
+        },
+        {
+          "heading": "RLS et contrôles d'accès",
+          "level": 2,
+          "line": 51
+        },
+        {
+          "heading": "Correspondance avec le frontend",
+          "level": 2,
+          "line": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "docs/architecture/backend-foundation.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 102,
+      "nonEmptyLines": 68,
+      "sections": [
+        {
+          "heading": "Fondation backend : FastAPI et Supabase",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "État vérifié",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Direction et responsabilités",
+          "level": 2,
+          "line": 14
+        },
+        {
+          "heading": "Frontière du navigateur : proposition explicite",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Flux local proposé",
+          "level": 2,
+          "line": 35
+        },
+        {
+          "heading": "Flux déployé proposé",
+          "level": 2,
+          "line": 48
+        },
+        {
+          "heading": "Authentification proposée",
+          "level": 2,
+          "line": 60
+        },
+        {
+          "heading": "Accès SQL et RLS",
+          "level": 2,
+          "line": 82
+        },
+        {
+          "heading": "Configuration : socle local et étapes futures",
+          "level": 2,
+          "line": 90
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    },
+    {
+      "path": "docs/architecture/backend-roadmap.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 75,
+      "nonEmptyLines": 51,
+      "sections": [
+        {
+          "heading": "Mise en œuvre proposée",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Environnement local et reproduction",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Jalons et critères de recette",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Tests nécessaires",
+          "level": 2,
+          "line": 34
+        },
+        {
+          "heading": "Sécurité et exploitation",
+          "level": 2,
+          "line": 47
+        },
+        {
+          "heading": "Décisions encore ouvertes",
+          "level": 2,
+          "line": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    }
+  ]
+}

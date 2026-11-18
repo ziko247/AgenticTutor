@@ -1,5 +1,34 @@
 [
   {
+    "date": "2026-11-15",
+    "scope": "app",
+    "theme": "custom inherited",
+    "shape": "app screen",
+    "idea": "A clear starting point for learning",
+    "signature": "Diagnostic entry",
+    "entry": "/dashboard",
+    "prompt": "Basic dashboard after sign-up, pending encadrant validation",
+    "states": "static diagnostic entry and future activities placeholder; explicit preview notice",
+    "photos": [],
+    "waived": [],
+    "review": "Fast prototype: finish review skipped; desktop and mobile captures visually inspected",
+    "axes": "light/grotesk-sans/chromatic-lime",
+    "nav": "brand and two app destinations",
+    "footer": "inline demonstration notice",
+    "imagery": "none; task-focused app screen",
+    "fingerprint": [
+      "basic diagnostic entry",
+      "future activities placeholder"
+    ],
+    "sections": [
+      "page heading",
+      "diagnostic entry",
+      "future learning area",
+      "demo notice"
+    ],
+    "sweep": "0 FAIL, 0 REFLEX, 0 WARN; rendered at 1280, 1440, 1920 and 375px"
+  },
+  {
     "theme": "custom",
     "idea": "Understand Python one line at a time",
     "shape": "learning studio",

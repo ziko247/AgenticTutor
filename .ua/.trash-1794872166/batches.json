@@ -1,0 +1,1522 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 128,
+  "totalBatches": 16,
+  "exportsByPath": {
+    ".gitattributes": [],
+    "backend/app/__init__.py": [],
+    "backend/app/api/.gitkeep": [],
+    "backend/app/api/__init__.py": [],
+    "backend/app/api/profile.py": [
+      "ProfileInput",
+      "ProfilePatch",
+      "identity",
+      "db",
+      "get_profile",
+      "create_profile",
+      "update_profile"
+    ],
+    "backend/app/core/.gitkeep": [],
+    "backend/app/core/__init__.py": [],
+    "backend/app/core/config.py": [
+      "Settings"
+    ],
+    "backend/app/core/database.py": [
+      "Database"
+    ],
+    "backend/app/llm/.gitkeep": [],
+    "backend/app/main.py": [
+      "create_app"
+    ],
+    "backend/app/models/.gitkeep": [],
+    "backend/app/orchestration/.gitkeep": [],
+    "backend/app/pedagogy/.gitkeep": [],
+    "backend/app/prompts/.gitkeep": [],
+    "backend/app/rag/.gitkeep": [],
+    "backend/app/repositories/.gitkeep": [],
+    "backend/app/schemas/.gitkeep": [],
+    "backend/app/services/.gitkeep": [],
+    "backend/migrations/.gitkeep": [],
+    "backend/tests/conftest.py": [
+      "pytest_addoption",
+      "pytest_collection_modifyitems"
+    ],
+    "backend/tests/integration/.gitkeep": [],
+    "backend/tests/integration/conftest.py": [
+      "stack",
+      "admin",
+      "database",
+      "students"
+    ],
+    "backend/tests/integration/test_database.py": [
+      "test_ready_with_actual_runtime_connection",
+      "test_privileged_connection_is_not_ready",
+      "test_schema_version_mismatch_is_not_ready",
+      "test_profiles_are_isolated_and_context_does_not_leak",
+      "test_runtime_cannot_forge_profile_or_publish",
+      "test_banks_are_complete_and_private",
+      "test_answer_foreign_keys_and_attempt_ownership",
+      "test_published_content_is_immutable",
+      "test_invalid_publication_is_rejected",
+      "test_context_is_required_for_writes",
+      "test_import_cannot_attach_another_students_attempt",
+      "test_completed_attempt_cannot_receive_answers"
+    ],
+    "backend/tests/integration/test_profile_api.py": [
+      "test_real_auth_profile_contract"
+    ],
+    "backend/tests/unit/.gitkeep": [],
+    "backend/tests/unit/test_health.py": [
+      "FakeDatabase",
+      "test_live_does_not_need_database",
+      "test_readiness_recovers_and_closes_pool",
+      "test_cors_is_explicit",
+      "test_pool_size_is_bounded",
+      "test_secret_is_redacted"
+    ],
+    "backend/tools/__init__.py": [],
+    "backend/tools/configure_auth.py": [
+      "main"
+    ],
+    "backend/tools/local_stack.py": [
+      "local_status"
+    ],
+    "backend/tools/setup_local.py": [
+      "main"
+    ],
+    "content/curricula/.gitkeep": [],
+    "content/exercises/.gitkeep": [],
+    "content/resources/.gitkeep": [],
+    "content/schemas/.gitkeep": [],
+    "docs/design/.gitkeep": [],
+    "docs/guides/.gitkeep": [],
+    "docs/report/.gitkeep": [],
+    "evaluation/datasets/adaptation/.gitkeep": [],
+    "evaluation/datasets/corrections/.gitkeep": [],
+    "evaluation/datasets/questions/.gitkeep": [],
+    "evaluation/datasets/security/.gitkeep": [],
+    "evaluation/results/.gitkeep": [],
+    "evaluation/runners/.gitkeep": [],
+    "frontend/eslint.config.mjs": [],
+    "frontend/next.config.ts": [],
+    "frontend/playwright.config.ts": [],
+    "frontend/postcss.config.mjs": [],
+    "frontend/public/.gitkeep": [],
+    "frontend/src/app/.gitkeep": [],
+    "frontend/src/app/auth/callback/route.ts": [
+      "GET"
+    ],
+    "frontend/src/app/dashboard/page.tsx": [
+      "metadata",
+      "DashboardPage"
+    ],
+    "frontend/src/app/forgot-password/page.tsx": [
+      "metadata",
+      "Page"
+    ],
+    "frontend/src/app/layout.tsx": [
+      "metadata",
+      "RootLayout"
+    ],
+    "frontend/src/app/not-found.tsx": [
+      "NotFound"
+    ],
+    "frontend/src/app/onboarding/page.tsx": [
+      "metadata",
+      "Page"
+    ],
+    "frontend/src/app/page.tsx": [
+      "Home"
+    ],
+    "frontend/src/app/reset-password/page.tsx": [
+      "metadata",
+      "Page"
+    ],
+    "frontend/src/app/sign-in/page.tsx": [
+      "metadata",
+      "Page"
+    ],
+    "frontend/src/app/sign-up/page.tsx": [
+      "metadata",
+      "Page"
+    ],
+    "frontend/src/components/.gitkeep": [],
+    "frontend/src/components/brand.tsx": [
+      "Brand",
+      "Header"
+    ],
+    "frontend/src/features/admin/.gitkeep": [],
+    "frontend/src/features/auth/.gitkeep": [],
+    "frontend/src/features/auth/actions.ts": [
+      "authenticate",
+      "profileRequest",
+      "signOut",
+      "recoverPassword",
+      "changePassword"
+    ],
+    "frontend/src/features/auth/auth-form.tsx": [
+      "AuthForm"
+    ],
+    "frontend/src/features/auth/password-form.tsx": [
+      "PasswordForm"
+    ],
+    "frontend/src/features/auth/profile-actions.ts": [
+      "saveProfile"
+    ],
+    "frontend/src/features/auth/profile-form.tsx": [
+      "ProfileForm"
+    ],
+    "frontend/src/features/diagnostic/.gitkeep": [],
+    "frontend/src/features/diagnostic/banks.ts": [
+      "diagnosticBanks"
+    ],
+    "frontend/src/features/diagnostic/onboarding.tsx": [
+      "Onboarding"
+    ],
+    "frontend/src/features/diagnostic/questions.ts": [
+      "profileQuestions"
+    ],
+    "frontend/src/features/diagnostic/storage.ts": [
+      "STORAGE_KEY",
+      "answerLabel",
+      "emptyDraft",
+      "getQuestions",
+      "parseDraft"
+    ],
+    "frontend/src/features/exercises/.gitkeep": [],
+    "frontend/src/features/progress/.gitkeep": [],
+    "frontend/src/features/tutor/.gitkeep": [],
+    "frontend/src/features/tutor/examples.ts": [
+      "examples"
+    ],
+    "frontend/src/features/tutor/language-select.tsx": [
+      "LanguageSelect"
+    ],
+    "frontend/src/features/tutor/lesson-preview.tsx": [
+      "LessonPreview"
+    ],
+    "frontend/src/features/tutor/worked-example.tsx": [
+      "WorkedExample"
+    ],
+    "frontend/src/lib/.gitkeep": [],
+    "frontend/src/lib/languages.ts": [
+      "languages",
+      "languageOrder"
+    ],
+    "frontend/src/lib/supabase/server.ts": [
+      "authClient"
+    ],
+    "frontend/src/proxy.ts": [
+      "proxy",
+      "config"
+    ],
+    "frontend/src/styles/.gitkeep": [],
+    "frontend/src/types/.gitkeep": [],
+    "frontend/tests/.gitkeep": [],
+    "frontend/tests/flows.spec.ts": [],
+    "tests/e2e/.gitkeep": [],
+    "tests/fixtures/.gitkeep": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "backend/app/api/profile.py",
+          "language": "python",
+          "sizeLines": 119,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/core/config.py",
+          "language": "python",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/core/database.py",
+          "language": "python",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/main.py",
+          "language": "python",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/integration/conftest.py",
+          "language": "python",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/integration/test_database.py",
+          "language": "python",
+          "sizeLines": 265,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/integration/test_profile_api.py",
+          "language": "python",
+          "sizeLines": 80,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/unit/test_health.py",
+          "language": "python",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tools/configure_auth.py",
+          "language": "python",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tools/local_stack.py",
+          "language": "python",
+          "sizeLines": 44,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tools/setup_local.py",
+          "language": "python",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/app/api/profile.py": [],
+        "backend/app/core/config.py": [],
+        "backend/app/core/database.py": [
+          "backend/app/core/config.py"
+        ],
+        "backend/app/main.py": [
+          "backend/app/api/profile.py",
+          "backend/app/core/config.py",
+          "backend/app/core/database.py"
+        ],
+        "backend/tests/integration/conftest.py": [
+          "backend/app/core/config.py",
+          "backend/app/core/database.py",
+          "backend/tools/local_stack.py"
+        ],
+        "backend/tests/integration/test_database.py": [
+          "backend/app/core/config.py",
+          "backend/app/main.py"
+        ],
+        "backend/tests/integration/test_profile_api.py": [
+          "backend/app/main.py"
+        ],
+        "backend/tests/unit/test_health.py": [
+          "backend/app/core/config.py",
+          "backend/app/main.py"
+        ],
+        "backend/tools/configure_auth.py": [
+          "backend/app/core/config.py",
+          "backend/tools/local_stack.py"
+        ],
+        "backend/tools/local_stack.py": [],
+        "backend/tools/setup_local.py": [
+          "backend/app/core/config.py",
+          "backend/tools/local_stack.py"
+        ]
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "frontend/src/app/auth/callback/route.ts",
+          "language": "typescript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/dashboard/page.tsx",
+          "language": "typescript",
+          "sizeLines": 109,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/forgot-password/page.tsx",
+          "language": "typescript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/reset-password/page.tsx",
+          "language": "typescript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/auth/actions.ts",
+          "language": "typescript",
+          "sizeLines": 128,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/auth/password-form.tsx",
+          "language": "typescript",
+          "sizeLines": 51,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/auth/profile-actions.ts",
+          "language": "typescript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/auth/profile-form.tsx",
+          "language": "typescript",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/lib/supabase/server.ts",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/app/auth/callback/route.ts": [
+          "frontend/src/lib/supabase/server.ts"
+        ],
+        "frontend/src/app/dashboard/page.tsx": [
+          "frontend/src/components/brand.tsx",
+          "frontend/src/features/auth/actions.ts",
+          "frontend/src/features/auth/profile-form.tsx",
+          "frontend/src/lib/supabase/server.ts",
+          "frontend/src/styles/dashboard.css"
+        ],
+        "frontend/src/app/forgot-password/page.tsx": [
+          "frontend/src/features/auth/password-form.tsx"
+        ],
+        "frontend/src/app/reset-password/page.tsx": [
+          "frontend/src/features/auth/password-form.tsx"
+        ],
+        "frontend/src/features/auth/actions.ts": [
+          "frontend/src/lib/supabase/server.ts"
+        ],
+        "frontend/src/features/auth/password-form.tsx": [
+          "frontend/src/features/auth/actions.ts"
+        ],
+        "frontend/src/features/auth/profile-actions.ts": [
+          "frontend/src/features/auth/actions.ts"
+        ],
+        "frontend/src/features/auth/profile-form.tsx": [
+          "frontend/src/features/auth/profile-actions.ts",
+          "frontend/src/lib/languages.ts"
+        ],
+        "frontend/src/lib/supabase/server.ts": []
+      },
+      "neighborMap": {
+        "frontend/src/app/dashboard/page.tsx": [
+          {
+            "path": "frontend/src/components/brand.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Brand",
+              "Header"
+            ]
+          },
+          {
+            "path": "frontend/src/styles/dashboard.css",
+            "batchIndex": 12,
+            "symbols": []
+          }
+        ],
+        "frontend/src/features/auth/actions.ts": [
+          {
+            "path": "frontend/src/features/auth/auth-form.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "AuthForm"
+            ]
+          }
+        ],
+        "frontend/src/features/auth/profile-form.tsx": [
+          {
+            "path": "frontend/src/lib/languages.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "languages",
+              "languageOrder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "frontend/src/app/onboarding/page.tsx",
+          "language": "typescript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/sign-in/page.tsx",
+          "language": "typescript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/sign-up/page.tsx",
+          "language": "typescript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/brand.tsx",
+          "language": "typescript",
+          "sizeLines": 26,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/auth/auth-form.tsx",
+          "language": "typescript",
+          "sizeLines": 211,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/diagnostic/onboarding.tsx",
+          "language": "typescript",
+          "sizeLines": 396,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/app/onboarding/page.tsx": [
+          "frontend/src/features/diagnostic/onboarding.tsx"
+        ],
+        "frontend/src/app/sign-in/page.tsx": [
+          "frontend/src/features/auth/auth-form.tsx"
+        ],
+        "frontend/src/app/sign-up/page.tsx": [
+          "frontend/src/features/auth/auth-form.tsx"
+        ],
+        "frontend/src/components/brand.tsx": [],
+        "frontend/src/features/auth/auth-form.tsx": [
+          "frontend/src/components/brand.tsx",
+          "frontend/src/features/auth/actions.ts"
+        ],
+        "frontend/src/features/diagnostic/onboarding.tsx": [
+          "frontend/src/components/brand.tsx",
+          "frontend/src/features/diagnostic/storage.ts",
+          "frontend/src/lib/languages.ts"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/components/brand.tsx": [
+          {
+            "path": "frontend/src/app/dashboard/page.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "metadata",
+              "DashboardPage"
+            ]
+          },
+          {
+            "path": "frontend/src/app/page.tsx",
+            "batchIndex": 4,
+            "symbols": [
+              "Home"
+            ]
+          }
+        ],
+        "frontend/src/features/auth/auth-form.tsx": [
+          {
+            "path": "frontend/src/features/auth/actions.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "authenticate",
+              "profileRequest",
+              "signOut",
+              "recoverPassword",
+              "changePassword"
+            ]
+          }
+        ],
+        "frontend/src/features/diagnostic/onboarding.tsx": [
+          {
+            "path": "frontend/src/features/diagnostic/storage.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "STORAGE_KEY",
+              "answerLabel",
+              "emptyDraft",
+              "getQuestions",
+              "parseDraft"
+            ]
+          },
+          {
+            "path": "frontend/src/lib/languages.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "languages",
+              "languageOrder"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "frontend/src/app/page.tsx",
+          "language": "typescript",
+          "sizeLines": 386,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/tutor/examples.ts",
+          "language": "typescript",
+          "sizeLines": 169,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/tutor/language-select.tsx",
+          "language": "typescript",
+          "sizeLines": 101,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/tutor/lesson-preview.tsx",
+          "language": "typescript",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/tutor/worked-example.tsx",
+          "language": "typescript",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/lib/languages.ts",
+          "language": "typescript",
+          "sizeLines": 45,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/app/page.tsx": [
+          "frontend/src/components/brand.tsx",
+          "frontend/src/features/tutor/lesson-preview.tsx",
+          "frontend/src/features/tutor/worked-example.tsx"
+        ],
+        "frontend/src/features/tutor/examples.ts": [
+          "frontend/src/lib/languages.ts"
+        ],
+        "frontend/src/features/tutor/language-select.tsx": [
+          "frontend/src/lib/languages.ts"
+        ],
+        "frontend/src/features/tutor/lesson-preview.tsx": [
+          "frontend/src/features/tutor/examples.ts",
+          "frontend/src/features/tutor/language-select.tsx",
+          "frontend/src/lib/languages.ts"
+        ],
+        "frontend/src/features/tutor/worked-example.tsx": [
+          "frontend/src/features/tutor/examples.ts",
+          "frontend/src/features/tutor/language-select.tsx",
+          "frontend/src/lib/languages.ts"
+        ],
+        "frontend/src/lib/languages.ts": []
+      },
+      "neighborMap": {
+        "frontend/src/app/page.tsx": [
+          {
+            "path": "frontend/src/components/brand.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Brand",
+              "Header"
+            ]
+          }
+        ],
+        "frontend/src/lib/languages.ts": [
+          {
+            "path": "frontend/src/features/auth/profile-form.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "ProfileForm"
+            ]
+          },
+          {
+            "path": "frontend/src/features/diagnostic/banks.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "diagnosticBanks"
+            ]
+          },
+          {
+            "path": "frontend/src/features/diagnostic/onboarding.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Onboarding"
+            ]
+          },
+          {
+            "path": "frontend/src/features/diagnostic/storage.ts",
+            "batchIndex": 5,
+            "symbols": [
+              "STORAGE_KEY",
+              "answerLabel",
+              "emptyDraft",
+              "getQuestions",
+              "parseDraft"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "frontend/src/features/diagnostic/banks.ts",
+          "language": "typescript",
+          "sizeLines": 410,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/diagnostic/questions.ts",
+          "language": "typescript",
+          "sizeLines": 86,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/diagnostic/storage.ts",
+          "language": "typescript",
+          "sizeLines": 60,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/flows.spec.ts",
+          "language": "typescript",
+          "sizeLines": 379,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/features/diagnostic/banks.ts": [
+          "frontend/src/features/diagnostic/questions.ts",
+          "frontend/src/lib/languages.ts"
+        ],
+        "frontend/src/features/diagnostic/questions.ts": [],
+        "frontend/src/features/diagnostic/storage.ts": [
+          "frontend/src/features/diagnostic/banks.ts",
+          "frontend/src/features/diagnostic/questions.ts",
+          "frontend/src/lib/languages.ts"
+        ],
+        "frontend/tests/flows.spec.ts": [
+          "frontend/src/features/diagnostic/banks.ts",
+          "frontend/src/features/diagnostic/questions.ts"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/features/diagnostic/banks.ts": [
+          {
+            "path": "frontend/src/lib/languages.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "languages",
+              "languageOrder"
+            ]
+          }
+        ],
+        "frontend/src/features/diagnostic/storage.ts": [
+          {
+            "path": "frontend/src/lib/languages.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "languages",
+              "languageOrder"
+            ]
+          },
+          {
+            "path": "frontend/src/features/diagnostic/onboarding.tsx",
+            "batchIndex": 3,
+            "symbols": [
+              "Onboarding"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "supabase/migrations/20261115000100_backend_foundation.sql",
+          "language": "sql",
+          "sizeLines": 271,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "supabase/migrations/20261115000100_backend_foundation.sql": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "AGENTS.md",
+          "language": "markdown",
+          "sizeLines": 106,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+          "language": "markdown",
+          "sizeLines": 584,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 244,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "package.json",
+          "language": "json",
+          "sizeLines": 13,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "AGENTS.md": [],
+        "CAHIER_DES_CHARGES_AGENTICTUTOR.md": [],
+        "README.md": [],
+        "package.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "backend/.env.example",
+          "language": "config",
+          "sizeLines": 9,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/README.md",
+          "language": "markdown",
+          "sizeLines": 134,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "backend/pyproject.toml",
+          "language": "toml",
+          "sizeLines": 16,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "backend/.env.example": [],
+        "backend/README.md": [],
+        "backend/pyproject.toml": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": "docs/architecture/README.md",
+          "language": "markdown",
+          "sizeLines": 36,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/architecture/backend-api-contract.md",
+          "language": "markdown",
+          "sizeLines": 112,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/architecture/backend-data-model.md",
+          "language": "markdown",
+          "sizeLines": 70,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/architecture/backend-foundation.md",
+          "language": "markdown",
+          "sizeLines": 102,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/architecture/backend-roadmap.md",
+          "language": "markdown",
+          "sizeLines": 75,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/architecture/README.md": [],
+        "docs/architecture/backend-api-contract.md": [],
+        "docs/architecture/backend-data-model.md": [],
+        "docs/architecture/backend-foundation.md": [],
+        "docs/architecture/backend-roadmap.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": "docs/decisions/0001-first-frontend.md",
+          "language": "markdown",
+          "sizeLines": 16,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/decisions/0002-backend-fastapi-supabase.md",
+          "language": "markdown",
+          "sizeLines": 37,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/decisions/0003-server-auth-sessions.md",
+          "language": "markdown",
+          "sizeLines": 11,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/decisions/README.md",
+          "language": "markdown",
+          "sizeLines": 12,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/decisions/TEMPLATE.md",
+          "language": "markdown",
+          "sizeLines": 22,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "docs/decisions/0001-first-frontend.md": [],
+        "docs/decisions/0002-backend-fastapi-supabase.md": [],
+        "docs/decisions/0003-server-auth-sessions.md": [],
+        "docs/decisions/README.md": [],
+        "docs/decisions/TEMPLATE.md": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "frontend/.env.example",
+          "language": "config",
+          "sizeLines": 4,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/AGENTS.md",
+          "language": "markdown",
+          "sizeLines": 13,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "frontend/README.md",
+          "language": "markdown",
+          "sizeLines": 112,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "frontend/package.json",
+          "language": "json",
+          "sizeLines": 37,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/tsconfig.json",
+          "language": "json",
+          "sizeLines": 33,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "frontend/.env.example": [],
+        "frontend/AGENTS.md": [],
+        "frontend/README.md": [],
+        "frontend/package.json": [],
+        "frontend/tsconfig.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": "frontend/src/styles/base.css",
+          "language": "css",
+          "sizeLines": 138,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/src/styles/dashboard.css",
+          "language": "css",
+          "sizeLines": 139,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/src/styles/globals.css",
+          "language": "css",
+          "sizeLines": 1374,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/src/styles/tokens.css",
+          "language": "css",
+          "sizeLines": 49,
+          "fileCategory": "markup"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/styles/base.css": [],
+        "frontend/src/styles/dashboard.css": [],
+        "frontend/src/styles/globals.css": [],
+        "frontend/src/styles/tokens.css": []
+      },
+      "neighborMap": {
+        "frontend/src/styles/dashboard.css": [
+          {
+            "path": "frontend/src/app/dashboard/page.tsx",
+            "batchIndex": 2,
+            "symbols": [
+              "metadata",
+              "DashboardPage"
+            ]
+          }
+        ],
+        "frontend/src/styles/globals.css": [
+          {
+            "path": "frontend/src/app/layout.tsx",
+            "batchIndex": 15,
+            "symbols": [
+              "metadata",
+              "RootLayout"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": "supabase/README.md",
+          "language": "markdown",
+          "sizeLines": 14,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "supabase/config.toml",
+          "language": "toml",
+          "sizeLines": 426,
+          "fileCategory": "config"
+        },
+        {
+          "path": "supabase/seed.sql",
+          "language": "sql",
+          "sizeLines": 942,
+          "fileCategory": "data"
+        }
+      ],
+      "batchImportData": {
+        "supabase/README.md": [],
+        "supabase/config.toml": [],
+        "supabase/seed.sql": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": ".gitattributes",
+          "language": "unknown",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/__init__.py",
+          "language": "python",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/api/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/api/__init__.py",
+          "language": "python",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/core/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/core/__init__.py",
+          "language": "python",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/llm/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/models/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/orchestration/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/pedagogy/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/prompts/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/rag/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/repositories/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/schemas/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/app/services/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/migrations/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/conftest.py",
+          "language": "python",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/integration/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tests/unit/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/tools/__init__.py",
+          "language": "python",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "content/README.md",
+          "language": "markdown",
+          "sizeLines": 12,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "content/curricula/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "content/exercises/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "content/resources/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "content/schemas/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".gitattributes": [],
+        "backend/app/__init__.py": [],
+        "backend/app/api/.gitkeep": [],
+        "backend/app/api/__init__.py": [],
+        "backend/app/core/.gitkeep": [],
+        "backend/app/core/__init__.py": [],
+        "backend/app/llm/.gitkeep": [],
+        "backend/app/models/.gitkeep": [],
+        "backend/app/orchestration/.gitkeep": [],
+        "backend/app/pedagogy/.gitkeep": [],
+        "backend/app/prompts/.gitkeep": [],
+        "backend/app/rag/.gitkeep": [],
+        "backend/app/repositories/.gitkeep": [],
+        "backend/app/schemas/.gitkeep": [],
+        "backend/app/services/.gitkeep": [],
+        "backend/migrations/.gitkeep": [],
+        "backend/tests/conftest.py": [],
+        "backend/tests/integration/.gitkeep": [],
+        "backend/tests/unit/.gitkeep": [],
+        "backend/tools/__init__.py": [],
+        "content/README.md": [],
+        "content/curricula/.gitkeep": [],
+        "content/exercises/.gitkeep": [],
+        "content/resources/.gitkeep": [],
+        "content/schemas/.gitkeep": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 15,
+      "files": [
+        {
+          "path": "data/README.md",
+          "language": "markdown",
+          "sizeLines": 13,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/README.md",
+          "language": "markdown",
+          "sizeLines": 11,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/design/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docs/guides/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docs/guides/milestone-2-auth.md",
+          "language": "markdown",
+          "sizeLines": 78,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docs/report/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "evaluation/README.md",
+          "language": "markdown",
+          "sizeLines": 18,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "evaluation/datasets/adaptation/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "evaluation/datasets/corrections/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "evaluation/datasets/questions/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "evaluation/datasets/security/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "evaluation/results/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "evaluation/runners/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/eslint.config.mjs",
+          "language": "javascript",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/next.config.ts",
+          "language": "typescript",
+          "sizeLines": 3,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/playwright.config.ts",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/postcss.config.mjs",
+          "language": "javascript",
+          "sizeLines": 2,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/layout.tsx",
+          "language": "typescript",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/app/not-found.tsx",
+          "language": "typescript",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/admin/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/auth/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/diagnostic/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "data/README.md": [],
+        "docs/README.md": [],
+        "docs/design/.gitkeep": [],
+        "docs/guides/.gitkeep": [],
+        "docs/guides/milestone-2-auth.md": [],
+        "docs/report/.gitkeep": [],
+        "evaluation/README.md": [],
+        "evaluation/datasets/adaptation/.gitkeep": [],
+        "evaluation/datasets/corrections/.gitkeep": [],
+        "evaluation/datasets/questions/.gitkeep": [],
+        "evaluation/datasets/security/.gitkeep": [],
+        "evaluation/results/.gitkeep": [],
+        "evaluation/runners/.gitkeep": [],
+        "frontend/eslint.config.mjs": [],
+        "frontend/next.config.ts": [],
+        "frontend/playwright.config.ts": [],
+        "frontend/postcss.config.mjs": [],
+        "frontend/public/.gitkeep": [],
+        "frontend/src/app/.gitkeep": [],
+        "frontend/src/app/layout.tsx": [
+          "frontend/src/styles/globals.css"
+        ],
+        "frontend/src/app/not-found.tsx": [],
+        "frontend/src/components/.gitkeep": [],
+        "frontend/src/features/admin/.gitkeep": [],
+        "frontend/src/features/auth/.gitkeep": [],
+        "frontend/src/features/diagnostic/.gitkeep": []
+      },
+      "neighborMap": {
+        "frontend/src/app/layout.tsx": [
+          {
+            "path": "frontend/src/styles/globals.css",
+            "batchIndex": 12,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 16,
+      "files": [
+        {
+          "path": "frontend/src/features/exercises/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/progress/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/features/tutor/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/lib/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/proxy.ts",
+          "language": "typescript",
+          "sizeLines": 29,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/styles/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/types/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/tests/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "scripts/README.md",
+          "language": "markdown",
+          "sizeLines": 5,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "tests/README.md",
+          "language": "markdown",
+          "sizeLines": 8,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "tests/e2e/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        },
+        {
+          "path": "tests/fixtures/.gitkeep",
+          "language": "unknown",
+          "sizeLines": 0,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/features/exercises/.gitkeep": [],
+        "frontend/src/features/progress/.gitkeep": [],
+        "frontend/src/features/tutor/.gitkeep": [],
+        "frontend/src/lib/.gitkeep": [],
+        "frontend/src/proxy.ts": [],
+        "frontend/src/styles/.gitkeep": [],
+        "frontend/src/types/.gitkeep": [],
+        "frontend/tests/.gitkeep": [],
+        "scripts/README.md": [],
+        "tests/README.md": [],
+        "tests/e2e/.gitkeep": [],
+        "tests/fixtures/.gitkeep": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

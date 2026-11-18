@@ -1,10 +1,10 @@
 # Frontend AgenticTutor
 
-Première interface fonctionnelle : Next.js App Router, TypeScript et Tailwind CSS. Les dépendances exactes sont verrouillées dans `package-lock.json`. Les polices Rethink Sans et Hanken Grotesk sont distribuées localement par les paquets Fontsource.
+Le frontend utilise Next.js App Router, TypeScript et Tailwind CSS. Les dépendances exactes sont verrouillées dans `package-lock.json`. Les polices Rethink Sans et Hanken Grotesk sont distribuées localement par les paquets Fontsource.
 
 ## Lancer
 
-Node.js 20.9 minimum. Depuis la racine :
+Installer Node.js 20.9 au minimum, puis lancer les commandes depuis la racine du dépôt :
 
 ```bash
 cd frontend
@@ -28,23 +28,24 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 | Route | Fonction |
 |---|---|
 | `/` | Landing enrichie : cinq notions, exemple Python interactif prédéfini, boucle expliquée, profils et FAQ |
-| `/sign-in` | Connexion en aperçu frontend |
-| `/sign-up` | Inscription en aperçu frontend |
+| `/sign-in` | Connexion Supabase Auth |
+| `/sign-up` | Inscription Supabase Auth ; session valide → dashboard protégé |
+| `/dashboard` | Espace protégé, profil persistant, diagnostic et déconnexion |
 | `/onboarding` | 16 questions, revue, modification et récapitulatif final |
 
-Les formulaires valident les champs, affichent les erreurs, gèrent un état de vérification et permettent de voir le mot de passe. **Ils n'envoient aucune requête d'authentification et ne créent aucun compte.** Aucun mot de passe n'est sauvegardé. La récupération de mot de passe n'est pas implémentée, faute de service existant.
+Les formulaires valident les champs et affichent les erreurs ainsi qu'un état de vérification. Un bouton permet de voir le mot de passe. Ils utilisent maintenant les Server Actions Next.js et Supabase Auth. Après inscription et obtention d’une session, /dashboard s’ouvre avec un profil persistant. Le dashboard vérifie l’identité côté serveur et charge uniquement le profil du compte connecté. La connexion établit une session. Aucun mot de passe n'est sauvegardé. La récupération passe par /forgot-password et /reset-password.
 
-Le diagnostic commence par un choix parmi 10 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat est indicatif, non certifiant ; les banques doivent être validées pédagogiquement.
+Le diagnostic commence par un choix parmi 10 langages et technologies, suivi de 6 questions de profil et 10 questions techniques. Chaque bonne réponse vaut 2 points : note finale sur 20. Le résultat donne un repère, sans certifier le niveau de l'étudiant. Les banques doivent être validées pédagogiquement.
 
-## Persistance locale
+## Persistance du diagnostic
 
-Clé agentictutor.onboarding.v2. Le brouillon conserve le langage, les réponses, la position et le récapitulatif. Les anciens brouillons v1 restent intacts mais sont séparés de ce nouveau parcours. Le stockage est validé au chargement et les états de revue/fin exigent des réponses complètes. En cas de stockage bloqué, le parcours continue en mémoire avec avertissement.
+Le diagnostic nécessite une connexion. FastAPI enregistre les réponses, la progression et le résultat dans Supabase, associés au compte ; le score est calculé côté serveur. Les anciens brouillons locaux restent intacts mais ne sont pas importés automatiquement. Si l'enregistrement échoue, un message invite à réessayer.
 
 ## Organisation
 
 - `src/app/` : routes, metadata, layout et page introuvable.
 - `src/components/brand.tsx` : marque et navigation partagées.
-- `src/features/auth/auth-form.tsx` : formulaires de démonstration.
+- `src/features/auth/auth-form.tsx` : formulaires connectés à Supabase Auth.
 - `src/features/diagnostic/` : questions, stockage et parcours.
 - `src/features/tutor/lesson-preview.tsx` : exemple prédéfini de la landing.
 - `src/styles/tokens.css` : couleurs, polices et échelle de design.
@@ -73,28 +74,8 @@ npm run test:e2e
 
 Pour lancer la version optimisée : `npm run build`, puis `npm start`. Ne pas utiliser un serveur dev et un build simultanément dans le même dossier lors d'un déploiement.
 
-## Connexions backend restantes
+## À développer
 
-Authentification, sessions sécurisées, création de compte, vérification d'e-mail et récupération du mot de passe ; enregistrement du profil et du diagnostic ; calcul de maîtrise validé ; conversation IA, ressources, exercices adaptatifs et dashboard.
+Le tutorat IA, les exercices adaptatifs et le suivi de progression restent à construire. Les banques du diagnostic doivent être validées pédagogiquement. La confirmation obligatoire d’e-mail et le SMTP hébergé restent à valider avant déploiement.
 
-Le futur backend devra recalculer les scores à partir des identifiants/réponses, contrôler les permissions et ne jamais faire confiance au score calculé dans le navigateur. Les bonnes réponses côté client ne conviennent pas à un examen officiel. Après connexion, remplacer l'aperçu explicite sans transformer la sauvegarde locale en preuve d'authentification.
-
-
-## Dépendances
-
-Audit production : aucune vulnérabilité détectée. L’audit complet signale 7 alertes modérées dans la chaîne de développement ESLint/typescript-eslint/minimatch ; la mise à jour automatique sans rupture ne les résout pas. Elles ne font pas partie du bundle applicatif et restent à suivre.
-
-
-### Positionnement de la landing
-
-À la demande du porteur du projet, la landing présente le produit cible au présent : tutorat multilangage, exercices adaptatifs, suivi, révisions et outils enseignants. Cette présentation marketing ne constitue pas une preuve de livraison. Le périmètre exécuté reste le frontend, le diagnostic Python local et les formulaires en aperçu. Les autres parcours, le backend et le tutorat IA restent à implémenter. Les commandes de lancement sont inchangées.
-
-Les deux exemples de la landing proposent chacun un sélecteur indépendant : Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go, et Rust. Code, indices et explications sont prédéfinis, sans exécution de code ni génération IA. HTML et CSS illustrent respectivement la structure et la présentation. Les commandes de lancement restent inchangées.
-
-## Diagnostic multilangage actuel
-
-Le parcours commence par un choix unique parmi 10 langages et technologies. Il contient ensuite 6 questions de profil non notées et 10 questions techniques spécifiques : chaque bonne réponse vaut 2 points, soit une note sur 20. Les banques restent à valider pédagogiquement. Navigation, revue et reprise locale sont conservées. Le format v2 est enregistré sous agentictutor.onboarding.v2 ; les anciens brouillons v1 restent intacts mais ne sont pas repris dans les nouveaux tests. Changer de langage demande confirmation et réinitialise le diagnostic courant. Aucun backend ni authentification réelle ajouté. Commandes de lancement inchangées.
-
-## Simplification interne du frontend
-
-Les identifiants, libellés et l’ordre des langages sont centralisés dans frontend/src/lib/languages.ts. Le diagnostic est uniquement à choix unique ; ses banques utilisent des tuples de quatre chaînes et une couverture typée de tous les langages. Questions, ordre des options, score et format de brouillon v2 sont inchangés. Le favicon est passé de 83 540 à 80 524 octets ; comparaison des pixels identique à 16, 32, 64, 128 et 2048 pixels. Les commandes de lancement sont inchangées.
+La landing présente la vision du produit. Les exemples de code sont prédéfinis et ne sont pas exécutés. Lenis respecte la préférence de réduction des animations.

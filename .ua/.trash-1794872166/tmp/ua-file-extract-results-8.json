@@ -1,0 +1,179 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 9,
+      "nonEmptyLines": 8,
+      "definitions": [
+        {
+          "name": "DATABASE_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "DATABASE_POOL_SIZE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 4,
+          "endLine": 4
+        },
+        {
+          "name": "DATABASE_TIMEOUT",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 5,
+          "endLine": 5
+        },
+        {
+          "name": "CORS_ORIGINS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 6,
+          "endLine": 6
+        },
+        {
+          "name": "SUPABASE_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 8,
+          "endLine": 8
+        },
+        {
+          "name": "SUPABASE_PUBLISHABLE_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 9,
+          "endLine": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 6
+      }
+    },
+    {
+      "path": "backend/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 134,
+      "nonEmptyLines": 93,
+      "sections": [
+        {
+          "heading": "Backend — FastAPI et Supabase local",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Prérequis",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "Premier lancement",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "Cas vérifié sur ce poste Windows : Python du venv bloqué",
+          "level": 3,
+          "line": 33
+        },
+        {
+          "heading": "Adresses et probes",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "Configuration",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "Migrations et données locales",
+          "level": 2,
+          "line": 81
+        },
+        {
+          "heading": "Vérifications",
+          "level": 2,
+          "line": 99
+        },
+        {
+          "heading": "Fichiers et suite",
+          "level": 2,
+          "line": 114
+        },
+        {
+          "heading": "Jalon 2 : comptes et profil connectés",
+          "level": 2,
+          "line": 130
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 10
+      }
+    },
+    {
+      "path": "backend/pyproject.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 16,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "dependency-groups",
+          "level": 1,
+          "line": 7
+        },
+        {
+          "heading": "tool.pytest.ini_options",
+          "level": 3,
+          "line": 10
+        },
+        {
+          "heading": "tool.ruff",
+          "level": 2,
+          "line": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    }
+  ]
+}

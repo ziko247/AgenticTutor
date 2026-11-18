@@ -1,0 +1,72 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/styles/base.css",
+      "type": "file",
+      "name": "base.css",
+      "filePath": "frontend/src/styles/base.css",
+      "summary": "Reusable reset and base-theme rules for typography, focus, controls, motion preferences, and page sizing; present in the repository but not imported by the current root layout.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/styles/dashboard.css",
+      "type": "file",
+      "name": "dashboard.css",
+      "filePath": "frontend/src/styles/dashboard.css",
+      "summary": "Token-based layout, navigation, focus states, and profile controls for the basic authenticated dashboard, including narrow-screen adjustments.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/styles/globals.css",
+      "type": "file",
+      "name": "globals.css",
+      "filePath": "frontend/src/styles/globals.css",
+      "summary": "Active global stylesheet for the custom learning-studio design, landing, auth forms, diagnostics, language menus, accessibility states, and responsive layouts.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/styles/tokens.css",
+      "type": "file",
+      "name": "tokens.css",
+      "filePath": "frontend/src/styles/tokens.css",
+      "summary": "Shared forest, mint, and citron colors, locally installed font families, spacing, radii, motion durations, and container tokens.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/styles/globals.css",
+      "target": "file:frontend/src/styles/tokens.css",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/styles/dashboard.css",
+      "target": "file:frontend/src/styles/tokens.css",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

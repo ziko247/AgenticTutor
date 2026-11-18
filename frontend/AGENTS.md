@@ -10,4 +10,4 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Contexte AgenticTutor
 
-Lire aussi `../AGENTS.md`, `../README.md` et `README.md`. Les routes, les limites backend et les commandes de test y sont documentées. Préserver le système visuel et les modifications existantes. Les formulaires d’authentification sont des aperçus ; le diagnostic est uniquement local. Ne pas présenter ces fonctions comme connectées à un serveur.
+Lire aussi `../AGENTS.md`, `../README.md` et `README.md`. Les routes, les limites backend et les commandes de test y sont documentées. Préserver le système visuel et les modifications existantes. Auth et profil sont connectés via Server Actions Next.js, Supabase Auth et FastAPI (jalon 2). Cookies HttpOnly ; /dashboard protégé. Le diagnostic reste uniquement local. Lire ../docs/guides/milestone-2-auth.md et conserver le design existant.

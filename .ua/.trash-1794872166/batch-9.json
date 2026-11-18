@@ -1,0 +1,239 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/architecture/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/architecture/README.md",
+      "summary": "Architecture index describing Next.js, FastAPI, private PostgreSQL data, and the remaining tutor components.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/architecture/backend-api-contract.md",
+      "type": "document",
+      "name": "backend-api-contract.md",
+      "filePath": "docs/architecture/backend-api-contract.md",
+      "summary": "Documents implemented health/profile endpoints and proposed diagnostic attempts, scoring, idempotency, import, and error contracts.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/architecture/backend-data-model.md",
+      "type": "document",
+      "name": "backend-data-model.md",
+      "filePath": "docs/architecture/backend-data-model.md",
+      "summary": "Describes private profiles, versioned questionnaire content, attempts, answer keys, RLS, and the future completion/import behavior.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/architecture/backend-foundation.md",
+      "type": "document",
+      "name": "backend-foundation.md",
+      "filePath": "docs/architecture/backend-foundation.md",
+      "summary": "Backend responsibility and deployment design, with an explicit note that server-managed auth supersedes the earlier browser-SDK proposal.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/architecture/backend-roadmap.md",
+      "type": "document",
+      "name": "backend-roadmap.md",
+      "filePath": "docs/architecture/backend-roadmap.md",
+      "summary": "Milestone and acceptance plan separating the local FastAPI/database foundation, connected auth/profile, persistent diagnostic, and first tutor loop.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-data-model.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-api-contract.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "document:docs/architecture/backend-data-model.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-data-model.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-data-model.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/architecture/backend-data-model.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/architecture/backend-api-contract.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "document:docs/architecture/backend-api-contract.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "file:backend/app/api/profile.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-data-model.md",
+      "target": "file:backend/app/core/database.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "file:backend/app/main.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

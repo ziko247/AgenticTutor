@@ -1,0 +1,106 @@
+{
+  "nodes": [
+    {
+      "id": "config:frontend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "frontend/.env.example",
+      "summary": "Documents server-side local Supabase, FastAPI, and application-origin settings with a placeholder publishable key.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "frontend/AGENTS.md",
+      "summary": "Contains generated Next.js agent guidance and project-specific rules to preserve the visual system and current auth/diagnostic boundaries.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "frontend/README.md",
+      "summary": "Frontend setup, routes, local diagnostic persistence, testing commands, design context, and connected milestone-2 auth/profile guidance.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "Defines Next.js development/build/check scripts and dependencies for React, TypeScript, Supabase SSR, fonts, icons, and browser testing.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "frontend/tsconfig.json",
+      "summary": "Enables strict TypeScript checking, Next.js integration, bundler resolution, and the @/* source alias without emitting JavaScript.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:frontend/README.md",
+      "target": "document:docs/guides/milestone-2-auth.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:frontend/AGENTS.md",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:frontend/README.md",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:frontend/tsconfig.json",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

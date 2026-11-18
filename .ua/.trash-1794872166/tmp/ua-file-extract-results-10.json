@@ -1,0 +1,174 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 5
+    }
+  },
+  "results": [
+    {
+      "path": "docs/decisions/0001-first-frontend.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 16,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "0001 — Première interface Python",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Contexte et décision",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "Limites",
+          "level": 2,
+          "line": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "docs/decisions/0002-backend-fastapi-supabase.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 37,
+      "nonEmptyLines": 24,
+      "sections": [
+        {
+          "heading": "0002 : Fondation FastAPI, Supabase et Docker local",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Contexte",
+          "level": 2,
+          "line": 11
+        },
+        {
+          "heading": "Options examinées",
+          "level": 2,
+          "line": 15
+        },
+        {
+          "heading": "Décision",
+          "level": 2,
+          "line": 23
+        },
+        {
+          "heading": "Conséquences et validation",
+          "level": 2,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "docs/decisions/0003-server-auth-sessions.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 11,
+      "nonEmptyLines": 6,
+      "sections": [
+        {
+          "heading": "0003 — Auth côté serveur Next.js et validation FastAPI",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "docs/decisions/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 12,
+      "nonEmptyLines": 8,
+      "sections": [
+        {
+          "heading": "Décisions de conception",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "docs/decisions/TEMPLATE.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 22,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "NNNN — Titre de la décision",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Contexte",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "Options considérées",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "Décision",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "Conséquences et validation",
+          "level": 2,
+          "line": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    }
+  ]
+}

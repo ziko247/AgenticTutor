@@ -1,0 +1,171 @@
+{
+  "fanIn": [
+    {
+      "id": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "count": 9
+    },
+    {
+      "id": "file:backend/app/core/config.py",
+      "count": 8
+    },
+    {
+      "id": "file:frontend/src/lib/languages.ts",
+      "count": 8
+    },
+    {
+      "id": "file:backend/app/main.py",
+      "count": 6
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "count": 6
+    },
+    {
+      "id": "file:frontend/src/features/auth/actions.ts",
+      "count": 6
+    },
+    {
+      "id": "function:backend/app/api/profile.py:identity",
+      "count": 5
+    },
+    {
+      "id": "function:frontend/src/components/brand.tsx:Brand",
+      "count": 5
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "count": 5
+    },
+    {
+      "id": "document:backend/README.md",
+      "count": 5
+    },
+    {
+      "id": "document:docs/architecture/backend-foundation.md",
+      "count": 5
+    },
+    {
+      "id": "file:frontend/src/app/layout.tsx",
+      "count": 5
+    },
+    {
+      "id": "file:backend/app/api/profile.py",
+      "count": 4
+    },
+    {
+      "id": "file:backend/app/core/database.py",
+      "count": 4
+    },
+    {
+      "id": "function:backend/tools/local_stack.py:local_status",
+      "count": 4
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.transaction_for",
+      "count": 4
+    },
+    {
+      "id": "file:backend/tests/integration/test_database.py",
+      "count": 4
+    },
+    {
+      "id": "file:frontend/src/components/brand.tsx",
+      "count": 4
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "count": 4
+    },
+    {
+      "id": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "count": 4
+    }
+  ],
+  "fanOut": [
+    {
+      "id": "file:backend/tests/integration/test_database.py",
+      "count": 26
+    },
+    {
+      "id": "file:backend/app/api/profile.py",
+      "count": 15
+    },
+    {
+      "id": "file:backend/tests/unit/test_health.py",
+      "count": 14
+    },
+    {
+      "id": "file:backend/tests/integration/conftest.py",
+      "count": 11
+    },
+    {
+      "id": "file:frontend/src/features/auth/actions.ts",
+      "count": 11
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "count": 10
+    },
+    {
+      "id": "file:frontend/src/app/dashboard/page.tsx",
+      "count": 9
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/storage.ts",
+      "count": 9
+    },
+    {
+      "id": "document:README.md",
+      "count": 9
+    },
+    {
+      "id": "file:backend/app/main.py",
+      "count": 8
+    },
+    {
+      "id": "file:frontend/src/app/page.tsx",
+      "count": 8
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "count": 6
+    },
+    {
+      "id": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "count": 6
+    },
+    {
+      "id": "file:frontend/src/features/tutor/worked-example.tsx",
+      "count": 6
+    },
+    {
+      "id": "document:docs/architecture/README.md",
+      "count": 6
+    },
+    {
+      "id": "document:docs/architecture/backend-foundation.md",
+      "count": 6
+    },
+    {
+      "id": "file:supabase/seed.sql",
+      "count": 6
+    },
+    {
+      "id": "file:frontend/src/features/auth/auth-form.tsx",
+      "count": 5
+    },
+    {
+      "id": "document:backend/README.md",
+      "count": 5
+    },
+    {
+      "id": "file:backend/tests/conftest.py",
+      "count": 5
+    }
+  ],
+  "entryCandidates": [
+    "file:backend/app/main.py",
+    "document:README.md",
+    "file:frontend/src/app/layout.tsx"
+  ]
+}

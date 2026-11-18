@@ -1,0 +1,213 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/features/diagnostic/banks.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 410,
+      "nonEmptyLines": 410,
+      "functions": [
+        {
+          "name": "createBank",
+          "startLine": 386,
+          "endLine": 398,
+          "params": [
+            "language"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "diagnosticBanks",
+          "line": 399,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createBank",
+          "callee": "items[language].map",
+          "lineNumber": 387
+        },
+        {
+          "caller": "createBank",
+          "callee": "options.slice",
+          "lineNumber": 390
+        },
+        {
+          "caller": "createBank",
+          "callee": "options.slice",
+          "lineNumber": 390
+        },
+        {
+          "caller": "createBank",
+          "callee": "rotated.indexOf",
+          "lineNumber": 395
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/diagnostic/questions.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 85,
+      "exports": [
+        {
+          "name": "profileQuestions",
+          "line": 74,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/features/diagnostic/storage.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 60,
+      "functions": [
+        {
+          "name": "answerLabel",
+          "startLine": 6,
+          "endLine": 7,
+          "params": [
+            "options",
+            "answer"
+          ]
+        },
+        {
+          "name": "getQuestions",
+          "startLine": 24,
+          "endLine": 26,
+          "params": [
+            "language"
+          ]
+        },
+        {
+          "name": "parseDraft",
+          "startLine": 27,
+          "endLine": 60,
+          "params": [
+            "raw"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "STORAGE_KEY",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "answerLabel",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "emptyDraft",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "getQuestions",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "parseDraft",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseDraft",
+          "callee": "JSON.parse",
+          "lineNumber": 29
+        },
+        {
+          "caller": "parseDraft",
+          "callee": "Object.hasOwn",
+          "lineNumber": 33
+        },
+        {
+          "caller": "parseDraft",
+          "callee": "getQuestions",
+          "lineNumber": 39
+        },
+        {
+          "caller": "parseDraft",
+          "callee": "Number.isInteger",
+          "lineNumber": 43
+        },
+        {
+          "caller": "parseDraft",
+          "callee": "questions.every",
+          "lineNumber": 46
+        },
+        {
+          "caller": "parseDraft",
+          "callee": "Number.isInteger",
+          "lineNumber": 51
+        },
+        {
+          "caller": "parseDraft",
+          "callee": "Math.max",
+          "lineNumber": 52
+        },
+        {
+          "caller": "parseDraft",
+          "callee": "Math.min",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 5,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/tests/flows.spec.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 379,
+      "nonEmptyLines": 374,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

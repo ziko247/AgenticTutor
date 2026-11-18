@@ -1,0 +1,181 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 1,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 1,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 1
+    }
+  },
+  "results": [
+    {
+      "path": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 271,
+      "nonEmptyLines": 263,
+      "definitions": [
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "singleton",
+            "version",
+            "project_id"
+          ],
+          "startLine": 12,
+          "endLine": 16
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "code",
+            "label",
+            "enabled"
+          ],
+          "startLine": 18,
+          "endLine": 23
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "display_name",
+            "preferred_language",
+            "revision",
+            "created_at",
+            "updated_at"
+          ],
+          "startLine": 24,
+          "endLine": 32
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "id",
+            "language_code",
+            "version",
+            "status",
+            "content_hash",
+            "score_rule_version",
+            "published_at"
+          ],
+          "startLine": 33,
+          "endLine": 44
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "id",
+            "questionnaire_id",
+            "source_key",
+            "ordinal",
+            "kind",
+            "prompt",
+            "code",
+            "topic"
+          ],
+          "startLine": 45,
+          "endLine": 58
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "id",
+            "question_id",
+            "ordinal",
+            "label"
+          ],
+          "startLine": 59,
+          "endLine": 66
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "question_id",
+            "kind",
+            "correct_option_id",
+            "points"
+          ],
+          "startLine": 67,
+          "endLine": 75
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "id",
+            "user_id",
+            "questionnaire_id",
+            "state",
+            "cursor_question_id",
+            "revision",
+            "score",
+            "correct_count",
+            "created_at",
+            "updated_at",
+            "completed_at",
+            "client_request_id",
+            "create_payload_hash",
+            "supersedes_attempt_id"
+          ],
+          "startLine": 76,
+          "endLine": 103
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "attempt_id",
+            "questionnaire_id",
+            "question_id",
+            "option_id",
+            "answered_at"
+          ],
+          "startLine": 106,
+          "endLine": 119
+        },
+        {
+          "name": "app_private",
+          "kind": "table",
+          "fields": [
+            "user_id",
+            "client_import_id",
+            "attempt_id",
+            "payload_hash",
+            "created_at"
+          ],
+          "startLine": 120,
+          "endLine": 129
+        },
+        {
+          "name": "attempts_resume_idx",
+          "kind": "index",
+          "fields": [],
+          "startLine": 104,
+          "endLine": 104
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 11
+      }
+    }
+  ]
+}

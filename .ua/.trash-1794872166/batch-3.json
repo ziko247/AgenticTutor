@@ -1,0 +1,417 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/app/onboarding/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/onboarding/page.tsx",
+      "summary": "Routes the onboarding page to the local diagnostic component and supplies its metadata.",
+      "tags": [
+        "entry-point",
+        "route",
+        "diagnostic"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/onboarding/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/onboarding/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "diagnostic"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/sign-in/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/sign-in/page.tsx",
+      "summary": "Routes sign-in to the shared authentication form in login mode.",
+      "tags": [
+        "entry-point",
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/sign-in/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/sign-in/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/sign-up/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/sign-up/page.tsx",
+      "summary": "Routes registration to the shared authentication form in sign-up mode.",
+      "tags": [
+        "entry-point",
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/sign-up/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/sign-up/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/brand.tsx",
+      "type": "file",
+      "name": "brand.tsx",
+      "filePath": "frontend/src/components/brand.tsx",
+      "summary": "Provides the linked AgenticTutor wordmark and landing navigation with sign-in and registration entry points.",
+      "tags": [
+        "component",
+        "navigation",
+        "brand"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "function",
+      "name": "Brand",
+      "filePath": "frontend/src/components/brand.tsx",
+      "lineRange": [
+        3,
+        10
+      ],
+      "summary": "Renders the accessible home-linked AgenticTutor wordmark.",
+      "tags": [
+        "component",
+        "navigation",
+        "brand"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/brand.tsx:Header",
+      "type": "function",
+      "name": "Header",
+      "filePath": "frontend/src/components/brand.tsx",
+      "lineRange": [
+        11,
+        26
+      ],
+      "summary": "Renders the landing masthead and primary account navigation.",
+      "tags": [
+        "component",
+        "navigation",
+        "brand"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/auth-form.tsx",
+      "type": "file",
+      "name": "auth-form.tsx",
+      "filePath": "frontend/src/features/auth/auth-form.tsx",
+      "summary": "Renders sign-up/sign-in forms with local validation, password visibility, loading/error feedback and server-action authentication before dashboard navigation.",
+      "tags": [
+        "component",
+        "auth",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "function",
+      "name": "AuthForm",
+      "filePath": "frontend/src/features/auth/auth-form.tsx",
+      "lineRange": [
+        8,
+        211
+      ],
+      "summary": "Manages sign-up/login input validation, password visibility, server-action results and authenticated dashboard navigation.",
+      "tags": [
+        "component",
+        "auth",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "type": "file",
+      "name": "onboarding.tsx",
+      "filePath": "frontend/src/features/diagnostic/onboarding.tsx",
+      "summary": "Runs the language-first diagnostic, validates and stores browser drafts, supports backward navigation/review/reset, and computes the indicative score locally.",
+      "tags": [
+        "component",
+        "diagnostic",
+        "local-storage"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "function",
+      "name": "Onboarding",
+      "filePath": "frontend/src/features/diagnostic/onboarding.tsx",
+      "lineRange": [
+        27,
+        396
+      ],
+      "summary": "Coordinates local diagnostic language selection, navigation, review, score display and browser-draft recovery.",
+      "tags": [
+        "component",
+        "diagnostic",
+        "local-storage"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "function:frontend/src/app/onboarding/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "function:frontend/src/app/onboarding/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "function:frontend/src/app/sign-in/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "function:frontend/src/app/sign-in/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "file:frontend/src/features/auth/auth-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "function:frontend/src/app/sign-up/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "function:frontend/src/app/sign-up/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "file:frontend/src/features/auth/auth-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Header",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Header",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "file:frontend/src/components/brand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "target": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "file:frontend/src/components/brand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "file:frontend/src/features/diagnostic/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

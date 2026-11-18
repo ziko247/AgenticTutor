@@ -1,0 +1,38 @@
+{
+  "issues": [],
+  "warnings": [
+    "Fresh delegated assemble review and detailed code lessons interrupted by agent usage limit; deterministic checks performed instead.",
+    "Static working-tree analysis, not a new application test run."
+  ],
+  "stats": {
+    "files": 128,
+    "nodes": 212,
+    "edges": 356,
+    "layers": 8,
+    "tour": 8,
+    "nodeTypes": {
+      "file": 96,
+      "function": 69,
+      "class": 5,
+      "table": 11,
+      "document": 24,
+      "config": 7
+    },
+    "edgeTypes": {
+      "contains": 88,
+      "exports": 68,
+      "imports": 56,
+      "inherits": 1,
+      "depends_on": 18,
+      "calls": 21,
+      "reads_from": 2,
+      "writes_to": 7,
+      "tested_by": 7,
+      "migrates": 10,
+      "documents": 61,
+      "configures": 14,
+      "related": 1,
+      "middleware": 2
+    }
+  }
+}
