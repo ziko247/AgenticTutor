@@ -26,6 +26,10 @@ def main() -> None:
         "postgres",
     ):
         raise RuntimeError("Existing backend .env targets another database; refusing to overwrite")
+    if existing and not params.get("password"):
+        raise RuntimeError(
+            "Existing local DATABASE_URL has no password; configure it before retrying"
+        )
     password = params.get("password") or secrets.token_urlsafe(32)
     with psycopg.connect(status["DB_URL"], connect_timeout=2) as connection:
         marker = connection.execute(

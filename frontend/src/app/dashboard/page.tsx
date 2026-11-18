@@ -19,6 +19,16 @@ export default async function DashboardPage() {
     data: { user },
     error,
   } = await client.auth.getUser();
+  if (error && (!error.status || error.status >= 500 || error.status === 429))
+    return (
+      <main id="main" className="container dashboard-main">
+        <h1>Service temporairement indisponible</h1>
+        <p>
+          La connexion est momentanément indisponible. Rechargez la page pour
+          réessayer.
+        </p>
+      </main>
+    );
   if (error || !user) redirect("/sign-in");
   let response = await profileRequest("GET");
   if (response.status === 404)
@@ -47,7 +57,7 @@ export default async function DashboardPage() {
     <>
       <header className="dashboard-header">
         <div className="container dashboard-header-inner">
-          <Brand />
+          <Brand href="/dashboard" />
           <nav aria-label="Navigation de l’espace">
             <Link href="/dashboard" aria-current="page">
               Tableau de bord
@@ -100,8 +110,7 @@ export default async function DashboardPage() {
           />
         </section>
         <p className="dashboard-notice">
-          Votre profil est enregistré sur votre compte. Les réponses au
-          diagnostic restent pour le moment dans ce navigateur.
+          Votre profil et votre diagnostic sont enregistrés sur votre compte.
         </p>
       </main>
     </>

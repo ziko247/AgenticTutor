@@ -26,4 +26,6 @@ export async function proxy(request: NextRequest) {
   response.headers.set("Cache-Control", "private, no-store");
   return response;
 }
-export const config = { matcher: ["/dashboard/:path*", "/reset-password"] };
+export const config = {
+  matcher: ["/", "/dashboard/:path*", "/reset-password", "/onboarding"],
+};

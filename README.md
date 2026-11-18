@@ -94,13 +94,13 @@ Python est le domaine pilote du tutorat. Le diagnostic propose aussi C, C++, C#,
 - [x] Landing et exemples de code multilangages.
 - [x] Inscription, connexion, déconnexion et récupération de mot de passe avec Supabase Auth en local.
 - [x] Tableau de bord protégé et profil enregistré en base.
-- [x] Diagnostic local : choix d'un langage, 6 questions de profil et 10 questions techniques, avec note indicative sur 20.
+- [x] Diagnostic lié au compte : choix d'un langage, 6 questions de profil et 10 questions techniques, avec note indicative sur 20.
 - [x] API FastAPI, base PostgreSQL locale et tests d'accès aux données.
-- [ ] Enregistrer les diagnostics sur le compte et valider les questions avec l'encadrant.
+- [ ] Faire valider les questions du diagnostic par l'encadrant.
 - [ ] Construire le tuteur IA, les exercices adaptatifs et le suivi de progression.
 - [ ] Valider la confirmation obligatoire par e-mail et préparer le déploiement.
 
-Le diagnostic est enregistré dans le navigateur. La confirmation d'e-mail est désactivée en local. La landing présente la vision du produit ; les fonctionnalités prévues ne sont pas toutes disponibles.
+Le diagnostic est enregistré dans Supabase et nécessite une connexion. Les anciens brouillons locaux restent sur l'appareil et ne sont pas importés automatiquement. La confirmation d'e-mail est désactivée en local. La landing présente la vision du produit ; les fonctionnalités prévues ne sont pas toutes disponibles.
 
 ## Installation et lancement
 
@@ -125,6 +125,14 @@ cd frontend
 npm.cmd ci
 npm.cmd run dev
 ~~~
+
+Si la base locale existait avant cette mise à jour, appliquer les nouvelles migrations depuis la racine après `db:start` :
+
+```powershell
+npx.cmd --no-install supabase migration up --local
+```
+
+Redémarrer ensuite FastAPI et le frontend. Cette commande conserve les comptes et données ; ne pas utiliser `db:reset` pour cette mise à jour.
 
 Ouvrir http://127.0.0.1:3000. Le premier démarrage télécharge les dépendances et les images Docker. Les fichiers de configuration locaux sont ignorés par Git.
 

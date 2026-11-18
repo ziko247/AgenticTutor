@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/set-state-in-effect -- Hydrate a validated browser-only draft after server rendering. */
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -11,15 +10,14 @@ import {
 } from "lucide-react";
 import { Brand } from "@/components/brand";
 import { languages, languageOrder } from "@/lib/languages";
+import { emptyDraft, type Draft, type Answer, answerLabel } from "./storage";
 import {
-  emptyDraft,
-  getQuestions,
-  parseDraft,
-  STORAGE_KEY,
-  type Draft,
-  type Answer,
-  answerLabel,
-} from "./storage";
+  loadDiagnostic,
+  startDiagnostic,
+  saveDiagnostic,
+  resetDiagnostic,
+  type DiagnosticAttempt,
+} from "./actions";
 function isAnswered(answer: Answer | undefined): boolean {
   return answer !== undefined;
 }
@@ -27,38 +25,93 @@ function isAnswered(answer: Answer | undefined): boolean {
 export function Onboarding() {
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [ready, setReady] = useState(false);
-  const [storage, setStorage] = useState(
-    "Préparation de la sauvegarde locale…",
-  );
+  const [saving, setSaving] = useState(false);
+  const [loadError, setLoadError] = useState("");
+  const [storage, setStorage] = useState("Chargement de votre diagnostic…");
   const [error, setError] = useState("");
+  const [attempt, setAttempt] = useState<DiagnosticAttempt | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const focusNext = useRef(false);
+  const active = useRef(false);
+  const requestId = useRef<{ id: string; language: string } | null>(null);
+  function apply(saved: DiagnosticAttempt | null) {
+    setAttempt(saved);
+    setDraft(
+      saved
+        ? {
+            version: 2,
+            language: saved.language,
+            answers: saved.answers,
+            step: saved.step,
+            review: saved.review,
+            completed: saved.completed,
+          }
+        : { ...emptyDraft, answers: {} },
+    );
+  }
   useEffect(() => {
-    try {
-      setDraft(parseDraft(localStorage.getItem(STORAGE_KEY)));
-      setStorage("Réponses enregistrées sur cet appareil uniquement.");
-    } catch {
-      setStorage("Sauvegarde locale indisponible. Gardez cette page ouverte.");
-    }
-    setReady(true);
+    let cancelled = false;
+    loadDiagnostic().then((result) => {
+      if (cancelled) return;
+      if (result.error) {
+        setStorage(result.error);
+        setLoadError(result.error);
+      } else {
+        apply(result.attempt ?? null);
+        setStorage("Diagnostic enregistré sur votre compte.");
+      }
+      setReady(true);
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
   useEffect(() => {
-    if (!ready) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
-      setStorage("Réponses enregistrées sur cet appareil uniquement.");
-    } catch {
-      setStorage("Sauvegarde locale indisponible. Gardez cette page ouverte.");
-    }
-    if (focusNext.current) {
+    if (focusNext.current && !saving) {
       heading.current?.focus();
       focusNext.current = false;
     }
-  }, [draft, ready]);
-  function update(next: Draft) {
-    focusNext.current = true;
+  }, [draft, saving]);
+  async function update(next: Draft, focus = true) {
+    if (active.current) return;
+    active.current = true;
+    setSaving(true);
+    if (!focus) setDraft(next);
     setError("");
-    setDraft(next);
+    setStorage("Enregistrement en cours…");
+    let result;
+    if (!next.language && attempt)
+      result = await resetDiagnostic(attempt.id, attempt.revision);
+    else if (next.language && !attempt) {
+      if (requestId.current?.language !== next.language)
+        requestId.current = {
+          id: crypto.randomUUID(),
+          language: next.language,
+        };
+      result = await startDiagnostic(next.language, requestId.current.id);
+    } else if (attempt)
+      result = await saveDiagnostic(attempt.id, {
+        revision: attempt.revision,
+        step: next.step,
+        review: next.review,
+        answers: next.answers,
+        complete: next.completed,
+      });
+    else result = { attempt: null };
+    if (result.error) {
+      if (!focus) setDraft(draft);
+      setError(result.error);
+      setStorage("Modification non enregistrée. " + result.error);
+    } else {
+      if (!next.language) {
+        apply(null);
+        requestId.current = null;
+      } else apply(result.attempt ?? null);
+      setStorage("Diagnostic enregistré sur votre compte.");
+      focusNext.current = focus;
+    }
+    active.current = false;
+    setSaving(false);
   }
   if (!ready)
     return (
@@ -66,7 +119,16 @@ export function Onboarding() {
         Préparation de votre parcours…
       </main>
     );
-  const questions = getQuestions(draft.language ?? "python");
+  if (loadError)
+    return (
+      <main id="main" className="container flow-loading" role="alert">
+        <p>{loadError}</p>
+        <button className="button" onClick={() => window.location.reload()}>
+          Réessayer
+        </button>
+      </main>
+    );
+  const questions = attempt?.questions ?? [];
   const languageLabel = draft.language ? languages[draft.language].label : "";
   const q = questions[draft.step];
   const isSelected = (index: number) => {
@@ -74,15 +136,13 @@ export function Onboarding() {
     return a === index;
   };
   const count = questions.filter((q) => isAnswered(draft.answers[q.id])).length;
-  const scored = questions.filter((q) => q.correct !== undefined);
-  const correct = scored.filter(
-    (q) => draft.answers[q.id] === q.correct,
-  ).length;
+  const scored = questions.filter((q) => q.kind === "technical");
+  const correct = attempt?.correct_count ?? 0;
   return (
     <>
       <header className="flow-header container">
-        <Brand />
-        <Link href="/" className="text-link">
+        <Brand href="/dashboard" />
+        <Link href="/dashboard" className="text-link">
           Quitter le diagnostic
         </Link>
       </header>
@@ -120,10 +180,15 @@ export function Onboarding() {
             <p role="status">{storage}</p>
           </div>
           <p className="caption muted">
-            Aucun compte nécessaire. Aucune réponse envoyée à un serveur.
+            Vos réponses sont associées à votre compte.
           </p>
         </aside>
-        <section className="flow-content">
+        <section className="flow-content" inert={saving} aria-busy={saving}>
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
           {!draft.language ? (
             <>
               <h1 ref={heading} tabIndex={-1}>
@@ -149,8 +214,7 @@ export function Onboarding() {
                 ))}
               </div>
               <p className="caption muted">
-                Votre choix et vos réponses sont sauvegardés uniquement dans ce
-                navigateur.
+                Votre choix et vos réponses sont enregistrés sur votre compte.
               </p>
             </>
           ) : draft.completed ? (
@@ -164,11 +228,11 @@ export function Onboarding() {
                 déjà accompli.
               </h1>
               <p className="intro">
-                Votre diagnostic est terminé sur cet appareil. Le tutorat
-                personnalisé sera disponible après connexion du backend.
+                Votre diagnostic est enregistré sur votre compte. Le tutorat
+                personnalisé sera disponible dans une prochaine version.
               </p>
               <div className="summary-line">
-                <strong>{correct * 2} / 20</strong>
+                <strong>{attempt?.score ?? 0} / 20</strong>
                 <span>
                   Note de votre diagnostic {languageLabel} : {correct} bonnes
                   réponses sur {scored.length}. Ce résultat ne certifie pas
@@ -177,7 +241,7 @@ export function Onboarding() {
               </div>
               <dl className="profile-summary">
                 {questions
-                  .filter((q) => q.correct === undefined)
+                  .filter((q) => q.kind === "profile")
                   .map((q) => (
                     <div key={q.id}>
                       <dt>{q.title}</dt>
@@ -195,8 +259,8 @@ export function Onboarding() {
                 >
                   Revoir mes réponses
                 </button>
-                <Link href="/" className="text-link">
-                  Retour à l’accueil
+                <Link href="/dashboard" className="text-link">
+                  Retour à mon espace
                 </Link>
               </div>
               <button
@@ -205,7 +269,7 @@ export function Onboarding() {
                 onClick={() => update({ ...emptyDraft, answers: {} })}
               >
                 <RotateCcw size={16} aria-hidden="true" />
-                Effacer et recommencer
+                Recommencer le diagnostic
               </button>
             </>
           ) : draft.review ? (
@@ -290,10 +354,9 @@ export function Onboarding() {
                 {q.title}
               </h1>
               <p className="question-helper">
-                {q.description ??
-                  (draft.step < 6
-                    ? "Choisissez la réponse qui vous correspond le mieux."
-                    : "Vous découvrez ? « Je ne sais pas encore » est une réponse utile.")}
+                {draft.step < 6
+                  ? "Choisissez la réponse qui vous correspond le mieux."
+                  : "Vous découvrez ? « Je ne sais pas encore » est une réponse utile."}
               </p>
               {q.code && (
                 <pre className="question-code">
@@ -313,14 +376,13 @@ export function Onboarding() {
                       value={i}
                       checked={isSelected(i)}
                       onChange={() => {
-                        setError("");
-                        setDraft({
-                          ...draft,
-                          answers: {
-                            ...draft.answers,
-                            [q.id]: i,
+                        update(
+                          {
+                            ...draft,
+                            answers: { ...draft.answers, [q.id]: i },
                           },
-                        });
+                          false,
+                        );
                       }}
                     />
                     <span>{option}</span>
@@ -328,9 +390,6 @@ export function Onboarding() {
                   </label>
                 ))}
               </fieldset>
-              <p className="form-error" role="alert">
-                {error}
-              </p>
               <div className="flow-buttons">
                 <button
                   type="button"
@@ -369,7 +428,7 @@ export function Onboarding() {
                   onClick={() => {
                     if (
                       window.confirm(
-                        "Changer de langage effacera les réponses de ce diagnostic. Continuer ?",
+                        "Changer de langage démarre un nouveau diagnostic. Continuer ?",
                       )
                     )
                       update({ ...emptyDraft, answers: {} });

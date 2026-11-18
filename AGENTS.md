@@ -9,12 +9,12 @@
 
 ## État du projet
 
-Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, Auth et profil connectés, dashboard protégé et diagnostic local sont implémentés. Le jalon 1 backend est implémenté (FastAPI live/ready, Supabase local, migration et tests RLS). Comptes et profil connectés en local au jalon 2 ; tutorat IA encore à développer. La direction backend retenue est FastAPI + Supabase PostgreSQL et Supabase CLI/Docker en local. La conception figure dans docs/architecture/README.md et docs/decisions/0002-backend-fastapi-supabase.md ; Auth côté serveur Next.js est retenu et implémenté dans la décision 0003.
+Le frontend utilise désormais Next.js App Router, TypeScript et Tailwind CSS. Lire frontend/README.md pour les commandes, routes et frontières. Landing, Auth et profil connectés, dashboard protégé et diagnostic persistant sont implémentés. Le jalon 1 backend est implémenté (FastAPI live/ready, Supabase local, migration et tests RLS). Comptes et profil connectés en local au jalon 2 ; tutorat IA encore à développer. La direction backend retenue est FastAPI + Supabase PostgreSQL et Supabase CLI/Docker en local. La conception figure dans docs/architecture/README.md et docs/decisions/0002-backend-fastapi-supabase.md ; Auth côté serveur Next.js est retenu et implémenté dans la décision 0003.
 
 
 Le diagnostic propose désormais 10 langages/technologies, avec choix initial unique et note sur 20. Les brouillons v2 sont séparés des anciens v1. Le tuteur connecté reste à développer.
 
-La landing décrit désormais le produit cible au présent à la demande explicite du porteur. Conserver ce positionnement éditorial, mais ne pas cocher les fonctions métier ni annoncer des routes métier opérationnelles dans les formulaires. Le diagnostic est multilangage et local.
+La landing décrit désormais le produit cible au présent à la demande explicite du porteur. Conserver ce positionnement éditorial, mais ne pas cocher les fonctions métier ni annoncer des routes métier opérationnelles dans les formulaires. Le diagnostic est multilangage et lié au compte.
 
 ## Reprise de la tranche actuelle
 
@@ -23,9 +23,9 @@ La landing décrit désormais le produit cible au présent à la demande explici
 - La démo de boucle interactive est prédéfinie dans `frontend/src/features/tutor/lesson-preview.tsx` ; elle ne représente pas un tuteur IA connecté.
 - `/sign-in` et `/sign-up` utilisent `frontend/src/features/auth/auth-form.tsx`. Validation puis Server Actions Supabase Auth, cookies HttpOnly ; /dashboard exige une session validée.
 - `/dashboard` : page serveur dans frontend/src/app/dashboard/page.tsx, styles dans frontend/src/styles/dashboard.css. Dashboard protégé avec profil privé ; maintenir la présentation simple et les emplacements des futures activités. Garder ce périmètre simple jusqu’à validation de l’encadrant ; ne pas simuler de session, de compte créé ou de progression.
-- `/onboarding` utilise les fichiers `questions.ts`, `storage.ts` et `onboarding.tsx` dans `frontend/src/features/diagnostic/`. Les réponses et l'avancement restent dans localStorage sous `agentictutor.onboarding.v2` ; la note sur 20 est indicative et non certifiante.
+- `/onboarding` utilise les fichiers `questions.ts`, `storage.ts` et `onboarding.tsx` dans `frontend/src/features/diagnostic/`. Les réponses et l'avancement sont enregistrés via FastAPI dans Supabase ; la note sur 20 est calculée côté serveur et reste indicative. Les anciens brouillons localStorage ne sont pas importés.
 - Les captures et sept tests Playwright ont servi à vérifier la tranche précédente ; relancer les contrôles adaptés après toute modification. Consulter `frontend/README.md` pour les commandes et `CHROME_PATH`.
-- Le backend fournit uniquement le socle local et les probes de santé. Auth, récupération et profil sont implémentés au jalon 2. Diagnostic persistant, IA, exercices adaptatifs et métriques pédagogiques restent à développer.
+- Le backend fournit uniquement le socle local et les probes de santé. Auth, récupération et profil sont implémentés au jalon 2. IA, exercices adaptatifs et métriques pédagogiques restent à développer.
 - Préserver le bloc Next.js généré dans `frontend/AGENTS.md` et lire la documentation locale de Next avant de modifier le frontend.
 - Les changements frontend peuvent être non commités : inspecter `git status` avant toute opération Git et préserver le travail existant.
 
@@ -108,3 +108,9 @@ Lire docs/guides/milestone-2-auth.md pour les commandes. Après démarrage de Su
 ## Défilement
 
 Lenis est initialisé dans frontend/src/components/smooth-scroll.tsx depuis le layout racine. Il respecte prefers-reduced-motion, les ancres et les zones défilables imbriquées. Les commandes de lancement ne changent pas ; relancer npm.cmd ci après mise à jour du lockfile frontend.
+
+## État actuel : diagnostic connecté
+
+/onboarding nécessite une session. Les Server Actions de frontend/src/features/diagnostic/actions.ts passent par FastAPI (backend/app/api/diagnostic.py) ; les tentatives et réponses appartiennent au compte via RLS. Le score est calculé côté base à partir du questionnaire versionné. L’édition d’un résultat crée une nouvelle tentative liée ; recommencer retire la tentative courante sans effacer l’historique. Les anciens brouillons localStorage ne sont pas importés. Les mentions de diagnostic local et de jalon 3 non démarré dans les sections historiques ci-dessus sont dépassées.
+
+Appliquer les migrations avec npx.cmd --no-install supabase migration up --local après db:start sur une base existante, puis redémarrer FastAPI et Next.js. Ne pas utiliser db:reset : il efface les données locales. Voir README.md pour le lancement complet.

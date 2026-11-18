@@ -60,6 +60,8 @@ export async function profileRequest(
     data: { user },
     error,
   } = await client.auth.getUser();
+  if (error && (!error.status || error.status >= 500 || error.status === 429))
+    return new Response(null, { status: 503 });
   if (error || !user) redirect("/sign-in");
   const {
     data: { session },

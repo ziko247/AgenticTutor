@@ -43,6 +43,8 @@ def identity(
         )
         if response.status_code == 200:
             return UUID(response.json()["id"])
+        if response.status_code == 429:
+            raise HTTPException(503, "Authentication temporarily rate limited")
         if response.status_code >= 500:
             raise HTTPException(503, "Authentication unavailable")
     except (httpx.RequestError, ValueError, KeyError):

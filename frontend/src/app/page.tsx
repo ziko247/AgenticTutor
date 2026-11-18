@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { authClient } from "@/lib/supabase/server";
+import { RecoveryError } from "@/components/recovery-error";
 import {
   BookOpen,
   Code2,
@@ -47,10 +49,22 @@ const topics = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  let authenticated = false;
+  try {
+    const client = await authClient();
+    const {
+      data: { user },
+      error,
+    } = await client.auth.getUser();
+    authenticated = !error && !!user;
+  } catch {
+    /* Landing remains accessible when Auth is unavailable. */
+  }
   return (
     <div className="landing">
-      <Header />
+      <RecoveryError />
+      <Header authenticated={authenticated} />
       <main id="main">
         <div className="landing-opening">
           <section className="hero container">
@@ -63,7 +77,10 @@ export default function Home() {
                 Votre tuteur IA adapte explications et exercices à votre niveau.
               </p>
               <div className="hero-actions">
-                <Link className="button" href="/sign-up">
+                <Link
+                  className="button"
+                  href={authenticated ? "/dashboard" : "/sign-up"}
+                >
                   Préparer mon parcours
                 </Link>
                 <a className="text-link" href="#approche">
@@ -374,7 +391,7 @@ export default function Home() {
       </main>
       <footer className="site-footer landing-footer">
         <div className="container footer-row">
-          <Brand />
+          <Brand href={authenticated ? "/dashboard" : "/"} />
           <p>Comprendre. Essayer. Recommencer.</p>
           <a className="text-link" href="#programme">
             Explorer les notions

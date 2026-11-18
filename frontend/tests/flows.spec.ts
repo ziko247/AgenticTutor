@@ -1,6 +1,18 @@
 import { diagnosticBanks } from "../src/features/diagnostic/banks";
 import { profileQuestions } from "../src/features/diagnostic/questions";
-import { test, expect } from "@playwright/test";
+import { test, expect, type Page } from "@playwright/test";
+async function createAccount(page: Page) {
+  await page.goto("/sign-up");
+  await page.locator("#name").fill("Test");
+  await page
+    .locator("#email")
+    .fill("diagnostic-" + crypto.randomUUID() + "@example.invalid");
+  await page.locator("#password").fill("test-only-123");
+  await page
+    .getByRole("button", { name: "Créer mon compte", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/dashboard$/);
+}
 test("interactive lesson", async ({ page }) => {
   await page.goto("/");
   await page
@@ -38,6 +50,15 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
     page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "Mon profil" })).toBeVisible();
+  await page.getByRole("link", { name: "AgenticTutor, accueil" }).click();
+  await expect(page).toHaveURL(/\/dashboard$/);
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: "Mon espace" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Se connecter", exact: true }),
+  ).toHaveCount(0);
+  await page.goto("/dashboard");
+
   expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain(
     "test-only-123",
   );
@@ -63,7 +84,7 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/sign-in$/);
   await page.goto("/onboarding");
-  await expect(page).toHaveURL(/\/onboarding$/);
+  await expect(page).toHaveURL(/\/sign-in$/);
   await page.goto("/sign-in");
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
   await expect(page.locator("#email")).toHaveAttribute("aria-invalid", "true");
@@ -122,6 +143,8 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
 test("language diagnostic persists, reviews, scores and resets", async ({
   page,
 }) => {
+  test.setTimeout(90_000);
+  await createAccount(page);
   await page.goto("/onboarding");
   await page.getByRole("button", { name: "JavaScript", exact: true }).click();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
@@ -136,12 +159,19 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await expect(page.getByRole("radio").first()).toBeChecked();
   for (let i = 0; i < 16; i++) {
     await page.getByRole("radio").last().check();
+    await expect(page.locator(".storage-note [role=status]")).toHaveText(
+      "Diagnostic enregistré sur votre compte.",
+    );
     await page
       .getByRole("button", {
         name: i === 15 ? "Vérifier mes réponses" : "Continuer",
         exact: true,
       })
       .click();
+    if (i < 15)
+      await expect(
+        page.getByText(`Question ${i + 2} sur 16`, { exact: true }),
+      ).toBeVisible();
   }
   await expect(page.locator(".review-list li")).toHaveCount(16);
   await page
@@ -158,7 +188,7 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await page.reload();
   await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
   await page
-    .getByRole("button", { name: "Effacer et recommencer", exact: true })
+    .getByRole("button", { name: "Recommencer le diagnostic", exact: true })
     .click();
   await expect(
     page.getByRole("heading", {
@@ -168,6 +198,7 @@ test("language diagnostic persists, reviews, scores and resets", async ({
 });
 
 test("corrupt storage recovers", async ({ page }) => {
+  await createAccount(page);
   await page.goto("/");
   await page.evaluate(() =>
     localStorage.setItem("agentictutor.onboarding.v2", "{broken"),
@@ -181,6 +212,7 @@ test("corrupt storage recovers", async ({ page }) => {
 });
 
 test("blocked storage keeps flow usable", async ({ page }) => {
+  await createAccount(page);
   await page.addInitScript(() => {
     Storage.prototype.setItem = () => {
       throw Error("blocked");
@@ -190,7 +222,7 @@ test("blocked storage keeps flow usable", async ({ page }) => {
     };
   });
   await page.goto("/onboarding");
-  await expect(page.getByRole("status")).toContainText("indisponible");
+  await expect(page.getByRole("status")).toContainText("compte");
   await page.getByRole("button", { name: "Python", exact: true }).click();
   await page.getByRole("radio").first().check();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
@@ -243,6 +275,8 @@ test("keyboard focus and reduced motion", async ({ page }) => {
 test("all ten language banks finish with a score out of twenty", async ({
   page,
 }) => {
+  await createAccount(page);
+  test.setTimeout(180_000);
   for (const language of [
     "Python",
     "C",
@@ -255,20 +289,34 @@ test("all ten language banks finish with a score out of twenty", async ({
     "Go",
     "Rust",
   ]) {
-    await page.goto("/");
-    await page.evaluate(() =>
-      localStorage.removeItem("agentictutor.onboarding.v2"),
-    );
     await page.goto("/onboarding");
+    await expect(page.locator(".storage-note [role=status]")).toHaveText(
+      "Diagnostic enregistré sur votre compte.",
+    );
+    if (
+      await page
+        .getByRole("button", { name: "Recommencer le diagnostic" })
+        .count()
+    )
+      await page
+        .getByRole("button", { name: "Recommencer le diagnostic" })
+        .click();
     await page.getByRole("button", { name: language, exact: true }).click();
     for (let i = 0; i < 16; i++) {
       await page.getByRole("radio").last().check();
+      await expect(page.locator(".storage-note [role=status]")).toHaveText(
+        "Diagnostic enregistré sur votre compte.",
+      );
       await page
         .getByRole("button", {
           name: i === 15 ? "Vérifier mes réponses" : "Continuer",
           exact: true,
         })
         .click();
+      if (i < 15)
+        await expect(
+          page.getByText(`Question ${i + 2} sur 16`, { exact: true }),
+        ).toBeVisible();
     }
     await page
       .getByRole("button", { name: "Terminer le diagnostic", exact: true })
@@ -280,6 +328,7 @@ test("all ten language banks finish with a score out of twenty", async ({
 test("changing language clears answers only after confirmation", async ({
   page,
 }) => {
+  await createAccount(page);
   await page.goto("/onboarding");
   await page.getByRole("button", { name: "Rust", exact: true }).click();
   await page.getByRole("radio").first().check();
@@ -336,26 +385,35 @@ test("language menus support mouse and keyboard", async ({ page }) => {
 test("perfect result is twenty and old drafts remain untouched", async ({
   page,
 }) => {
+  test.setTimeout(90_000);
+  await createAccount(page);
   await page.goto("/");
-  const answers = Object.fromEntries([
-    ...profileQuestions.map((q) => [q.id, 0]),
-    ...diagnosticBanks.python.map((q) => [q.id, q.correct]),
-  ]);
-  await page.evaluate((answers) => {
+  await page.evaluate(() => {
     localStorage.setItem("agentictutor.onboarding.v1", "legacy-draft");
-    localStorage.setItem(
-      "agentictutor.onboarding.v2",
-      JSON.stringify({
-        version: 2,
-        language: "python",
-        answers,
-        step: 15,
-        review: true,
-        completed: false,
-      }),
-    );
-  }, answers);
+    localStorage.setItem("agentictutor.onboarding.v2", "legacy-v2");
+  });
   await page.goto("/onboarding");
+  await page.getByRole("button", { name: "Python", exact: true }).click();
+  const answers = [
+    ...profileQuestions.map(() => 0),
+    ...diagnosticBanks.python.map((q) => q.correct!),
+  ];
+  for (let i = 0; i < 16; i++) {
+    await page.getByRole("radio").nth(answers[i]).check();
+    await expect(page.locator(".storage-note [role=status]")).toHaveText(
+      "Diagnostic enregistré sur votre compte.",
+    );
+    await page
+      .getByRole("button", {
+        name: i === 15 ? "Vérifier mes réponses" : "Continuer",
+        exact: true,
+      })
+      .click();
+    if (i < 15)
+      await expect(
+        page.getByText(`Question ${i + 2} sur 16`, { exact: true }),
+      ).toBeVisible();
+  }
   await page
     .getByRole("button", { name: "Terminer le diagnostic", exact: true })
     .click();
@@ -407,4 +465,13 @@ test("smooth scrolling respects reduced motion and anchor navigation", async ({
   await expect(page.locator("html")).toHaveCSS("scroll-behavior", "auto");
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await expect(page.locator("html")).toHaveClass(/lenis/);
+});
+
+test("expired recovery link offers a new link", async ({ page }) => {
+  await page.goto("/#error=access_denied&error_code=otp_expired");
+  await expect(page).toHaveURL(/\/forgot-password\?error=invalid_link/);
+  await expect(page.getByRole("status")).toContainText("invalide ou expiré");
+  await expect(
+    page.getByRole("button", { name: "Recevoir un lien" }),
+  ).toBeVisible();
 });
