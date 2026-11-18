@@ -377,3 +377,34 @@ test("each bank has ten valid independent scored questions", () => {
     }
   }
 });
+
+test("smooth scrolling respects reduced motion and anchor navigation", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveClass(/lenis/);
+  await page.locator("#lesson-language").click();
+  const menu = page.locator("#lesson-language-menu .language-menu-list");
+  await menu.hover();
+  await page.mouse.wheel(0, 400);
+  await expect
+    .poll(() => menu.evaluate((el) => el.scrollTop))
+    .toBeGreaterThan(0);
+  await page.keyboard.press("Escape");
+  await page.getByRole("link", { name: "Découvrir l’approche" }).click();
+  await expect
+    .poll(
+      () =>
+        page
+          .locator("#approche")
+          .evaluate((el) => Math.abs(el.getBoundingClientRect().top)),
+      { timeout: 5000 },
+    )
+    .toBeLessThan(5);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(page.locator("html")).not.toHaveClass(/lenis/);
+  await expect(page.locator("html")).toHaveCSS("scroll-behavior", "auto");
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await expect(page.locator("html")).toHaveClass(/lenis/);
+});

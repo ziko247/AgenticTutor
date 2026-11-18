@@ -1,0 +1,71 @@
+[
+  {
+    "order": 1,
+    "title": "Project purpose and requirement boundaries",
+    "description": "Compare the current overview and agent handoff with the French specification. Treat requirements, milestones, and measured results separately.",
+    "nodeIds": [
+      "document:README.md",
+      "document:AGENTS.md",
+      "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md"
+    ]
+  },
+  {
+    "order": 2,
+    "title": "The frontend entry point",
+    "description": "The French root layout loads the shared design system, fonts, route content, and keyboard skip navigation.",
+    "nodeIds": [
+      "file:frontend/src/app/layout.tsx"
+    ]
+  },
+  {
+    "order": 3,
+    "title": "Trusted sessions before private pages",
+    "description": "Follow server-managed Supabase authentication and cookie refresh. No browser localStorage token is used for account identity.",
+    "nodeIds": [
+      "file:frontend/src/features/auth/actions.ts",
+      "file:frontend/src/proxy.ts"
+    ]
+  },
+  {
+    "order": 4,
+    "title": "The independent API identity boundary",
+    "description": "FastAPI validates each bearer through Supabase, then applies the verified UUID to transaction-local database context.",
+    "nodeIds": [
+      "file:backend/app/api/profile.py",
+      "file:backend/app/core/database.py"
+    ]
+  },
+  {
+    "order": 5,
+    "title": "Private database schema and immutable diagnostics",
+    "description": "Read the migration for ownership roles, RLS, foreign keys, publication guards, and restricted score writes. The schema alone does not implement diagnostic APIs.",
+    "nodeIds": [
+      "table:supabase/migrations/20261115000100_backend_foundation.sql"
+    ]
+  },
+  {
+    "order": 6,
+    "title": "The current diagnostic runs locally",
+    "description": "Trace language selection, answers, review, client-side score, and validated localStorage drafts. These answers are not yet saved on the account.",
+    "nodeIds": [
+      "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "file:frontend/src/features/diagnostic/storage.ts"
+    ]
+  },
+  {
+    "order": 7,
+    "title": "Behavioral evidence in browser tests",
+    "description": "Review the real local registration, profile, session, recovery, diagnostic and responsive regression tests; static analysis does not rerun them.",
+    "nodeIds": [
+      "file:frontend/tests/flows.spec.ts"
+    ]
+  },
+  {
+    "order": 8,
+    "title": "The remaining backend milestones",
+    "description": "Persistent diagnostics and the first source-grounded tutor loop remain future work. The roadmap records decisions and acceptance checks still needed.",
+    "nodeIds": [
+      "document:docs/architecture/backend-roadmap.md"
+    ]
+  }
+]

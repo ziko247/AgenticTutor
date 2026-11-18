@@ -1,0 +1,5589 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/app/api/profile.py",
+      "type": "file",
+      "name": "profile.py",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Defines authenticated profile GET, idempotent PUT and revision-checked PATCH routes. It validates bearer identities through the configured Supabase Auth user endpoint and applies user-scoped SQL transactions.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/app/api/profile.py:identity",
+      "type": "function",
+      "name": "identity",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Validates a bearer token with the configured Supabase Auth endpoint and returns its verified UUID, using generic 401/503 failures.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        27,
+        50
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:db",
+      "type": "function",
+      "name": "db",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Returns the application database or reports its unavailability.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        53,
+        56
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:get_profile",
+      "type": "function",
+      "name": "get_profile",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Reads only the authenticated user's profile under transaction-local RLS and returns 404 if absent.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        60,
+        70
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:create_profile",
+      "type": "function",
+      "name": "create_profile",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Creates the authenticated profile without accepting a client user ID; repeats identical creation safely and rejects conflicting existing content.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        74,
+        100
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:update_profile",
+      "type": "function",
+      "name": "update_profile",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Updates the owned profile only when its revision matches, incrementing the revision or returning a conflict.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        104,
+        119
+      ]
+    },
+    {
+      "id": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "class",
+      "name": "ProfileInput",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Validates a bounded nonblank display name and one optional supported language while forbidding extra input fields.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        17,
+        20
+      ]
+    },
+    {
+      "id": "class:backend/app/api/profile.py:ProfilePatch",
+      "type": "class",
+      "name": "ProfilePatch",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Extends profile input with the required positive revision for optimistic concurrency.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        23,
+        24
+      ]
+    },
+    {
+      "id": "file:backend/app/core/config.py",
+      "type": "file",
+      "name": "config.py",
+      "filePath": "backend/app/core/config.py",
+      "summary": "Loads typed backend settings from process variables and backend/.env, including the restricted SQL connection, pool limits, CORS origins and Supabase Auth endpoint.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:backend/app/core/config.py:Settings",
+      "type": "class",
+      "name": "Settings",
+      "filePath": "backend/app/core/config.py",
+      "summary": "Loads validated runtime settings, redacts the database secret in representations and bounds pool size and acquisition timeout.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        9,
+        19
+      ]
+    },
+    {
+      "id": "file:backend/app/core/database.py",
+      "type": "file",
+      "name": "database.py",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Manages a bounded synchronous Psycopg pool, checks the runtime role and schema marker, and provides transaction-local user identity for RLS.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:backend/app/core/database.py:Database",
+      "type": "class",
+      "name": "Database",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Owns the synchronous connection pool and rejects privileged runtime connections before health checks or user transactions.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        62
+      ]
+    },
+    {
+      "id": "file:backend/app/main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "backend/app/main.py",
+      "summary": "Builds FastAPI with profile routes, explicit CORS, pool lifespan management and separate liveness/readiness probes.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/app/main.py:create_app",
+      "type": "function",
+      "name": "create_app",
+      "filePath": "backend/app/main.py",
+      "summary": "Creates the FastAPI application with injected settings/database factory, profile router, CORS and pool lifecycle.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        17,
+        66
+      ]
+    },
+    {
+      "id": "file:backend/tests/integration/conftest.py",
+      "type": "file",
+      "name": "conftest.py",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Provides dedicated local Supabase fixtures, restricted runtime database access and synthetic Auth students with cleanup.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:stack",
+      "type": "function",
+      "name": "stack",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Resolves the dedicated local Supabase stack for integration fixtures.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        15
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:admin",
+      "type": "function",
+      "name": "admin",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Opens the local administrator connection only after checking the project marker.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        19,
+        24
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:database",
+      "type": "function",
+      "name": "database",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Creates a one-connection runtime pool so tests can verify identity context reset across reused connections.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        28,
+        35
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:students",
+      "type": "function",
+      "name": "students",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Creates two synthetic Auth users and profiles and removes their identities after integration tests.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        39,
+        68
+      ]
+    },
+    {
+      "id": "file:backend/tests/integration/test_database.py",
+      "type": "file",
+      "name": "test_database.py",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Exercises real role restrictions, RLS account isolation, context cleanup, diagnostic foreign keys, immutable content and deletion cascades.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_ready_with_actual_runtime_connection",
+      "type": "function",
+      "name": "test_ready_with_actual_runtime_connection",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies ready with actual runtime connection against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        14,
+        18
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_privileged_connection_is_not_ready",
+      "type": "function",
+      "name": "test_privileged_connection_is_not_ready",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies privileged connection is not ready against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        21,
+        24
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_schema_version_mismatch_is_not_ready",
+      "type": "function",
+      "name": "test_schema_version_mismatch_is_not_ready",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies schema version mismatch is not ready against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        27,
+        33
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_profiles_are_isolated_and_context_does_not_leak",
+      "type": "function",
+      "name": "test_profiles_are_isolated_and_context_does_not_leak",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies profiles are isolated and context does not leak against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        36,
+        54
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_runtime_cannot_forge_profile_or_publish",
+      "type": "function",
+      "name": "test_runtime_cannot_forge_profile_or_publish",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies runtime cannot forge profile or publish against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        57,
+        76
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_banks_are_complete_and_private",
+      "type": "function",
+      "name": "test_banks_are_complete_and_private",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies banks are complete and private against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        79,
+        92
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_answer_foreign_keys_and_attempt_ownership",
+      "type": "function",
+      "name": "test_answer_foreign_keys_and_attempt_ownership",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies answer foreign keys and attempt ownership against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        95,
+        162
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_published_content_is_immutable",
+      "type": "function",
+      "name": "test_published_content_is_immutable",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies published content is immutable against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        165,
+        167
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_invalid_publication_is_rejected",
+      "type": "function",
+      "name": "test_invalid_publication_is_rejected",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies invalid publication is rejected against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        170,
+        187
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_context_is_required_for_writes",
+      "type": "function",
+      "name": "test_context_is_required_for_writes",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies context is required for writes against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        190,
+        198
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_import_cannot_attach_another_students_attempt",
+      "type": "function",
+      "name": "test_import_cannot_attach_another_students_attempt",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies import cannot attach another students attempt against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        201,
+        236
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_completed_attempt_cannot_receive_answers",
+      "type": "function",
+      "name": "test_completed_attempt_cannot_receive_answers",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies completed attempt cannot receive answers against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        239,
+        265
+      ]
+    },
+    {
+      "id": "file:backend/tests/integration/test_profile_api.py",
+      "type": "file",
+      "name": "test_profile_api.py",
+      "filePath": "backend/tests/integration/test_profile_api.py",
+      "summary": "Tests real Supabase registration and bearer authentication against profile CRUD, idempotency, rejected client ownership fields and optimistic revision conflicts.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/integration/test_profile_api.py:test_real_auth_profile_contract",
+      "type": "function",
+      "name": "test_real_auth_profile_contract",
+      "filePath": "backend/tests/integration/test_profile_api.py",
+      "summary": "Verifies real auth profile contract against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        12,
+        80
+      ]
+    },
+    {
+      "id": "file:backend/tests/unit/test_health.py",
+      "type": "file",
+      "name": "test_health.py",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Tests database-independent liveness, readiness failure/recovery, pool closure, explicit CORS, bounded settings and secret redaction.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_live_does_not_need_database",
+      "type": "function",
+      "name": "test_live_does_not_need_database",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies live does not need database against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        28,
+        31
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_readiness_recovers_and_closes_pool",
+      "type": "function",
+      "name": "test_readiness_recovers_and_closes_pool",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies readiness recovers and closes pool against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        34,
+        47
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_cors_is_explicit",
+      "type": "function",
+      "name": "test_cors_is_explicit",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies cors is explicit against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        50,
+        55
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_pool_size_is_bounded",
+      "type": "function",
+      "name": "test_pool_size_is_bounded",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies pool size is bounded against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        59,
+        61
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_secret_is_redacted",
+      "type": "function",
+      "name": "test_secret_is_redacted",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies secret is redacted against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        64,
+        67
+      ]
+    },
+    {
+      "id": "class:backend/tests/unit/test_health.py:FakeDatabase",
+      "type": "class",
+      "name": "FakeDatabase",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Provides controllable readiness failure and closure state for isolated health tests.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        11,
+        25
+      ]
+    },
+    {
+      "id": "file:backend/tools/configure_auth.py",
+      "type": "file",
+      "name": "configure_auth.py",
+      "filePath": "backend/tools/configure_auth.py",
+      "summary": "Adds missing local Auth and API settings to ignored backend/frontend environment files after verifying the dedicated Supabase target.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tools/configure_auth.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/tools/configure_auth.py",
+      "summary": "Appends missing local Auth configuration without overwriting another Auth environment or printing keys.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        9,
+        31
+      ]
+    },
+    {
+      "id": "file:backend/tools/local_stack.py",
+      "type": "file",
+      "name": "local_stack.py",
+      "filePath": "backend/tools/local_stack.py",
+      "summary": "Reads Supabase CLI status privately and rejects unexpected project, database host/port/name or Auth endpoint before local tooling and tests connect.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tools/local_stack.py:local_status",
+      "type": "function",
+      "name": "local_status",
+      "filePath": "backend/tools/local_stack.py",
+      "summary": "Obtains local Supabase status and validates the dedicated project, PostgreSQL connection target and Auth URL before returning it.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        44
+      ]
+    },
+    {
+      "id": "file:backend/tools/setup_local.py",
+      "type": "file",
+      "name": "setup_local.py",
+      "filePath": "backend/tools/setup_local.py",
+      "summary": "Provisions a random or existing runtime-role password only on the dedicated local database and writes a missing ignored backend configuration.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tools/setup_local.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/tools/setup_local.py",
+      "summary": "Verifies the dedicated local schema, safely sets the runtime-role password and creates missing ignored connection settings.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        12,
+        50
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.__init__",
+      "type": "function",
+      "name": "Database.__init__",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Configures a bounded lazy-open Psycopg connection pool with acquisition, connection, query and lock timeouts.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        14,
+        27
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.check_role",
+      "type": "function",
+      "name": "Database.check_role",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Rejects SQL connections unless app_runtime is non-superuser, cannot bypass RLS and is not a member of app_owner.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        35,
+        43
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.check_ready",
+      "type": "function",
+      "name": "Database.check_ready",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Acquires a connection, checks the restricted role and requires the expected schema version.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        45,
+        52
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "function",
+      "name": "Database.transaction_for",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Requires a UUID and sets app.user_id locally within a database transaction so identity does not leak across pool reuse.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        55,
+        62
+      ]
+    },
+    {
+      "id": "file:frontend/src/app/auth/callback/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "frontend/src/app/auth/callback/route.ts",
+      "summary": "Exchanges a Supabase PKCE callback code for a session and redirects to the dashboard or password-reset page; failed callbacks return to recovery.",
+      "tags": [
+        "auth",
+        "route-handler",
+        "pkce"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "frontend/src/app/auth/callback/route.ts",
+      "lineRange": [
+        3,
+        24
+      ],
+      "summary": "Exchanges the PKCE code and selects a fixed in-application post-authentication destination.",
+      "tags": [
+        "auth",
+        "route-handler",
+        "pkce"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/dashboard/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/dashboard/page.tsx",
+      "summary": "Protects the student dashboard with server-side identity verification, initializes or retrieves the account profile through FastAPI, and renders diagnostic access and profile editing.",
+      "tags": [
+        "dashboard",
+        "server-component",
+        "auth"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "type": "function",
+      "name": "DashboardPage",
+      "filePath": "frontend/src/app/dashboard/page.tsx",
+      "lineRange": [
+        16,
+        109
+      ],
+      "summary": "Verifies the current user, retrieves or creates their FastAPI profile, then renders the protected learning dashboard.",
+      "tags": [
+        "dashboard",
+        "server-component",
+        "auth"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/app/forgot-password/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/forgot-password/page.tsx",
+      "summary": "Exposes the password-recovery route using the shared password form and route-specific metadata.",
+      "tags": [
+        "entry-point",
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/forgot-password/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/forgot-password/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/reset-password/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/reset-password/page.tsx",
+      "summary": "Exposes the new-password route by enabling reset mode on the shared password form.",
+      "tags": [
+        "entry-point",
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/reset-password/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/reset-password/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "summary": "Implements server-side registration, login, local sign-out and password recovery through Supabase Auth, plus authenticated profile requests to FastAPI with a network-failure fallback.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "function",
+      "name": "authenticate",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        8,
+        53
+      ],
+      "summary": "Validates submitted credentials and calls Supabase registration or password login, distinguishing active sessions from confirmation-pending results.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "function",
+      "name": "profileRequest",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        54,
+        84
+      ],
+      "summary": "Verifies identity, obtains the server session token and sends a no-cache profile request to FastAPI; network failures become a 503 response.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:signOut",
+      "type": "function",
+      "name": "signOut",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        85,
+        90
+      ],
+      "summary": "Revokes the current local refresh session and redirects to sign-in on success.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "type": "function",
+      "name": "recoverPassword",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        91,
+        108
+      ],
+      "summary": "Validates an email and requests a Supabase recovery message targeting the fixed PKCE callback.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "type": "function",
+      "name": "changePassword",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        109,
+        128
+      ],
+      "summary": "Requires a valid Auth user before updating the password, signs out locally and returns a generic completion/error message.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/password-form.tsx",
+      "type": "file",
+      "name": "password-form.tsx",
+      "filePath": "frontend/src/features/auth/password-form.tsx",
+      "summary": "Provides a shared recovery-email and new-password form with pending state, accessible status feedback and a sign-in link.",
+      "tags": [
+        "component",
+        "form",
+        "recovery"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "function",
+      "name": "PasswordForm",
+      "filePath": "frontend/src/features/auth/password-form.tsx",
+      "lineRange": [
+        5,
+        51
+      ],
+      "summary": "Switches between recovery-email and new-password submission while maintaining pending and result state.",
+      "tags": [
+        "component",
+        "form",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/profile-actions.ts",
+      "type": "file",
+      "name": "profile-actions.ts",
+      "filePath": "frontend/src/features/auth/profile-actions.ts",
+      "summary": "Sends validated profile form values and revision to FastAPI, reports conflicts and revalidates the dashboard after saving.",
+      "tags": [
+        "server-action",
+        "profile",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "function",
+      "name": "saveProfile",
+      "filePath": "frontend/src/features/auth/profile-actions.ts",
+      "lineRange": [
+        4,
+        16
+      ],
+      "summary": "Submits profile fields and revision, translates conflict/error responses and refreshes dashboard data after a successful update.",
+      "tags": [
+        "server-action",
+        "profile",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/profile-form.tsx",
+      "type": "file",
+      "name": "profile-form.tsx",
+      "filePath": "frontend/src/features/auth/profile-form.tsx",
+      "summary": "Edits the persisted account display name and preferred language, carrying the current revision and displaying save/error feedback.",
+      "tags": [
+        "component",
+        "profile",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "function",
+      "name": "ProfileForm",
+      "filePath": "frontend/src/features/auth/profile-form.tsx",
+      "lineRange": [
+        5,
+        64
+      ],
+      "summary": "Submits editable profile fields with revision-based concurrency and displays save feedback.",
+      "tags": [
+        "component",
+        "profile",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/lib/supabase/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "frontend/src/lib/supabase/server.ts",
+      "summary": "Builds the server-side Supabase client from private configuration and Next.js cookies, using HttpOnly SameSite sessions and production-only Secure cookies.",
+      "tags": [
+        "auth",
+        "configuration",
+        "cookies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "function",
+      "name": "authClient",
+      "filePath": "frontend/src/lib/supabase/server.ts",
+      "lineRange": [
+        4,
+        31
+      ],
+      "summary": "Creates a Supabase SSR client backed by Next.js request/response cookies and private environment configuration.",
+      "tags": [
+        "auth",
+        "configuration",
+        "cookies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/onboarding/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/onboarding/page.tsx",
+      "summary": "Routes the onboarding page to the local diagnostic component and supplies its metadata.",
+      "tags": [
+        "entry-point",
+        "route",
+        "diagnostic"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/onboarding/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/onboarding/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "diagnostic"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/sign-in/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/sign-in/page.tsx",
+      "summary": "Routes sign-in to the shared authentication form in login mode.",
+      "tags": [
+        "entry-point",
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/sign-in/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/sign-in/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/sign-up/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/sign-up/page.tsx",
+      "summary": "Routes registration to the shared authentication form in sign-up mode.",
+      "tags": [
+        "entry-point",
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/sign-up/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/sign-up/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "auth"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/brand.tsx",
+      "type": "file",
+      "name": "brand.tsx",
+      "filePath": "frontend/src/components/brand.tsx",
+      "summary": "Provides the linked AgenticTutor wordmark and landing navigation with sign-in and registration entry points.",
+      "tags": [
+        "component",
+        "navigation",
+        "brand"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "function",
+      "name": "Brand",
+      "filePath": "frontend/src/components/brand.tsx",
+      "lineRange": [
+        3,
+        10
+      ],
+      "summary": "Renders the accessible home-linked AgenticTutor wordmark.",
+      "tags": [
+        "component",
+        "navigation",
+        "brand"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/brand.tsx:Header",
+      "type": "function",
+      "name": "Header",
+      "filePath": "frontend/src/components/brand.tsx",
+      "lineRange": [
+        11,
+        26
+      ],
+      "summary": "Renders the landing masthead and primary account navigation.",
+      "tags": [
+        "component",
+        "navigation",
+        "brand"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/auth-form.tsx",
+      "type": "file",
+      "name": "auth-form.tsx",
+      "filePath": "frontend/src/features/auth/auth-form.tsx",
+      "summary": "Renders sign-up/sign-in forms with local validation, password visibility, loading/error feedback and server-action authentication before dashboard navigation.",
+      "tags": [
+        "component",
+        "auth",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "function",
+      "name": "AuthForm",
+      "filePath": "frontend/src/features/auth/auth-form.tsx",
+      "lineRange": [
+        8,
+        211
+      ],
+      "summary": "Manages sign-up/login input validation, password visibility, server-action results and authenticated dashboard navigation.",
+      "tags": [
+        "component",
+        "auth",
+        "validation"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "type": "file",
+      "name": "onboarding.tsx",
+      "filePath": "frontend/src/features/diagnostic/onboarding.tsx",
+      "summary": "Runs the language-first diagnostic, validates and stores browser drafts, supports backward navigation/review/reset, and computes the indicative score locally.",
+      "tags": [
+        "component",
+        "diagnostic",
+        "local-storage"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "function",
+      "name": "Onboarding",
+      "filePath": "frontend/src/features/diagnostic/onboarding.tsx",
+      "lineRange": [
+        27,
+        396
+      ],
+      "summary": "Coordinates local diagnostic language selection, navigation, review, score display and browser-draft recovery.",
+      "tags": [
+        "component",
+        "diagnostic",
+        "local-storage"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/app/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/page.tsx",
+      "summary": "Composes the French product landing page with benefits, learning concepts, static multi-language examples, frequently asked questions and account entry points.",
+      "tags": [
+        "entry-point",
+        "landing",
+        "component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/app/page.tsx:Home",
+      "type": "function",
+      "name": "Home",
+      "filePath": "frontend/src/app/page.tsx",
+      "lineRange": [
+        50,
+        386
+      ],
+      "summary": "Renders the landing product explanation, predefined code previews, learning concepts and account calls to action.",
+      "tags": [
+        "landing",
+        "component"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/features/tutor/examples.ts",
+      "type": "file",
+      "name": "examples.ts",
+      "filePath": "frontend/src/features/tutor/examples.ts",
+      "summary": "Defines predetermined code samples, hints, outputs and worked explanations for the ten language technologies shown in landing previews; no code execution or model call occurs.",
+      "tags": [
+        "data-model",
+        "examples",
+        "static-content"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/tutor/examples.ts:loop",
+      "type": "function",
+      "name": "loop",
+      "filePath": "frontend/src/features/tutor/examples.ts",
+      "lineRange": [
+        33,
+        57
+      ],
+      "summary": "Builds a static loop exercise and worked-sum example from language-specific code and labels.",
+      "tags": [
+        "data-model",
+        "examples",
+        "static-content"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/tutor/language-select.tsx",
+      "type": "file",
+      "name": "language-select.tsx",
+      "filePath": "frontend/src/features/tutor/language-select.tsx",
+      "summary": "Implements the custom language picker using native radios, selected-option focus, Escape/Tab handling and outside-pointer dismissal.",
+      "tags": [
+        "component",
+        "accessibility",
+        "selection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/tutor/language-select.tsx:LanguageSelect",
+      "type": "function",
+      "name": "LanguageSelect",
+      "filePath": "frontend/src/features/tutor/language-select.tsx",
+      "lineRange": [
+        5,
+        101
+      ],
+      "summary": "Manages the accessible native-radio language menu and focus restoration on selection or dismissal.",
+      "tags": [
+        "component",
+        "accessibility",
+        "selection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "type": "file",
+      "name": "lesson-preview.tsx",
+      "filePath": "frontend/src/features/tutor/lesson-preview.tsx",
+      "summary": "Displays a predetermined language-specific code-reading exercise with independently revealed hint and result; switching language resets those reveals.",
+      "tags": [
+        "component",
+        "preview",
+        "state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/tutor/lesson-preview.tsx:LessonPreview",
+      "type": "function",
+      "name": "LessonPreview",
+      "filePath": "frontend/src/features/tutor/lesson-preview.tsx",
+      "lineRange": [
+        7,
+        76
+      ],
+      "summary": "Maintains the selected example language and local hint/result reveal state.",
+      "tags": [
+        "component",
+        "preview",
+        "state"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/tutor/worked-example.tsx",
+      "type": "file",
+      "name": "worked-example.tsx",
+      "filePath": "frontend/src/features/tutor/worked-example.tsx",
+      "summary": "Displays a language-selectable worked example with code, final output and sequential reasoning steps from static content.",
+      "tags": [
+        "component",
+        "examples",
+        "selection"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/tutor/worked-example.tsx:WorkedExample",
+      "type": "function",
+      "name": "WorkedExample",
+      "filePath": "frontend/src/features/tutor/worked-example.tsx",
+      "lineRange": [
+        6,
+        54
+      ],
+      "summary": "Selects and renders the static worked explanation for the chosen language.",
+      "tags": [
+        "component",
+        "examples",
+        "selection"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/lib/languages.ts",
+      "type": "file",
+      "name": "languages.ts",
+      "filePath": "frontend/src/lib/languages.ts",
+      "summary": "Centralizes the ten supported diagnostic/example language identifiers, French-facing labels, display order and shared Language type.",
+      "tags": [
+        "data-model",
+        "type-definition",
+        "languages"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "file",
+      "name": "banks.ts",
+      "filePath": "frontend/src/features/diagnostic/banks.ts",
+      "summary": "Defines ten language-specific technical question banks and constructs ordered single-choice questions with deterministic answer-option rotation and correction indices.",
+      "tags": [
+        "diagnostic",
+        "question-bank",
+        "data-model",
+        "tested"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/banks.ts:createBank",
+      "type": "function",
+      "name": "createBank",
+      "filePath": "frontend/src/features/diagnostic/banks.ts",
+      "lineRange": [
+        386,
+        398
+      ],
+      "summary": "Converts each fixed four-string question row into a technical single-choice question with rotated options and a correct-answer index.",
+      "tags": [
+        "diagnostic",
+        "question-bank",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "file",
+      "name": "questions.ts",
+      "filePath": "frontend/src/features/diagnostic/questions.ts",
+      "summary": "Defines the shared question shape and six unscored student-profile questions included before each technical bank.",
+      "tags": [
+        "data-model",
+        "diagnostic",
+        "profile",
+        "tested"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/storage.ts",
+      "type": "file",
+      "name": "storage.ts",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "summary": "Defines the version-2 browser diagnostic draft and combines question banks; parsing discards invalid answers, clamps navigation and requires completeness for final/review states.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "function",
+      "name": "answerLabel",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "lineRange": [
+        6,
+        7
+      ],
+      "summary": "Converts a numeric answer index into its visible option label, returning an empty label when unanswered.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "function",
+      "name": "getQuestions",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "lineRange": [
+        24,
+        26
+      ],
+      "summary": "Combines the six shared profile questions with the selected language's technical bank.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "function",
+      "name": "parseDraft",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "lineRange": [
+        27,
+        60
+      ],
+      "summary": "Validates a stored version-2 draft, filters invalid indices and resets unsafe completion/review/navigation values.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/flows.spec.ts",
+      "type": "file",
+      "name": "flows.spec.ts",
+      "filePath": "frontend/tests/flows.spec.ts",
+      "summary": "Exercises real local Auth and profile persistence/recovery, landing examples and menus, all diagnostic banks and scores, draft recovery, responsive layouts and keyboard/reduced-motion behavior.",
+      "tags": [
+        "test",
+        "end-to-end",
+        "browser"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "type": "table",
+      "name": "20261115000100_backend_foundation.sql",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Creates the app_private schema, separate owner/runtime roles and ten relational tables in one transaction. Grants limited runtime writes, applies user-scoped RLS and content/completed-answer guards, then records schema version 1.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:schema_version",
+      "type": "table",
+      "name": "schema_version",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores the singleton expected migration version and dedicated local project marker.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        12,
+        16
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "table",
+      "name": "languages",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Registers the ten supported programming-language/technology codes and availability.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        18,
+        23
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "table",
+      "name": "profiles",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores the Auth-linked user's display name, preferred language, revision and timestamps under ownership RLS.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        24,
+        32
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "table",
+      "name": "questionnaires",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Versions language-specific diagnostic content and its publication state/hash; published content is immutable.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        33,
+        44
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "table",
+      "name": "questions",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores ordered profile/technical questions tied to a questionnaire version with stable source keys.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        45,
+        58
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "table",
+      "name": "answer_options",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores ordered answer choices attached to their exact question.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        59,
+        66
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "type": "table",
+      "name": "answer_keys",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores the correct option and fixed two-point scoring for each technical question, readable only through the server role.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        67,
+        75
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "table",
+      "name": "diagnostic_attempts",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores owned versioned diagnostic attempts, cursor, concurrency revision, idempotency key, completion state and bounded results.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        76,
+        103
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "type": "table",
+      "name": "diagnostic_answers",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Links an attempt's exact questionnaire/question to one valid answer option, with immutable completed answers.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        106,
+        119
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "type": "table",
+      "name": "diagnostic_imports",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Tracks per-user import idempotency and ties imports only to attempts of that same owner.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        120,
+        129
+      ]
+    },
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Development handoff covering component boundaries, implemented local milestones, frontend conventions, secret handling, and unfinished tutor work; some historical statements remain inconsistent with the current auth implementation.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "type": "document",
+      "name": "CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "filePath": "CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "summary": "French requirements proposal for a Python-pilot agentic tutor, covering F01–F20, bounded orchestration, pedagogy, data, security, evaluation, budget, and acceptance. Proposed features and thresholds are not evidence of implementation or educational results.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project overview, detailed feature checklist, local startup and Docker lifecycle commands, directory tree, and links to implementation guides. Its checklist must be read alongside the working auth/profile code.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Pins the local Supabase CLI and exposes db:start, db:stop, db:reset, and db:status workspace commands.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Documents SQL runtime connection, pool/timeouts, allowed frontend origin and Supabase Auth variables using replacement credentials.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:backend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "backend/README.md",
+      "summary": "Documents backend setup, health probes, private-schema permissions, migrations, testing and milestone-2 Auth/profile integration with Windows execution guidance.",
+      "tags": [
+        "documentation",
+        "backend",
+        "local-development"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:backend/pyproject.toml",
+      "type": "config",
+      "name": "pyproject.toml",
+      "filePath": "backend/pyproject.toml",
+      "summary": "Defines the Python 3.12 backend dependencies, development tools, pytest integration marker and Ruff line-length setting.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/architecture/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/architecture/README.md",
+      "summary": "Architecture index describing Next.js, FastAPI, private PostgreSQL data, and the remaining tutor components.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/architecture/backend-api-contract.md",
+      "type": "document",
+      "name": "backend-api-contract.md",
+      "filePath": "docs/architecture/backend-api-contract.md",
+      "summary": "Documents implemented health/profile endpoints and proposed diagnostic attempts, scoring, idempotency, import, and error contracts.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/architecture/backend-data-model.md",
+      "type": "document",
+      "name": "backend-data-model.md",
+      "filePath": "docs/architecture/backend-data-model.md",
+      "summary": "Describes private profiles, versioned questionnaire content, attempts, answer keys, RLS, and the future completion/import behavior.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/architecture/backend-foundation.md",
+      "type": "document",
+      "name": "backend-foundation.md",
+      "filePath": "docs/architecture/backend-foundation.md",
+      "summary": "Backend responsibility and deployment design, with an explicit note that server-managed auth supersedes the earlier browser-SDK proposal.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/architecture/backend-roadmap.md",
+      "type": "document",
+      "name": "backend-roadmap.md",
+      "filePath": "docs/architecture/backend-roadmap.md",
+      "summary": "Milestone and acceptance plan separating the local FastAPI/database foundation, connected auth/profile, persistent diagnostic, and first tutor loop.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:docs/decisions/0001-first-frontend.md",
+      "type": "document",
+      "name": "0001-first-frontend.md",
+      "filePath": "docs/decisions/0001-first-frontend.md",
+      "summary": "Historical decision establishing the first Python-oriented Next.js interface and its initial frontend-only limits.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "document",
+      "name": "0002-backend-fastapi-supabase.md",
+      "filePath": "docs/decisions/0002-backend-fastapi-supabase.md",
+      "summary": "Records the FastAPI/Supabase/local Docker direction and its alternatives; the browser-auth proposal is superseded by decision 0003.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "document",
+      "name": "0003-server-auth-sessions.md",
+      "filePath": "docs/decisions/0003-server-auth-sessions.md",
+      "summary": "Records Next.js Server Actions and HttpOnly Supabase SSR sessions, independent FastAPI bearer validation, and the network-dependency tradeoff.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/decisions/README.md",
+      "summary": "Index of frontend, backend foundation, and server-session architecture decisions.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/TEMPLATE.md",
+      "type": "document",
+      "name": "TEMPLATE.md",
+      "filePath": "docs/decisions/TEMPLATE.md",
+      "summary": "Template for recording context, decisions, consequences, and validation of future architecture choices.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "frontend/.env.example",
+      "summary": "Documents server-side local Supabase, FastAPI, and application-origin settings with a placeholder publishable key.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "frontend/AGENTS.md",
+      "summary": "Contains generated Next.js agent guidance and project-specific rules to preserve the visual system and current auth/diagnostic boundaries.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:frontend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "frontend/README.md",
+      "summary": "Frontend setup, routes, local diagnostic persistence, testing commands, design context, and connected milestone-2 auth/profile guidance.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "Defines Next.js development/build/check scripts and dependencies for React, TypeScript, Supabase SSR, fonts, icons, and browser testing.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:frontend/tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "frontend/tsconfig.json",
+      "summary": "Enables strict TypeScript checking, Next.js integration, bundler resolution, and the @/* source alias without emitting JavaScript.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/styles/base.css",
+      "type": "file",
+      "name": "base.css",
+      "filePath": "frontend/src/styles/base.css",
+      "summary": "Reusable reset and base-theme rules for typography, focus, controls, motion preferences, and page sizing; present in the repository but not imported by the current root layout.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/styles/dashboard.css",
+      "type": "file",
+      "name": "dashboard.css",
+      "filePath": "frontend/src/styles/dashboard.css",
+      "summary": "Token-based layout, navigation, focus states, and profile controls for the basic authenticated dashboard, including narrow-screen adjustments.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/styles/globals.css",
+      "type": "file",
+      "name": "globals.css",
+      "filePath": "frontend/src/styles/globals.css",
+      "summary": "Active global stylesheet for the custom learning-studio design, landing, auth forms, diagnostics, language menus, accessibility states, and responsive layouts.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:frontend/src/styles/tokens.css",
+      "type": "file",
+      "name": "tokens.css",
+      "filePath": "frontend/src/styles/tokens.css",
+      "summary": "Shared forest, mint, and citron colors, locally installed font families, spacing, radii, motion durations, and container tokens.",
+      "tags": [
+        "design-system",
+        "accessibility",
+        "styles"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:supabase/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "supabase/README.md",
+      "summary": "Describes the dedicated local Supabase stack, private runtime roles, single SQL migration history and immutable versioned diagnostic seed.",
+      "tags": [
+        "documentation",
+        "backend",
+        "local-development"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:supabase/config.toml",
+      "type": "config",
+      "name": "config.toml",
+      "filePath": "supabase/config.toml",
+      "summary": "Configures the local Supabase project, PostgreSQL 17 and ports 58420-58424, email/password Auth with local callbacks and refresh rotation, Studio and local mail. Email confirmation is disabled and unused services are disabled.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:supabase/seed.sql",
+      "type": "file",
+      "name": "seed.sql",
+      "filePath": "supabase/seed.sql",
+      "summary": "Seeds frozen version-1 questionnaires for ten programming languages and technologies, with six profile and ten scored questions per bank, stable UUIDs and answer keys; publishes each structurally valid bank.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:.gitattributes",
+      "type": "file",
+      "name": ".gitattributes",
+      "filePath": ".gitattributes",
+      "summary": "Git text normalization and binary-asset rules, using LF for source files and CRLF for PowerShell scripts.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/app/__init__.py",
+      "summary": "Empty Python package marker for backend/app.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/api/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/api/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/api; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/api/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/app/api/__init__.py",
+      "summary": "Empty Python package marker for backend/app/api.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/core/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/core/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/core; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/core/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/app/core/__init__.py",
+      "summary": "Empty Python package marker for backend/app/core.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/llm/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/llm/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/llm; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/models/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/models/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/models; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/orchestration/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/orchestration/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/orchestration; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/pedagogy/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/pedagogy/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/pedagogy; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/prompts/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/prompts/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/prompts; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/rag/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/rag/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/rag; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/repositories/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/repositories/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/repositories; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/schemas/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/schemas/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/schemas; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/services/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/services/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/services; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/migrations/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/migrations/.gitkeep",
+      "summary": "Empty directory marker reserving backend/migrations; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tests/conftest.py",
+      "type": "file",
+      "name": "conftest.py",
+      "filePath": "backend/tests/conftest.py",
+      "summary": "Adds the --run-integration option and skips marked database tests unless the dedicated local stack is explicitly selected.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/tests/conftest.py:pytest_addoption",
+      "type": "function",
+      "name": "pytest_addoption",
+      "filePath": "backend/tests/conftest.py",
+      "lineRange": [
+        4,
+        10
+      ],
+      "summary": "Registers an explicit opt-in flag for real local-Supabase integration tests.",
+      "tags": [
+        "function",
+        "test-configuration",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/tests/conftest.py:pytest_collection_modifyitems",
+      "type": "function",
+      "name": "pytest_collection_modifyitems",
+      "filePath": "backend/tests/conftest.py",
+      "lineRange": [
+        13,
+        18
+      ],
+      "summary": "Marks integration tests as skipped unless the opt-in CLI flag is present.",
+      "tags": [
+        "function",
+        "test-configuration",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tests/integration/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/tests/integration/.gitkeep",
+      "summary": "Empty directory marker reserving backend/tests/integration; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tests/unit/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/tests/unit/.gitkeep",
+      "summary": "Empty directory marker reserving backend/tests/unit; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tools/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/tools/__init__.py",
+      "summary": "Empty Python package marker for backend/tools.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:content/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "content/README.md",
+      "summary": "Defines the reserved curriculum, resources, exercises, and schema folders, plus licensing/versioning requirements; no curated tutor corpus is supplied.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/curricula/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/curricula/.gitkeep",
+      "summary": "Empty directory marker reserving content/curricula; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/exercises/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/exercises/.gitkeep",
+      "summary": "Empty directory marker reserving content/exercises; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/resources/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/resources/.gitkeep",
+      "summary": "Empty directory marker reserving content/resources; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/schemas/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/schemas/.gitkeep",
+      "summary": "Empty directory marker reserving content/schemas; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:data/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "data/README.md",
+      "summary": "Documents ignored local raw, private, and processed data locations and requirements for access, retention, consent, and deletion.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/README.md",
+      "summary": "Index of architecture, decisions, design, guides, and report documentation.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docs/design/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docs/design/.gitkeep",
+      "summary": "Empty directory marker reserving docs/design; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docs/guides/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docs/guides/.gitkeep",
+      "summary": "Empty directory marker reserving docs/guides; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/guides/milestone-2-auth.md",
+      "type": "document",
+      "name": "milestone-2-auth.md",
+      "filePath": "docs/guides/milestone-2-auth.md",
+      "summary": "Runbook for local accounts, server sessions, profile routes, recovery email tests, Windows startup alternatives, and unverified hosted/confirmation settings.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/report/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docs/report/.gitkeep",
+      "summary": "Empty directory marker reserving docs/report; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:evaluation/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "evaluation/README.md",
+      "summary": "Defines the reserved pedagogical evaluation datasets and runners; no completed evaluation data or measured learning results are present.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/adaptation/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/adaptation/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/adaptation; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/corrections/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/corrections/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/corrections; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/questions/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/questions/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/questions; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/security/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/security/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/security; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/results/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/results/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/results; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/runners/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/runners/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/runners; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/eslint.config.mjs",
+      "type": "file",
+      "name": "eslint.config.mjs",
+      "filePath": "frontend/eslint.config.mjs",
+      "summary": "Combines Next.js Core Web Vitals and TypeScript lint rules while ignoring generated Next.js and browser-test artifacts.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/next.config.ts",
+      "type": "file",
+      "name": "next.config.ts",
+      "filePath": "frontend/next.config.ts",
+      "summary": "Keeps the Next.js configuration minimal and disables the development indicator.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/playwright.config.ts",
+      "type": "file",
+      "name": "playwright.config.ts",
+      "filePath": "frontend/playwright.config.ts",
+      "summary": "Configures serial headless browser tests against port 3000, with an optional installed Chromium path supplied through CHROME_PATH.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/postcss.config.mjs",
+      "type": "file",
+      "name": "postcss.config.mjs",
+      "filePath": "frontend/postcss.config.mjs",
+      "summary": "Activates Tailwind CSS through its PostCSS plugin.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/public/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/public/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/public; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/app/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/app; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/layout.tsx",
+      "type": "file",
+      "name": "layout.tsx",
+      "filePath": "frontend/src/app/layout.tsx",
+      "summary": "Root French HTML layout with self-hosted fonts, shared CSS, metadata, a keyboard skip link, and a JavaScript notice.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/layout.tsx:RootLayout",
+      "type": "function",
+      "name": "RootLayout",
+      "filePath": "frontend/src/app/layout.tsx",
+      "lineRange": [
+        13,
+        34
+      ],
+      "summary": "Wraps route content in the shared French document, typography, skip navigation, and noscript notice.",
+      "tags": [
+        "function",
+        "application",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/not-found.tsx",
+      "type": "file",
+      "name": "not-found.tsx",
+      "filePath": "frontend/src/app/not-found.tsx",
+      "summary": "Provides a French missing-page state with a real link back to the landing.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/not-found.tsx:NotFound",
+      "type": "function",
+      "name": "NotFound",
+      "filePath": "frontend/src/app/not-found.tsx",
+      "lineRange": [
+        2,
+        12
+      ],
+      "summary": "Renders the missing-page screen and a return-to-home action.",
+      "tags": [
+        "function",
+        "application",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/components/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/components; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/admin/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/admin/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/admin; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/auth/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/auth; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/diagnostic/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/diagnostic; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/exercises/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/exercises/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/exercises; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/progress/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/progress/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/progress; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/tutor/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/tutor/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/tutor; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/lib/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/lib/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/lib; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/proxy.ts",
+      "type": "file",
+      "name": "proxy.ts",
+      "filePath": "frontend/src/proxy.ts",
+      "summary": "Refreshes Supabase SSR sessions on dashboard/reset-password requests, propagates HttpOnly cookies, and marks configured responses private and non-cacheable.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/proxy.ts:proxy",
+      "type": "function",
+      "name": "proxy",
+      "filePath": "frontend/src/proxy.ts",
+      "lineRange": [
+        3,
+        28
+      ],
+      "summary": "Refreshes trusted Supabase user/session state while copying refreshed cookies to the outgoing response.",
+      "tags": [
+        "function",
+        "application",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/styles/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/styles/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/styles; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/types/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/types/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/types; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/tests/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/tests; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:scripts/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "scripts/README.md",
+      "summary": "Reserves a location for future content preparation, format validation, and synthetic-data tools; no root scripts are implemented.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tests/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "tests/README.md",
+      "summary": "Explains reserved cross-component tests and fixtures, with technical test suites located beside frontend/backend components.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/e2e/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "tests/e2e/.gitkeep",
+      "summary": "Empty directory marker reserving tests/e2e; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/fixtures/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "tests/fixtures/.gitkeep",
+      "summary": "Empty directory marker reserving tests/fixtures; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:db",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:db",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:get_profile",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:get_profile",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:create_profile",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:create_profile",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:update_profile",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:update_profile",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfilePatch",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfilePatch",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/config.py",
+      "target": "class:backend/app/core/config.py:Settings",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/config.py",
+      "target": "class:backend/app/core/config.py:Settings",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "class:backend/app/core/database.py:Database",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "class:backend/app/core/database.py:Database",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/app/api/profile.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/app/core/database.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "function:backend/app/main.py:create_app",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "function:backend/app/main.py:create_app",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "file:backend/app/core/database.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "file:backend/tools/local_stack.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:stack",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:stack",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:admin",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:admin",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:database",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:database",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:students",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:students",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "file:backend/app/main.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_ready_with_actual_runtime_connection",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_ready_with_actual_runtime_connection",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_privileged_connection_is_not_ready",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_privileged_connection_is_not_ready",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_schema_version_mismatch_is_not_ready",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_schema_version_mismatch_is_not_ready",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_profiles_are_isolated_and_context_does_not_leak",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_profiles_are_isolated_and_context_does_not_leak",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_runtime_cannot_forge_profile_or_publish",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_runtime_cannot_forge_profile_or_publish",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_banks_are_complete_and_private",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_banks_are_complete_and_private",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_answer_foreign_keys_and_attempt_ownership",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_answer_foreign_keys_and_attempt_ownership",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_published_content_is_immutable",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_published_content_is_immutable",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_invalid_publication_is_rejected",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_invalid_publication_is_rejected",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_context_is_required_for_writes",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_context_is_required_for_writes",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_import_cannot_attach_another_students_attempt",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_import_cannot_attach_another_students_attempt",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_completed_attempt_cannot_receive_answers",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_completed_attempt_cannot_receive_answers",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_profile_api.py",
+      "target": "file:backend/app/main.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_profile_api.py",
+      "target": "function:backend/tests/integration/test_profile_api.py:test_real_auth_profile_contract",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_profile_api.py",
+      "target": "function:backend/tests/integration/test_profile_api.py:test_real_auth_profile_contract",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "file:backend/app/main.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_live_does_not_need_database",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_live_does_not_need_database",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_readiness_recovers_and_closes_pool",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_readiness_recovers_and_closes_pool",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_cors_is_explicit",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_cors_is_explicit",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_pool_size_is_bounded",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_pool_size_is_bounded",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_secret_is_redacted",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_secret_is_redacted",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "class:backend/tests/unit/test_health.py:FakeDatabase",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "class:backend/tests/unit/test_health.py:FakeDatabase",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "file:backend/tools/local_stack.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "function:backend/tools/configure_auth.py:main",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "function:backend/tools/configure_auth.py:main",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/local_stack.py",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/local_stack.py",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "file:backend/tools/local_stack.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "function:backend/tools/setup_local.py:main",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "function:backend/tools/setup_local.py:main",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.__init__",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.check_role",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.check_ready",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/api/profile.py:ProfilePatch",
+      "target": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "inherits",
+      "weight": 0.9,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:get_profile",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:get_profile",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:get_profile",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "reads_from",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:create_profile",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:create_profile",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:create_profile",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:update_profile",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:update_profile",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:update_profile",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/tools/configure_auth.py:main",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/tools/setup_local.py:main",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/local_stack.py",
+      "target": "config:supabase/config.toml",
+      "type": "reads_from",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/main.py:create_app",
+      "target": "class:backend/app/core/database.py:Database",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/tests/integration/test_profile_api.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "file:backend/tests/integration/test_profile_api.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/tests/unit/test_health.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/auth/callback/route.ts",
+      "target": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/auth/callback/route.ts",
+      "target": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/auth/callback/route.ts",
+      "target": "file:frontend/src/lib/supabase/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/components/brand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/features/auth/profile-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/lib/supabase/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/styles/dashboard.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "function:frontend/src/app/forgot-password/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "function:frontend/src/app/forgot-password/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "file:frontend/src/features/auth/password-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "function:frontend/src/app/reset-password/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "function:frontend/src/app/reset-password/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "file:frontend/src/features/auth/password-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:signOut",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:signOut",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "file:frontend/src/lib/supabase/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:signOut",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/password-form.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/password-form.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/password-form.tsx",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-actions.ts",
+      "target": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-actions.ts",
+      "target": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-actions.ts",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "file:frontend/src/features/auth/profile-actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "target": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/lib/supabase/server.ts",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/lib/supabase/server.ts",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "function:frontend/src/app/onboarding/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "function:frontend/src/app/onboarding/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/onboarding/page.tsx",
+      "target": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "function:frontend/src/app/sign-in/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "function:frontend/src/app/sign-in/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "file:frontend/src/features/auth/auth-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/sign-in/page.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "function:frontend/src/app/sign-up/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "function:frontend/src/app/sign-up/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "file:frontend/src/features/auth/auth-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/sign-up/page.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Header",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/brand.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Header",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "file:frontend/src/components/brand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/auth-form.tsx:AuthForm",
+      "target": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/auth-form.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "file:frontend/src/components/brand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "file:frontend/src/features/diagnostic/storage.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/onboarding.tsx:Onboarding",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "function:frontend/src/app/page.tsx:Home",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "function:frontend/src/app/page.tsx:Home",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "file:frontend/src/components/brand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "file:frontend/src/features/tutor/worked-example.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Header",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "function:frontend/src/features/tutor/lesson-preview.tsx:LessonPreview",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/page.tsx",
+      "target": "function:frontend/src/features/tutor/worked-example.tsx:WorkedExample",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/tutor/examples.ts",
+      "target": "function:frontend/src/features/tutor/examples.ts:loop",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/tutor/examples.ts",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/language-select.tsx",
+      "target": "function:frontend/src/features/tutor/language-select.tsx:LanguageSelect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/tutor/language-select.tsx",
+      "target": "function:frontend/src/features/tutor/language-select.tsx:LanguageSelect",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/tutor/language-select.tsx",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "target": "function:frontend/src/features/tutor/lesson-preview.tsx:LessonPreview",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "target": "function:frontend/src/features/tutor/lesson-preview.tsx:LessonPreview",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "target": "file:frontend/src/features/tutor/examples.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "target": "file:frontend/src/features/tutor/language-select.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "target": "function:frontend/src/features/tutor/language-select.tsx:LanguageSelect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/tutor/worked-example.tsx",
+      "target": "function:frontend/src/features/tutor/worked-example.tsx:WorkedExample",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/tutor/worked-example.tsx",
+      "target": "function:frontend/src/features/tutor/worked-example.tsx:WorkedExample",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/tutor/worked-example.tsx",
+      "target": "file:frontend/src/features/tutor/examples.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/worked-example.tsx",
+      "target": "file:frontend/src/features/tutor/language-select.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/worked-example.tsx",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/tutor/worked-example.tsx",
+      "target": "function:frontend/src/features/tutor/language-select.tsx:LanguageSelect",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "function:frontend/src/features/diagnostic/banks.ts:createBank",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/tests/flows.spec.ts",
+      "target": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/flows.spec.ts",
+      "target": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/questions.ts",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:schema_version",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:docs/guides/milestone-2-auth.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:AGENTS.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:frontend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:docs/architecture/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:docs/decisions/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:frontend/src/app/dashboard/page.tsx",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:package.json",
+      "target": "config:supabase/config.toml",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/.env.example",
+      "target": "file:backend/app/core/config.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/app/main.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/app/core/database.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/app/api/profile.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/tools/setup_local.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:backend/README.md",
+      "target": "file:backend/tools/configure_auth.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/pyproject.toml",
+      "target": "file:backend/app/main.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/pyproject.toml",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:backend/pyproject.toml",
+      "target": "file:backend/tests/unit/test_health.py",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-data-model.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-api-contract.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/README.md",
+      "target": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "document:docs/architecture/backend-data-model.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-data-model.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/architecture/backend-data-model.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/architecture/backend-api-contract.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-foundation.md",
+      "target": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "document:docs/architecture/backend-api-contract.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-api-contract.md",
+      "target": "file:backend/app/api/profile.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-data-model.md",
+      "target": "file:backend/app/core/database.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/architecture/backend-roadmap.md",
+      "target": "file:backend/app/main.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "target": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "document:docs/guides/milestone-2-auth.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/0001-first-frontend.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/TEMPLATE.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "file:frontend/src/proxy.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "file:backend/app/api/profile.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:frontend/README.md",
+      "target": "document:docs/guides/milestone-2-auth.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:frontend/AGENTS.md",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:frontend/README.md",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:frontend/package.json",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:frontend/tsconfig.json",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/styles/globals.css",
+      "target": "file:frontend/src/styles/tokens.css",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/styles/dashboard.css",
+      "target": "file:frontend/src/styles/tokens.css",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:supabase/README.md",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:supabase/README.md",
+      "target": "config:supabase/config.toml",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:supabase/README.md",
+      "target": "file:supabase/seed.sql",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:supabase/config.toml",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "config:supabase/config.toml",
+      "target": "file:supabase/seed.sql",
+      "type": "configures",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:supabase/seed.sql",
+      "target": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "related",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_addoption",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_addoption",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_collection_modifyitems",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_collection_modifyitems",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "document:content/README.md",
+      "target": "file:content/curricula/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:content/README.md",
+      "target": "file:content/exercises/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/README.md",
+      "target": "document:docs/architecture/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/README.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/layout.tsx",
+      "target": "file:frontend/src/styles/globals.css",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/layout.tsx",
+      "target": "function:frontend/src/app/layout.tsx:RootLayout",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/layout.tsx",
+      "target": "function:frontend/src/app/layout.tsx:RootLayout",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/not-found.tsx",
+      "target": "function:frontend/src/app/not-found.tsx:NotFound",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/not-found.tsx",
+      "target": "function:frontend/src/app/not-found.tsx:NotFound",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/eslint.config.mjs",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/next.config.ts",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/playwright.config.ts",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/postcss.config.mjs",
+      "target": "file:frontend/src/styles/globals.css",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:evaluation/README.md",
+      "target": "file:evaluation/datasets/questions/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/guides/milestone-2-auth.md",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "function:frontend/src/proxy.ts:proxy",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "function:frontend/src/proxy.ts:proxy",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "file:frontend/src/app/dashboard/page.tsx",
+      "type": "middleware",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "file:frontend/src/app/reset-password/page.tsx",
+      "type": "middleware",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:tests/README.md",
+      "target": "file:tests/e2e/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

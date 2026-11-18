@@ -1,0 +1,1606 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/app/api/profile.py",
+      "type": "file",
+      "name": "profile.py",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Defines authenticated profile GET, idempotent PUT and revision-checked PATCH routes. It validates bearer identities through the configured Supabase Auth user endpoint and applies user-scoped SQL transactions.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/app/api/profile.py:identity",
+      "type": "function",
+      "name": "identity",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Validates a bearer token with the configured Supabase Auth endpoint and returns its verified UUID, using generic 401/503 failures.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        27,
+        50
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:db",
+      "type": "function",
+      "name": "db",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Returns the application database or reports its unavailability.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        53,
+        56
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:get_profile",
+      "type": "function",
+      "name": "get_profile",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Reads only the authenticated user's profile under transaction-local RLS and returns 404 if absent.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        60,
+        70
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:create_profile",
+      "type": "function",
+      "name": "create_profile",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Creates the authenticated profile without accepting a client user ID; repeats identical creation safely and rejects conflicting existing content.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        74,
+        100
+      ]
+    },
+    {
+      "id": "function:backend/app/api/profile.py:update_profile",
+      "type": "function",
+      "name": "update_profile",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Updates the owned profile only when its revision matches, incrementing the revision or returning a conflict.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        104,
+        119
+      ]
+    },
+    {
+      "id": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "class",
+      "name": "ProfileInput",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Validates a bounded nonblank display name and one optional supported language while forbidding extra input fields.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        17,
+        20
+      ]
+    },
+    {
+      "id": "class:backend/app/api/profile.py:ProfilePatch",
+      "type": "class",
+      "name": "ProfilePatch",
+      "filePath": "backend/app/api/profile.py",
+      "summary": "Extends profile input with the required positive revision for optimistic concurrency.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        23,
+        24
+      ]
+    },
+    {
+      "id": "file:backend/app/core/config.py",
+      "type": "file",
+      "name": "config.py",
+      "filePath": "backend/app/core/config.py",
+      "summary": "Loads typed backend settings from process variables and backend/.env, including the restricted SQL connection, pool limits, CORS origins and Supabase Auth endpoint.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:backend/app/core/config.py:Settings",
+      "type": "class",
+      "name": "Settings",
+      "filePath": "backend/app/core/config.py",
+      "summary": "Loads validated runtime settings, redacts the database secret in representations and bounds pool size and acquisition timeout.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        9,
+        19
+      ]
+    },
+    {
+      "id": "file:backend/app/core/database.py",
+      "type": "file",
+      "name": "database.py",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Manages a bounded synchronous Psycopg pool, checks the runtime role and schema marker, and provides transaction-local user identity for RLS.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:backend/app/core/database.py:Database",
+      "type": "class",
+      "name": "Database",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Owns the synchronous connection pool and rejects privileged runtime connections before health checks or user transactions.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        62
+      ]
+    },
+    {
+      "id": "file:backend/app/main.py",
+      "type": "file",
+      "name": "main.py",
+      "filePath": "backend/app/main.py",
+      "summary": "Builds FastAPI with profile routes, explicit CORS, pool lifespan management and separate liveness/readiness probes.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/app/main.py:create_app",
+      "type": "function",
+      "name": "create_app",
+      "filePath": "backend/app/main.py",
+      "summary": "Creates the FastAPI application with injected settings/database factory, profile router, CORS and pool lifecycle.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        17,
+        66
+      ]
+    },
+    {
+      "id": "file:backend/tests/integration/conftest.py",
+      "type": "file",
+      "name": "conftest.py",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Provides dedicated local Supabase fixtures, restricted runtime database access and synthetic Auth students with cleanup.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:stack",
+      "type": "function",
+      "name": "stack",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Resolves the dedicated local Supabase stack for integration fixtures.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        15
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:admin",
+      "type": "function",
+      "name": "admin",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Opens the local administrator connection only after checking the project marker.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        19,
+        24
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:database",
+      "type": "function",
+      "name": "database",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Creates a one-connection runtime pool so tests can verify identity context reset across reused connections.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        28,
+        35
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/conftest.py:students",
+      "type": "function",
+      "name": "students",
+      "filePath": "backend/tests/integration/conftest.py",
+      "summary": "Creates two synthetic Auth users and profiles and removes their identities after integration tests.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        39,
+        68
+      ]
+    },
+    {
+      "id": "file:backend/tests/integration/test_database.py",
+      "type": "file",
+      "name": "test_database.py",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Exercises real role restrictions, RLS account isolation, context cleanup, diagnostic foreign keys, immutable content and deletion cascades.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_ready_with_actual_runtime_connection",
+      "type": "function",
+      "name": "test_ready_with_actual_runtime_connection",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies ready with actual runtime connection against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        14,
+        18
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_privileged_connection_is_not_ready",
+      "type": "function",
+      "name": "test_privileged_connection_is_not_ready",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies privileged connection is not ready against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        21,
+        24
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_schema_version_mismatch_is_not_ready",
+      "type": "function",
+      "name": "test_schema_version_mismatch_is_not_ready",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies schema version mismatch is not ready against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        27,
+        33
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_profiles_are_isolated_and_context_does_not_leak",
+      "type": "function",
+      "name": "test_profiles_are_isolated_and_context_does_not_leak",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies profiles are isolated and context does not leak against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        36,
+        54
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_runtime_cannot_forge_profile_or_publish",
+      "type": "function",
+      "name": "test_runtime_cannot_forge_profile_or_publish",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies runtime cannot forge profile or publish against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        57,
+        76
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_banks_are_complete_and_private",
+      "type": "function",
+      "name": "test_banks_are_complete_and_private",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies banks are complete and private against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        79,
+        92
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_answer_foreign_keys_and_attempt_ownership",
+      "type": "function",
+      "name": "test_answer_foreign_keys_and_attempt_ownership",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies answer foreign keys and attempt ownership against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        95,
+        162
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_published_content_is_immutable",
+      "type": "function",
+      "name": "test_published_content_is_immutable",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies published content is immutable against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        165,
+        167
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_invalid_publication_is_rejected",
+      "type": "function",
+      "name": "test_invalid_publication_is_rejected",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies invalid publication is rejected against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        170,
+        187
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_context_is_required_for_writes",
+      "type": "function",
+      "name": "test_context_is_required_for_writes",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies context is required for writes against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        190,
+        198
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_import_cannot_attach_another_students_attempt",
+      "type": "function",
+      "name": "test_import_cannot_attach_another_students_attempt",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies import cannot attach another students attempt against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        201,
+        236
+      ]
+    },
+    {
+      "id": "function:backend/tests/integration/test_database.py:test_completed_attempt_cannot_receive_answers",
+      "type": "function",
+      "name": "test_completed_attempt_cannot_receive_answers",
+      "filePath": "backend/tests/integration/test_database.py",
+      "summary": "Verifies completed attempt cannot receive answers against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        239,
+        265
+      ]
+    },
+    {
+      "id": "file:backend/tests/integration/test_profile_api.py",
+      "type": "file",
+      "name": "test_profile_api.py",
+      "filePath": "backend/tests/integration/test_profile_api.py",
+      "summary": "Tests real Supabase registration and bearer authentication against profile CRUD, idempotency, rejected client ownership fields and optimistic revision conflicts.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/integration/test_profile_api.py:test_real_auth_profile_contract",
+      "type": "function",
+      "name": "test_real_auth_profile_contract",
+      "filePath": "backend/tests/integration/test_profile_api.py",
+      "summary": "Verifies real auth profile contract against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        12,
+        80
+      ]
+    },
+    {
+      "id": "file:backend/tests/unit/test_health.py",
+      "type": "file",
+      "name": "test_health.py",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Tests database-independent liveness, readiness failure/recovery, pool closure, explicit CORS, bounded settings and secret redaction.",
+      "tags": [
+        "test",
+        "backend",
+        "verification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_live_does_not_need_database",
+      "type": "function",
+      "name": "test_live_does_not_need_database",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies live does not need database against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        28,
+        31
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_readiness_recovers_and_closes_pool",
+      "type": "function",
+      "name": "test_readiness_recovers_and_closes_pool",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies readiness recovers and closes pool against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        34,
+        47
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_cors_is_explicit",
+      "type": "function",
+      "name": "test_cors_is_explicit",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies cors is explicit against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        50,
+        55
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_pool_size_is_bounded",
+      "type": "function",
+      "name": "test_pool_size_is_bounded",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies pool size is bounded against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        59,
+        61
+      ]
+    },
+    {
+      "id": "function:backend/tests/unit/test_health.py:test_secret_is_redacted",
+      "type": "function",
+      "name": "test_secret_is_redacted",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Verifies secret is redacted against the corresponding backend behavior.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        64,
+        67
+      ]
+    },
+    {
+      "id": "class:backend/tests/unit/test_health.py:FakeDatabase",
+      "type": "class",
+      "name": "FakeDatabase",
+      "filePath": "backend/tests/unit/test_health.py",
+      "summary": "Provides controllable readiness failure and closure state for isolated health tests.",
+      "tags": [
+        "test",
+        "verification",
+        "backend"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        11,
+        25
+      ]
+    },
+    {
+      "id": "file:backend/tools/configure_auth.py",
+      "type": "file",
+      "name": "configure_auth.py",
+      "filePath": "backend/tools/configure_auth.py",
+      "summary": "Adds missing local Auth and API settings to ignored backend/frontend environment files after verifying the dedicated Supabase target.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tools/configure_auth.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/tools/configure_auth.py",
+      "summary": "Appends missing local Auth configuration without overwriting another Auth environment or printing keys.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        9,
+        31
+      ]
+    },
+    {
+      "id": "file:backend/tools/local_stack.py",
+      "type": "file",
+      "name": "local_stack.py",
+      "filePath": "backend/tools/local_stack.py",
+      "summary": "Reads Supabase CLI status privately and rejects unexpected project, database host/port/name or Auth endpoint before local tooling and tests connect.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tools/local_stack.py:local_status",
+      "type": "function",
+      "name": "local_status",
+      "filePath": "backend/tools/local_stack.py",
+      "summary": "Obtains local Supabase status and validates the dedicated project, PostgreSQL connection target and Auth URL before returning it.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        44
+      ]
+    },
+    {
+      "id": "file:backend/tools/setup_local.py",
+      "type": "file",
+      "name": "setup_local.py",
+      "filePath": "backend/tools/setup_local.py",
+      "summary": "Provisions a random or existing runtime-role password only on the dedicated local database and writes a missing ignored backend configuration.",
+      "tags": [
+        "backend",
+        "configuration",
+        "application-logic"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/tools/setup_local.py:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/tools/setup_local.py",
+      "summary": "Verifies the dedicated local schema, safely sets the runtime-role password and creates missing ignored connection settings.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        12,
+        50
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.__init__",
+      "type": "function",
+      "name": "Database.__init__",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Configures a bounded lazy-open Psycopg connection pool with acquisition, connection, query and lock timeouts.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        14,
+        27
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.check_role",
+      "type": "function",
+      "name": "Database.check_role",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Rejects SQL connections unless app_runtime is non-superuser, cannot bypass RLS and is not a member of app_owner.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        35,
+        43
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.check_ready",
+      "type": "function",
+      "name": "Database.check_ready",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Acquires a connection, checks the restricted role and requires the expected schema version.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        45,
+        52
+      ]
+    },
+    {
+      "id": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "function",
+      "name": "Database.transaction_for",
+      "filePath": "backend/app/core/database.py",
+      "summary": "Requires a UUID and sets app.user_id locally within a database transaction so identity does not leak across pool reuse.",
+      "tags": [
+        "backend",
+        "validation",
+        "application-logic"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        55,
+        62
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:db",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:db",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:get_profile",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:get_profile",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:create_profile",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:create_profile",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:update_profile",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "function:backend/app/api/profile.py:update_profile",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfilePatch",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "class:backend/app/api/profile.py:ProfilePatch",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/config.py",
+      "target": "class:backend/app/core/config.py:Settings",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/config.py",
+      "target": "class:backend/app/core/config.py:Settings",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "class:backend/app/core/database.py:Database",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "class:backend/app/core/database.py:Database",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/app/api/profile.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/app/core/database.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "function:backend/app/main.py:create_app",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "function:backend/app/main.py:create_app",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "file:backend/app/core/database.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "file:backend/tools/local_stack.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:stack",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:stack",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:admin",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:admin",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:database",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:database",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:students",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/conftest.py",
+      "target": "function:backend/tests/integration/conftest.py:students",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "file:backend/app/main.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_ready_with_actual_runtime_connection",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_ready_with_actual_runtime_connection",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_privileged_connection_is_not_ready",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_privileged_connection_is_not_ready",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_schema_version_mismatch_is_not_ready",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_schema_version_mismatch_is_not_ready",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_profiles_are_isolated_and_context_does_not_leak",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_profiles_are_isolated_and_context_does_not_leak",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_runtime_cannot_forge_profile_or_publish",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_runtime_cannot_forge_profile_or_publish",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_banks_are_complete_and_private",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_banks_are_complete_and_private",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_answer_foreign_keys_and_attempt_ownership",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_answer_foreign_keys_and_attempt_ownership",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_published_content_is_immutable",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_published_content_is_immutable",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_invalid_publication_is_rejected",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_invalid_publication_is_rejected",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_context_is_required_for_writes",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_context_is_required_for_writes",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_import_cannot_attach_another_students_attempt",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_import_cannot_attach_another_students_attempt",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_completed_attempt_cannot_receive_answers",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_database.py",
+      "target": "function:backend/tests/integration/test_database.py:test_completed_attempt_cannot_receive_answers",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_profile_api.py",
+      "target": "file:backend/app/main.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_profile_api.py",
+      "target": "function:backend/tests/integration/test_profile_api.py:test_real_auth_profile_contract",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/integration/test_profile_api.py",
+      "target": "function:backend/tests/integration/test_profile_api.py:test_real_auth_profile_contract",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "file:backend/app/main.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_live_does_not_need_database",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_live_does_not_need_database",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_readiness_recovers_and_closes_pool",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_readiness_recovers_and_closes_pool",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_cors_is_explicit",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_cors_is_explicit",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_pool_size_is_bounded",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_pool_size_is_bounded",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_secret_is_redacted",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "function:backend/tests/unit/test_health.py:test_secret_is_redacted",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "class:backend/tests/unit/test_health.py:FakeDatabase",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/unit/test_health.py",
+      "target": "class:backend/tests/unit/test_health.py:FakeDatabase",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "file:backend/tools/local_stack.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "function:backend/tools/configure_auth.py:main",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/configure_auth.py",
+      "target": "function:backend/tools/configure_auth.py:main",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/local_stack.py",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/local_stack.py",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "file:backend/app/core/config.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "file:backend/tools/local_stack.py",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "function:backend/tools/setup_local.py:main",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/setup_local.py",
+      "target": "function:backend/tools/setup_local.py:main",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.__init__",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.check_role",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.check_ready",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/core/database.py:Database",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:backend/app/api/profile.py:ProfilePatch",
+      "target": "class:backend/app/api/profile.py:ProfileInput",
+      "type": "inherits",
+      "weight": 0.9,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:get_profile",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:get_profile",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:get_profile",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "reads_from",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:create_profile",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:create_profile",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:create_profile",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:update_profile",
+      "target": "function:backend/app/api/profile.py:identity",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:update_profile",
+      "target": "function:backend/app/core/database.py:Database.transaction_for",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/api/profile.py:update_profile",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "writes_to",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/tools/configure_auth.py:main",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/tools/setup_local.py:main",
+      "target": "function:backend/tools/local_stack.py:local_status",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tools/local_stack.py",
+      "target": "config:supabase/config.toml",
+      "type": "reads_from",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "function:backend/app/main.py:create_app",
+      "target": "class:backend/app/core/database.py:Database",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/core/database.py",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/tests/integration/test_profile_api.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/api/profile.py",
+      "target": "file:backend/tests/integration/test_profile_api.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/app/main.py",
+      "target": "file:backend/tests/unit/test_health.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

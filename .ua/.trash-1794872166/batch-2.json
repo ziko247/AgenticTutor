@@ -1,0 +1,713 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/app/auth/callback/route.ts",
+      "type": "file",
+      "name": "route.ts",
+      "filePath": "frontend/src/app/auth/callback/route.ts",
+      "summary": "Exchanges a Supabase PKCE callback code for a session and redirects to the dashboard or password-reset page; failed callbacks return to recovery.",
+      "tags": [
+        "auth",
+        "route-handler",
+        "pkce"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "type": "function",
+      "name": "GET",
+      "filePath": "frontend/src/app/auth/callback/route.ts",
+      "lineRange": [
+        3,
+        24
+      ],
+      "summary": "Exchanges the PKCE code and selects a fixed in-application post-authentication destination.",
+      "tags": [
+        "auth",
+        "route-handler",
+        "pkce"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/dashboard/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/dashboard/page.tsx",
+      "summary": "Protects the student dashboard with server-side identity verification, initializes or retrieves the account profile through FastAPI, and renders diagnostic access and profile editing.",
+      "tags": [
+        "dashboard",
+        "server-component",
+        "auth"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "type": "function",
+      "name": "DashboardPage",
+      "filePath": "frontend/src/app/dashboard/page.tsx",
+      "lineRange": [
+        16,
+        109
+      ],
+      "summary": "Verifies the current user, retrieves or creates their FastAPI profile, then renders the protected learning dashboard.",
+      "tags": [
+        "dashboard",
+        "server-component",
+        "auth"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/app/forgot-password/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/forgot-password/page.tsx",
+      "summary": "Exposes the password-recovery route using the shared password form and route-specific metadata.",
+      "tags": [
+        "entry-point",
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/forgot-password/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/forgot-password/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/reset-password/page.tsx",
+      "type": "file",
+      "name": "page.tsx",
+      "filePath": "frontend/src/app/reset-password/page.tsx",
+      "summary": "Exposes the new-password route by enabling reset mode on the shared password form.",
+      "tags": [
+        "entry-point",
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/reset-password/page.tsx:Page",
+      "type": "function",
+      "name": "Page",
+      "filePath": "frontend/src/app/reset-password/page.tsx",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Renders the route-specific shared page component.",
+      "tags": [
+        "route",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/actions.ts",
+      "type": "file",
+      "name": "actions.ts",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "summary": "Implements server-side registration, login, local sign-out and password recovery through Supabase Auth, plus authenticated profile requests to FastAPI with a network-failure fallback.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "function",
+      "name": "authenticate",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        8,
+        53
+      ],
+      "summary": "Validates submitted credentials and calls Supabase registration or password login, distinguishing active sessions from confirmation-pending results.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "function",
+      "name": "profileRequest",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        54,
+        84
+      ],
+      "summary": "Verifies identity, obtains the server session token and sends a no-cache profile request to FastAPI; network failures become a 503 response.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:signOut",
+      "type": "function",
+      "name": "signOut",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        85,
+        90
+      ],
+      "summary": "Revokes the current local refresh session and redirects to sign-in on success.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "type": "function",
+      "name": "recoverPassword",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        91,
+        108
+      ],
+      "summary": "Validates an email and requests a Supabase recovery message targeting the fixed PKCE callback.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "type": "function",
+      "name": "changePassword",
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "lineRange": [
+        109,
+        128
+      ],
+      "summary": "Requires a valid Auth user before updating the password, signs out locally and returns a generic completion/error message.",
+      "tags": [
+        "server-action",
+        "auth",
+        "api-client"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/password-form.tsx",
+      "type": "file",
+      "name": "password-form.tsx",
+      "filePath": "frontend/src/features/auth/password-form.tsx",
+      "summary": "Provides a shared recovery-email and new-password form with pending state, accessible status feedback and a sign-in link.",
+      "tags": [
+        "component",
+        "form",
+        "recovery"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "function",
+      "name": "PasswordForm",
+      "filePath": "frontend/src/features/auth/password-form.tsx",
+      "lineRange": [
+        5,
+        51
+      ],
+      "summary": "Switches between recovery-email and new-password submission while maintaining pending and result state.",
+      "tags": [
+        "component",
+        "form",
+        "recovery"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/profile-actions.ts",
+      "type": "file",
+      "name": "profile-actions.ts",
+      "filePath": "frontend/src/features/auth/profile-actions.ts",
+      "summary": "Sends validated profile form values and revision to FastAPI, reports conflicts and revalidates the dashboard after saving.",
+      "tags": [
+        "server-action",
+        "profile",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "function",
+      "name": "saveProfile",
+      "filePath": "frontend/src/features/auth/profile-actions.ts",
+      "lineRange": [
+        4,
+        16
+      ],
+      "summary": "Submits profile fields and revision, translates conflict/error responses and refreshes dashboard data after a successful update.",
+      "tags": [
+        "server-action",
+        "profile",
+        "validation"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/profile-form.tsx",
+      "type": "file",
+      "name": "profile-form.tsx",
+      "filePath": "frontend/src/features/auth/profile-form.tsx",
+      "summary": "Edits the persisted account display name and preferred language, carrying the current revision and displaying save/error feedback.",
+      "tags": [
+        "component",
+        "profile",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "function",
+      "name": "ProfileForm",
+      "filePath": "frontend/src/features/auth/profile-form.tsx",
+      "lineRange": [
+        5,
+        64
+      ],
+      "summary": "Submits editable profile fields with revision-based concurrency and displays save feedback.",
+      "tags": [
+        "component",
+        "profile",
+        "form"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/lib/supabase/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "frontend/src/lib/supabase/server.ts",
+      "summary": "Builds the server-side Supabase client from private configuration and Next.js cookies, using HttpOnly SameSite sessions and production-only Secure cookies.",
+      "tags": [
+        "auth",
+        "configuration",
+        "cookies"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "function",
+      "name": "authClient",
+      "filePath": "frontend/src/lib/supabase/server.ts",
+      "lineRange": [
+        4,
+        31
+      ],
+      "summary": "Creates a Supabase SSR client backed by Next.js request/response cookies and private environment configuration.",
+      "tags": [
+        "auth",
+        "configuration",
+        "cookies"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/app/auth/callback/route.ts",
+      "target": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/auth/callback/route.ts",
+      "target": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/auth/callback/route.ts",
+      "target": "file:frontend/src/lib/supabase/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/app/auth/callback/route.ts:GET",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/components/brand.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/features/auth/profile-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/lib/supabase/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "file:frontend/src/styles/dashboard.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/app/dashboard/page.tsx:DashboardPage",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/components/brand.tsx:Brand",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/dashboard/page.tsx",
+      "target": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "function:frontend/src/app/forgot-password/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "function:frontend/src/app/forgot-password/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "file:frontend/src/features/auth/password-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/forgot-password/page.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "function:frontend/src/app/reset-password/page.tsx:Page",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "function:frontend/src/app/reset-password/page.tsx:Page",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "file:frontend/src/features/auth/password-form.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/app/reset-password/page.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:signOut",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:signOut",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/actions.ts",
+      "target": "file:frontend/src/lib/supabase/server.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:authenticate",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:signOut",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:recoverPassword",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:frontend/src/features/auth/actions.ts:changePassword",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/password-form.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/password-form.tsx",
+      "target": "function:frontend/src/features/auth/password-form.tsx:PasswordForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/password-form.tsx",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-actions.ts",
+      "target": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-actions.ts",
+      "target": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-actions.ts",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "target": "function:frontend/src/features/auth/actions.ts:profileRequest",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "file:frontend/src/features/auth/profile-actions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/auth/profile-form.tsx",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/auth/profile-form.tsx:ProfileForm",
+      "target": "function:frontend/src/features/auth/profile-actions.ts:saveProfile",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/lib/supabase/server.ts",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/lib/supabase/server.ts",
+      "target": "function:frontend/src/lib/supabase/server.ts:authClient",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

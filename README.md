@@ -242,3 +242,5 @@ Pour reprendre le projet dans un autre IDE, ouvrir la racine et faire lire [AGEN
 - [Architecture](docs/architecture/README.md) et [décisions techniques](docs/decisions/README.md).
 
 Mainteneur : [ziko247](https://github.com/ziko247). La licence reste à définir avant toute réutilisation ou distribution.
+
+Le frontend utilise Lenis pour le défilement. Il se désactive lorsque la réduction des animations est activée ; les commandes de lancement restent identiques.

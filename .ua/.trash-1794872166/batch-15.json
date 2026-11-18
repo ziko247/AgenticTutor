@@ -1,0 +1,456 @@
+{
+  "nodes": [
+    {
+      "id": "document:data/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "data/README.md",
+      "summary": "Documents ignored local raw, private, and processed data locations and requirements for access, retention, consent, and deletion.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/README.md",
+      "summary": "Index of architecture, decisions, design, guides, and report documentation.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docs/design/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docs/design/.gitkeep",
+      "summary": "Empty directory marker reserving docs/design; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docs/guides/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docs/guides/.gitkeep",
+      "summary": "Empty directory marker reserving docs/guides; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/guides/milestone-2-auth.md",
+      "type": "document",
+      "name": "milestone-2-auth.md",
+      "filePath": "docs/guides/milestone-2-auth.md",
+      "summary": "Runbook for local accounts, server sessions, profile routes, recovery email tests, Windows startup alternatives, and unverified hosted/confirmation settings.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:docs/report/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "docs/report/.gitkeep",
+      "summary": "Empty directory marker reserving docs/report; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:evaluation/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "evaluation/README.md",
+      "summary": "Defines the reserved pedagogical evaluation datasets and runners; no completed evaluation data or measured learning results are present.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/adaptation/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/adaptation/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/adaptation; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/corrections/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/corrections/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/corrections; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/questions/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/questions/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/questions; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/datasets/security/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/datasets/security/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/datasets/security; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/results/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/results/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/results; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:evaluation/runners/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "evaluation/runners/.gitkeep",
+      "summary": "Empty directory marker reserving evaluation/runners; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/eslint.config.mjs",
+      "type": "file",
+      "name": "eslint.config.mjs",
+      "filePath": "frontend/eslint.config.mjs",
+      "summary": "Combines Next.js Core Web Vitals and TypeScript lint rules while ignoring generated Next.js and browser-test artifacts.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/next.config.ts",
+      "type": "file",
+      "name": "next.config.ts",
+      "filePath": "frontend/next.config.ts",
+      "summary": "Keeps the Next.js configuration minimal and disables the development indicator.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/playwright.config.ts",
+      "type": "file",
+      "name": "playwright.config.ts",
+      "filePath": "frontend/playwright.config.ts",
+      "summary": "Configures serial headless browser tests against port 3000, with an optional installed Chromium path supplied through CHROME_PATH.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/postcss.config.mjs",
+      "type": "file",
+      "name": "postcss.config.mjs",
+      "filePath": "frontend/postcss.config.mjs",
+      "summary": "Activates Tailwind CSS through its PostCSS plugin.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/public/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/public/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/public; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/app/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/app; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/layout.tsx",
+      "type": "file",
+      "name": "layout.tsx",
+      "filePath": "frontend/src/app/layout.tsx",
+      "summary": "Root French HTML layout with self-hosted fonts, shared CSS, metadata, a keyboard skip link, and a JavaScript notice.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/layout.tsx:RootLayout",
+      "type": "function",
+      "name": "RootLayout",
+      "filePath": "frontend/src/app/layout.tsx",
+      "lineRange": [
+        13,
+        34
+      ],
+      "summary": "Wraps route content in the shared French document, typography, skip navigation, and noscript notice.",
+      "tags": [
+        "function",
+        "application",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/app/not-found.tsx",
+      "type": "file",
+      "name": "not-found.tsx",
+      "filePath": "frontend/src/app/not-found.tsx",
+      "summary": "Provides a French missing-page state with a real link back to the landing.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/app/not-found.tsx:NotFound",
+      "type": "function",
+      "name": "NotFound",
+      "filePath": "frontend/src/app/not-found.tsx",
+      "lineRange": [
+        2,
+        12
+      ],
+      "summary": "Renders the missing-page screen and a return-to-home action.",
+      "tags": [
+        "function",
+        "application",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/components/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/components; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/admin/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/admin/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/admin; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/auth/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/auth/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/auth; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/diagnostic/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/diagnostic; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/README.md",
+      "target": "document:docs/architecture/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/README.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/layout.tsx",
+      "target": "file:frontend/src/styles/globals.css",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/layout.tsx",
+      "target": "function:frontend/src/app/layout.tsx:RootLayout",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/layout.tsx",
+      "target": "function:frontend/src/app/layout.tsx:RootLayout",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/not-found.tsx",
+      "target": "function:frontend/src/app/not-found.tsx:NotFound",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/app/not-found.tsx",
+      "target": "function:frontend/src/app/not-found.tsx:NotFound",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/eslint.config.mjs",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/next.config.ts",
+      "target": "file:frontend/src/app/layout.tsx",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/playwright.config.ts",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/postcss.config.mjs",
+      "target": "file:frontend/src/styles/globals.css",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:evaluation/README.md",
+      "target": "file:evaluation/datasets/questions/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/guides/milestone-2-auth.md",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

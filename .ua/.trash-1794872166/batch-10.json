@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "id": "document:docs/decisions/0001-first-frontend.md",
+      "type": "document",
+      "name": "0001-first-frontend.md",
+      "filePath": "docs/decisions/0001-first-frontend.md",
+      "summary": "Historical decision establishing the first Python-oriented Next.js interface and its initial frontend-only limits.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "document",
+      "name": "0002-backend-fastapi-supabase.md",
+      "filePath": "docs/decisions/0002-backend-fastapi-supabase.md",
+      "summary": "Records the FastAPI/Supabase/local Docker direction and its alternatives; the browser-auth proposal is superseded by decision 0003.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "document",
+      "name": "0003-server-auth-sessions.md",
+      "filePath": "docs/decisions/0003-server-auth-sessions.md",
+      "summary": "Records Next.js Server Actions and HttpOnly Supabase SSR sessions, independent FastAPI bearer validation, and the network-dependency tradeoff.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "docs/decisions/README.md",
+      "summary": "Index of frontend, backend foundation, and server-session architecture decisions.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:docs/decisions/TEMPLATE.md",
+      "type": "document",
+      "name": "TEMPLATE.md",
+      "filePath": "docs/decisions/TEMPLATE.md",
+      "summary": "Template for recording context, decisions, consequences, and validation of future architecture choices.",
+      "tags": [
+        "documentation",
+        "architecture-decision",
+        "reference"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "target": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "target": "document:docs/architecture/backend-roadmap.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "target": "document:docs/architecture/backend-foundation.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "document:docs/guides/milestone-2-auth.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/0001-first-frontend.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/TEMPLATE.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/README.md",
+      "target": "document:docs/decisions/0003-server-auth-sessions.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "file:frontend/src/features/auth/actions.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "file:frontend/src/proxy.ts",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:docs/decisions/0003-server-auth-sessions.md",
+      "target": "file:backend/app/api/profile.py",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "supabase/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 14,
+      "nonEmptyLines": 9,
+      "sections": [
+        {
+          "heading": "Supabase local",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "supabase/config.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 426,
+      "nonEmptyLines": 374,
+      "sections": [
+        {
+          "heading": "api",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "api.tls",
+          "level": 2,
+          "line": 26
+        },
+        {
+          "heading": "db",
+          "level": 1,
+          "line": 33
+        },
+        {
+          "heading": "db.pooler",
+          "level": 2,
+          "line": 46
+        },
+        {
+          "heading": "db.migrations",
+          "level": 2,
+          "line": 61
+        },
+        {
+          "heading": "db.seed",
+          "level": 2,
+          "line": 68
+        },
+        {
+          "heading": "db.network_restrictions",
+          "level": 2,
+          "line": 75
+        },
+        {
+          "heading": "realtime",
+          "level": 1,
+          "line": 89
+        },
+        {
+          "heading": "studio",
+          "level": 1,
+          "line": 96
+        },
+        {
+          "heading": "local_smtp",
+          "level": 1,
+          "line": 107
+        },
+        {
+          "heading": "storage",
+          "level": 1,
+          "line": 117
+        },
+        {
+          "heading": "storage.s3_protocol",
+          "level": 2,
+          "line": 130
+        },
+        {
+          "heading": "storage.analytics",
+          "level": 2,
+          "line": 139
+        },
+        {
+          "heading": "storage.vector",
+          "level": 2,
+          "line": 149
+        },
+        {
+          "heading": "auth",
+          "level": 1,
+          "line": 157
+        },
+        {
+          "heading": "auth.rate_limit",
+          "level": 2,
+          "line": 199
+        },
+        {
+          "heading": "auth.email",
+          "level": 2,
+          "line": 221
+        },
+        {
+          "heading": "auth.sms",
+          "level": 2,
+          "line": 263
+        },
+        {
+          "heading": "auth.sms.twilio",
+          "level": 3,
+          "line": 297
+        },
+        {
+          "heading": "auth.mfa",
+          "level": 2,
+          "line": 305
+        },
+        {
+          "heading": "auth.mfa.totp",
+          "level": 3,
+          "line": 310
+        },
+        {
+          "heading": "auth.mfa.phone",
+          "level": 3,
+          "line": 315
+        },
+        {
+          "heading": "auth.external.apple",
+          "level": 3,
+          "line": 330
+        },
+        {
+          "heading": "auth.web3.solana",
+          "level": 3,
+          "line": 347
+        },
+        {
+          "heading": "auth.third_party.firebase",
+          "level": 3,
+          "line": 355
+        },
+        {
+          "heading": "auth.third_party.auth0",
+          "level": 3,
+          "line": 360
+        },
+        {
+          "heading": "auth.third_party.aws_cognito",
+          "level": 3,
+          "line": 366
+        },
+        {
+          "heading": "auth.third_party.clerk",
+          "level": 3,
+          "line": 372
+        },
+        {
+          "heading": "auth.oauth_server",
+          "level": 2,
+          "line": 378
+        },
+        {
+          "heading": "edge_runtime",
+          "level": 1,
+          "line": 386
+        },
+        {
+          "heading": "analytics",
+          "level": 1,
+          "line": 400
+        },
+        {
+          "heading": "experimental",
+          "level": 1,
+          "line": 407
+        },
+        {
+          "heading": "experimental.pgdelta",
+          "level": 2,
+          "line": 419
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 33
+      }
+    },
+    {
+      "path": "supabase/seed.sql",
+      "language": "sql",
+      "fileCategory": "data",
+      "totalLines": 942,
+      "nonEmptyLines": 942,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 0
+      }
+    }
+  ]
+}

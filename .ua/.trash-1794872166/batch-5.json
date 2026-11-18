@@ -1,0 +1,245 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "file",
+      "name": "banks.ts",
+      "filePath": "frontend/src/features/diagnostic/banks.ts",
+      "summary": "Defines ten language-specific technical question banks and constructs ordered single-choice questions with deterministic answer-option rotation and correction indices.",
+      "tags": [
+        "diagnostic",
+        "question-bank",
+        "data-model"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/banks.ts:createBank",
+      "type": "function",
+      "name": "createBank",
+      "filePath": "frontend/src/features/diagnostic/banks.ts",
+      "lineRange": [
+        386,
+        398
+      ],
+      "summary": "Converts each fixed four-string question row into a technical single-choice question with rotated options and a correct-answer index.",
+      "tags": [
+        "diagnostic",
+        "question-bank",
+        "data-model"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "file",
+      "name": "questions.ts",
+      "filePath": "frontend/src/features/diagnostic/questions.ts",
+      "summary": "Defines the shared question shape and six unscored student-profile questions included before each technical bank.",
+      "tags": [
+        "data-model",
+        "diagnostic",
+        "profile"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/features/diagnostic/storage.ts",
+      "type": "file",
+      "name": "storage.ts",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "summary": "Defines the version-2 browser diagnostic draft and combines question banks; parsing discards invalid answers, clamps navigation and requires completeness for final/review states.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "function",
+      "name": "answerLabel",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "lineRange": [
+        6,
+        7
+      ],
+      "summary": "Converts a numeric answer index into its visible option label, returning an empty label when unanswered.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "function",
+      "name": "getQuestions",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "lineRange": [
+        24,
+        26
+      ],
+      "summary": "Combines the six shared profile questions with the selected language's technical bank.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "function",
+      "name": "parseDraft",
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "lineRange": [
+        27,
+        60
+      ],
+      "summary": "Validates a stored version-2 draft, filters invalid indices and resets unsafe completion/review/navigation values.",
+      "tags": [
+        "validation",
+        "serialization",
+        "local-storage"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/flows.spec.ts",
+      "type": "file",
+      "name": "flows.spec.ts",
+      "filePath": "frontend/tests/flows.spec.ts",
+      "summary": "Exercises real local Auth and profile persistence/recovery, landing examples and menus, all diagnostic banks and scores, draft recovery, responsive layouts and keyboard/reduced-motion behavior.",
+      "tags": [
+        "test",
+        "end-to-end",
+        "browser"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "function:frontend/src/features/diagnostic/banks.ts:createBank",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:answerLabel",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/storage.ts",
+      "target": "file:frontend/src/lib/languages.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "function:frontend/src/features/diagnostic/storage.ts:parseDraft",
+      "target": "function:frontend/src/features/diagnostic/storage.ts:getQuestions",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/tests/flows.spec.ts",
+      "target": "file:frontend/src/features/diagnostic/banks.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/tests/flows.spec.ts",
+      "target": "file:frontend/src/features/diagnostic/questions.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/banks.ts",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:frontend/src/features/diagnostic/questions.ts",
+      "target": "file:frontend/tests/flows.spec.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

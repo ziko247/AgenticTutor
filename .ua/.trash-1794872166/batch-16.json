@@ -1,0 +1,214 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/features/exercises/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/exercises/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/exercises; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/progress/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/progress/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/progress; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/features/tutor/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/features/tutor/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/features/tutor; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/lib/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/lib/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/lib; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/proxy.ts",
+      "type": "file",
+      "name": "proxy.ts",
+      "filePath": "frontend/src/proxy.ts",
+      "summary": "Refreshes Supabase SSR sessions on dashboard/reset-password requests, propagates HttpOnly cookies, and marks configured responses private and non-cacheable.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/proxy.ts:proxy",
+      "type": "function",
+      "name": "proxy",
+      "filePath": "frontend/src/proxy.ts",
+      "lineRange": [
+        3,
+        28
+      ],
+      "summary": "Refreshes trusted Supabase user/session state while copying refreshed cookies to the outgoing response.",
+      "tags": [
+        "function",
+        "application",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/styles/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/styles/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/styles; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/types/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/src/types/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/src/types; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/tests/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "frontend/tests/.gitkeep",
+      "summary": "Empty directory marker reserving frontend/tests; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:scripts/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "scripts/README.md",
+      "summary": "Reserves a location for future content preparation, format validation, and synthetic-data tools; no root scripts are implemented.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:tests/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "tests/README.md",
+      "summary": "Explains reserved cross-component tests and fixtures, with technical test suites located beside frontend/backend components.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/e2e/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "tests/e2e/.gitkeep",
+      "summary": "Empty directory marker reserving tests/e2e; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tests/fixtures/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "tests/fixtures/.gitkeep",
+      "summary": "Empty directory marker reserving tests/fixtures; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "function:frontend/src/proxy.ts:proxy",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "function:frontend/src/proxy.ts:proxy",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "file:frontend/src/app/dashboard/page.tsx",
+      "type": "middleware",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/proxy.ts",
+      "target": "file:frontend/src/app/reset-password/page.tsx",
+      "type": "middleware",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:tests/README.md",
+      "target": "file:tests/e2e/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

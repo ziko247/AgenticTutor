@@ -110,3 +110,7 @@ Vérifications de cette tranche : lint, typecheck, build de production et 12 tes
 L’inscription et la connexion utilisent maintenant Supabase Auth via des Server Actions Next.js et des cookies HttpOnly. /dashboard est protégé ; le profil est enregistré par FastAPI, éditable et isolé par RLS. Déconnexion et récupération de mot de passe sont connectées. Cette tranche remplace les aperçus d’authentification décrits dans les sections historiques. Le diagnostic reste local jusqu’au jalon 3.
 
 Lire [le guide complet](../docs/guides/milestone-2-auth.md) pour les commandes. Après démarrage de Supabase, exécuter python -m tools.configure_auth depuis backend/ avec son environnement, puis redémarrer FastAPI et Next.js. Les instructions Windows utilisant le Python de base restent valables. Décision : docs/decisions/0003-server-auth-sessions.md.
+
+## Défilement
+
+Lenis adoucit le défilement et respecte la préférence de réduction des animations. Les menus défilables conservent leur défilement natif. Le lancement ne change pas ; exécuter `npm.cmd ci` après récupération des nouvelles dépendances.

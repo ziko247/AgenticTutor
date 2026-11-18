@@ -1,0 +1,2992 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "9f231f39c20fb77411eba9e8c188698f408e6adc",
+  "generatedAt": "2026-11-16T23:32:30.127Z",
+  "files": {
+    ".gitattributes": {
+      "filePath": ".gitattributes",
+      "contentHash": "644a0f3e0850f8137f3089b25aaa6e277bbe2803ffd864ba8fb2ef07995e3178",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "AGENTS.md": {
+      "filePath": "AGENTS.md",
+      "contentHash": "e3a648d578a3f15188e26cd881e00c46d329a13dcbf538a0b2b8a5d89ec3e0bd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 107,
+      "hasStructuralAnalysis": false
+    },
+    "CAHIER_DES_CHARGES_AGENTICTUTOR.md": {
+      "filePath": "CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "contentHash": "33edf26bf6ab7d56c45f96d45bc37b14d581e236e673f42345c24583bd828ba8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 585,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "f08af74231cb80033f529c54e3e5270364ea22bf863609338bb83d5da8aa36b7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 245,
+      "hasStructuralAnalysis": false
+    },
+    "backend/.env.example": {
+      "filePath": "backend/.env.example",
+      "contentHash": "34d15e8b3a6285bfce47299fdc6b7241cf3132811a769cf6eea06866b44f1128",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 10,
+      "hasStructuralAnalysis": false
+    },
+    "backend/README.md": {
+      "filePath": "backend/README.md",
+      "contentHash": "8ae56365f5e47094b59c83b47995207a99908357849c3372872c89b062c7cbc0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 135,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/__init__.py": {
+      "filePath": "backend/app/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/app/api/.gitkeep": {
+      "filePath": "backend/app/api/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/api/__init__.py": {
+      "filePath": "backend/app/api/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/app/api/profile.py": {
+      "filePath": "backend/app/api/profile.py",
+      "contentHash": "d23429275ae584e90b1f8d00857929f5df1d95cc49f8fc45ea886f37f8026bf2",
+      "functions": [
+        {
+          "name": "identity",
+          "params": [
+            "request",
+            "credentials"
+          ],
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "db",
+          "params": [
+            "request"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "get_profile",
+          "params": [
+            "request",
+            "user_id"
+          ],
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "create_profile",
+          "params": [
+            "body",
+            "request",
+            "user_id"
+          ],
+          "exported": true,
+          "lineCount": 27
+        },
+        {
+          "name": "update_profile",
+          "params": [
+            "body",
+            "request",
+            "user_id"
+          ],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [
+        {
+          "name": "ProfileInput",
+          "methods": [],
+          "properties": [
+            "display_name",
+            "preferred_language"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "ProfilePatch",
+          "methods": [],
+          "properties": [
+            "revision"
+          ],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Annotated",
+            "Literal"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "UUID"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "Depends",
+            "HTTPException",
+            "Request"
+          ]
+        },
+        {
+          "source": "fastapi.security",
+          "specifiers": [
+            "HTTPAuthorizationCredentials",
+            "HTTPBearer"
+          ]
+        },
+        {
+          "source": "psycopg.rows",
+          "specifiers": [
+            "dict_row"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "ConfigDict",
+            "Field"
+          ]
+        }
+      ],
+      "exports": [
+        "ProfileInput",
+        "ProfilePatch",
+        "identity",
+        "db",
+        "get_profile",
+        "create_profile",
+        "update_profile"
+      ],
+      "totalLines": 120,
+      "hasStructuralAnalysis": true
+    },
+    "backend/app/core/.gitkeep": {
+      "filePath": "backend/app/core/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/core/__init__.py": {
+      "filePath": "backend/app/core/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/app/core/config.py": {
+      "filePath": "backend/app/core/config.py",
+      "contentHash": "1787a1d9b08512dd5fc5470ae9fcb63dfb1f9d3436fe7f76d8aebc5c977396d5",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Settings",
+          "methods": [],
+          "properties": [
+            "database_url",
+            "database_pool_size",
+            "database_timeout",
+            "cors_origins",
+            "supabase_url",
+            "supabase_publishable_key"
+          ],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "imports": [
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "Field",
+            "SecretStr"
+          ]
+        },
+        {
+          "source": "pydantic_settings",
+          "specifiers": [
+            "BaseSettings",
+            "SettingsConfigDict"
+          ]
+        }
+      ],
+      "exports": [
+        "Settings"
+      ],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "backend/app/core/database.py": {
+      "filePath": "backend/app/core/database.py",
+      "contentHash": "e7cbc66486af4667fec92f20dd6ce16f24de5d1a9044b40b1066f4ee0b572f05",
+      "functions": [],
+      "classes": [
+        {
+          "name": "Database",
+          "methods": [
+            "__init__",
+            "open",
+            "close",
+            "check_role",
+            "check_ready",
+            "transaction_for"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "imports": [
+        {
+          "source": "collections.abc",
+          "specifiers": [
+            "Iterator"
+          ]
+        },
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "contextmanager"
+          ]
+        },
+        {
+          "source": "uuid",
+          "specifiers": [
+            "UUID"
+          ]
+        },
+        {
+          "source": "psycopg",
+          "specifiers": [
+            "Connection"
+          ]
+        },
+        {
+          "source": "psycopg_pool",
+          "specifiers": [
+            "ConnectionPool"
+          ]
+        },
+        {
+          "source": "app.core.config",
+          "specifiers": [
+            "Settings"
+          ]
+        }
+      ],
+      "exports": [
+        "Database"
+      ],
+      "totalLines": 63,
+      "hasStructuralAnalysis": true
+    },
+    "backend/app/llm/.gitkeep": {
+      "filePath": "backend/app/llm/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/main.py": {
+      "filePath": "backend/app/main.py",
+      "contentHash": "98326ffc2ae59e1cf490e14eb0976df2a93eb6059feb0fefb56c39a7913f0938",
+      "functions": [
+        {
+          "name": "create_app",
+          "params": [
+            "settings",
+            "database_factory"
+          ],
+          "returnType": "FastAPI",
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "collections.abc",
+          "specifiers": [
+            "Callable"
+          ]
+        },
+        {
+          "source": "contextlib",
+          "specifiers": [
+            "asynccontextmanager"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "FastAPI"
+          ]
+        },
+        {
+          "source": "fastapi.middleware.cors",
+          "specifiers": [
+            "CORSMiddleware"
+          ]
+        },
+        {
+          "source": "fastapi.responses",
+          "specifiers": [
+            "JSONResponse"
+          ]
+        },
+        {
+          "source": "psycopg",
+          "specifiers": [
+            "DatabaseError"
+          ]
+        },
+        {
+          "source": "app.api.profile",
+          "specifiers": [
+            "router"
+          ]
+        },
+        {
+          "source": "app.core.config",
+          "specifiers": [
+            "Settings"
+          ]
+        },
+        {
+          "source": "app.core.database",
+          "specifiers": [
+            "Database"
+          ]
+        }
+      ],
+      "exports": [
+        "create_app"
+      ],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "backend/app/models/.gitkeep": {
+      "filePath": "backend/app/models/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/orchestration/.gitkeep": {
+      "filePath": "backend/app/orchestration/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/pedagogy/.gitkeep": {
+      "filePath": "backend/app/pedagogy/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/prompts/.gitkeep": {
+      "filePath": "backend/app/prompts/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/rag/.gitkeep": {
+      "filePath": "backend/app/rag/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/repositories/.gitkeep": {
+      "filePath": "backend/app/repositories/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/schemas/.gitkeep": {
+      "filePath": "backend/app/schemas/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/app/services/.gitkeep": {
+      "filePath": "backend/app/services/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/migrations/.gitkeep": {
+      "filePath": "backend/migrations/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/pyproject.toml": {
+      "filePath": "backend/pyproject.toml",
+      "contentHash": "e3da97f6c0a68cdbc378dc830f8043e2278b3a958fe7c51a3c7f6fe516e814e1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "backend/tests/conftest.py": {
+      "filePath": "backend/tests/conftest.py",
+      "contentHash": "94a9348c46b07228a847c2cfe9cde213d03743c184eefff0834663d015fb9ca9",
+      "functions": [
+        {
+          "name": "pytest_addoption",
+          "params": [
+            "parser"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "pytest_collection_modifyitems",
+          "params": [
+            "config",
+            "items"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        }
+      ],
+      "exports": [
+        "pytest_addoption",
+        "pytest_collection_modifyitems"
+      ],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/integration/.gitkeep": {
+      "filePath": "backend/tests/integration/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/tests/integration/conftest.py": {
+      "filePath": "backend/tests/integration/conftest.py",
+      "contentHash": "08a0bb38527ce8bdeab2306e3ba0202ab3a3835a9f8e1572b189ccc9c270db5b",
+      "functions": [
+        {
+          "name": "stack",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "admin",
+          "params": [
+            "stack"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "database",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "students",
+          "params": [
+            "stack",
+            "admin"
+          ],
+          "exported": true,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "uuid",
+          "specifiers": [
+            "UUID",
+            "uuid4"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "psycopg",
+          "specifiers": [
+            "psycopg"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "app.core.config",
+          "specifiers": [
+            "Settings"
+          ]
+        },
+        {
+          "source": "app.core.database",
+          "specifiers": [
+            "Database"
+          ]
+        },
+        {
+          "source": "tools.local_stack",
+          "specifiers": [
+            "PROJECT_ID",
+            "local_status"
+          ]
+        }
+      ],
+      "exports": [
+        "stack",
+        "admin",
+        "database",
+        "students"
+      ],
+      "totalLines": 69,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/integration/test_database.py": {
+      "filePath": "backend/tests/integration/test_database.py",
+      "contentHash": "058ebd13cc1f519fdd67875db2ddb0d340acc81d1315f315adebb6be58dd7ce4",
+      "functions": [
+        {
+          "name": "test_ready_with_actual_runtime_connection",
+          "params": [
+            "database"
+          ],
+          "exported": true,
+          "lineCount": 5
+        },
+        {
+          "name": "test_privileged_connection_is_not_ready",
+          "params": [
+            "stack"
+          ],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_schema_version_mismatch_is_not_ready",
+          "params": [
+            "admin",
+            "database"
+          ],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "test_profiles_are_isolated_and_context_does_not_leak",
+          "params": [
+            "database",
+            "students"
+          ],
+          "exported": true,
+          "lineCount": 19
+        },
+        {
+          "name": "test_runtime_cannot_forge_profile_or_publish",
+          "params": [
+            "database",
+            "students"
+          ],
+          "exported": true,
+          "lineCount": 20
+        },
+        {
+          "name": "test_banks_are_complete_and_private",
+          "params": [
+            "admin"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_answer_foreign_keys_and_attempt_ownership",
+          "params": [
+            "admin",
+            "database",
+            "students"
+          ],
+          "exported": true,
+          "lineCount": 68
+        },
+        {
+          "name": "test_published_content_is_immutable",
+          "params": [
+            "admin"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_invalid_publication_is_rejected",
+          "params": [
+            "admin"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "test_context_is_required_for_writes",
+          "params": [
+            "database"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "test_import_cannot_attach_another_students_attempt",
+          "params": [
+            "admin",
+            "database",
+            "students"
+          ],
+          "exported": true,
+          "lineCount": 36
+        },
+        {
+          "name": "test_completed_attempt_cannot_receive_answers",
+          "params": [
+            "admin",
+            "database",
+            "students"
+          ],
+          "exported": true,
+          "lineCount": 27
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid4"
+          ]
+        },
+        {
+          "source": "psycopg",
+          "specifiers": [
+            "psycopg"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "SecretStr"
+          ]
+        },
+        {
+          "source": "app.core.config",
+          "specifiers": [
+            "Settings"
+          ]
+        },
+        {
+          "source": "app.main",
+          "specifiers": [
+            "create_app"
+          ]
+        }
+      ],
+      "exports": [
+        "test_ready_with_actual_runtime_connection",
+        "test_privileged_connection_is_not_ready",
+        "test_schema_version_mismatch_is_not_ready",
+        "test_profiles_are_isolated_and_context_does_not_leak",
+        "test_runtime_cannot_forge_profile_or_publish",
+        "test_banks_are_complete_and_private",
+        "test_answer_foreign_keys_and_attempt_ownership",
+        "test_published_content_is_immutable",
+        "test_invalid_publication_is_rejected",
+        "test_context_is_required_for_writes",
+        "test_import_cannot_attach_another_students_attempt",
+        "test_completed_attempt_cannot_receive_answers"
+      ],
+      "totalLines": 266,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/integration/test_profile_api.py": {
+      "filePath": "backend/tests/integration/test_profile_api.py",
+      "contentHash": "0e82ebe3fd7716a6e79c2afbc0adf6afb0ae3e9137f7599ccb16fbe5b86a31f8",
+      "functions": [
+        {
+          "name": "test_real_auth_profile_contract",
+          "params": [
+            "stack"
+          ],
+          "exported": true,
+          "lineCount": 69
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "uuid",
+          "specifiers": [
+            "uuid4"
+          ]
+        },
+        {
+          "source": "httpx",
+          "specifiers": [
+            "httpx"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "app.main",
+          "specifiers": [
+            "create_app"
+          ]
+        }
+      ],
+      "exports": [
+        "test_real_auth_profile_contract"
+      ],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tests/unit/.gitkeep": {
+      "filePath": "backend/tests/unit/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "backend/tests/unit/test_health.py": {
+      "filePath": "backend/tests/unit/test_health.py",
+      "contentHash": "ef597a42717bfeb15f4ffab94692a0a4cb552cf72be75dddef4ea8e795af892f",
+      "functions": [
+        {
+          "name": "test_live_does_not_need_database",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        },
+        {
+          "name": "test_readiness_recovers_and_closes_pool",
+          "params": [
+            "caplog"
+          ],
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "test_cors_is_explicit",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "test_pool_size_is_bounded",
+          "params": [
+            "size"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "test_secret_is_redacted",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "FakeDatabase",
+          "methods": [
+            "__init__",
+            "open",
+            "close",
+            "check_ready"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 15
+        }
+      ],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "pytest",
+          "specifiers": [
+            "pytest"
+          ]
+        },
+        {
+          "source": "fastapi.testclient",
+          "specifiers": [
+            "TestClient"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "ValidationError"
+          ]
+        },
+        {
+          "source": "app.core.config",
+          "specifiers": [
+            "Settings"
+          ]
+        },
+        {
+          "source": "app.main",
+          "specifiers": [
+            "create_app"
+          ]
+        }
+      ],
+      "exports": [
+        "FakeDatabase",
+        "test_live_does_not_need_database",
+        "test_readiness_recovers_and_closes_pool",
+        "test_cors_is_explicit",
+        "test_pool_size_is_bounded",
+        "test_secret_is_redacted"
+      ],
+      "totalLines": 68,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tools/__init__.py": {
+      "filePath": "backend/tools/__init__.py",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tools/configure_auth.py": {
+      "filePath": "backend/tools/configure_auth.py",
+      "contentHash": "6397c575065864eb2462ee07a2347bdf10063323ea713a6fb800db069ed5500a",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "dotenv_values"
+          ]
+        },
+        {
+          "source": "app.core.config",
+          "specifiers": [
+            "BACKEND_DIR"
+          ]
+        },
+        {
+          "source": "tools.local_stack",
+          "specifiers": [
+            "ROOT",
+            "local_status"
+          ]
+        }
+      ],
+      "exports": [
+        "main"
+      ],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tools/local_stack.py": {
+      "filePath": "backend/tools/local_stack.py",
+      "contentHash": "6f0d6d4652b6768df432e95adef3c6daec37639cfb3b076094b066e71e872fdd",
+      "functions": [
+        {
+          "name": "local_status",
+          "params": [],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 32
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "json",
+          "specifiers": [
+            "json"
+          ]
+        },
+        {
+          "source": "shutil",
+          "specifiers": [
+            "shutil"
+          ]
+        },
+        {
+          "source": "subprocess",
+          "specifiers": [
+            "subprocess"
+          ]
+        },
+        {
+          "source": "tomllib",
+          "specifiers": [
+            "tomllib"
+          ]
+        },
+        {
+          "source": "pathlib",
+          "specifiers": [
+            "Path"
+          ]
+        },
+        {
+          "source": "psycopg.conninfo",
+          "specifiers": [
+            "conninfo_to_dict"
+          ]
+        }
+      ],
+      "exports": [
+        "local_status"
+      ],
+      "totalLines": 45,
+      "hasStructuralAnalysis": true
+    },
+    "backend/tools/setup_local.py": {
+      "filePath": "backend/tools/setup_local.py",
+      "contentHash": "1419b472dd5ad8a052e1609d38297e52eba7a072489df67bc9070283faa9d21b",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "returnType": "None",
+          "exported": true,
+          "lineCount": 39
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "secrets",
+          "specifiers": [
+            "secrets"
+          ]
+        },
+        {
+          "source": "psycopg",
+          "specifiers": [
+            "psycopg"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "dotenv_values"
+          ]
+        },
+        {
+          "source": "psycopg",
+          "specifiers": [
+            "sql"
+          ]
+        },
+        {
+          "source": "psycopg.conninfo",
+          "specifiers": [
+            "conninfo_to_dict",
+            "make_conninfo"
+          ]
+        },
+        {
+          "source": "app.core.config",
+          "specifiers": [
+            "BACKEND_DIR"
+          ]
+        },
+        {
+          "source": "tools.local_stack",
+          "specifiers": [
+            "PROJECT_ID",
+            "local_status"
+          ]
+        }
+      ],
+      "exports": [
+        "main"
+      ],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "content/README.md": {
+      "filePath": "content/README.md",
+      "contentHash": "3ced58b9209864ebf5266ec4c52ae0f4d2011a28b8a631578d8feef8105922ac",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": false
+    },
+    "content/curricula/.gitkeep": {
+      "filePath": "content/curricula/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "content/exercises/.gitkeep": {
+      "filePath": "content/exercises/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "content/resources/.gitkeep": {
+      "filePath": "content/resources/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "content/schemas/.gitkeep": {
+      "filePath": "content/schemas/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "data/README.md": {
+      "filePath": "data/README.md",
+      "contentHash": "0b8d01da2467fcbc64c4ff6d9bf98a55d263bbe26116d886cf2200a6722bd36c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "docs/README.md": {
+      "filePath": "docs/README.md",
+      "contentHash": "8312810aac3dc4d1336dbebb5c5c246edf95b5a2664969ff96b57bf79ef51c72",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "docs/architecture/README.md": {
+      "filePath": "docs/architecture/README.md",
+      "contentHash": "8e5ce4abf2c9fb91adf2f8e3df24f3b6092c00b9cf5dda7ba43f633ab359b038",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": false
+    },
+    "docs/architecture/backend-api-contract.md": {
+      "filePath": "docs/architecture/backend-api-contract.md",
+      "contentHash": "2cee7d58fa32a185df565a8b8f18c0dd1e443622d5bf93e91386b286420c09fa",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 113,
+      "hasStructuralAnalysis": false
+    },
+    "docs/architecture/backend-data-model.md": {
+      "filePath": "docs/architecture/backend-data-model.md",
+      "contentHash": "2dfedf2d5fb8f4c56e0a4ebe2e81e27c4c51b62fedc72e9687f6dc49c8abae3e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": false
+    },
+    "docs/architecture/backend-foundation.md": {
+      "filePath": "docs/architecture/backend-foundation.md",
+      "contentHash": "cf501d8d8bc74d6d45f6f4e35c69832e93139d8b830781676234825cb9e0cb69",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 103,
+      "hasStructuralAnalysis": false
+    },
+    "docs/architecture/backend-roadmap.md": {
+      "filePath": "docs/architecture/backend-roadmap.md",
+      "contentHash": "f987ede8a3b53ed242739e778fcf103bd434ca5ed1fbe3cfa6db411c1497073b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 76,
+      "hasStructuralAnalysis": false
+    },
+    "docs/decisions/0001-first-frontend.md": {
+      "filePath": "docs/decisions/0001-first-frontend.md",
+      "contentHash": "43893e25b42608b6d9a05375c5cb4d548cd00598e6b76131b40ded2919f970f6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "docs/decisions/0002-backend-fastapi-supabase.md": {
+      "filePath": "docs/decisions/0002-backend-fastapi-supabase.md",
+      "contentHash": "8fe07c4bc343b676145b8b4193400def5f9e04efc549e50855f99f312c02aad1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": false
+    },
+    "docs/decisions/0003-server-auth-sessions.md": {
+      "filePath": "docs/decisions/0003-server-auth-sessions.md",
+      "contentHash": "6e63b109b8f5ccfe2ec045bf1f3e935034443e802631caffa6b6721bcd0010af",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "docs/decisions/README.md": {
+      "filePath": "docs/decisions/README.md",
+      "contentHash": "af62afd4f7e3daa58b6088cf596e09ecb26842b35d9dfa651f1b7a577a914e7b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": false
+    },
+    "docs/decisions/TEMPLATE.md": {
+      "filePath": "docs/decisions/TEMPLATE.md",
+      "contentHash": "a8fd78b3e108b13a3b3a9a86de5c6a7cce11fe22b20a51d43d2ca8d90f6e5072",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "docs/design/.gitkeep": {
+      "filePath": "docs/design/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "docs/guides/.gitkeep": {
+      "filePath": "docs/guides/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "docs/guides/milestone-2-auth.md": {
+      "filePath": "docs/guides/milestone-2-auth.md",
+      "contentHash": "2cffae54e2aa21060b738b9597648875750e5d734c06469298c3fec592914009",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 79,
+      "hasStructuralAnalysis": false
+    },
+    "docs/report/.gitkeep": {
+      "filePath": "docs/report/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "evaluation/README.md": {
+      "filePath": "evaluation/README.md",
+      "contentHash": "f41a541ce49e3c593495725bdf8fd12bd60f6fa2ec396fe66112d7fc66efff23",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "evaluation/datasets/adaptation/.gitkeep": {
+      "filePath": "evaluation/datasets/adaptation/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "evaluation/datasets/corrections/.gitkeep": {
+      "filePath": "evaluation/datasets/corrections/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "evaluation/datasets/questions/.gitkeep": {
+      "filePath": "evaluation/datasets/questions/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "evaluation/datasets/security/.gitkeep": {
+      "filePath": "evaluation/datasets/security/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "evaluation/results/.gitkeep": {
+      "filePath": "evaluation/results/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "evaluation/runners/.gitkeep": {
+      "filePath": "evaluation/runners/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/.env.example": {
+      "filePath": "frontend/.env.example",
+      "contentHash": "561830f11e7a29fe2a634db49bb96805eda0dc30f195c629083187e3e939be56",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/AGENTS.md": {
+      "filePath": "frontend/AGENTS.md",
+      "contentHash": "6ccfa97838532c52f7e104f413832ea9946e18fb335939984f2ce1de9833029c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/README.md": {
+      "filePath": "frontend/README.md",
+      "contentHash": "795aa126d42c7516f57ed88da3dd9c8c4a867c370ad0533d5b96c30d676d208d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 113,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/eslint.config.mjs": {
+      "filePath": "frontend/eslint.config.mjs",
+      "contentHash": "f3201fdb2e8b4e5b1a6cf07f0aac7434711f3ca453de4686d3632da146514bca",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "eslint/config",
+          "specifiers": [
+            "defineConfig",
+            "globalIgnores"
+          ]
+        },
+        {
+          "source": "eslint-config-next/core-web-vitals",
+          "specifiers": [
+            "next"
+          ]
+        },
+        {
+          "source": "eslint-config-next/typescript",
+          "specifiers": [
+            "ts"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/next.config.ts": {
+      "filePath": "frontend/next.config.ts",
+      "contentHash": "c0963fb97386b14b1e7c59490f1e790322011768f371e149f6f66542849936fc",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next",
+          "specifiers": [
+            "NextConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 4,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/package.json": {
+      "filePath": "frontend/package.json",
+      "contentHash": "86fb44191f295c7b8a1e1f023e6678fa74f9b786501952585f94680b387ed6c2",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/playwright.config.ts": {
+      "filePath": "frontend/playwright.config.ts",
+      "contentHash": "862fd7a97bc1d9002fa552c7bd05c528c4df3f969e6eaa7fbb9eb19ee7bd3e08",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "defineConfig"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/postcss.config.mjs": {
+      "filePath": "frontend/postcss.config.mjs",
+      "contentHash": "b783348d5618047d0f37e12acd15c5a2c5f02809d8711e0764c9cea52750346c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/public/.gitkeep": {
+      "filePath": "frontend/public/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/app/.gitkeep": {
+      "filePath": "frontend/src/app/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/app/auth/callback/route.ts": {
+      "filePath": "frontend/src/app/auth/callback/route.ts",
+      "contentHash": "9c4562c2ce5acc3eb3c0fa1d13855e665294b28152f9ede8ed56b749f2a10f5f",
+      "functions": [
+        {
+          "name": "GET",
+          "params": [
+            "request"
+          ],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/lib/supabase/server",
+          "specifiers": [
+            "authClient"
+          ]
+        },
+        {
+          "source": "next/server",
+          "specifiers": [
+            "NextResponse",
+            "NextRequest"
+          ]
+        }
+      ],
+      "exports": [
+        "GET"
+      ],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/dashboard/page.tsx": {
+      "filePath": "frontend/src/app/dashboard/page.tsx",
+      "contentHash": "2cfd1551d2ec80dee9de052ce93057ba14e92865c401112858c4c02b8d0a6961",
+      "functions": [
+        {
+          "name": "DashboardPage",
+          "params": [],
+          "exported": true,
+          "lineCount": 94
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/lib/supabase/server",
+          "specifiers": [
+            "authClient"
+          ]
+        },
+        {
+          "source": "next/navigation",
+          "specifiers": [
+            "redirect"
+          ]
+        },
+        {
+          "source": "@/features/auth/actions",
+          "specifiers": [
+            "profileRequest",
+            "signOut"
+          ]
+        },
+        {
+          "source": "@/features/auth/profile-form",
+          "specifiers": [
+            "ProfileForm"
+          ]
+        },
+        {
+          "source": "next",
+          "specifiers": [
+            "Metadata"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "@/components/brand",
+          "specifiers": [
+            "Brand"
+          ]
+        },
+        {
+          "source": "@/styles/dashboard.css",
+          "specifiers": []
+        }
+      ],
+      "exports": [
+        "metadata",
+        "DashboardPage"
+      ],
+      "totalLines": 110,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/forgot-password/page.tsx": {
+      "filePath": "frontend/src/app/forgot-password/page.tsx",
+      "contentHash": "ef2dbf9ea4f3ca950e13cb99ac0ec02c144ca5f70a22db9e69ad5554329e0410",
+      "functions": [
+        {
+          "name": "Page",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/features/auth/password-form",
+          "specifiers": [
+            "PasswordForm"
+          ]
+        }
+      ],
+      "exports": [
+        "metadata",
+        "Page"
+      ],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/layout.tsx": {
+      "filePath": "frontend/src/app/layout.tsx",
+      "contentHash": "2f60348e3897f195406b8305167854a3559ff6d79d9a9198bb6be6735009263d",
+      "functions": [
+        {
+          "name": "RootLayout",
+          "params": [
+            "{\n  children,\n}"
+          ],
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next",
+          "specifiers": [
+            "Metadata"
+          ]
+        },
+        {
+          "source": "@fontsource-variable/rethink-sans",
+          "specifiers": []
+        },
+        {
+          "source": "@fontsource-variable/hanken-grotesk",
+          "specifiers": []
+        },
+        {
+          "source": "@/styles/globals.css",
+          "specifiers": []
+        }
+      ],
+      "exports": [
+        "metadata",
+        "RootLayout"
+      ],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/not-found.tsx": {
+      "filePath": "frontend/src/app/not-found.tsx",
+      "contentHash": "d9d2d51a8b7db91b8a395f6fa0b1c9b8d625d678c08cc8c7cbc55b34376a0070",
+      "functions": [
+        {
+          "name": "NotFound",
+          "params": [],
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        }
+      ],
+      "exports": [
+        "NotFound"
+      ],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/onboarding/page.tsx": {
+      "filePath": "frontend/src/app/onboarding/page.tsx",
+      "contentHash": "6ea0a7c574e66ab086cdbc153a6ee587e0bbdba245f952246d94b3af569adff2",
+      "functions": [
+        {
+          "name": "Page",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/features/diagnostic/onboarding",
+          "specifiers": [
+            "Onboarding"
+          ]
+        }
+      ],
+      "exports": [
+        "metadata",
+        "Page"
+      ],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/page.tsx": {
+      "filePath": "frontend/src/app/page.tsx",
+      "contentHash": "d3cbc717c0c32e66afc90f387c2dc58470f40bdd916a83eaaea7ec743aa62fa2",
+      "functions": [
+        {
+          "name": "Home",
+          "params": [],
+          "exported": true,
+          "lineCount": 337
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "BookOpen",
+            "Code2",
+            "Compass",
+            "CornerDownRight",
+            "Check",
+            "ArrowUpRight"
+          ]
+        },
+        {
+          "source": "@/components/brand",
+          "specifiers": [
+            "Header",
+            "Brand"
+          ]
+        },
+        {
+          "source": "@/features/tutor/worked-example",
+          "specifiers": [
+            "WorkedExample"
+          ]
+        },
+        {
+          "source": "@/features/tutor/lesson-preview",
+          "specifiers": [
+            "LessonPreview"
+          ]
+        }
+      ],
+      "exports": [
+        "Home"
+      ],
+      "totalLines": 387,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/reset-password/page.tsx": {
+      "filePath": "frontend/src/app/reset-password/page.tsx",
+      "contentHash": "26e5c69d5cd478b617b2ac4a6c0fff31f1928dd62ff9233780a9786c03a9cd94",
+      "functions": [
+        {
+          "name": "Page",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/features/auth/password-form",
+          "specifiers": [
+            "PasswordForm"
+          ]
+        }
+      ],
+      "exports": [
+        "metadata",
+        "Page"
+      ],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/sign-in/page.tsx": {
+      "filePath": "frontend/src/app/sign-in/page.tsx",
+      "contentHash": "c237e6d22b54651413869b1245796b908898947e652acd460435fbdff42516eb",
+      "functions": [
+        {
+          "name": "Page",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/features/auth/auth-form",
+          "specifiers": [
+            "AuthForm"
+          ]
+        }
+      ],
+      "exports": [
+        "metadata",
+        "Page"
+      ],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/app/sign-up/page.tsx": {
+      "filePath": "frontend/src/app/sign-up/page.tsx",
+      "contentHash": "800a5d7570391e0cf717e1629d700963e7126df2d0db53bc4836a6d434ec052c",
+      "functions": [
+        {
+          "name": "Page",
+          "params": [],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/features/auth/auth-form",
+          "specifiers": [
+            "AuthForm"
+          ]
+        }
+      ],
+      "exports": [
+        "metadata",
+        "Page"
+      ],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/.gitkeep": {
+      "filePath": "frontend/src/components/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/components/brand.tsx": {
+      "filePath": "frontend/src/components/brand.tsx",
+      "contentHash": "af13306512e51b1b72c3247dbab2f7288766a06dba82f4628da01d5c3cd37b08",
+      "functions": [
+        {
+          "name": "Brand",
+          "params": [],
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "Header",
+          "params": [],
+          "exported": true,
+          "lineCount": 16
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Braces"
+          ]
+        }
+      ],
+      "exports": [
+        "Brand",
+        "Header"
+      ],
+      "totalLines": 27,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/admin/.gitkeep": {
+      "filePath": "frontend/src/features/admin/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/features/auth/.gitkeep": {
+      "filePath": "frontend/src/features/auth/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/features/auth/actions.ts": {
+      "filePath": "frontend/src/features/auth/actions.ts",
+      "contentHash": "e24fd831749a7b3f183226cd081a77dfa324ce8ac61716a2c6985debf2c07bf2",
+      "functions": [
+        {
+          "name": "origin",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "authenticate",
+          "params": [
+            "mode",
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 46
+        },
+        {
+          "name": "profileRequest",
+          "params": [
+            "method",
+            "body"
+          ],
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "signOut",
+          "params": [],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "recoverPassword",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 18
+        },
+        {
+          "name": "changePassword",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 20
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/lib/supabase/server",
+          "specifiers": [
+            "authClient"
+          ]
+        },
+        {
+          "source": "next/navigation",
+          "specifiers": [
+            "redirect"
+          ]
+        }
+      ],
+      "exports": [
+        "authenticate",
+        "profileRequest",
+        "signOut",
+        "recoverPassword",
+        "changePassword"
+      ],
+      "totalLines": 129,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/auth/auth-form.tsx": {
+      "filePath": "frontend/src/features/auth/auth-form.tsx",
+      "contentHash": "f01d662c9bf55c6fa3ff8b6ef816c713508ac16cf9643d562cb361027d6ea3dc",
+      "functions": [
+        {
+          "name": "AuthForm",
+          "params": [
+            "{ mode }"
+          ],
+          "exported": true,
+          "lineCount": 204
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "./actions",
+          "specifiers": [
+            "authenticate"
+          ]
+        },
+        {
+          "source": "next/navigation",
+          "specifiers": [
+            "useRouter"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Eye",
+            "EyeOff",
+            "ArrowLeft",
+            "LockKeyhole"
+          ]
+        },
+        {
+          "source": "@/components/brand",
+          "specifiers": [
+            "Brand"
+          ]
+        }
+      ],
+      "exports": [
+        "AuthForm"
+      ],
+      "totalLines": 212,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/auth/password-form.tsx": {
+      "filePath": "frontend/src/features/auth/password-form.tsx",
+      "contentHash": "b2c6314f9b1fde93747148e8c1abca7e9fb4d982d5f27a5e37c847441b251a6b",
+      "functions": [
+        {
+          "name": "PasswordForm",
+          "params": [
+            "{ reset = false }"
+          ],
+          "exported": true,
+          "lineCount": 47
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "./actions",
+          "specifiers": [
+            "recoverPassword",
+            "changePassword"
+          ]
+        }
+      ],
+      "exports": [
+        "PasswordForm"
+      ],
+      "totalLines": 52,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/auth/profile-actions.ts": {
+      "filePath": "frontend/src/features/auth/profile-actions.ts",
+      "contentHash": "833c988d297d07960a32235888577b3a23b0412bca9d77a597028394b55dd167",
+      "functions": [
+        {
+          "name": "saveProfile",
+          "params": [
+            "data"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./actions",
+          "specifiers": [
+            "profileRequest"
+          ]
+        },
+        {
+          "source": "next/cache",
+          "specifiers": [
+            "revalidatePath"
+          ]
+        }
+      ],
+      "exports": [
+        "saveProfile"
+      ],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/auth/profile-form.tsx": {
+      "filePath": "frontend/src/features/auth/profile-form.tsx",
+      "contentHash": "63b93a2612d5ab76165bccb1290880ee888e839d88353f4543fbf6c116085b6c",
+      "functions": [
+        {
+          "name": "ProfileForm",
+          "params": [
+            "{\n  name,\n  language,\n  revision,\n}"
+          ],
+          "exported": true,
+          "lineCount": 60
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "./profile-actions",
+          "specifiers": [
+            "saveProfile"
+          ]
+        },
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "languages"
+          ]
+        }
+      ],
+      "exports": [
+        "ProfileForm"
+      ],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/diagnostic/.gitkeep": {
+      "filePath": "frontend/src/features/diagnostic/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/features/diagnostic/banks.ts": {
+      "filePath": "frontend/src/features/diagnostic/banks.ts",
+      "contentHash": "33700d0d2fdc1c68b8ee1131923d87d4384d80ff83f393e67bf8785afe54fa96",
+      "functions": [
+        {
+          "name": "createBank",
+          "params": [
+            "language"
+          ],
+          "returnType": "Question[]",
+          "exported": false,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./questions",
+          "specifiers": [
+            "Question"
+          ]
+        },
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "Language"
+          ]
+        }
+      ],
+      "exports": [
+        "diagnosticBanks"
+      ],
+      "totalLines": 411,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/diagnostic/onboarding.tsx": {
+      "filePath": "frontend/src/features/diagnostic/onboarding.tsx",
+      "contentHash": "9cb7226e0fc114d07e9c23a35aa6101c3d6eb8a04e8186317eb6f3f800211173",
+      "functions": [
+        {
+          "name": "isAnswered",
+          "params": [
+            "answer"
+          ],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "Onboarding",
+          "params": [],
+          "exported": true,
+          "lineCount": 370
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "source": "next/link",
+          "specifiers": [
+            "Link"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowLeft",
+            "ArrowRight",
+            "Check",
+            "HardDrive",
+            "RotateCcw"
+          ]
+        },
+        {
+          "source": "@/components/brand",
+          "specifiers": [
+            "Brand"
+          ]
+        },
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "languages",
+            "languageOrder"
+          ]
+        },
+        {
+          "source": "./storage",
+          "specifiers": [
+            "emptyDraft",
+            "getQuestions",
+            "parseDraft",
+            "STORAGE_KEY",
+            "Draft",
+            "Answer",
+            "answerLabel"
+          ]
+        }
+      ],
+      "exports": [
+        "Onboarding"
+      ],
+      "totalLines": 397,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/diagnostic/questions.ts": {
+      "filePath": "frontend/src/features/diagnostic/questions.ts",
+      "contentHash": "cf90ac1dc3e5bd1a0656e640d36b22ef279268cdad1b0126700ddc02297be375",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "profileQuestions"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/diagnostic/storage.ts": {
+      "filePath": "frontend/src/features/diagnostic/storage.ts",
+      "contentHash": "79161c13024a3eee899137358b70d327bae3da062535135256693ef6eaeb7061",
+      "functions": [
+        {
+          "name": "answerLabel",
+          "params": [
+            "options",
+            "answer"
+          ],
+          "exported": true,
+          "lineCount": 2
+        },
+        {
+          "name": "getQuestions",
+          "params": [
+            "language"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "parseDraft",
+          "params": [
+            "raw"
+          ],
+          "returnType": "Draft",
+          "exported": true,
+          "lineCount": 34
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./questions",
+          "specifiers": [
+            "profileQuestions"
+          ]
+        },
+        {
+          "source": "./banks",
+          "specifiers": [
+            "diagnosticBanks"
+          ]
+        },
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "languages",
+            "Language"
+          ]
+        }
+      ],
+      "exports": [
+        "STORAGE_KEY",
+        "answerLabel",
+        "emptyDraft",
+        "getQuestions",
+        "parseDraft"
+      ],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/exercises/.gitkeep": {
+      "filePath": "frontend/src/features/exercises/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/features/progress/.gitkeep": {
+      "filePath": "frontend/src/features/progress/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/features/tutor/.gitkeep": {
+      "filePath": "frontend/src/features/tutor/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/features/tutor/examples.ts": {
+      "filePath": "frontend/src/features/tutor/examples.ts",
+      "contentHash": "b9feaaa58ed665041de806d0ce23b4b9fb746f76c014803b6d2b0d931135ffe4",
+      "functions": [
+        {
+          "name": "loop",
+          "params": [
+            "label",
+            "file",
+            "code",
+            "sum",
+            "detail"
+          ],
+          "returnType": "Example",
+          "exported": false,
+          "lineCount": 25
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "Language"
+          ]
+        }
+      ],
+      "exports": [
+        "examples"
+      ],
+      "totalLines": 170,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/tutor/language-select.tsx": {
+      "filePath": "frontend/src/features/tutor/language-select.tsx",
+      "contentHash": "e965866f46578168b93a36c36c3b6554d11cee32cb18009746c19977f33ffee6",
+      "functions": [
+        {
+          "name": "LanguageSelect",
+          "params": [
+            "{\n  id,\n  value,\n  onChange,\n}"
+          ],
+          "exported": true,
+          "lineCount": 97
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Check",
+            "ChevronDown",
+            "Code2"
+          ]
+        },
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useRef",
+            "useState"
+          ]
+        },
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "languages",
+            "languageOrder",
+            "Language"
+          ]
+        }
+      ],
+      "exports": [
+        "LanguageSelect"
+      ],
+      "totalLines": 102,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/tutor/lesson-preview.tsx": {
+      "filePath": "frontend/src/features/tutor/lesson-preview.tsx",
+      "contentHash": "b9a7233dbd4235e2a30f9ceb514e6d575f976af6edaa45111afc147f6353b56c",
+      "functions": [
+        {
+          "name": "LessonPreview",
+          "params": [],
+          "exported": true,
+          "lineCount": 70
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Lightbulb",
+            "Check"
+          ]
+        },
+        {
+          "source": "./examples",
+          "specifiers": [
+            "examples"
+          ]
+        },
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "Language"
+          ]
+        },
+        {
+          "source": "./language-select",
+          "specifiers": [
+            "LanguageSelect"
+          ]
+        }
+      ],
+      "exports": [
+        "LessonPreview"
+      ],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/features/tutor/worked-example.tsx": {
+      "filePath": "frontend/src/features/tutor/worked-example.tsx",
+      "contentHash": "390b62ab9a327a02af4e8c4a3b3efff44d8b9a9fa1479ce53e2ce02fab364f18",
+      "functions": [
+        {
+          "name": "WorkedExample",
+          "params": [],
+          "exported": true,
+          "lineCount": 49
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useState"
+          ]
+        },
+        {
+          "source": "./examples",
+          "specifiers": [
+            "examples"
+          ]
+        },
+        {
+          "source": "@/lib/languages",
+          "specifiers": [
+            "Language"
+          ]
+        },
+        {
+          "source": "./language-select",
+          "specifiers": [
+            "LanguageSelect"
+          ]
+        }
+      ],
+      "exports": [
+        "WorkedExample"
+      ],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/lib/.gitkeep": {
+      "filePath": "frontend/src/lib/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/lib/languages.ts": {
+      "filePath": "frontend/src/lib/languages.ts",
+      "contentHash": "bbb8b8be9cc87f56d9cf36035ec0ec11a561624850db8dc0ab64a56125c6832b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "languages",
+        "languageOrder"
+      ],
+      "totalLines": 46,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/lib/supabase/server.ts": {
+      "filePath": "frontend/src/lib/supabase/server.ts",
+      "contentHash": "5bccbfb29c096d74a7cbf4629e854279f318f6a2f9e26512f72211ed49e818d0",
+      "functions": [
+        {
+          "name": "authClient",
+          "params": [],
+          "exported": true,
+          "lineCount": 28
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@supabase/ssr",
+          "specifiers": [
+            "createServerClient"
+          ]
+        },
+        {
+          "source": "next/headers",
+          "specifiers": [
+            "cookies"
+          ]
+        }
+      ],
+      "exports": [
+        "authClient"
+      ],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/proxy.ts": {
+      "filePath": "frontend/src/proxy.ts",
+      "contentHash": "b559d2ed63518d7a2d0d81890ad6bccf85c71527fe3af161ecf2d9c476827093",
+      "functions": [
+        {
+          "name": "proxy",
+          "params": [
+            "request"
+          ],
+          "exported": true,
+          "lineCount": 26
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@supabase/ssr",
+          "specifiers": [
+            "createServerClient"
+          ]
+        },
+        {
+          "source": "next/server",
+          "specifiers": [
+            "NextResponse",
+            "NextRequest"
+          ]
+        }
+      ],
+      "exports": [
+        "proxy",
+        "config"
+      ],
+      "totalLines": 30,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/styles/.gitkeep": {
+      "filePath": "frontend/src/styles/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/styles/base.css": {
+      "filePath": "frontend/src/styles/base.css",
+      "contentHash": "06aa2a1a74b50a09788f382e74e017c40318161c6a74bf40d7148872cf5a88da",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 139,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/styles/dashboard.css": {
+      "filePath": "frontend/src/styles/dashboard.css",
+      "contentHash": "1c964f6c6443d8b1f6c89ec2dc7c13770641c62f33b9de307f9cb5f123eb6608",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 140,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/styles/globals.css": {
+      "filePath": "frontend/src/styles/globals.css",
+      "contentHash": "86f6e7b2b97bf01163d426896f69570da49748474620105e2a3266ac837074b3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1375,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/styles/tokens.css": {
+      "filePath": "frontend/src/styles/tokens.css",
+      "contentHash": "70b76b881b660d833d479bb13ef3ce8e7fcb0efacd9580267054e93b6222912d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 50,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/types/.gitkeep": {
+      "filePath": "frontend/src/types/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/tests/.gitkeep": {
+      "filePath": "frontend/tests/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/tests/flows.spec.ts": {
+      "filePath": "frontend/tests/flows.spec.ts",
+      "contentHash": "454259de523706011e6606dc1acec26248a80a9715537de08efd9aefe2f7a303",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../src/features/diagnostic/banks",
+          "specifiers": [
+            "diagnosticBanks"
+          ]
+        },
+        {
+          "source": "../src/features/diagnostic/questions",
+          "specifiers": [
+            "profileQuestions"
+          ]
+        },
+        {
+          "source": "@playwright/test",
+          "specifiers": [
+            "test",
+            "expect"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 380,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/tsconfig.json": {
+      "filePath": "frontend/tsconfig.json",
+      "contentHash": "6afbf461bfa7cc2cd8f894505561821e61d8ae7efb0edc147ed27d3f4ace9224",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": false
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "0518d6203d5e4f473357775b31801b4422d461f80b0e92676791bb16e836a239",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": false
+    },
+    "scripts/README.md": {
+      "filePath": "scripts/README.md",
+      "contentHash": "9999f445ab3d88cfbd9e2cd640f1ad5d3f6da8a9dfec9354a97da0ff75382aab",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": false
+    },
+    "supabase/README.md": {
+      "filePath": "supabase/README.md",
+      "contentHash": "78845395e8fe627eaed1258ab42bafae52112420c4653f1b951657d1848f4651",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": false
+    },
+    "supabase/config.toml": {
+      "filePath": "supabase/config.toml",
+      "contentHash": "4c9eb84311ac556a2091287690f995b970c6e4cbf5b2c27f9d0b296aca2aa7f4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 427,
+      "hasStructuralAnalysis": false
+    },
+    "supabase/migrations/20261115000100_backend_foundation.sql": {
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "contentHash": "1bc02959ebc28cf4564dad768f743125be7fc75452bab8af3816f71ec5920e7f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 272,
+      "hasStructuralAnalysis": false
+    },
+    "supabase/seed.sql": {
+      "filePath": "supabase/seed.sql",
+      "contentHash": "eb5abd937388d14dd49ade72127e8a152bcf00d81a21a2cf1350befe281c3295",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 943,
+      "hasStructuralAnalysis": false
+    },
+    "tests/README.md": {
+      "filePath": "tests/README.md",
+      "contentHash": "404069d2cd75e124324430e502c1e8099b4499b4fcb5204c39db28aad3fa97fb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": false
+    },
+    "tests/e2e/.gitkeep": {
+      "filePath": "tests/e2e/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    },
+    "tests/fixtures/.gitkeep": {
+      "filePath": "tests/fixtures/.gitkeep",
+      "contentHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 1,
+      "hasStructuralAnalysis": false
+    }
+  }
+}

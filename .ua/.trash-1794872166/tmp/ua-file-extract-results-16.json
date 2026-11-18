@@ -1,0 +1,158 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [
+    "frontend/src/features/exercises/.gitkeep",
+    "frontend/src/features/progress/.gitkeep",
+    "frontend/src/features/tutor/.gitkeep",
+    "frontend/src/lib/.gitkeep",
+    "frontend/src/styles/.gitkeep",
+    "frontend/src/types/.gitkeep",
+    "frontend/tests/.gitkeep",
+    "tests/e2e/.gitkeep",
+    "tests/fixtures/.gitkeep"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 3,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 1,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/proxy.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 29,
+      "functions": [
+        {
+          "name": "proxy",
+          "startLine": 3,
+          "endLine": 28,
+          "params": [
+            "request"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "proxy",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "config",
+          "line": 29,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "proxy",
+          "callee": "NextResponse.next",
+          "lineNumber": 4
+        },
+        {
+          "caller": "proxy",
+          "callee": "createServerClient",
+          "lineNumber": 8
+        },
+        {
+          "caller": "proxy",
+          "callee": "request.cookies.getAll",
+          "lineNumber": 15
+        },
+        {
+          "caller": "proxy",
+          "callee": "values.forEach",
+          "lineNumber": 17
+        },
+        {
+          "caller": "proxy",
+          "callee": "request.cookies.set",
+          "lineNumber": 17
+        },
+        {
+          "caller": "proxy",
+          "callee": "NextResponse.next",
+          "lineNumber": 18
+        },
+        {
+          "caller": "proxy",
+          "callee": "values.forEach",
+          "lineNumber": 19
+        },
+        {
+          "caller": "proxy",
+          "callee": "response.cookies.set",
+          "lineNumber": 20
+        },
+        {
+          "caller": "proxy",
+          "callee": "supabase.auth.getUser",
+          "lineNumber": 25
+        },
+        {
+          "caller": "proxy",
+          "callee": "response.headers.set",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "scripts/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 5,
+      "nonEmptyLines": 3,
+      "sections": [
+        {
+          "heading": "Scripts de développement et de préparation",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "tests/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 8,
+      "nonEmptyLines": 5,
+      "sections": [
+        {
+          "heading": "Tests transversaux",
+          "level": 1,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    }
+  ]
+}

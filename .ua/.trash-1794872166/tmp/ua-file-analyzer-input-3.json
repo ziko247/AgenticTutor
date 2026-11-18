@@ -1,0 +1,62 @@
+{
+  "projectRoot": "C:\\Users\\zkira\\Desktop\\5IIR\\PFA 2027",
+  "batchFiles": [
+    {
+      "path": "frontend/src/app/onboarding/page.tsx",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/app/sign-in/page.tsx",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/app/sign-up/page.tsx",
+      "language": "typescript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/brand.tsx",
+      "language": "typescript",
+      "sizeLines": 26,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/auth/auth-form.tsx",
+      "language": "typescript",
+      "sizeLines": 211,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/features/diagnostic/onboarding.tsx",
+      "language": "typescript",
+      "sizeLines": 396,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "frontend/src/app/onboarding/page.tsx": [
+      "frontend/src/features/diagnostic/onboarding.tsx"
+    ],
+    "frontend/src/app/sign-in/page.tsx": [
+      "frontend/src/features/auth/auth-form.tsx"
+    ],
+    "frontend/src/app/sign-up/page.tsx": [
+      "frontend/src/features/auth/auth-form.tsx"
+    ],
+    "frontend/src/components/brand.tsx": [],
+    "frontend/src/features/auth/auth-form.tsx": [
+      "frontend/src/components/brand.tsx",
+      "frontend/src/features/auth/actions.ts"
+    ],
+    "frontend/src/features/diagnostic/onboarding.tsx": [
+      "frontend/src/components/brand.tsx",
+      "frontend/src/features/diagnostic/storage.ts",
+      "frontend/src/lib/languages.ts"
+    ]
+  }
+}

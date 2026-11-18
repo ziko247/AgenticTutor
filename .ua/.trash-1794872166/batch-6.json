@@ -1,0 +1,357 @@
+{
+  "nodes": [
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "type": "table",
+      "name": "20261115000100_backend_foundation.sql",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Creates the app_private schema, separate owner/runtime roles and ten relational tables in one transaction. Grants limited runtime writes, applies user-scoped RLS and content/completed-answer guards, then records schema version 1.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:schema_version",
+      "type": "table",
+      "name": "schema_version",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores the singleton expected migration version and dedicated local project marker.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        12,
+        16
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "table",
+      "name": "languages",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Registers the ten supported programming-language/technology codes and availability.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        18,
+        23
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "table",
+      "name": "profiles",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores the Auth-linked user's display name, preferred language, revision and timestamps under ownership RLS.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        24,
+        32
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "table",
+      "name": "questionnaires",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Versions language-specific diagnostic content and its publication state/hash; published content is immutable.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        33,
+        44
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "table",
+      "name": "questions",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores ordered profile/technical questions tied to a questionnaire version with stable source keys.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        45,
+        58
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "table",
+      "name": "answer_options",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores ordered answer choices attached to their exact question.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        59,
+        66
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "type": "table",
+      "name": "answer_keys",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores the correct option and fixed two-point scoring for each technical question, readable only through the server role.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        67,
+        75
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "table",
+      "name": "diagnostic_attempts",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Stores owned versioned diagnostic attempts, cursor, concurrency revision, idempotency key, completion state and bounded results.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        76,
+        103
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "type": "table",
+      "name": "diagnostic_answers",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Links an attempt's exact questionnaire/question to one valid answer option, with immutable completed answers.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        106,
+        119
+      ]
+    },
+    {
+      "id": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "type": "table",
+      "name": "diagnostic_imports",
+      "filePath": "supabase/migrations/20261115000100_backend_foundation.sql",
+      "summary": "Tracks per-user import idempotency and ties imports only to attempts of that same owner.",
+      "tags": [
+        "database",
+        "local-development",
+        "configuration"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        120,
+        129
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:schema_version",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "type": "migrates",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "target": "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

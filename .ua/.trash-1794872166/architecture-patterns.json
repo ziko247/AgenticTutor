@@ -1,0 +1,225 @@
+{
+  "directoryGroups": {
+    "backend": [
+      "file:backend/app/api/profile.py",
+      "file:backend/app/core/config.py",
+      "file:backend/app/core/database.py",
+      "file:backend/app/main.py",
+      "file:backend/tests/integration/conftest.py",
+      "file:backend/tests/integration/test_database.py",
+      "file:backend/tests/integration/test_profile_api.py",
+      "file:backend/tests/unit/test_health.py",
+      "file:backend/tools/configure_auth.py",
+      "file:backend/tools/local_stack.py",
+      "file:backend/tools/setup_local.py",
+      "config:backend/.env.example",
+      "document:backend/README.md",
+      "config:backend/pyproject.toml",
+      "file:backend/app/__init__.py",
+      "file:backend/app/api/.gitkeep",
+      "file:backend/app/api/__init__.py",
+      "file:backend/app/core/.gitkeep",
+      "file:backend/app/core/__init__.py",
+      "file:backend/app/llm/.gitkeep",
+      "file:backend/app/models/.gitkeep",
+      "file:backend/app/orchestration/.gitkeep",
+      "file:backend/app/pedagogy/.gitkeep",
+      "file:backend/app/prompts/.gitkeep",
+      "file:backend/app/rag/.gitkeep",
+      "file:backend/app/repositories/.gitkeep",
+      "file:backend/app/schemas/.gitkeep",
+      "file:backend/app/services/.gitkeep",
+      "file:backend/migrations/.gitkeep",
+      "file:backend/tests/conftest.py",
+      "file:backend/tests/integration/.gitkeep",
+      "file:backend/tests/unit/.gitkeep",
+      "file:backend/tools/__init__.py"
+    ],
+    "frontend": [
+      "file:frontend/src/app/auth/callback/route.ts",
+      "file:frontend/src/app/dashboard/page.tsx",
+      "file:frontend/src/app/forgot-password/page.tsx",
+      "file:frontend/src/app/reset-password/page.tsx",
+      "file:frontend/src/features/auth/actions.ts",
+      "file:frontend/src/features/auth/password-form.tsx",
+      "file:frontend/src/features/auth/profile-actions.ts",
+      "file:frontend/src/features/auth/profile-form.tsx",
+      "file:frontend/src/lib/supabase/server.ts",
+      "file:frontend/src/app/onboarding/page.tsx",
+      "file:frontend/src/app/sign-in/page.tsx",
+      "file:frontend/src/app/sign-up/page.tsx",
+      "file:frontend/src/components/brand.tsx",
+      "file:frontend/src/features/auth/auth-form.tsx",
+      "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "file:frontend/src/app/page.tsx",
+      "file:frontend/src/features/tutor/examples.ts",
+      "file:frontend/src/features/tutor/language-select.tsx",
+      "file:frontend/src/features/tutor/lesson-preview.tsx",
+      "file:frontend/src/features/tutor/worked-example.tsx",
+      "file:frontend/src/lib/languages.ts",
+      "file:frontend/src/features/diagnostic/banks.ts",
+      "file:frontend/src/features/diagnostic/questions.ts",
+      "file:frontend/src/features/diagnostic/storage.ts",
+      "file:frontend/tests/flows.spec.ts",
+      "config:frontend/.env.example",
+      "document:frontend/AGENTS.md",
+      "document:frontend/README.md",
+      "config:frontend/package.json",
+      "config:frontend/tsconfig.json",
+      "file:frontend/src/styles/base.css",
+      "file:frontend/src/styles/dashboard.css",
+      "file:frontend/src/styles/globals.css",
+      "file:frontend/src/styles/tokens.css",
+      "file:frontend/eslint.config.mjs",
+      "file:frontend/next.config.ts",
+      "file:frontend/playwright.config.ts",
+      "file:frontend/postcss.config.mjs",
+      "file:frontend/public/.gitkeep",
+      "file:frontend/src/app/.gitkeep",
+      "file:frontend/src/app/layout.tsx",
+      "file:frontend/src/app/not-found.tsx",
+      "file:frontend/src/components/.gitkeep",
+      "file:frontend/src/features/admin/.gitkeep",
+      "file:frontend/src/features/auth/.gitkeep",
+      "file:frontend/src/features/diagnostic/.gitkeep",
+      "file:frontend/src/features/exercises/.gitkeep",
+      "file:frontend/src/features/progress/.gitkeep",
+      "file:frontend/src/features/tutor/.gitkeep",
+      "file:frontend/src/lib/.gitkeep",
+      "file:frontend/src/proxy.ts",
+      "file:frontend/src/styles/.gitkeep",
+      "file:frontend/src/types/.gitkeep",
+      "file:frontend/tests/.gitkeep"
+    ],
+    "supabase": [
+      "table:supabase/migrations/20261115000100_backend_foundation.sql",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:schema_version",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:languages",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:profiles",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:questionnaires",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:questions",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_options",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:answer_keys",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_attempts",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_answers",
+      "table:supabase/migrations/20261115000100_backend_foundation.sql:diagnostic_imports",
+      "document:supabase/README.md",
+      "config:supabase/config.toml",
+      "file:supabase/seed.sql"
+    ],
+    "AGENTS.md": [
+      "document:AGENTS.md"
+    ],
+    "CAHIER_DES_CHARGES_AGENTICTUTOR.md": [
+      "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md"
+    ],
+    "README.md": [
+      "document:README.md"
+    ],
+    "package.json": [
+      "config:package.json"
+    ],
+    "docs": [
+      "document:docs/architecture/README.md",
+      "document:docs/architecture/backend-api-contract.md",
+      "document:docs/architecture/backend-data-model.md",
+      "document:docs/architecture/backend-foundation.md",
+      "document:docs/architecture/backend-roadmap.md",
+      "document:docs/decisions/0001-first-frontend.md",
+      "document:docs/decisions/0002-backend-fastapi-supabase.md",
+      "document:docs/decisions/0003-server-auth-sessions.md",
+      "document:docs/decisions/README.md",
+      "document:docs/decisions/TEMPLATE.md",
+      "document:docs/README.md",
+      "file:docs/design/.gitkeep",
+      "file:docs/guides/.gitkeep",
+      "document:docs/guides/milestone-2-auth.md",
+      "file:docs/report/.gitkeep"
+    ],
+    ".gitattributes": [
+      "file:.gitattributes"
+    ],
+    "content": [
+      "document:content/README.md",
+      "file:content/curricula/.gitkeep",
+      "file:content/exercises/.gitkeep",
+      "file:content/resources/.gitkeep",
+      "file:content/schemas/.gitkeep"
+    ],
+    "data": [
+      "document:data/README.md"
+    ],
+    "evaluation": [
+      "document:evaluation/README.md",
+      "file:evaluation/datasets/adaptation/.gitkeep",
+      "file:evaluation/datasets/corrections/.gitkeep",
+      "file:evaluation/datasets/questions/.gitkeep",
+      "file:evaluation/datasets/security/.gitkeep",
+      "file:evaluation/results/.gitkeep",
+      "file:evaluation/runners/.gitkeep"
+    ],
+    "scripts": [
+      "document:scripts/README.md"
+    ],
+    "tests": [
+      "document:tests/README.md",
+      "file:tests/e2e/.gitkeep",
+      "file:tests/fixtures/.gitkeep"
+    ]
+  },
+  "nodeTypeCounts": {
+    "file": 96,
+    "table": 11,
+    "document": 24,
+    "config": 7
+  },
+  "layerCounts": [
+    {
+      "id": "layer:project-context",
+      "count": 37
+    },
+    {
+      "id": "layer:frontend-shell",
+      "count": 17
+    },
+    {
+      "id": "layer:auth-profile",
+      "count": 14
+    },
+    {
+      "id": "layer:local-diagnostic",
+      "count": 6
+    },
+    {
+      "id": "layer:landing-examples",
+      "count": 6
+    },
+    {
+      "id": "layer:backend-api",
+      "count": 19
+    },
+    {
+      "id": "layer:database-infrastructure",
+      "count": 17
+    },
+    {
+      "id": "layer:tests-tooling",
+      "count": 22
+    }
+  ],
+  "importsByLayer": {
+    "layer:backend-api -> layer:backend-api": 4,
+    "layer:tests-tooling -> layer:backend-api": 7,
+    "layer:tests-tooling -> layer:database-infrastructure": 1,
+    "layer:database-infrastructure -> layer:backend-api": 2,
+    "layer:database-infrastructure -> layer:database-infrastructure": 2,
+    "layer:auth-profile -> layer:auth-profile": 13,
+    "layer:auth-profile -> layer:frontend-shell": 4,
+    "layer:local-diagnostic -> layer:local-diagnostic": 5,
+    "layer:local-diagnostic -> layer:frontend-shell": 4,
+    "layer:landing-examples -> layer:frontend-shell": 5,
+    "layer:landing-examples -> layer:landing-examples": 6,
+    "layer:tests-tooling -> layer:local-diagnostic": 2,
+    "layer:frontend-shell -> layer:frontend-shell": 1
+  }
+}

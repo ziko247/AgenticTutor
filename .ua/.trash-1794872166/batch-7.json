@@ -1,0 +1,142 @@
+{
+  "nodes": [
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Development handoff covering component boundaries, implemented local milestones, frontend conventions, secret handling, and unfinished tutor work; some historical statements remain inconsistent with the current auth implementation.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "type": "document",
+      "name": "CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "filePath": "CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "summary": "French requirements proposal for a Python-pilot agentic tutor, covering F01–F20, bounded orchestration, pedagogy, data, security, evaluation, budget, and acceptance. Proposed features and thresholds are not evidence of implementation or educational results.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Project overview, detailed feature checklist, local startup and Docker lifecycle commands, directory tree, and links to implementation guides. Its checklist must be read alongside the working auth/profile code.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Pins the local Supabase CLI and exposes db:start, db:stop, db:reset, and db:status workspace commands.",
+      "tags": [
+        "configuration",
+        "development",
+        "tooling"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "document:README.md",
+      "target": "document:docs/guides/milestone-2-auth.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:AGENTS.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:docs/guides/milestone-2-auth.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:frontend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:backend/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:docs/architecture/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "document:docs/decisions/README.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "document:CAHIER_DES_CHARGES_AGENTICTUTOR.md",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:frontend/src/app/dashboard/page.tsx",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:README.md",
+      "target": "file:frontend/src/features/diagnostic/onboarding.tsx",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "config:package.json",
+      "target": "config:supabase/config.toml",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}

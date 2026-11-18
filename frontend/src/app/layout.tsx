@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import "lenis/dist/lenis.css";
 import "@fontsource-variable/rethink-sans";
 import "@fontsource-variable/hanken-grotesk";
 import "@/styles/globals.css";
@@ -18,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="fr" data-scroll-behavior="smooth">
       <body>
+        <SmoothScroll />
         <a className="skip-link" href="#main">
           Aller au contenu
         </a>

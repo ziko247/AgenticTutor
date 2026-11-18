@@ -1,0 +1,414 @@
+{
+  "nodes": [
+    {
+      "id": "file:.gitattributes",
+      "type": "file",
+      "name": ".gitattributes",
+      "filePath": ".gitattributes",
+      "summary": "Git text normalization and binary-asset rules, using LF for source files and CRLF for PowerShell scripts.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/app/__init__.py",
+      "summary": "Empty Python package marker for backend/app.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/api/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/api/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/api; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/api/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/app/api/__init__.py",
+      "summary": "Empty Python package marker for backend/app/api.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/core/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/core/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/core; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/core/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/app/core/__init__.py",
+      "summary": "Empty Python package marker for backend/app/core.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/llm/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/llm/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/llm; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/models/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/models/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/models; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/orchestration/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/orchestration/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/orchestration; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/pedagogy/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/pedagogy/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/pedagogy; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/prompts/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/prompts/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/prompts; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/rag/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/rag/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/rag; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/repositories/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/repositories/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/repositories; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/schemas/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/schemas/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/schemas; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/app/services/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/app/services/.gitkeep",
+      "summary": "Empty directory marker reserving backend/app/services; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/migrations/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/migrations/.gitkeep",
+      "summary": "Empty directory marker reserving backend/migrations; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tests/conftest.py",
+      "type": "file",
+      "name": "conftest.py",
+      "filePath": "backend/tests/conftest.py",
+      "summary": "Adds the --run-integration option and skips marked database tests unless the dedicated local stack is explicitly selected.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/tests/conftest.py:pytest_addoption",
+      "type": "function",
+      "name": "pytest_addoption",
+      "filePath": "backend/tests/conftest.py",
+      "lineRange": [
+        4,
+        10
+      ],
+      "summary": "Registers an explicit opt-in flag for real local-Supabase integration tests.",
+      "tags": [
+        "function",
+        "test-configuration",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/tests/conftest.py:pytest_collection_modifyitems",
+      "type": "function",
+      "name": "pytest_collection_modifyitems",
+      "filePath": "backend/tests/conftest.py",
+      "lineRange": [
+        13,
+        18
+      ],
+      "summary": "Marks integration tests as skipped unless the opt-in CLI flag is present.",
+      "tags": [
+        "function",
+        "test-configuration",
+        "control-flow"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tests/integration/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/tests/integration/.gitkeep",
+      "summary": "Empty directory marker reserving backend/tests/integration; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tests/unit/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "backend/tests/unit/.gitkeep",
+      "summary": "Empty directory marker reserving backend/tests/unit; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/tools/__init__.py",
+      "type": "file",
+      "name": "__init__.py",
+      "filePath": "backend/tools/__init__.py",
+      "summary": "Empty Python package marker for backend/tools.",
+      "tags": [
+        "application",
+        "configuration",
+        "source"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:content/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "content/README.md",
+      "summary": "Defines the reserved curriculum, resources, exercises, and schema folders, plus licensing/versioning requirements; no curated tutor corpus is supplied.",
+      "tags": [
+        "documentation",
+        "project-context",
+        "reference"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/curricula/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/curricula/.gitkeep",
+      "summary": "Empty directory marker reserving content/curricula; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/exercises/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/exercises/.gitkeep",
+      "summary": "Empty directory marker reserving content/exercises; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/resources/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/resources/.gitkeep",
+      "summary": "Empty directory marker reserving content/resources; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:content/schemas/.gitkeep",
+      "type": "file",
+      "name": ".gitkeep",
+      "filePath": "content/schemas/.gitkeep",
+      "summary": "Empty directory marker reserving content/schemas; it contains no implemented feature.",
+      "tags": [
+        "scaffold",
+        "placeholder",
+        "not-implemented"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_addoption",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_addoption",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_collection_modifyitems",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "function:backend/tests/conftest.py:pytest_collection_modifyitems",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "document:content/README.md",
+      "target": "file:content/curricula/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "document:content/README.md",
+      "target": "file:content/exercises/.gitkeep",
+      "type": "documents",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:backend/tests/conftest.py",
+      "target": "file:backend/tests/integration/test_database.py",
+      "type": "configures",
+      "weight": 0.5,
+      "direction": "forward"
+    }
+  ]
+}
