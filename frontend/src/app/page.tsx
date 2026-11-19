@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { authClient } from "@/lib/supabase/server";
 import { RecoveryError } from "@/components/recovery-error";
-import {
-  BookOpen,
-  Code2,
-  Compass,
-  CornerDownRight,
-  Check,
-  ArrowUpRight,
-} from "lucide-react";
+import { BookOpen, Code2, Compass, Check, ArrowUpRight } from "lucide-react";
 import { Header, Brand } from "@/components/brand";
 import { WorkedExample } from "@/features/tutor/worked-example";
 import { LessonPreview } from "@/features/tutor/lesson-preview";
@@ -74,7 +67,8 @@ export default async function Home() {
                 <br />à la fois.
               </h1>
               <p>
-                Votre tuteur IA adapte explications et exercices à votre niveau.
+                Explorez les exemples de code et situez votre niveau avec le
+                diagnostic.
               </p>
               <div className="hero-actions">
                 <Link
@@ -129,22 +123,21 @@ export default async function Home() {
                 <article>
                   <h3>Une explication qui vous parle</h3>
                   <p>
-                    Posez votre question. Le tuteur explique, reformule et
-                    illustre avec du code, en tenant compte de votre objectif.
+                    Le futur tuteur expliquera et reformulera le code selon
+                    votre objectif.
                   </p>
                 </article>
                 <article>
                   <h3>Un indice avant la solution</h3>
                   <p>
-                    Cherchez à votre rythme : un indice, une nouvelle tentative,
-                    puis une correction qui explique votre erreur.
+                    Essayez l’exemple interactif : demandez un indice, puis
+                    comparez votre réponse au résultat.
                   </p>
                 </article>
                 <article>
                   <h3>Vos réponses orientent la suite</h3>
                   <p>
-                    Le tuteur choisit la prochaine activité : revenir à un
-                    prérequis, consolider une notion ou augmenter la difficulté.
+                    À terme, le tuteur proposera une activité selon vos acquis.
                   </p>
                 </article>
               </div>
@@ -160,9 +153,8 @@ export default async function Home() {
                   Votre prochaine étape.
                 </h2>
                 <p>
-                  Du premier programme au projet personnel, construisez des
-                  bases solides dans les langages et technologies qui vous
-                  intéressent.
+                  Le diagnostic et les exemples interactifs couvrent dix
+                  langages. Les notions ci-dessous sont illustrées en Python.
                 </p>
               </div>
               <div className="language-availability">
@@ -202,45 +194,30 @@ export default async function Home() {
             <div className="container learner-layout">
               <div>
                 <h2>
-                  Un accompagnement
+                  Ce que le tuteur
                   <br />
-                  qui garde le fil.
+                  proposera ensuite.
                 </h2>
                 <p className="section-intro">
-                  Chaque séance s’appuie sur votre parcours pour vous aider à
-                  progresser.
+                  Disponible aujourd’hui : exemples et diagnostic.
                 </p>
               </div>
               <div className="learner-scenarios">
                 <article>
                   <h3>Votre tuteur, en conversation</h3>
-                  <p>
-                    Posez une question, demandez un exemple ou une
-                    reformulation. Retrouvez les ressources qui étayent
-                    l’explication.
-                  </p>
+                  <p>Des réponses illustrées et sourcées.</p>
                 </article>
                 <article>
                   <h3>Des exercices au bon niveau</h3>
-                  <p>
-                    Pratiquez avec des questions, du code à lire et des réponses
-                    à construire. Recevez des indices et une correction
-                    expliquée.
-                  </p>
+                  <p>Des indices et corrections adaptés.</p>
                 </article>
                 <article>
                   <h3>Une progression visible</h3>
-                  <p>
-                    Repérez vos acquis, retrouvez vos tentatives et reprenez
-                    votre séance avec une prochaine étape adaptée.
-                  </p>
+                  <p>Les acquis et les notions à revoir.</p>
                 </article>
                 <article>
                   <h3>Des révisions qui ont du sens</h3>
-                  <p>
-                    Revenez sur les notions à consolider et entretenez vos
-                    acquis avec la révision espacée.
-                  </p>
+                  <p>Des rappels pour consolider vos acquis.</p>
                 </article>
               </div>
             </div>
@@ -253,40 +230,32 @@ export default async function Home() {
                   La première étape :<br />
                   faire le point.
                 </h2>
-                <p>
-                  Précisez vos objectifs et vos préférences, puis explorez vos
-                  acquis. Votre diagnostic donne un point de départ à votre
-                  parcours.
-                </p>
+                <p>Choisissez un langage et situez vos acquis.</p>
                 <Link className="button" href="/onboarding">
                   Commencer le diagnostic
                   <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>
               </div>
               <div className="diagnostic-details">
-                <h3>Un parcours que vous contrôlez.</h3>
+                <h3>Ce que comprend le diagnostic</h3>
                 <ul>
                   <li>
                     <Check size={18} aria-hidden="true" />
-                    Vos objectifs, votre rythme et vos langages
+                    Vos objectifs et votre rythme
                   </li>
                   <li>
                     <Check size={18} aria-hidden="true" />
-                    Un diagnostic pour situer vos acquis
+                    Dix questions techniques
                   </li>
                   <li>
                     <Check size={18} aria-hidden="true" />
-                    Retour arrière et modification des réponses
+                    Des réponses modifiables
                   </li>
                   <li>
                     <Check size={18} aria-hidden="true" />
-                    Un plan de travail adapté à votre profil
+                    Une note sur 20, enregistrée
                   </li>
                 </ul>
-                <p>
-                  <CornerDownRight size={18} aria-hidden="true" />À la fin : un
-                  premier repère pour la suite.
-                </p>
               </div>
             </div>
           </section>
@@ -300,30 +269,29 @@ export default async function Home() {
                   Garder le cap.
                 </h2>
                 <p className="section-intro">
-                  Des outils pour accompagner les étudiants et faire évoluer les
-                  contenus.
+                  Des outils sont prévus pour les enseignants et les étudiants.
                 </p>
               </div>
               <div className="approach-list">
                 <article>
                   <h3>Un regard enseignant</h3>
                   <p>
-                    Suivez les groupes autorisés et repérez les notions qui
-                    méritent un accompagnement.
+                    Les enseignants pourront suivre leurs groupes et repérer les
+                    notions à retravailler.
                   </p>
                 </article>
                 <article>
                   <h3>Des contenus structurés</h3>
                   <p>
-                    Cours, exercices et corrections de référence forment un
-                    parcours cohérent. Les variantes enrichissent la pratique.
+                    Des cours, des exercices et des corrections de référence
+                    seront réunis dans le parcours.
                   </p>
                 </article>
                 <article>
                   <h3>Votre retour compte</h3>
                   <p>
-                    Signalez une explication ou une correction à revoir et
-                    gardez la main sur vos données.
+                    Les étudiants pourront signaler les explications ou
+                    corrections à revoir.
                   </p>
                 </article>
               </div>
@@ -350,24 +318,27 @@ export default async function Home() {
                   </p>
                 </details>
                 <details>
-                  <summary>Comment le tuteur s’adapte-t-il ?</summary>
+                  <summary>Comment le tuteur s’adaptera-t-il ?</summary>
                   <p>
-                    Il s’appuie sur vos objectifs, votre diagnostic et vos
-                    réponses pour ajuster explications, indices et difficulté.
+                    Il utilisera votre diagnostic et vos réponses pour ajuster
+                    les explications, les indices et la difficulté.
                   </p>
                 </details>
                 <details>
-                  <summary>Quels langages puis-je apprendre ?</summary>
+                  <summary>
+                    Quels langages sont disponibles dans le diagnostic ?
+                  </summary>
                   <p>
-                    Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go et Rust,
-                    selon votre objectif.
+                    Python, C, C++, C#, Java, HTML, CSS, JavaScript, Go et Rust.
                   </p>
                 </details>
                 <details>
-                  <summary>Que se passe-t-il quand je me trompe ?</summary>
+                  <summary>
+                    Puis-je essayer un exemple avant de créer un compte ?
+                  </summary>
                   <p>
-                    Un indice vous aide à réessayer. La correction explique le
-                    raisonnement et le tuteur vous propose une suite adaptée.
+                    Oui. L’exemple en haut de la page propose un indice et une
+                    correction.
                   </p>
                 </details>
                 <details>

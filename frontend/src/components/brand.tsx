@@ -22,8 +22,10 @@ export function Header({ authenticated = false }: { authenticated?: boolean }) {
           </Link>
         ) : (
           <>
-            <Link className="button quiet nav-cta" href="/sign-in">Se connecter</Link>
-            <Link className="button quiet nav-cta" href="/sign-up">
+            <Link className="button quiet nav-cta" href="/sign-in">
+              Se connecter
+            </Link>
+            <Link className="button quiet nav-signup" href="/sign-up">
               Créer un compte
             </Link>
           </>

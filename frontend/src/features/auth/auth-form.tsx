@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { authenticate, signInWithGoogle } from "./actions";
 import { useRouter } from "next/navigation";
-import { Eye, EyeOff, ArrowLeft, LockKeyhole } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Brand } from "@/components/brand";
 export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
   const signup = mode === "sign-up";
@@ -11,6 +11,8 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [googleBusy, setGoogleBusy] = useState(false);
+  const [googleError, setGoogleError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   function validate(form: HTMLFormElement) {
     const data = new FormData(form);
@@ -30,6 +32,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
     const form = event.currentTarget;
     const e = validate(form);
     setErrors(e);
+    setGoogleError("");
     setError("");
     if (Object.keys(e).length) {
       (form.elements.namedItem(Object.keys(e)[0]) as HTMLElement)?.focus();
@@ -48,19 +51,20 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
     setBusy(false);
   }
   async function googleSignIn() {
+    setGoogleError("");
     setError("");
-    setBusy(true);
+    setGoogleBusy(true);
     try {
       const result = await signInWithGoogle();
       if (result.url) {
         window.location.assign(result.url);
         return;
       }
-      setError(result.error || "Connexion Google indisponible.");
+      setGoogleError(result.error || "Connexion Google indisponible.");
     } catch {
-      setError("Connexion Google indisponible. Réessayez.");
+      setGoogleError("Connexion Google indisponible. Réessayez.");
     }
-    setBusy(false);
+    setGoogleBusy(false);
   }
   return (
     <main id="main" className="auth-layout">
@@ -90,10 +94,21 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               ? "Préparez votre espace d’apprentissage Python."
               : "Retrouvez votre parcours Python."}
           </p>
-          <div className="prototype-note">
-            <LockKeyhole size={18} aria-hidden="true" />
-            <p>Votre compte est sécurisé par Supabase Auth.</p>
-          </div>
+          <button
+            type="button"
+            className="button quiet full"
+            disabled={busy || googleBusy}
+            aria-busy={googleBusy}
+            onClick={googleSignIn}
+          >
+            {googleBusy ? "Ouverture de Google…" : "Continuer avec Google"}
+          </button>
+          {googleError && (
+            <p className="form-error" role="alert">
+              {googleError}
+            </p>
+          )}
+          <div className="auth-method-divider">ou par e-mail</div>
           <form
             noValidate
             data-endpoint=""
@@ -189,7 +204,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
             <button
               className="button full"
               type="submit"
-              disabled={busy}
+              disabled={busy || googleBusy}
               aria-busy={busy}
             >
               {busy
@@ -202,14 +217,6 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               {error}
             </p>
           </form>
-          <button
-            type="button"
-            className="button quiet full"
-            disabled={busy}
-            onClick={googleSignIn}
-          >
-            Continuer avec Google
-          </button>
           <p className="auth-switch">
             {signup ? "Déjà un compte ?" : "Première visite ?"}{" "}
             <Link href={signup ? "/sign-in" : "/sign-up"}>

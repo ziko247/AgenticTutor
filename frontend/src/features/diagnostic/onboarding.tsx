@@ -18,6 +18,9 @@ import {
   resetDiagnostic,
   type DiagnosticAttempt,
 } from "./actions";
+const emptyStatus = "Vos réponses seront enregistrées sur votre compte.";
+const savedStatus = "Diagnostic enregistré sur votre compte.";
+
 function isAnswered(answer: Answer | undefined): boolean {
   return answer !== undefined;
 }
@@ -57,7 +60,7 @@ export function Onboarding() {
         setLoadError(result.error);
       } else {
         apply(result.attempt ?? null);
-        setStorage("Diagnostic enregistré sur votre compte.");
+        setStorage(result.attempt ? savedStatus : emptyStatus);
       }
       setReady(true);
     });
@@ -100,13 +103,13 @@ export function Onboarding() {
     if (result.error) {
       if (!focus) setDraft(draft);
       setError(result.error);
-      setStorage("Modification non enregistrée. " + result.error);
+      setStorage("Modification non enregistrée.");
     } else {
       if (!next.language) {
         apply(null);
         requestId.current = null;
       } else apply(result.attempt ?? null);
-      setStorage("Diagnostic enregistré sur votre compte.");
+      setStorage(next.language ? savedStatus : emptyStatus);
       focusNext.current = focus;
     }
     active.current = false;
@@ -178,9 +181,6 @@ export function Onboarding() {
             <HardDrive size={19} aria-hidden="true" />
             <p role="status">{storage}</p>
           </div>
-          <p className="caption muted">
-            Vos réponses sont associées à votre compte.
-          </p>
         </aside>
         <section className="flow-content" inert={saving} aria-busy={saving}>
           {error && (
@@ -212,9 +212,6 @@ export function Onboarding() {
                   </button>
                 ))}
               </div>
-              <p className="caption muted">
-                Votre choix et vos réponses sont enregistrés sur votre compte.
-              </p>
             </>
           ) : draft.completed ? (
             <>

@@ -1,6 +1,8 @@
 import { verifiedUser } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { profileRequest, signOut } from "@/features/auth/actions";
+import { loadDiagnostic } from "@/features/diagnostic/actions";
+import { languages } from "@/lib/languages";
 import { ProfileForm } from "@/features/auth/profile-form";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -55,6 +57,10 @@ export default async function DashboardPage() {
       </main>
     );
   const profile = await response.json();
+  const { attempt, error: diagnosticError } = await loadDiagnostic();
+  const answered = attempt?.questions.filter(
+    ({ id }) => attempt.answers[id] !== undefined,
+  ).length;
 
   return (
     <>
@@ -82,26 +88,39 @@ export default async function DashboardPage() {
 
         <section className="dashboard-start" aria-labelledby="diagnostic-title">
           <div>
-            <h2 id="diagnostic-title">Faisons le point sur vos acquis.</h2>
-            <p>
-              Choisissez un langage et passez le diagnostic pour situer votre
-              niveau.
-            </p>
+            <h2 id="diagnostic-title">
+              {attempt
+                ? "Votre diagnostic " + languages[attempt.language].label
+                : "Faisons le point sur vos acquis."}
+            </h2>
+            {diagnosticError ? (
+              <p>
+                Le statut de votre diagnostic est temporairement indisponible.
+              </p>
+            ) : attempt?.completed ? (
+              <p>Diagnostic terminé. Votre résultat : {attempt.score} / 20.</p>
+            ) : attempt ? (
+              <p>
+                {answered} réponse{answered === 1 ? "" : "s"} sur{" "}
+                {attempt.questions.length}. Vous pouvez reprendre où vous en
+                étiez.
+              </p>
+            ) : (
+              <p>
+                Choisissez un langage et passez le diagnostic pour situer votre
+                niveau.
+              </p>
+            )}
           </div>
           <Link href="/onboarding" className="button">
-            Accéder au diagnostic
+            {diagnosticError
+              ? "Accéder au diagnostic"
+              : attempt?.completed
+                ? "Voir mon résultat"
+                : attempt
+                  ? "Reprendre le diagnostic"
+                  : "Commencer le diagnostic"}
           </Link>
-        </section>
-
-        <section
-          className="dashboard-upcoming"
-          aria-labelledby="learning-title"
-        >
-          <h2 id="learning-title">Votre parcours</h2>
-          <p>
-            Les activités guidées et le suivi de progression seront ajoutés dans
-            une prochaine version.
-          </p>
         </section>
 
         <section className="dashboard-upcoming" aria-labelledby="profile-title">

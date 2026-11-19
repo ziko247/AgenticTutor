@@ -152,13 +152,20 @@ test("language diagnostic persists, reviews, scores and resets", async ({
 }) => {
   test.setTimeout(90_000);
   await createAccount(page);
-  await page.goto("/onboarding");
+  await page
+    .getByRole("link", { name: "Commencer le diagnostic", exact: true })
+    .click();
+  await expect(page.locator(".storage-note [role=status]")).toHaveText(
+    "Vos réponses seront enregistrées sur votre compte.",
+  );
   await page.getByRole("button", { name: "JavaScript", exact: true }).click();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
   await expect(page.locator(".form-error")).toContainText("Choisissez");
   await page.getByRole("radio").first().check();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
-  await page.reload();
+  await page.getByText("Question 2 sur 16", { exact: true }).waitFor();
+  await page.goto("/dashboard");
+  await page.getByRole("link", { name: "Reprendre le diagnostic" }).click();
   await expect(
     page.getByText("Question 2 sur 16", { exact: true }),
   ).toBeVisible();
@@ -192,7 +199,11 @@ test("language diagnostic persists, reviews, scores and resets", async ({
     .getByRole("button", { name: "Terminer le diagnostic", exact: true })
     .click();
   await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
-  await page.reload();
+  await page.goto("/dashboard");
+  await expect(
+    page.getByText("Diagnostic terminé. Votre résultat : 2 / 20."),
+  ).toBeVisible();
+  await page.getByRole("link", { name: "Voir mon résultat" }).click();
   await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
   await page
     .getByRole("button", { name: "Recommencer le diagnostic", exact: true })
@@ -297,8 +308,8 @@ test("all ten language banks finish with a score out of twenty", async ({
     "Rust",
   ]) {
     await page.goto("/onboarding");
-    await expect(page.locator(".storage-note [role=status]")).toHaveText(
-      "Diagnostic enregistré sur votre compte.",
+    await expect(page.locator(".storage-note [role=status]")).toContainText(
+      "compte",
     );
     if (
       await page

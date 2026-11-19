@@ -290,8 +290,11 @@ pre {
   .site-header nav {
     gap: var(--space-md);
   }
-  .nav-cta {
+  .nav-signup {
     display: none;
+  }
+  .nav-cta {
+    padding-inline: var(--space-sm);
   }
   .brand {
     font-size: 1.12rem;
@@ -1260,6 +1263,9 @@ details p {
 .faq-surface {
   background: var(--color-opening);
 }
+.faq-surface details:not([open]) > p {
+  display: none;
+}
 .landing-footer {
   background: var(--color-opening);
   border-color: var(--color-landing-rule);
@@ -1378,3 +1384,22 @@ details p {
 
 /* Lenis controls smooth scrolling while active. */
 html.lenis { scroll-behavior: auto; }
+
+.auth-method-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-block: var(--space-md);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+.auth-method-divider::before,
+.auth-method-divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--color-rule);
+}
+@media (max-width: 600px) {
+  .flow-sidebar { padding-bottom: var(--space-sm); }
+  .flow-layout { gap: var(--space-sm); }
+}
