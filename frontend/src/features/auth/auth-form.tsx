@@ -76,7 +76,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
             <br />
             commence ici.
           </h2>
-          <p>Un espace pour comprendre Python, à votre rythme.</p>
+          <p>Un espace pour comprendre la programmation, à votre rythme.</p>
         </div>
         <span>Comprendre. Essayer. Recommencer.</span>
       </aside>
@@ -91,12 +91,12 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
           </h1>
           <p className="intro">
             {signup
-              ? "Préparez votre espace d’apprentissage Python."
-              : "Retrouvez votre parcours Python."}
+              ? "Préparez votre espace d’apprentissage de la programmation."
+              : "Retrouvez votre parcours de la programmation."}
           </p>
           <button
             type="button"
-            className="button quiet full"
+            className="button full"
             disabled={busy || googleBusy}
             aria-busy={googleBusy}
             onClick={googleSignIn}

@@ -4,7 +4,6 @@
 /* Hallmark · hero-review: independent, 3 resolved; finish-review: independent, 2 resolved */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: no live tutor; label the example as predefined */
 @import "tailwindcss";
-@import "./tokens.css";
 * {
   box-sizing: border-box;
   scrollbar-width: none;

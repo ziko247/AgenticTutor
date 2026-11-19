@@ -3,6 +3,7 @@ import { SmoothScroll } from "@/components/smooth-scroll";
 import "lenis/dist/lenis.css";
 import "@fontsource-variable/rethink-sans";
 import "@fontsource-variable/hanken-grotesk";
+import "@/styles/tokens.css";
 import "@/styles/globals.css";
 export const metadata: Metadata = {
   title: {
