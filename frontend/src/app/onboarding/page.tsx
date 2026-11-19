@@ -20,7 +20,11 @@ export default async function Page() {
   if (profile.status === 404)
     profile = await profileRequest("PUT", {
       display_name:
-        String(user.user_metadata.display_name || "Étudiant")
+        String(
+          user.user_metadata.display_name ||
+            user.user_metadata.full_name ||
+            "Étudiant",
+        )
           .trim()
           .slice(0, 80) || "Étudiant",
       preferred_language: null,

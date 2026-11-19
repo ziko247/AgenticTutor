@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { authenticate } from "./actions";
+import { authenticate, signInWithGoogle } from "./actions";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowLeft, LockKeyhole } from "lucide-react";
 import { Brand } from "@/components/brand";
@@ -44,6 +44,21 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
       } else setError(result.error || result.message || "");
     } catch {
       setError("Service indisponible. Réessayez plus tard.");
+    }
+    setBusy(false);
+  }
+  async function googleSignIn() {
+    setError("");
+    setBusy(true);
+    try {
+      const result = await signInWithGoogle();
+      if (result.url) {
+        window.location.assign(result.url);
+        return;
+      }
+      setError(result.error || "Connexion Google indisponible.");
+    } catch {
+      setError("Connexion Google indisponible. Réessayez.");
     }
     setBusy(false);
   }
@@ -187,6 +202,14 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
               {error}
             </p>
           </form>
+          <button
+            type="button"
+            className="button quiet full"
+            disabled={busy}
+            onClick={googleSignIn}
+          >
+            Continuer avec Google
+          </button>
           <p className="auth-switch">
             {signup ? "Déjà un compte ?" : "Première visite ?"}{" "}
             <Link href={signup ? "/sign-in" : "/sign-up"}>
@@ -201,7 +224,7 @@ export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
           <div className="preview-entry">
             <p>Vous souhaitez explorer le premier parcours ?</p>
             <Link href="/onboarding" className="text-link">
-              Essayer le diagnostic sans compte
+              Accéder au diagnostic
             </Link>
           </div>
         </div>

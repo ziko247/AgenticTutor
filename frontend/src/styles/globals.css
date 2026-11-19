@@ -7,6 +7,10 @@
 @import "./tokens.css";
 * {
   box-sizing: border-box;
+  scrollbar-width: none;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 html {
   overflow-x: clip;
@@ -28,7 +32,6 @@ body {
 }
 body {
   caret-color: var(--color-focus);
-  scrollbar-color: var(--color-muted) var(--color-paper);
 }
 h1,
 h2,

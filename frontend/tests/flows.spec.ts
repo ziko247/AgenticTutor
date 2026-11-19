@@ -482,3 +482,12 @@ test("expired recovery link offers a new link", async ({ page }) => {
     page.getByRole("button", { name: "Recevoir un lien" }),
   ).toBeVisible();
 });
+
+test("Google sign-in starts the OAuth redirect", async ({ page }) => {
+  await page.route("https://accounts.google.com/**", (route) =>
+    route.fulfill({ status: 200, body: "Google sign-in" }),
+  );
+  await page.goto("/sign-in");
+  await page.getByRole("button", { name: "Continuer avec Google" }).click();
+  await expect(page).toHaveURL(new RegExp("^https://accounts[.]google[.]com/"));
+});

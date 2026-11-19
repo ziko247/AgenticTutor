@@ -136,3 +136,21 @@ export async function changePassword(data: FormData) {
     return { error: "Service indisponible. Réessayez plus tard." };
   }
 }
+
+export async function signInWithGoogle() {
+  try {
+    const client = await authClient();
+    const { data, error } = await client.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: origin() + "/auth/callback",
+        skipBrowserRedirect: true,
+      },
+    });
+    if (error || !data.url)
+      return { error: "Connexion Google indisponible. Réessayez." };
+    return { url: data.url };
+  } catch {
+    return { error: "Connexion Google indisponible. Réessayez." };
+  }
+}

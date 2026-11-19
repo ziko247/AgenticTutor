@@ -32,7 +32,11 @@ export default async function DashboardPage() {
   let response = await profileRequest("GET");
   if (response.status === 404)
     response = await profileRequest("PUT", {
-      display_name: String(user.user_metadata.display_name || "Étudiant")
+      display_name: String(
+        user.user_metadata.display_name ||
+          user.user_metadata.full_name ||
+          "Étudiant",
+      )
         .trim()
         .slice(0, 80),
       preferred_language: null,
