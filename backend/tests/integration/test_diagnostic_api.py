@@ -1,9 +1,12 @@
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.api.profile import identity
 from app.main import create_app
+
+pytestmark = pytest.mark.integration
 
 
 def test_attempt_lifecycle_and_isolation(database, students, admin):
@@ -25,7 +28,7 @@ def test_attempt_lifecycle_and_isolation(database, students, admin):
         ).json()["id"]
         == attempt["id"]
     )
-    answers = {q["id"]: 0 for q in attempt["questions"]}
+    answers = {q["id"]: i % len(q["options"]) for i, q in enumerate(attempt["questions"])}
     payload = {
         "revision": attempt["revision"],
         "step": 15,
@@ -47,6 +50,15 @@ def test_attempt_lifecycle_and_isolation(database, students, admin):
             "WHERE attempt_id=%s ORDER BY question_id",
             (attempt["id"],),
         ).fetchall()
+
+    partial = dict(list(answers.items())[:2])
+    partial[next(iter(partial))] = 1
+    for selection in (partial, {}, answers):
+        update = {**payload, "revision": attempt["revision"], "review": False, "answers": selection}
+        response = client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=update)
+        assert response.status_code == 200, response.text
+        attempt = response.json()
+        assert attempt["answers"] == selection
 
     before = answer_timestamps()
     payload.update(revision=attempt["revision"], review=False, step=14)

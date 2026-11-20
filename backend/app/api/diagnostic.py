@@ -195,10 +195,7 @@ def save(attempt_id: UUID, body: SaveInput, request: Request, user_id: Identity)
         ).fetchall()
         question_ids = {q["source_key"]: q["id"] for q in questions}
         options = {(q["source_key"], q["option_ordinal"]): q["option_id"] for q in questions}
-        if any(
-            type(value) is not int or (key, value) not in options
-            for key, value in body.answers.items()
-        ):
+        if any((key, value) not in options for key, value in body.answers.items()):
             raise HTTPException(422, "Invalid answer")
         if (body.complete or body.review) and len(body.answers) != len(question_ids):
             raise HTTPException(409, "Incomplete attempt")
@@ -209,14 +206,17 @@ def save(attempt_id: UUID, body: SaveInput, request: Request, user_id: Identity)
                WHERE attempt_id=%s AND NOT (question_id = ANY(%s::uuid[]))""",
             (attempt_id, kept_questions),
         )
-        for key, value in body.answers.items():
+        if kept_questions:
+            selected_options = [options[item] for item in body.answers.items()]
             cursor.execute(
                 """INSERT INTO app_private.diagnostic_answers AS answer
-                   (attempt_id,questionnaire_id,question_id,option_id) VALUES (%s,%s,%s,%s)
+                   (attempt_id,questionnaire_id,question_id,option_id)
+                   SELECT %s, %s, question_id, option_id
+                   FROM unnest(%s::uuid[], %s::uuid[]) AS selected(question_id, option_id)
                    ON CONFLICT (attempt_id,question_id) DO UPDATE
                    SET option_id=EXCLUDED.option_id, answered_at=now()
                    WHERE answer.option_id IS DISTINCT FROM EXCLUDED.option_id""",
-                (attempt_id, row["questionnaire_id"], question_ids[key], options[key, value]),
+                (attempt_id, row["questionnaire_id"], kept_questions, selected_options),
             )
         cursor.execute(
             """UPDATE app_private.diagnostic_attempts SET cursor_question_id=%s,review=%s,

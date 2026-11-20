@@ -1,6 +1,8 @@
-﻿import { Onboarding } from "@/features/diagnostic/onboarding";
+﻿import { Suspense } from "react";
+import { loadDiagnostic } from "@/features/diagnostic/actions";
+import { Onboarding } from "@/features/diagnostic/onboarding";
 import { verifiedUser } from "@/lib/supabase/server";
-import { profileRequest } from "@/features/auth/actions";
+import { loadOrCreateProfile } from "@/features/auth/profile";
 import { redirect } from "next/navigation";
 
 export const metadata = { title: "Votre diagnostic de programmation" };
@@ -16,24 +18,36 @@ export default async function Page() {
       </main>
     );
   if (error || !user) redirect("/sign-in");
-  let profile = await profileRequest("GET");
-  if (profile.status === 404)
-    profile = await profileRequest("PUT", {
-      display_name:
-        String(
-          user.user_metadata.display_name ||
-            user.user_metadata.full_name ||
-            "Étudiant",
-        )
-          .trim()
-          .slice(0, 80) || "Étudiant",
-      preferred_language: null,
-    });
+  const profile = await loadOrCreateProfile(user);
   if (!profile.ok)
     return (
       <main id="main" className="container flow-loading">
         Votre profil est indisponible. Rechargez la page.
       </main>
     );
-  return <Onboarding />;
+  return (
+    <Suspense
+      fallback={
+        <main id="main" className="container flow-loading" role="status">
+          Préparation de votre parcours…
+        </main>
+      }
+    >
+      <Diagnostic />
+    </Suspense>
+  );
+}
+
+async function Diagnostic() {
+  const result = await loadDiagnostic();
+  if (result.error)
+    return (
+      <main id="main" className="container flow-loading" role="alert">
+        <p>{result.error}</p>
+        <form action="/onboarding" method="get">
+          <button className="button">Réessayer</button>
+        </form>
+      </main>
+    );
+  return <Onboarding initialAttempt={result.attempt ?? null} />;
 }

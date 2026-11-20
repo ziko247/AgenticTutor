@@ -12,7 +12,6 @@ import { Brand } from "@/components/brand";
 import { languages, languageOrder } from "@/lib/languages";
 import { emptyDraft, type Draft, type Answer, answerLabel } from "./storage";
 import {
-  loadDiagnostic,
   startDiagnostic,
   saveDiagnostic,
   resetDiagnostic,
@@ -25,111 +24,72 @@ function isAnswered(answer: Answer | undefined): boolean {
   return answer !== undefined;
 }
 
-export function Onboarding() {
-  const [draft, setDraft] = useState<Draft>(emptyDraft);
-  const [ready, setReady] = useState(false);
+export function Onboarding({
+  initialAttempt,
+}: {
+  initialAttempt: DiagnosticAttempt | null;
+}) {
+  const [attempt, setAttempt] = useState(initialAttempt);
+  const draft = attempt ?? emptyDraft;
   const [saving, setSaving] = useState(false);
-  const [loadError, setLoadError] = useState("");
-  const [storage, setStorage] = useState("Chargement de votre diagnostic…");
+  const [storage, setStorage] = useState(
+    initialAttempt ? savedStatus : emptyStatus,
+  );
   const [error, setError] = useState("");
-  const [attempt, setAttempt] = useState<DiagnosticAttempt | null>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const focusNext = useRef(false);
   const active = useRef(false);
   const requestId = useRef<{ id: string; language: string } | null>(null);
-  function apply(saved: DiagnosticAttempt | null) {
-    setAttempt(saved);
-    setDraft(
-      saved
-        ? {
-            language: saved.language,
-            answers: saved.answers,
-            step: saved.step,
-            review: saved.review,
-            completed: saved.completed,
-          }
-        : { ...emptyDraft, answers: {} },
-    );
-  }
-  useEffect(() => {
-    let cancelled = false;
-    loadDiagnostic().then((result) => {
-      if (cancelled) return;
-      if (result.error) {
-        setStorage(result.error);
-        setLoadError(result.error);
-      } else {
-        apply(result.attempt ?? null);
-        setStorage(result.attempt ? savedStatus : emptyStatus);
-      }
-      setReady(true);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
   useEffect(() => {
     if (focusNext.current && !saving) {
       heading.current?.focus();
       focusNext.current = false;
     }
   }, [draft, saving]);
-  async function update(next: Draft, focus = true) {
-    if (active.current) return;
-    active.current = true;
-    setSaving(true);
-    if (!focus) setDraft(next);
-    setError("");
-    setStorage("Enregistrement en cours…");
-    let result;
+  async function persist(next: Draft): ReturnType<typeof saveDiagnostic> {
     if (!next.language && attempt)
-      result = await resetDiagnostic(attempt.id, attempt.revision);
+      return resetDiagnostic(attempt.id, attempt.revision);
     else if (next.language && !attempt) {
       if (requestId.current?.language !== next.language)
         requestId.current = {
           id: crypto.randomUUID(),
           language: next.language,
         };
-      result = await startDiagnostic(next.language, requestId.current.id);
+      return startDiagnostic(next.language, requestId.current.id);
     } else if (attempt)
-      result = await saveDiagnostic(attempt.id, {
+      return saveDiagnostic(attempt.id, {
         revision: attempt.revision,
         step: next.step,
         review: next.review,
         answers: next.answers,
         complete: next.completed,
       });
-    else result = { attempt: null };
+    return { attempt: null };
+  }
+  async function update(next: Draft, focus = true) {
+    if (active.current) return;
+    active.current = true;
+    setSaving(true);
+    if (!focus && attempt) setAttempt({ ...attempt, answers: next.answers });
+    setError("");
+    setStorage("Enregistrement en cours…");
+    const result = await persist(next).catch(() => ({
+      error: "Enregistrement indisponible. Réessayez dans un instant.",
+      attempt: undefined,
+    }));
     if (result.error) {
-      if (!focus) setDraft(draft);
+      setAttempt(attempt);
       setError(result.error);
       setStorage("Modification non enregistrée.");
     } else {
-      if (!next.language) {
-        apply(null);
-        requestId.current = null;
-      } else apply(result.attempt ?? null);
+      if (!next.language) requestId.current = null;
+      setAttempt(result.attempt ?? null);
       setStorage(next.language ? savedStatus : emptyStatus);
       focusNext.current = focus;
     }
     active.current = false;
     setSaving(false);
   }
-  if (!ready)
-    return (
-      <main id="main" className="container flow-loading" role="status">
-        Préparation de votre parcours…
-      </main>
-    );
-  if (loadError)
-    return (
-      <main id="main" className="container flow-loading" role="alert">
-        <p>{loadError}</p>
-        <button className="button" onClick={() => window.location.reload()}>
-          Réessayer
-        </button>
-      </main>
-    );
   const questions = attempt?.questions ?? [];
   const languageLabel = draft.language ? languages[draft.language].label : "";
   const q = questions[draft.step];

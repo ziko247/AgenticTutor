@@ -86,5 +86,6 @@ export async function saveDiagnostic(
   return request("/attempts/" + encodeURIComponent(id), "PUT", body);
 }
 export async function resetDiagnostic(id: string, revision: number) {
-  return request("/reset", "POST", { attempt_id: id, revision });
+  const result = await request("/reset", "POST", { attempt_id: id, revision });
+  return result.error ? result : { attempt: null };
 }

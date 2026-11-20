@@ -1,5 +1,5 @@
 "use server";
-import { profileRequest } from "./actions";
+import { profileRequest } from "./profile";
 import { revalidatePath } from "next/cache";
 export async function saveProfile(data: FormData) {
   const response = await profileRequest("PATCH", {

@@ -161,6 +161,13 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await page.getByRole("button", { name: "JavaScript", exact: true }).click();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
   await expect(page.locator(".form-error")).toContainText("Choisissez");
+  // A transport failure must release the busy state and roll back the optimistic selection.
+  await page.route("**/onboarding", (route) => route.abort(), { times: 1 });
+  await page.getByRole("radio").first().click();
+  await expect(page.locator(".storage-note [role=status]")).toHaveText(
+    "Modification non enregistrée.",
+  );
+  await expect(page.getByRole("radio").first()).not.toBeChecked();
   await page.getByRole("radio").first().check();
   await page.getByRole("button", { name: "Continuer", exact: true }).click();
   await page.getByText("Question 2 sur 16", { exact: true }).waitFor();
@@ -295,7 +302,7 @@ test("all ten language banks finish with a score out of twenty", async ({
 }) => {
   await createAccount(page);
   test.setTimeout(180_000);
-  for (const language of [
+  for (const [index, language] of [
     "Python",
     "C",
     "C++",
@@ -306,20 +313,18 @@ test("all ten language banks finish with a score out of twenty", async ({
     "JavaScript",
     "Go",
     "Rust",
-  ]) {
+  ].entries()) {
     await page.goto("/onboarding");
     await expect(page.locator(".storage-note [role=status]")).toContainText(
       "compte",
     );
-    if (
-      await page
-        .getByRole("button", { name: "Recommencer le diagnostic" })
-        .count()
-    )
+    if (index > 0)
       await page
         .getByRole("button", { name: "Recommencer le diagnostic" })
         .click();
-    await page.getByRole("button", { name: language, exact: true }).click();
+    const choice = page.getByRole("button", { name: language, exact: true });
+    await expect(choice).toBeVisible();
+    await choice.click();
     for (let i = 0; i < 16; i++) {
       await page.getByRole("radio").last().check();
       await expect(page.locator(".storage-note [role=status]")).toHaveText(

@@ -1,6 +1,6 @@
 "use server";
 import { clearRecovery, hasRecovery } from "./recovery";
-import { authClient, verifiedUser } from "@/lib/supabase/server";
+import { authClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
 function origin() {
@@ -50,40 +50,6 @@ export async function authenticate(
       error:
         "Le service d’authentification est indisponible. Réessayez plus tard.",
     };
-  }
-}
-export async function profileRequest(
-  method: "GET" | "PUT" | "PATCH",
-  body?: object,
-) {
-  const client = await authClient();
-  const {
-    data: { user },
-    error,
-  } = await verifiedUser();
-  if (error && (!error.status || error.status >= 500 || error.status === 429))
-    return new Response(null, { status: 503 });
-  if (error || !user) redirect("/sign-in");
-  const {
-    data: { session },
-  } = await client.auth.getSession();
-  if (!session) redirect("/sign-in");
-  try {
-    return await fetch(
-      (process.env.API_BASE_URL || "http://127.0.0.1:8000") +
-        "/api/v1/me/profile",
-      {
-        method,
-        cache: "no-store",
-        headers: {
-          Authorization: "Bearer " + session.access_token,
-          "Content-Type": "application/json",
-        },
-        ...(body ? { body: JSON.stringify(body) } : {}),
-      },
-    );
-  } catch {
-    return new Response(null, { status: 503 });
   }
 }
 export async function signOut() {

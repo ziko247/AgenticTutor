@@ -1,6 +1,7 @@
 import { verifiedUser } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { profileRequest, signOut } from "@/features/auth/actions";
+import { loadOrCreateProfile } from "@/features/auth/profile";
+import { signOut } from "@/features/auth/actions";
 import { loadDiagnostic } from "@/features/diagnostic/actions";
 import { languages } from "@/lib/languages";
 import { ProfileForm } from "@/features/auth/profile-form";
@@ -31,18 +32,7 @@ export default async function DashboardPage() {
       </main>
     );
   if (error || !user) redirect("/sign-in");
-  let response = await profileRequest("GET");
-  if (response.status === 404)
-    response = await profileRequest("PUT", {
-      display_name: String(
-        user.user_metadata.display_name ||
-          user.user_metadata.full_name ||
-          "Étudiant",
-      )
-        .trim()
-        .slice(0, 80),
-      preferred_language: null,
-    });
+  const response = await loadOrCreateProfile(user);
   if (!response.ok)
     return (
       <main id="main" className="container dashboard-main">
