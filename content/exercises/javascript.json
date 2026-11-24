@@ -1,0 +1,112 @@
+[
+  {
+    "id": "javascript-1",
+    "title": "Priorité des calculs",
+    "prompt": "Quelle valeur prend total ?",
+    "code": "let total = 2 + 3 * 4;",
+    "hint": "Repérez l’opération effectuée en premier.",
+    "answer": "14",
+    "brief": "La multiplication précède l’addition.",
+    "steps": "Le produit de 3 par 4 donne 12. On ajoute ensuite 2 pour obtenir 14.",
+    "image": "Imagine trois sachets de quatre billes et deux billes à côté. Cela fait quatorze billes."
+  },
+  {
+    "id": "javascript-2",
+    "title": "Partager un reste",
+    "prompt": "Quelle valeur prend reste ?",
+    "code": "let reste = 19 % 4;",
+    "hint": "Combien de groupes entiers de quatre peut-on former ?",
+    "answer": "3",
+    "brief": "Le modulo donne le reste de la division.",
+    "steps": "Quatre groupes de 4 utilisent 16 unités. La différence entre 19 et 16 vaut 3.",
+    "image": "Distribue 19 jetons dans des boîtes de quatre. Trois jetons restent dans ta main."
+  },
+  {
+    "id": "javascript-3",
+    "title": "Lire un indice",
+    "prompt": "Quelle valeur prend choix ?",
+    "code": "let valeurs = [5, 7, 9];\nlet choix = valeurs[1];",
+    "hint": "Le premier élément porte l’indice zéro.",
+    "answer": "7",
+    "brief": "L’indice 1 désigne le deuxième élément.",
+    "steps": "Les trois valeurs ont les indices 0, 1 et 2. À la position 1, on trouve 7.",
+    "image": "Sur trois casiers numérotés 0, 1 et 2, ouvre celui marqué 1. Il contient un 7."
+  },
+  {
+    "id": "javascript-4",
+    "title": "Tester un seuil",
+    "prompt": "Quelle valeur prend points après le test ?",
+    "code": "let score = 10, points = 0;\nif (score >= 10) { points = 2; }",
+    "hint": "Regardez si la borne est incluse.",
+    "answer": "2",
+    "brief": "L’égalité satisfait la condition.",
+    "steps": "Le score vaut exactement 10. La comparaison « supérieur ou égal à 10 » est vraie et affecte 2 à points.",
+    "image": "Un panneau offre deux tickets dès dix étoiles. Avec exactement dix étoiles, tu reçois les deux tickets."
+  },
+  {
+    "id": "javascript-5",
+    "title": "Suivre une accumulation",
+    "prompt": "Quelle valeur prend somme à la fin ?",
+    "code": "let somme = 0;\nfor (let i = 1; i <= 4; i++) { somme += i; }",
+    "hint": "Notez la somme après chaque passage.",
+    "answer": "10",
+    "brief": "La boucle additionne 1, 2, 3 et 4.",
+    "steps": "La somme commence à 0. Elle passe à 1, puis à 3, à 6 et enfin à 10.",
+    "image": "Construis une tour. Ajoute un cube, puis deux, puis trois et enfin quatre. Elle compte dix cubes."
+  },
+  {
+    "id": "javascript-6",
+    "title": "Compter par bonds",
+    "prompt": "Quelle valeur de n arrête la boucle ?",
+    "code": "let n = 0;\nwhile (n < 8) { n += 3; }",
+    "hint": "Vérifiez la condition avant chaque nouveau passage.",
+    "answer": "9",
+    "brief": "Le premier multiple de 3 qui atteint ou dépasse 8 est 9.",
+    "steps": "La variable passe de 0 à 3, puis à 6 et à 9. À 9, le test « inférieur à 8 » échoue.",
+    "image": "Une grenouille saute de trois cases en trois cases. Pour dépasser la case 8, elle atterrit sur la case 9."
+  },
+  {
+    "id": "javascript-7",
+    "title": "Copier une valeur",
+    "prompt": "Quelle valeur garde copie ?",
+    "code": "let depart = 5;\nlet copie = depart;\ndepart = 8;",
+    "hint": "Suivez les deux variables séparément.",
+    "answer": "5",
+    "brief": "Modifier le nombre initial laisse sa copie à 5.",
+    "steps": "La copie reçoit la valeur entière 5. L’affectation suivante écrit 8 uniquement dans la variable de départ.",
+    "image": "Écris 5 sur deux ardoises. Efface le premier 5 et écris 8. Sur la deuxième ardoise, tu lis toujours 5."
+  },
+  {
+    "id": "javascript-8",
+    "title": "Filtrer des nombres",
+    "prompt": "Quelle valeur prend compte ?",
+    "code": "let compte = 0;\nfor (let n = 1; n <= 5; n++) {\n    if (n % 2 == 0) { compte++; }\n}",
+    "hint": "Cherchez les nombres dont le reste modulo 2 vaut zéro.",
+    "answer": "2",
+    "brief": "Deux valeurs sont paires.",
+    "steps": "Sur 1, 2, 3, 4 et 5, seuls 2 et 4 passent le test. Chacun ajoute une unité au compteur.",
+    "image": "Mets les chaussettes par paires. Les lots de deux et de quatre se rangent sans chaussette seule. Cela fait deux lots."
+  },
+  {
+    "id": "javascript-9",
+    "title": "Garder un maximum",
+    "prompt": "Quelle valeur garde meilleur ?",
+    "code": "let liste = [9, 4];\nlet meilleur = 3;\nfor (let i = 0; i < 2; i++) {\n    if (liste[i] > meilleur) { meilleur = liste[i]; }\n}",
+    "hint": "Une valeur remplace le maximum seulement si elle le dépasse.",
+    "answer": "9",
+    "brief": "9 est la plus grande valeur rencontrée.",
+    "steps": "Le maximum initial vaut 3. La valeur 9 le remplace, puis 4 échoue au test et laisse le maximum à 9.",
+    "image": "Trois tours ont trois, neuf et quatre cubes. La tour de neuf reste la plus haute."
+  },
+  {
+    "id": "javascript-10",
+    "title": "Lire une transformation",
+    "prompt": "Quelle valeur prend dernier ?",
+    "code": "const notes = [2, 5];\nconst doubles = notes.map(n => n * 2);\nconst dernier = doubles[1];",
+    "hint": "Appliquez la fonction au deuxième élément.",
+    "answer": "10",
+    "brief": "map double chaque note et le deuxième résultat vaut 10.",
+    "steps": "Le nouveau tableau contient 4 puis 10. L’indice 1 sélectionne le second élément.",
+    "image": "Deux paniers contiennent deux et cinq pommes. Double chaque panier. Dans le deuxième, tu comptes dix pommes."
+  }
+]

@@ -1,6 +1,6 @@
 # AgenticTutor
 
-AgenticTutor est un projet de fin d’année. Le tuteur prévu adaptera ses explications et ses exercices aux acquis de l’étudiant, avec Python comme premier domaine. Aujourd’hui, on peut créer un compte, gérer son profil et passer un diagnostic. Les exemples de la page d’accueil sont prédéfinis.
+AgenticTutor est un projet de fin d’année. Le tuteur prévu adaptera ses explications et ses exercices aux acquis de l’étudiant, avec Python comme premier domaine. Aujourd’hui, on peut créer un compte, gérer son profil, passer un diagnostic et pratiquer avec dix exercices dans le langage choisi. Les exemples de la page d’accueil sont prédéfinis.
 
 ## 1. Installer les prérequis sur Windows
 
@@ -112,6 +112,7 @@ Les cases cochées correspondent au parcours vérifié en local. Le détail des 
 - [x] Créer un compte, se connecter, se déconnecter et récupérer son mot de passe en local. Protéger le tableau de bord et enregistrer le profil (F01, partie livrée).
 - [x] Choisir un langage, répondre à 6 questions de profil et 10 questions techniques, reprendre le diagnostic et obtenir une note sur 20 calculée côté serveur (F02/F03, partie livrée).
 - [ ] Faire valider les questions par l’encadrant. Cartographier les cinq notions Python et leurs prérequis, puis calculer une première estimation de maîtrise par notion (F03, F04).
+- [x] Proposer 100 exercices d’entraînement dans le tableau de bord, avec indice, réponse et trois styles de correction.
 - [ ] Valider le corpus et créer une banque d’au moins 50 exercices avec difficulté, indices et correction. Prévoir la publication et la provenance des contenus (F08 à F10, F14).
 - [ ] Construire le tuteur Python. Rechercher dans le corpus, citer les ressources, reformuler et adapter les activités au niveau de l’étudiant (F05 à F07).
 - [ ] Enregistrer les séances et les observations, afficher les progrès et proposer la suite. Borner les appels au modèle et mesurer les erreurs, la latence et les coûts (F11 à F13, F15).

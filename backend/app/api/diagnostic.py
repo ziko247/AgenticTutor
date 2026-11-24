@@ -146,6 +146,11 @@ def start(body: StartInput, request: Request, user_id: Identity):
             ).fetchone()
             if row["create_payload_hash"] != digest:
                 raise HTTPException(409, "Request conflict")
+        cursor.execute(
+            """UPDATE app_private.profiles SET preferred_language=%s, revision=revision+1,
+               updated_at=now() WHERE user_id=%s AND preferred_language IS DISTINCT FROM %s""",
+            (body.language, user_id, body.language),
+        )
         return read_attempt(cursor, row["id"])
 
 

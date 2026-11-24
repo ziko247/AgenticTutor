@@ -137,3 +137,40 @@
   outline: 3px solid var(--color-focus);
   outline-offset: 4px;
 }
+
+.practice {
+  margin-top: var(--space-lg);
+}
+.practice-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--space-md);
+}
+.practice-controls label {
+  display: grid;
+  gap: var(--space-xs);
+}
+.practice-sheet {
+  margin-top: var(--space-lg);
+  max-width: 48rem;
+}
+.practice-sheet h3 {
+  font-size: 1.3rem;
+  overflow-wrap: break-word;
+}
+.practice-sheet pre {
+  overflow-x: auto;
+}
+.practice-sheet details {
+  border-bottom: 1px solid var(--color-rule);
+  padding-block: var(--space-sm);
+}
+.practice-sheet summary {
+  cursor: pointer;
+  padding-block: var(--space-xs);
+  font-weight: 600;
+}
+.practice-sheet summary:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}

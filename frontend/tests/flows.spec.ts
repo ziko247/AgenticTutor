@@ -210,6 +210,21 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await expect(
     page.getByText("Diagnostic terminé. Votre résultat : 2 / 20."),
   ).toBeVisible();
+  await expect(page.locator("#profile-language")).toHaveValue("javascript");
+  await expect(page.getByLabel("Style d’explication")).toHaveValue("image");
+  await page.getByText("Lire un indice", { exact: true }).click();
+  await expect(
+    page.getByText("Repérez l’opération effectuée en premier."),
+  ).toBeVisible();
+  await page.getByText("Comparer avec la correction").click();
+  await page.getByLabel("Style d’explication").selectOption("brief");
+  await expect(
+    page.getByText("La multiplication précède l’addition."),
+  ).toBeVisible();
+  await page.getByLabel("Exercice en JavaScript").selectOption("9");
+  await expect(
+    page.getByText("Lire une transformation", { exact: true }).last(),
+  ).toBeVisible();
   await page.getByRole("link", { name: "Voir mon résultat" }).click();
   await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
   await page

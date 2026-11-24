@@ -8,6 +8,10 @@ import {
   HardDrive,
   RotateCcw,
 } from "lucide-react";
+import {
+  explanationLabels,
+  suggestedExplanation,
+} from "@/features/exercises/styles";
 import { Brand } from "@/components/brand";
 import { languages, languageOrder } from "@/lib/languages";
 import { emptyDraft, type Draft, type Answer, answerLabel } from "./storage";
@@ -184,8 +188,10 @@ export function Onboarding({
                 déjà accompli.
               </h1>
               <p className="intro">
-                Votre diagnostic est enregistré sur votre compte. Le tutorat
-                personnalisé sera disponible dans une prochaine version.
+                Vos exercices vous attendent dans votre espace. Style suggéré
+                pour les corrections :{" "}
+                {explanationLabels[suggestedExplanation(attempt?.score ?? 0)]}.
+                Vous pourrez en choisir un autre.
               </p>
               <div className="summary-line">
                 <strong>{attempt?.score ?? 0} / 20</strong>

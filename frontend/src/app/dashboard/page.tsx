@@ -4,6 +4,7 @@ import { loadOrCreateProfile } from "@/features/auth/profile";
 import { signOut } from "@/features/auth/actions";
 import { loadDiagnostic } from "@/features/diagnostic/actions";
 import { languages } from "@/lib/languages";
+import { ExerciseSection } from "@/features/exercises/exercise-section";
 import { ProfileForm } from "@/features/auth/profile-form";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -111,6 +112,26 @@ export default async function DashboardPage() {
                   ? "Reprendre le diagnostic"
                   : "Commencer le diagnostic"}
           </Link>
+        </section>
+
+        <section
+          className="dashboard-upcoming"
+          aria-labelledby="exercise-title"
+        >
+          <h2 id="exercise-title">Exercices</h2>
+          {diagnosticError ? (
+            <p>Votre parcours est temporairement indisponible.</p>
+          ) : attempt?.completed && attempt.score !== null ? (
+            <ExerciseSection
+              language={profile.preferred_language ?? attempt.language}
+              score={attempt.score}
+            />
+          ) : (
+            <p>
+              Terminez votre diagnostic pour ouvrir les exercices de votre
+              parcours.
+            </p>
+          )}
         </section>
 
         <section className="dashboard-upcoming" aria-labelledby="profile-title">

@@ -1,0 +1,112 @@
+[
+  {
+    "id": "html-1",
+    "title": "Nommer une page",
+    "prompt": "Quel texte apparaît dans l’onglet ?",
+    "code": "<title>Mon carnet</title>",
+    "hint": "Cherchez le contenu de title.",
+    "answer": "Mon carnet",
+    "brief": "title fournit le titre de l’onglet.",
+    "steps": "Le navigateur lit le texte entre les balises title et l’utilise comme titre du document.",
+    "image": "L’onglet est comme une étiquette sur un cahier. Son étiquette dit « Mon carnet »."
+  },
+  {
+    "id": "html-2",
+    "title": "Suivre un lien",
+    "prompt": "Vers quel chemin mène ce lien ?",
+    "code": "<a href=\"/profil\">Voir ma fiche</a>",
+    "hint": "Repérez l’attribut de destination.",
+    "answer": "/profil",
+    "brief": "href contient le chemin cible.",
+    "steps": "Le texte visible invite à cliquer. La valeur de href indique où le navigateur se rend.",
+    "image": "Le panneau dit « Voir ma fiche ». La flèche sur ce panneau indique /profil."
+  },
+  {
+    "id": "html-3",
+    "title": "Décrire une image",
+    "prompt": "Quel attribut contient la description de l’image ?",
+    "code": "<img src=\"lac.jpg\" alt=\"Un lac gelé\">",
+    "hint": "Le nom du fichier est dans src.",
+    "answer": "alt",
+    "brief": "alt porte le texte de remplacement.",
+    "steps": "src indique la ressource à charger. alt fournit une description textuelle du contenu.",
+    "image": "Si tu racontes une photo à quelqu’un, les mots « Un lac gelé » sont sa description. Ils vont dans alt."
+  },
+  {
+    "id": "html-4",
+    "title": "Lire une liste",
+    "prompt": "Combien d’éléments cette liste contient-elle ?",
+    "code": "<ul><li>Sel</li><li>Poivre</li></ul>",
+    "hint": "Comptez les balises ouvrantes li.",
+    "answer": "2",
+    "brief": "Chaque li représente un élément.",
+    "steps": "ul entoure toute la liste. Sel occupe le premier li et Poivre le deuxième.",
+    "image": "Sur ta liste de courses, tu coches le sel puis le poivre. Cela fait deux cases."
+  },
+  {
+    "id": "html-5",
+    "title": "Associer un libellé",
+    "prompt": "Quelle valeur donner à for ?",
+    "code": "<label for=\"…\">Ville</label>\n<input id=\"ville\">",
+    "hint": "Retrouvez l’identifiant du champ.",
+    "answer": "ville",
+    "brief": "for doit correspondre à l’id du champ.",
+    "steps": "Le navigateur relie le libellé au champ dont l’id correspond exactement à for.",
+    "image": "L’étiquette et son tiroir portent le même nom pour que tu les retrouves ensemble."
+  },
+  {
+    "id": "html-6",
+    "title": "Choisir un champ",
+    "prompt": "Quelle valeur de type convient à une adresse électronique ?",
+    "code": "<input type=\"…\" name=\"contact\">",
+    "hint": "Le nom du type est le mot anglais courant.",
+    "answer": "email",
+    "brief": "Le type email convient à une adresse électronique.",
+    "steps": "Ce type demande au navigateur de vérifier la forme d’une adresse si le champ est rempli.",
+    "image": "Imagine une case réservée aux adresses comme lea@exemple.fr. Le mot email annonce ce qu’on y écrit."
+  },
+  {
+    "id": "html-7",
+    "title": "Rendre un choix obligatoire",
+    "prompt": "Quel attribut impose de remplir ce champ avant un envoi standard ?",
+    "code": "<input name=\"nom\">",
+    "hint": "Cet attribut signifie « obligatoire » en anglais.",
+    "answer": "required",
+    "brief": "required active la contrainte de présence.",
+    "steps": "Avec required, un champ texte vide empêche la validation normale du formulaire.",
+    "image": "C’est comme une fiche où la case du nom doit être remplie avant de la rendre."
+  },
+  {
+    "id": "html-8",
+    "title": "Organiser les titres",
+    "prompt": "Quelle balise convient au titre d’une section directement sous ce h1 ?",
+    "code": "<h1>Mon voyage</h1>\n<section>…</section>",
+    "hint": "Descendez d’un niveau.",
+    "answer": "h2",
+    "brief": "h2 est le deuxième niveau de titre.",
+    "steps": "Le titre principal est au niveau 1. Une section directement subordonnée prend le niveau 2.",
+    "image": "Ton livre a un titre sur la couverture. À l’intérieur, chaque chapitre a son propre titre."
+  },
+  {
+    "id": "html-9",
+    "title": "Lire un tableau",
+    "prompt": "Quelle balise identifie ici la cellule d’en-tête ?",
+    "code": "<tr><th>Ville</th></tr>\n<tr><td>Fès</td></tr>",
+    "hint": "Distinguez le nom de colonne et la donnée.",
+    "answer": "th",
+    "brief": "th représente une cellule d’en-tête.",
+    "steps": "Ville décrit la colonne. Fès est une valeur de cette colonne et occupe un td.",
+    "image": "Sur une boîte, une étiquette dit « Ville ». À l’intérieur se trouve le nom Fès."
+  },
+  {
+    "id": "html-10",
+    "title": "Ouvrir un détail",
+    "prompt": "Quel texte peut-on activer pour révéler la réponse ?",
+    "code": "<details><summary>Indice</summary>Lis la boucle.</details>",
+    "hint": "Cherchez le résumé.",
+    "answer": "Indice",
+    "brief": "summary fournit la commande d’ouverture.",
+    "steps": "details contient le contenu repliable. Son premier summary sert à ouvrir et fermer le détail.",
+    "image": "Imagine un petit volet portant le mot « Indice ». Soulève-le pour lire ce qui est écrit dessous."
+  }
+]

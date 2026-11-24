@@ -22,6 +22,7 @@ def test_attempt_lifecycle_and_isolation(database, students, admin):
     assert response.status_code == 200, response.text
     attempt = response.json()
     assert len(attempt["questions"]) == 16
+    assert client.get("/api/v1/me/profile").json()["preferred_language"] == "python"
     assert (
         client.post(
             "/api/v1/diagnostic/attempts", json={"language": "python", "request_id": request_id}

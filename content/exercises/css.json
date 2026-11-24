@@ -1,0 +1,112 @@
+[
+  {
+    "id": "css-1",
+    "title": "Lire une couleur",
+    "prompt": "Quel mot désigne la couleur du texte ?",
+    "code": "p { color: teal; }",
+    "hint": "Lisez la valeur après color.",
+    "answer": "teal",
+    "brief": "color règle la couleur du texte.",
+    "steps": "Le sélecteur vise les paragraphes. Dans cette règle, la valeur de color est teal.",
+    "image": "C’est comme choisir un crayon bleu-vert pour écrire chaque paragraphe."
+  },
+  {
+    "id": "css-2",
+    "title": "Cibler une classe",
+    "prompt": "Quel caractère manque avant note ?",
+    "code": "/* cibler class=\"note\" */\n…note { padding: 8px; }",
+    "hint": "Cherchez le préfixe des classes.",
+    "answer": ".",
+    "brief": "Le point introduit une classe.",
+    "steps": "Le sélecteur .note correspond aux éléments dont la liste de classes contient note.",
+    "image": "Le point appelle tous les éléments qui portent le badge note."
+  },
+  {
+    "id": "css-3",
+    "title": "Partager une marge",
+    "prompt": "Quelle marge à gauche en pixels ?",
+    "code": "p { margin: 4px 12px; }",
+    "hint": "La deuxième valeur agit horizontalement.",
+    "answer": "12",
+    "brief": "Les marges latérales valent 12 px.",
+    "steps": "Avec deux valeurs, la première règle le haut et le bas. La seconde règle la gauche et la droite.",
+    "image": "Laisse quatre petits pas au-dessus et en dessous de la feuille, et douze de chaque côté."
+  },
+  {
+    "id": "css-4",
+    "title": "Calculer une largeur",
+    "prompt": "Quelle largeur totale en pixels, hors marge ?",
+    "code": ".bloc { box-sizing: content-box; width: 80px; padding: 10px; border: 0; }",
+    "hint": "Ajoutez les deux espaces intérieurs.",
+    "answer": "100",
+    "brief": "80 + 10 + 10 donne 100 px.",
+    "steps": "width mesure le contenu. Le padding gauche et le padding droit ajoutent chacun 10 px.",
+    "image": "Une photo large de 80 cases reçoit un bord blanc de dix cases de chaque côté."
+  },
+  {
+    "id": "css-5",
+    "title": "Comparer deux règles",
+    "prompt": "Quelle couleur reçoit un paragraphe de classe note ?",
+    "code": "p { color: red; }\n.note { color: navy; }",
+    "hint": "Comparez une classe et un type d’élément.",
+    "answer": "navy",
+    "brief": "Le sélecteur de classe est plus spécifique.",
+    "steps": "Les deux règles s’appliquent au même paragraphe. Dans cette feuille, .note l’emporte sur p.",
+    "image": "Tous les cahiers ont une consigne. Ceux portant le badge note ont une consigne plus précise."
+  },
+  {
+    "id": "css-6",
+    "title": "Lire la cascade",
+    "prompt": "Quelle opacité finale reçoit .photo ?",
+    "code": ".photo { opacity: 0.4; }\n.photo { opacity: 0.8; }",
+    "hint": "Les deux sélecteurs sont identiques.",
+    "answer": "0.8",
+    "brief": "À priorité égale, la dernière déclaration gagne.",
+    "steps": "Les deux règles fixent opacity sur la même classe. La seconde remplace la première valeur.",
+    "image": "Sur ta feuille, tu corriges 0.4 en écrivant 0.8. La dernière consigne est celle à suivre."
+  },
+  {
+    "id": "css-7",
+    "title": "Convertir une unité",
+    "prompt": "Quelle taille de texte en pixels ?",
+    "code": "html { font-size: 16px; }\nh2 { font-size: 2rem; }",
+    "hint": "rem prend la racine comme référence.",
+    "answer": "32",
+    "brief": "Deux fois 16 px donnent 32 px.",
+    "steps": "La racine fixe 1rem à 16 px. Le titre en utilise deux.",
+    "image": "Si une brique mesure seize cases, deux briques alignées en mesurent trente-deux."
+  },
+  {
+    "id": "css-8",
+    "title": "Espacer une rangée",
+    "prompt": "Trois éléments tiennent sur une ligne. Combien de pixels de gap au total ?",
+    "code": ".rangee { display: flex; gap: 6px; }",
+    "hint": "Comptez les intervalles entre voisins.",
+    "answer": "12",
+    "brief": "Deux intervalles de 6 px donnent 12 px.",
+    "steps": "Un intervalle sépare les éléments 1 et 2, un autre les éléments 2 et 3. gap ne crée aucun espace aux extrémités.",
+    "image": "Trois chaises côte à côte laissent deux passages entre elles."
+  },
+  {
+    "id": "css-9",
+    "title": "Répartir une grille",
+    "prompt": "Quelle largeur en pixels pour la première colonne avec deux éléments vides ?",
+    "code": ".grille { display: grid; width: 300px; grid-template-columns: 1fr 2fr; gap: 0; }",
+    "hint": "Comptez les parts.",
+    "answer": "100",
+    "brief": "La première colonne reçoit une part sur trois.",
+    "steps": "Les colonnes se partagent 300 px en trois parts égales. La première prend 100 px, la seconde 200.",
+    "image": "Coupe une bande de papier en trois morceaux égaux. Donne le premier morceau à la petite colonne."
+  },
+  {
+    "id": "css-10",
+    "title": "Activer une règle responsive",
+    "prompt": "À 700 px de largeur de fenêtre, combien de colonnes obtient-on ?",
+    "code": ".liste { display: grid; grid-template-columns: 1fr; }\n@media (min-width: 600px) { .liste { grid-template-columns: 1fr 1fr; } }",
+    "hint": "Comparez 700 au seuil de la règle.",
+    "answer": "2",
+    "brief": "La règle active définit deux colonnes.",
+    "steps": "700 dépasse le minimum de 600. La nouvelle liste de pistes contient deux fois 1fr.",
+    "image": "Quand la table est assez large, tu peux poser deux assiettes côte à côte. Ici, la fenêtre est assez large."
+  }
+]
