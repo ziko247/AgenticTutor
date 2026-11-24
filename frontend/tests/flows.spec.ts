@@ -49,7 +49,10 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
   ).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Mon profil" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Calendrier d’activité" }),
+  ).toBeVisible();
+  await expect(page.locator(".calendar-parts rect")).toHaveCount(365);
   await page.getByRole("link", { name: "AgenticTutor, accueil" }).click();
   await expect(page).toHaveURL(/\/dashboard$/);
   await page.goto("/");
@@ -62,6 +65,18 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
   expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain(
     "test-only-123",
   );
+  const menu = page.locator(".account-menu summary");
+  await menu.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("link", { name: "Paramètres" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(menu).toBeFocused();
+  await menu.click();
+  await page.getByRole("link", { name: "Paramètres" }).click();
+  await expect(page.getByRole("heading", { name: "Paramètres" })).toBeVisible();
+  await menu.click();
+  await page.getByRole("link", { name: "Mon profil" }).click();
+  await expect(page.getByText(accountEmail)).toBeVisible();
   await page.locator("#profile-name").fill("Profile edited");
   await page
     .getByRole("button", { name: "Enregistrer le profil", exact: true })
@@ -74,17 +89,22 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
       .filter((c) => c.name.startsWith("sb-"))
       .every((c) => c.httpOnly),
   ).toBeTruthy();
-  await expect(
-    page.getByRole("heading", { name: "Votre espace d’apprentissage" }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Mon profil" })).toBeVisible();
+  await menu.click();
   await page
     .getByRole("button", { name: "Se déconnecter", exact: true })
     .click();
   await expect(page).toHaveURL(/\/sign-in$/);
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/sign-in$/);
-  await page.goto("/onboarding");
-  await expect(page).toHaveURL(/\/sign-in$/);
+  for (const route of [
+    "/dashboard/profile",
+    "/dashboard/settings",
+    "/onboarding",
+  ]) {
+    await page.goto(route);
+    await expect(page).toHaveURL(/\/sign-in$/);
+  }
   await page.goto("/sign-in");
   await page.getByRole("button", { name: "Se connecter", exact: true }).click();
   await expect(page.locator("#email")).toHaveAttribute("aria-invalid", "true");
@@ -103,6 +123,7 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
     "lien n’est plus valide",
   );
   await page.goto("/dashboard");
+  await menu.click();
   await page
     .getByRole("button", { name: "Se déconnecter", exact: true })
     .click();
@@ -210,7 +231,10 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await expect(
     page.getByText("Diagnostic terminé. Votre résultat : 2 / 20."),
   ).toBeVisible();
+  await page.goto("/dashboard/profile");
   await expect(page.locator("#profile-language")).toHaveValue("javascript");
+  await expect(page.getByText("JavaScript · 2 / 20")).toBeVisible();
+  await page.goto("/dashboard");
   await expect(page.getByLabel("Style d’explication")).toHaveValue("image");
   await page.getByText("Lire un indice", { exact: true }).click();
   await expect(
@@ -225,6 +249,29 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await expect(
     page.getByText("Lire une transformation", { exact: true }).last(),
   ).toBeVisible();
+  const title = await page.locator(".daily-challenge p").innerText();
+  await page.getByRole("link", { name: "Ouvrir le défi" }).click();
+  await expect(page.locator(".practice-sheet h3")).toHaveText(title);
+  const exercisePicker = page.getByLabel("Exercice en JavaScript");
+  const otherIndex = (Number(await exercisePicker.inputValue()) + 1) % 10;
+  await exercisePicker.selectOption(String(otherIndex));
+  await page.getByRole("link", { name: "Ouvrir le défi" }).click();
+  await expect(page.locator(".practice-sheet h3")).toHaveText(title);
+  await page.getByRole("button", { name: "Marquer comme terminé" }).click();
+  await expect(page.locator(".stat-strip dd").last()).toHaveText("1");
+  await page.reload();
+  await expect(
+    page.getByRole("button", { name: "Terminé aujourd’hui" }),
+  ).toBeDisabled();
+  await expect(
+    page.getByRole("link", { name: "Revoir le défi terminé" }),
+  ).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBeTruthy();
   await page.getByRole("link", { name: "Voir mon résultat" }).click();
   await expect(page.locator(".summary-line strong")).toHaveText("2 / 20");
   await page

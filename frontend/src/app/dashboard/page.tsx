@@ -1,151 +1,119 @@
-import { verifiedUser } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
-import { loadOrCreateProfile } from "@/features/auth/profile";
-import { signOut } from "@/features/auth/actions";
+import { account } from "@/features/auth/account";
 import { loadDiagnostic } from "@/features/diagnostic/actions";
 import { languages } from "@/lib/languages";
-import { ExerciseSection } from "@/features/exercises/exercise-section";
-import { ProfileForm } from "@/features/auth/profile-form";
-import type { Metadata } from "next";
+import { Practice } from "@/features/exercises/practice";
+import { loadExercises } from "@/features/exercises/exercise-section";
+import { loadActivity } from "@/features/exercises/activity";
+import { ActivityOverview } from "@/features/exercises/activity-overview";
+import { suggestedExplanation } from "@/features/exercises/styles";
 import Link from "next/link";
-import { Brand } from "@/components/brand";
-import "@/styles/dashboard.css";
-
-export const metadata: Metadata = {
-  title: "Tableau de bord",
-  description:
-    "Votre espace pour commencer le diagnostic et préparer votre apprentissage.",
-};
-
-export default async function DashboardPage() {
-  const {
-    data: { user },
-    error,
-  } = await verifiedUser();
-  if (error && (!error.status || error.status >= 500 || error.status === 429))
-    return (
-      <main id="main" className="container dashboard-main">
-        <h1>Service temporairement indisponible</h1>
-        <p>
-          La connexion est momentanément indisponible. Rechargez la page pour
-          réessayer.
-        </p>
-      </main>
-    );
-  if (error || !user) redirect("/sign-in");
-  const response = await loadOrCreateProfile(user);
-  if (!response.ok)
-    return (
-      <main id="main" className="container dashboard-main">
-        <h1>Votre espace</h1>
-        <p>
-          Le profil est temporairement indisponible. Rechargez la page pour
-          réessayer.
-        </p>
-        <form action={signOut}>
-          <button className="button">Se déconnecter</button>
-        </form>
-      </main>
-    );
-  const profile = await response.json();
-  const { attempt, error: diagnosticError } = await loadDiagnostic();
+export const metadata = { title: "Tableau de bord" };
+export default async function Dashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ challenge?: string }>;
+}) {
+  const session = await account();
+  if (!session) return null;
+  const { profile } = session;
+  const [{ attempt, error: diagnosticError }, activity, params] =
+    await Promise.all([loadDiagnostic(), loadActivity(), searchParams]);
+  const language = attempt?.completed
+    ? (profile.preferred_language ?? attempt.language)
+    : null;
+  const bank = language ? await loadExercises(language) : [];
+  const challengeIndex =
+    activity && bank.length
+      ? Math.floor(Date.parse(activity.today) / 86400000) % bank.length
+      : 0;
+  const challenge = bank[challengeIndex];
+  const initialIndex =
+    activity && params.challenge === activity.today ? challengeIndex : 0;
   const answered = attempt?.questions.filter(
     ({ id }) => attempt.answers[id] !== undefined,
   ).length;
 
   return (
-    <>
-      <header className="dashboard-header">
-        <div className="container dashboard-header-inner">
-          <Brand href="/dashboard" />
-          <nav aria-label="Navigation de l’espace">
-            <Link href="/dashboard" aria-current="page">
-              Tableau de bord
-            </Link>
-            <Link href="/onboarding">Diagnostic</Link>
-            <form action={signOut}>
-              <button type="submit" className="text-button">
-                Se déconnecter
-              </button>
-            </form>
-          </nav>
-        </div>
-      </header>
-      <main id="main" className="container dashboard-main">
-        <div className="dashboard-intro">
-          <h1>Votre espace d’apprentissage</h1>
-          <p>Un point de départ pour apprendre à votre rythme.</p>
-        </div>
+    <main id="main" className="container dashboard-main">
+      <div className="dashboard-intro">
+        <h1>Votre espace d’apprentissage</h1>
+      </div>
 
-        <section className="dashboard-start" aria-labelledby="diagnostic-title">
-          <div>
-            <h2 id="diagnostic-title">
-              {attempt
-                ? "Votre diagnostic " + languages[attempt.language].label
-                : "Faisons le point sur vos acquis."}
-            </h2>
-            {diagnosticError ? (
-              <p>
-                Le statut de votre diagnostic est temporairement indisponible.
-              </p>
-            ) : attempt?.completed ? (
-              <p>Diagnostic terminé. Votre résultat : {attempt.score} / 20.</p>
-            ) : attempt ? (
-              <p>
-                {answered} réponse{answered === 1 ? "" : "s"} sur{" "}
-                {attempt.questions.length}. Vous pouvez reprendre où vous en
-                étiez.
-              </p>
-            ) : (
-              <p>
-                Choisissez un langage et passez le diagnostic pour situer votre
-                niveau.
-              </p>
-            )}
-          </div>
-          <Link href="/onboarding" className="button">
-            {diagnosticError
-              ? "Accéder au diagnostic"
-              : attempt?.completed
-                ? "Voir mon résultat"
-                : attempt
-                  ? "Reprendre le diagnostic"
-                  : "Commencer le diagnostic"}
-          </Link>
-        </section>
-
-        <section
-          className="dashboard-upcoming"
-          aria-labelledby="exercise-title"
-        >
-          <h2 id="exercise-title">Exercices</h2>
+      {activity ? (
+        <ActivityOverview
+          activity={activity}
+          challenge={challenge}
+          unavailable={Boolean(
+            diagnosticError || (attempt?.completed && !bank.length),
+          )}
+        />
+      ) : (
+        <p role="status">Statistiques temporairement indisponibles.</p>
+      )}
+      <section className="dashboard-start" aria-labelledby="diagnostic-title">
+        <div>
+          <h2 id="diagnostic-title">
+            {attempt
+              ? "Votre diagnostic " + languages[attempt.language].label
+              : "Faisons le point sur vos acquis."}
+          </h2>
           {diagnosticError ? (
-            <p>Votre parcours est temporairement indisponible.</p>
-          ) : attempt?.completed && attempt.score !== null ? (
-            <ExerciseSection
-              language={profile.preferred_language ?? attempt.language}
-              score={attempt.score}
-            />
+            <p>
+              Le statut de votre diagnostic est temporairement indisponible.
+            </p>
+          ) : attempt?.completed ? (
+            <p>Diagnostic terminé. Votre résultat : {attempt.score} / 20.</p>
+          ) : attempt ? (
+            <p>
+              {answered} réponse{answered === 1 ? "" : "s"} sur{" "}
+              {attempt.questions.length}. Vous pouvez reprendre où vous en
+              étiez.
+            </p>
           ) : (
             <p>
-              Terminez votre diagnostic pour ouvrir les exercices de votre
-              parcours.
+              Choisissez un langage et passez le diagnostic pour situer votre
+              niveau.
             </p>
           )}
-        </section>
+        </div>
+        <Link href="/onboarding" className="button">
+          {diagnosticError
+            ? "Accéder au diagnostic"
+            : attempt?.completed
+              ? "Voir mon résultat"
+              : attempt
+                ? "Reprendre le diagnostic"
+                : "Commencer le diagnostic"}
+        </Link>
+      </section>
 
-        <section className="dashboard-upcoming" aria-labelledby="profile-title">
-          <h2 id="profile-title">Mon profil</h2>
-          <ProfileForm
-            name={profile.display_name}
-            language={profile.preferred_language}
-            revision={profile.revision}
-          />
-        </section>
-        <p className="dashboard-notice">
-          Votre profil et votre diagnostic sont enregistrés sur votre compte.
-        </p>
-      </main>
-    </>
+      <section className="dashboard-upcoming" aria-labelledby="exercise-title">
+        <h2 id="exercise-title" tabIndex={-1}>
+          Exercices
+        </h2>
+        {diagnosticError ? (
+          <p>Votre parcours est temporairement indisponible.</p>
+        ) : attempt?.completed && attempt.score !== null ? (
+          bank.length && language ? (
+            <Practice
+              key={language + initialIndex}
+              exercises={bank}
+              language={languages[language].label}
+              languageCode={language}
+              initialIndex={initialIndex}
+              completed={activity?.completed ?? []}
+              recommended={suggestedExplanation(attempt.score)}
+            />
+          ) : (
+            <p>Exercices temporairement indisponibles.</p>
+          )
+        ) : (
+          <p>
+            Terminez votre diagnostic pour ouvrir les exercices de votre
+            parcours.
+          </p>
+        )}
+      </section>
+    </main>
   );
 }

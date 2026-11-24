@@ -7,7 +7,7 @@ from psycopg_pool import ConnectionPool
 
 from app.core.config import Settings
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 
 class Database:

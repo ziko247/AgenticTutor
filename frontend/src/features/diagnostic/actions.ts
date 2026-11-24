@@ -89,3 +89,7 @@ export async function resetDiagnostic(id: string, revision: number) {
   const result = await request("/reset", "POST", { attempt_id: id, revision });
   return result.error ? result : { attempt: null };
 }
+
+export async function loadLatestResult() {
+  return request("/latest-result", "GET");
+}

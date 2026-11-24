@@ -254,3 +254,18 @@ def reset(body: ResetInput, request: Request, user_id: Identity):
         if row is None:
             raise HTTPException(409, "Attempt changed")
     return {"ok": True}
+
+
+@router.get("/latest-result")
+def latest_result(request: Request, user_id: Identity):
+    with (
+        db(request).transaction_for(user_id) as connection,
+        connection.cursor(row_factory=dict_row) as cursor,
+    ):
+        row = cursor.execute(
+            """SELECT id FROM app_private.diagnostic_attempts
+               WHERE user_id=%s AND state='completed'
+               ORDER BY completed_at DESC, id DESC LIMIT 1""",
+            (user_id,),
+        ).fetchone()
+        return read_attempt(cursor, row["id"]) if row else None

@@ -11,6 +11,6 @@ export async function saveProfile(data: FormData) {
     return response.status === 409
       ? "Le profil a changé. Rechargez la page avant de réessayer."
       : "Profil non enregistré. Vérifiez les champs.";
-  revalidatePath("/dashboard");
+  revalidatePath("/dashboard", "layout");
   return "Profil enregistré.";
 }

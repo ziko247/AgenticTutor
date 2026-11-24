@@ -1,5 +1,7 @@
 "use client";
 
+import { completeExercise } from "./activity";
+import type { Language } from "@/lib/languages";
 import { useState } from "react";
 import { explanationLabels, type Explanation } from "./styles";
 
@@ -16,13 +18,21 @@ export function Practice({
   exercises,
   recommended,
   language,
+  languageCode,
+  completed,
+  initialIndex,
 }: {
   exercises: Exercise[];
   recommended: Explanation;
   language: string;
+  languageCode: Language;
+  completed: string[];
+  initialIndex: number;
 }) {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(initialIndex);
   const [style, setStyle] = useState(recommended);
+  const [saving, setSaving] = useState(false);
+  const [failed, setFailed] = useState(false);
   const exercise = exercises[index];
   return (
     <div className="practice">
@@ -31,7 +41,20 @@ export function Practice({
           Exercice en {language}
           <select
             value={index}
-            onChange={(e) => setIndex(Number(e.target.value))}
+            disabled={saving}
+            onChange={(e) => {
+              setFailed(false);
+              setIndex(Number(e.target.value));
+              if (
+                new URLSearchParams(window.location.search).has("challenge")
+              ) {
+                window.history.replaceState(
+                  null,
+                  "",
+                  "/dashboard#exercise-title",
+                );
+              }
+            }}
           >
             {exercises.map((item, i) => (
               <option key={item.id} value={i}>
@@ -76,6 +99,28 @@ export function Practice({
           </p>
           <p aria-live="polite">{exercise[style]}</p>
         </details>
+        <button
+          className="button practice-complete"
+          disabled={saving || completed.includes(exercise.id)}
+          onClick={async () => {
+            setSaving(true);
+            setFailed(false);
+            try {
+              setFailed(!(await completeExercise(languageCode, exercise.id)));
+            } catch {
+              setFailed(true);
+            } finally {
+              setSaving(false);
+            }
+          }}
+        >
+          {completed.includes(exercise.id)
+            ? "Terminé aujourd’hui"
+            : saving
+              ? "Enregistrement…"
+              : "Marquer comme terminé"}
+        </button>
+        {failed && <p role="alert">Enregistrement impossible. Réessayez.</p>}
       </div>
     </div>
   );

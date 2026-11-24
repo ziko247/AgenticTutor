@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 from uuid import uuid4
 
 import pytest
@@ -15,6 +16,11 @@ def test_attempt_lifecycle_and_isolation(database, students, admin):
     app.dependency_overrides[identity] = lambda: students[0]
     client = TestClient(app)
     assert client.get("/api/v1/diagnostic/current").json() is None
+    activity = "/api/v1/me/activity"
+    mark = activity + "/python/python-1"
+    latest = "/api/v1/diagnostic/latest-result"
+    assert client.get(latest).json() is None
+    assert client.put(mark).status_code == 409
     request_id = str(uuid4())
     response = client.post(
         "/api/v1/diagnostic/attempts", json={"language": "python", "request_id": request_id}
@@ -72,7 +78,25 @@ def test_attempt_lifecycle_and_isolation(database, students, admin):
     assert done.status_code == 200, done.text
     result = done.json()
     assert result["completed"] and result["score"] == 2 * result["correct_count"]
+    assert client.put(activity + "/python/missing").status_code == 404
+    assert client.put(activity + "/rust/rust-1").status_code == 409
+    for _ in range(2):
+        assert client.put(mark).status_code == 200
+    stats = client.get(activity).json()
+    assert stats["completed"] == ["python-1"]
+    assert stats["days"] == {stats["today"]: 1}
+    today = date.fromisoformat(stats["today"])
+    oldest = today - timedelta(days=364)
+    for day in (oldest, oldest - timedelta(days=1)):
+        admin.execute(
+            "INSERT INTO app_private.exercise_activity (user_id, day, exercise_id) VALUES (%s,%s,%s)",
+            (students[0], day, "python-1"),
+        )
+    assert client.get(activity).json()["days"] == {stats["today"]: 1, oldest.isoformat(): 1}
     app.dependency_overrides[identity] = lambda: students[1]
+    assert client.get(activity).json()["days"] == {}
+    assert client.get(latest).json() is None
+    assert client.put(mark).status_code == 409
     assert client.get("/api/v1/diagnostic/current").json() is None
     assert (
         client.put("/api/v1/diagnostic/attempts/" + attempt["id"], json=payload).status_code == 404
@@ -90,3 +114,4 @@ def test_attempt_lifecycle_and_isolation(database, students, admin):
         == 200
     )
     assert client.get("/api/v1/diagnostic/current").json() is None
+    assert client.get(latest).json()["id"] == result["id"]

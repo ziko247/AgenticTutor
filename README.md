@@ -113,6 +113,7 @@ Les cases cochées correspondent au parcours vérifié en local. Le détail des 
 - [x] Choisir un langage, répondre à 6 questions de profil et 10 questions techniques, reprendre le diagnostic et obtenir une note sur 20 calculée côté serveur (F02/F03, partie livrée).
 - [ ] Faire valider les questions par l’encadrant. Cartographier les cinq notions Python et leurs prérequis, puis calculer une première estimation de maîtrise par notion (F03, F04).
 - [x] Proposer 100 exercices d’entraînement dans le tableau de bord, avec indice, réponse et trois styles de correction.
+- [x] Suivre les exercices terminés, relever le défi du jour et consulter le calendrier des 365 derniers jours. Un exercice compte une fois par jour et par compte, à l’heure de Casablanca, dès que l’étudiant le marque comme terminé.
 - [ ] Valider le corpus et créer une banque d’au moins 50 exercices avec difficulté, indices et correction. Prévoir la publication et la provenance des contenus (F08 à F10, F14).
 - [ ] Construire le tuteur Python. Rechercher dans le corpus, citer les ressources, reformuler et adapter les activités au niveau de l’étudiant (F05 à F07).
 - [ ] Enregistrer les séances et les observations, afficher les progrès et proposer la suite. Borner les appels au modèle et mesurer les erreurs, la latence et les coûts (F11 à F13, F15).

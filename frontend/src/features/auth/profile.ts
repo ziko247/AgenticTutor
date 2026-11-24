@@ -3,7 +3,8 @@ import type { User } from "@supabase/supabase-js";
 import { authClient, verifiedUser } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
-export async function profileRequest(
+export async function accountRequest(
+  path: string,
   method: "GET" | "PUT" | "PATCH",
   body?: object,
 ) {
@@ -22,7 +23,8 @@ export async function profileRequest(
   try {
     return await fetch(
       (process.env.API_BASE_URL || "http://127.0.0.1:8000") +
-        "/api/v1/me/profile",
+        "/api/v1/me/" +
+        path,
       {
         method,
         cache: "no-store",
@@ -36,6 +38,10 @@ export async function profileRequest(
   } catch {
     return new Response(null, { status: 503 });
   }
+}
+
+export function profileRequest(method: "GET" | "PUT" | "PATCH", body?: object) {
+  return accountRequest("profile", method, body);
 }
 
 export async function loadOrCreateProfile(user: User) {

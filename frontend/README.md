@@ -30,7 +30,9 @@ Pour les lancements suivants, npm.cmd run dev suffit ; relancer npm.cmd ci lorsq
 | `/` | Landing enrichie : cinq notions, exemple Python interactif prédéfini, boucle expliquée, profils et FAQ |
 | `/sign-in` | Connexion Supabase Auth |
 | `/sign-up` | Inscription Supabase Auth ; session valide → dashboard protégé |
-| `/dashboard` | Espace protégé, profil persistant, diagnostic et déconnexion |
+| `/dashboard` | Statistiques, défi du jour, calendrier et exercices |
+| `/dashboard/profile` | Informations du compte et dernier score |
+| `/dashboard/settings` | Page réservée aux futurs paramètres |
 | `/onboarding` | 16 questions, revue, modification et récapitulatif final |
 
 Les formulaires valident les champs et affichent les erreurs ainsi qu'un état de vérification. Un bouton permet de voir le mot de passe. Ils utilisent maintenant les Server Actions Next.js et Supabase Auth. Après inscription et obtention d’une session, /dashboard s’ouvre avec un profil persistant. Le dashboard vérifie l’identité côté serveur et charge uniquement le profil du compte connecté. La connexion établit une session. Aucun mot de passe n'est sauvegardé. La récupération passe par /forgot-password et /reset-password.

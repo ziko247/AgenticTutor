@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from psycopg import Error as DatabaseError
 
+from app.api.activity import router as activity_router
 from app.api.diagnostic import router as diagnostic_router
 from app.api.exercises import router as exercise_router
 from app.api.profile import router
@@ -39,6 +40,7 @@ def create_app(
     app.include_router(router)
     app.include_router(diagnostic_router)
     app.include_router(exercise_router)
+    app.include_router(activity_router)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origins,

@@ -174,3 +174,195 @@
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
+
+.account-menu {
+  position: relative;
+  max-width: min(55vw, 20rem);
+}
+.account-menu summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+}
+.account-menu summary span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.account-menu summary svg {
+  flex: none;
+}
+.account-menu summary::-webkit-details-marker {
+  display: none;
+}
+.account-options {
+  position: absolute;
+  z-index: 5;
+  right: 0;
+  min-width: 12rem;
+  padding: 0.5rem;
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-input);
+}
+.dashboard-header .account-options a,
+.account-options button {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  width: 100%;
+  padding-inline: 0.65rem;
+  font: inherit;
+  color: var(--color-ink);
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+.account-options a:hover,
+.account-options button:hover {
+  background: var(--color-paper-2);
+}
+.account-options form {
+  border-top: 1px solid var(--color-rule);
+}
+.dashboard-header-inner nav {
+  flex-basis: auto;
+}
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+  margin-block: var(--space-lg);
+}
+.stat-strip div {
+  border-left: 3px solid var(--color-rule);
+  padding-left: var(--space-md);
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+.stat-strip dt,
+.activity-panel > p,
+.calendar-inspect {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+.stat-strip dd {
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.daily-challenge {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  background: var(--color-panel);
+  color: var(--color-panel-ink);
+  padding: var(--space-lg);
+  border-radius: var(--radius-card);
+}
+.daily-challenge svg {
+  color: var(--color-accent);
+  flex: none;
+}
+.daily-challenge h2,
+.activity-panel h2 {
+  font-size: 1.3rem;
+}
+.daily-challenge .button {
+  margin-inline-start: auto;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+.activity-panel {
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-card);
+}
+.calendar-parts {
+  display: flex;
+  gap: 2px;
+  margin-block: var(--space-md);
+  max-width: 52rem;
+}
+.calendar-parts svg {
+  width: 50%;
+  min-width: 0;
+}
+.calendar-parts text {
+  font: 9px var(--font-body);
+  fill: var(--color-muted);
+}
+.calendar-parts rect {
+  cursor: pointer;
+}
+.intensity-0 {
+  fill: var(--color-paper-2);
+  background: var(--color-paper-2);
+}
+.intensity-1 {
+  fill: var(--color-landing-rule);
+  background: var(--color-landing-rule);
+}
+.intensity-2 {
+  fill: var(--color-success);
+  background: var(--color-success);
+}
+.intensity-3 {
+  fill: var(--color-panel);
+  background: var(--color-panel);
+}
+.calendar-inspect,
+.calendar-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.calendar-inspect input {
+  font: inherit;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  padding: 0.35rem;
+}
+.calendar-legend {
+  margin-inline-start: auto;
+  gap: 3px;
+}
+.calendar-legend i {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 2px;
+}
+.practice-complete,
+.profile-page h1 {
+  margin-top: var(--space-lg);
+}
+@media (max-width: 640px) {
+  .calendar-parts {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .calendar-parts svg {
+    width: 100%;
+  }
+  .daily-challenge {
+    flex-wrap: wrap;
+  }
+  .daily-challenge .button {
+    margin-inline-start: 0;
+  }
+  .stat-strip div {
+    padding-left: 0.5rem;
+  }
+  .activity-panel {
+    padding: var(--space-md);
+  }
+}
