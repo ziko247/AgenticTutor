@@ -26,6 +26,7 @@ node_modules/
 dist/
 build/
 .next/
+docs/
 coverage/
 *.tsbuildinfo
 
@@ -41,6 +42,7 @@ evaluation/results/*
 uploads/
 backups/
 vector_store/
+docs/
 
 # Logs, local caches and editor settings
 *.log
@@ -60,3 +62,5 @@ frontend/next-env.d.ts
 supabase/.temp/
 supabase/.branches/
 rapport-avancement-2026-11-20.md
+
+docs/

@@ -94,7 +94,7 @@ Pour le MVP, les fonctions de référent pédagogique et d'administrateur peuven
 
 - Authentification et séparation des accès étudiant/gestionnaire.
 - Un seul domaine pédagogique, organisé en cinq notions et leurs prérequis.
-- Diagnostic initial de 10 à 15 questions couvrant les notions du domaine.
+- Placement initial selon le parcours décrit en section 8.1, avec six questions de contexte puis, selon l’expérience, dix questions techniques.
 - Profil de maîtrise par notion et historique des activités.
 - Conversation pédagogique contextualisée par le cours et la progression.
 - Banque d'au moins 50 exercices relus, avec corrections et métadonnées.
@@ -131,7 +131,7 @@ Pour le MVP, les fonctions de référent pédagogique et d'administrateur peuven
 |---|---|---|---|
 | F01 | Créer un compte, se connecter et se déconnecter | P0 | Une session valide donne accès aux seules données autorisées |
 | F02 | Présenter les objectifs du domaine et le fonctionnement du tuteur | P0 | L'étudiant peut commencer un diagnostic ou reprendre son parcours |
-| F03 | Faire passer un diagnostic initial | P0 | Les réponses produisent une première estimation pour chaque notion couverte |
+| F03 | Faire passer un diagnostic initial | P0 | Un débutant complet entre au niveau 1. Pour les autres, dix réponses techniques permettent de confirmer ou de réviser le niveau pressenti et d’estimer les acquis sur les notions couvertes |
 | F04 | Afficher un profil par notion | P0 | Niveau estimé, nombre d'observations et date de mise à jour sont consultables |
 | F05 | Répondre aux questions à partir du corpus validé | P0 | Les explications fondées sur le cours indiquent leurs ressources d'appui |
 | F06 | Adapter la forme des explications | P0 | L'étudiant peut demander une reformulation, un exemple ou une explication plus détaillée |
@@ -154,11 +154,11 @@ Pour le MVP, les fonctions de référent pédagogique et d'administrateur peuven
 
 ### 8.1 Première utilisation
 
-1. L'étudiant se connecte et découvre les objectifs du domaine.
-2. Il consulte l'information sur les données utilisées et les limites du tuteur.
-3. Il répond au diagnostic initial.
-4. Le système affiche une estimation par notion, en signalant les estimations encore fragiles.
-5. Le tuteur propose une première activité avec une justification simple.
+1. Après l’inscription, l’étudiant choisit parmi dix langages et technologies et prend connaissance des objectifs, des données utilisées et des limites du tuteur.
+2. Il répond à six questions de contexte. Un débutant complet commence au niveau 1 sans épreuve technique. Une première expérience dans ce langage ou dans un autre conduit à un niveau 2 pressenti. Un étudiant qui utilise déjà ce langage commence avec un niveau 3 pressenti.
+3. Pour les niveaux pressentis 2 et 3, le diagnostic comporte dix questions dans le langage choisi. Une partie est commune aux deux profils. Les autres questions varient selon l’expérience déclarée.
+4. Le diagnostic complet compte 16 questions. Les six questions de contexte ne rapportent aucun point. Chaque bonne réponse aux dix questions de code rapporte 2 points, pour une note sur 20. Les réponses confirment ou corrigent le placement, à la hausse ou à la baisse, parmi les trois niveaux. Le système présente les acquis observés et signale les estimations fragiles. La note indique un niveau 1 de 0 à 6/20, un niveau 2 de 8 à 14/20 et un niveau 3 de 16 à 20/20. L’expérience déclarée oriente le choix des questions. Pour les étudiants qui passent le diagnostic, la note fixe le niveau de départ. La taille du tronc commun reste à préciser.
+5. AgenticTutor propose des leçons, des exercices et des explications adaptés au niveau attribué. Un test de fin de niveau permet le passage au niveau suivant.
 
 ### 8.2 Séance d'apprentissage
 

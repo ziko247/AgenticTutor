@@ -105,6 +105,8 @@ Pour arrêter le projet, faites `Ctrl+C` dans les terminaux 2 et 3, puis exécut
 
 ## 4. Avancement du projet
 
+**Parcours prévu après l’inscription.** L’étudiant choisira un langage parmi dix et répondra à six questions de contexte. Un débutant complet commencera au niveau 1. Pour les autres, dix questions techniques combineront un tronc commun et des questions adaptées à l’expérience déclarée. Le diagnostic complet compte 16 questions. Les six questions de contexte ne rapportent aucun point. Chaque bonne réponse aux dix questions de code rapporte 2 points, pour une note sur 20. La note indique un niveau 1 de 0 à 6/20, un niveau 2 de 8 à 14/20 et un niveau 3 de 16 à 20/20. L’expérience déclarée oriente le choix des questions. Pour les étudiants qui passent le diagnostic, la note fixe le niveau de départ. AgenticTutor proposera ensuite les leçons, les exercices et les explications du niveau attribué. Un test permettra de passer au niveau suivant.
+
 Les cases cochées correspondent au parcours vérifié en local. Le détail des exigences et des critères de recette figure dans le [cahier des charges](CAHIER_DES_CHARGES_AGENTICTUTOR.md).
 
 - [x] Poser le socle Next.js, FastAPI et Supabase PostgreSQL, avec migrations et tests d’isolation entre comptes.
