@@ -176,6 +176,8 @@
 }
 
 .account-menu {
+  border: 0;
+  padding: 0;
   position: relative;
   max-width: min(55vw, 20rem);
 }
@@ -286,13 +288,14 @@
   border-radius: var(--radius-card);
 }
 .calendar-parts {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 26fr) minmax(0, 27fr);
   gap: 2px;
   margin-block: var(--space-md);
-  max-width: 52rem;
+  width: 100%;
 }
 .calendar-parts svg {
-  width: 50%;
+  width: 100%;
   min-width: 0;
 }
 .calendar-parts text {
@@ -347,7 +350,7 @@
 }
 @media (max-width: 640px) {
   .calendar-parts {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.5rem;
   }
   .calendar-parts svg {
@@ -365,4 +368,119 @@
   .activity-panel {
     padding: var(--space-md);
   }
+}
+
+.account-menu summary {
+  padding-inline: var(--space-sm);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-pill);
+}
+.account-menu[open] summary,
+.account-menu summary:hover {
+  border-color: var(--color-focus);
+}
+.account-menu[open] summary svg:last-child {
+  transform: rotate(180deg);
+}
+.account-options {
+  top: calc(100% + var(--space-xs));
+  box-shadow: 0 8px 24px var(--menu-shadow);
+}
+.dashboard-header .account-options a,
+.account-options button {
+  gap: var(--space-sm);
+  border-radius: var(--radius-input);
+  text-decoration: none;
+}
+.account-options :is(a, button):focus-visible,
+.account-menu summary:focus-visible,
+.settings-appearance button:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.practice-controls label {
+  min-width: 0;
+}
+.practice-controls select {
+  cursor: pointer;
+  border-color: var(--color-rule);
+  font-weight: 600;
+}
+.practice-controls select:hover {
+  border-color: var(--color-focus);
+}
+@supports (appearance: base-select) {
+  .practice-controls select,
+  .practice-controls select::picker(select) {
+    appearance: base-select;
+  }
+  .practice-controls select::picker(select) {
+    margin-block: var(--space-2xs);
+    padding: var(--space-2xs);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-input);
+    box-shadow: 0 8px 24px var(--menu-shadow);
+    max-height: min(22rem, 45dvh);
+    overflow-y: auto;
+  }
+  .practice-controls option {
+    min-height: 44px;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-input);
+  }
+  .practice-controls option:checked {
+    background: var(--color-opening);
+    font-weight: 600;
+  }
+  .practice-controls option:hover,
+  .practice-controls option:focus-visible {
+    background: var(--color-paper-3);
+  }
+}
+.settings-appearance {
+  margin-top: var(--space-xl);
+  max-width: 46rem;
+}
+.settings-appearance form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding-block: var(--space-lg);
+  margin-top: var(--space-md);
+  border-block: 1px solid var(--color-rule);
+}
+.settings-appearance p {
+  color: var(--color-muted);
+}
+.settings-appearance button {
+  cursor: pointer;
+  margin-inline-start: auto;
+  min-width: 48px;
+  min-height: 44px;
+  display: grid;
+  align-items: center;
+}
+.settings-appearance button span {
+  padding: 3px;
+  display: flex;
+  border-radius: var(--radius-pill);
+  background: var(--color-muted);
+}
+.settings-appearance button span::before {
+  content: "";
+  width: 19px;
+  height: 19px;
+  background: var(--color-paper);
+  border-radius: 50%;
+}
+.settings-appearance button[aria-checked="true"] span {
+  background: var(--color-success);
+  justify-content: flex-end;
+}
+[data-theme="dark"] .intensity-3 {
+  fill: var(--color-accent);
+  background: var(--color-accent);
 }

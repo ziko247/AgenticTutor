@@ -74,6 +74,13 @@ test("auth registers, persists a profile, and signs out", async ({ page }) => {
   await menu.click();
   await page.getByRole("link", { name: "Paramètres" }).click();
   await expect(page.getByRole("heading", { name: "Paramètres" })).toBeVisible();
+  const theme = page.getByRole("switch", { name: "Mode sombre" });
+  await theme.click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.reload();
+  await expect(theme).toBeChecked();
+  await theme.click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   await menu.click();
   await page.getByRole("link", { name: "Mon profil" }).click();
   await expect(page.getByText(accountEmail)).toBeVisible();
@@ -236,7 +243,10 @@ test("language diagnostic persists, reviews, scores and resets", async ({
   await expect(page.getByText("JavaScript · 2 / 20")).toBeVisible();
   await page.goto("/dashboard");
   await expect(page.getByLabel("Style d’explication")).toHaveValue("image");
-  await page.getByText("Lire un indice", { exact: true }).click();
+  await page
+    .locator(".practice-sheet summary")
+    .filter({ hasText: /^Lire un indice$/ })
+    .click();
   await expect(
     page.getByText("Repérez l’opération effectuée en premier."),
   ).toBeVisible();

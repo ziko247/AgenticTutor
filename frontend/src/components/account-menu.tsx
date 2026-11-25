@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRef, useEffect } from "react";
-import { ChevronDown, CircleUserRound } from "lucide-react";
+import { ChevronDown, CircleUserRound, Settings, LogOut } from "lucide-react";
 import { signOut } from "@/features/auth/actions";
 
 export function AccountMenu({ name }: { name: string }) {
@@ -38,13 +38,16 @@ export function AccountMenu({ name }: { name: string }) {
       </summary>
       <div className="account-options">
         <Link href="/dashboard/profile" onClick={close}>
-          Mon profil
+          <CircleUserRound size={17} aria-hidden="true" /> Mon profil
         </Link>
         <Link href="/dashboard/settings" onClick={close}>
-          Paramètres
+          <Settings size={17} aria-hidden="true" /> Paramètres
         </Link>
         <form action={signOut}>
-          <button type="submit">Se déconnecter</button>
+          <button type="submit">
+            <LogOut size={17} aria-hidden="true" />
+            Se déconnecter
+          </button>
         </form>
       </div>
     </details>

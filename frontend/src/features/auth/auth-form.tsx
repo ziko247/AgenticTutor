@@ -5,12 +5,20 @@ import { authenticate, signInWithGoogle } from "./actions";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 import { Brand } from "@/components/brand";
-export function AuthForm({ mode }: { mode: "sign-in" | "sign-up" }) {
+export function AuthForm({
+  mode,
+  callbackFailed = false,
+}: {
+  mode: "sign-in" | "sign-up";
+  callbackFailed?: boolean;
+}) {
   const signup = mode === "sign-up";
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(
+    callbackFailed ? "Connexion impossible. Veuillez réessayer." : "",
+  );
   const [googleBusy, setGoogleBusy] = useState(false);
   const [googleError, setGoogleError] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});

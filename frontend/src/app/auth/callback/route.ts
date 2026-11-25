@@ -8,7 +8,8 @@ export async function GET(request: NextRequest) {
     const { data, error } = await client.auth.exchangeCodeForSession(code);
     if (!error) {
       // The installed Auth SDK returns this PKCE metadata but omits it from its public type.
-      const recovery = "redirectType" in data && data.redirectType === "recovery";
+      const recovery =
+        "redirectType" in data && data.redirectType === "recovery";
       if (recovery) await markRecovery(data.session.access_token);
       return NextResponse.redirect(
         new URL(
@@ -20,7 +21,9 @@ export async function GET(request: NextRequest) {
   }
   return NextResponse.redirect(
     new URL(
-      "/forgot-password?error=invalid_link",
+      request.nextUrl.searchParams.get("flow") === "recovery"
+        ? "/forgot-password?error=invalid_link"
+        : "/sign-in?error=callback_failed",
       process.env.APP_ORIGIN || request.nextUrl.origin,
     ),
   );

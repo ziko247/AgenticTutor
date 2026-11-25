@@ -1,3 +1,4 @@
+import { darkMode } from "@/features/auth/theme";
 import type { Metadata } from "next";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "lenis/dist/lenis.css";
@@ -13,13 +14,17 @@ export const metadata: Metadata = {
   description:
     "Votre tuteur IA pour apprendre à programmer : explications personnalisées, exercices adaptatifs et suivi de progression en Python, JavaScript, Java et plus encore.",
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr" data-scroll-behavior="smooth">
+    <html
+      data-theme={(await darkMode()) ? "dark" : "light"}
+      lang="fr"
+      data-scroll-behavior="smooth"
+    >
       <body>
         <SmoothScroll />
         <a className="skip-link" href="#main">

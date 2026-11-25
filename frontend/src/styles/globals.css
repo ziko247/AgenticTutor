@@ -97,6 +97,7 @@ button:active,
   margin-inline: auto;
 }
 .skip-link {
+  color: var(--color-accent-ink);
   position: absolute;
   transform: translateY(-150%);
   padding: var(--space-md);
@@ -1362,7 +1363,7 @@ details p {
 .language-trigger:hover, .language-trigger[aria-expanded="true"] { background: var(--color-paper-2); }
 .language-trigger:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
 .lesson .language-trigger { color: var(--color-panel-ink); background: var(--color-panel); border-color: var(--color-panel-muted); }
-.lesson .language-trigger:hover, .lesson .language-trigger[aria-expanded="true"] { background: var(--color-ink-2); }
+.lesson .language-trigger:hover, .lesson .language-trigger[aria-expanded="true"] { background: var(--color-panel-rule); }
 .lesson .language-trigger:focus-visible { outline-color: var(--color-accent); }
 .language-menu { position: absolute; z-index: 20; top: calc(100% + var(--space-xs)); right: 0; width: 220px; max-width: calc(100% + 30px); padding: var(--space-xs); margin: 0; border: 1px solid var(--color-muted); border-radius: var(--radius-card); background: var(--color-paper); color: var(--color-ink); box-shadow: 0 12px 30px var(--color-panel-rule); }
 .worked-toolbar .language-menu { right: auto; left: 0; }
